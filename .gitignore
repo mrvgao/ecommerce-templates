@@ -1,0 +1,7 @@
+new_printer/.idea/*
+new_printer/**/*.pyc
+new_printer/*.pyc
+*.pyc
+*.xml
+*.DS_Store
+*.swp

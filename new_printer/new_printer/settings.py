@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'new_printer.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'jkbrother',
+        'USER': 'root',
+        'PASSWORD': 'passw0rd',
+        'HOST': '120.26.38.125',
+        'PORT': '3306',
     }
 }
 
