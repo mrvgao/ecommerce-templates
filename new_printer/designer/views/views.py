@@ -41,26 +41,21 @@ def design_list(request):
     for design in design_list:
     	if design.collect > 1:
     		collect_num++
-    	tem_arr = {
-                    'id':order.id,
-                    'desinger':designer.nickname,
-                    'curren_states':states.STATES_DICT[order.custom_state],
-                    'add_time':order.add_time,
-                    'img_path':adminer_website.icon_server_path,
-                    'custom_number':order.custom_number,
-                    'custom_price':order.custom_price,
-                    'custom_material':order.custom_material,
-                    'active':active,
-                    'finish_time':order.finish_time
-                    }
-        all_list.append()
+    conf = {'all_list':all_list,
+    			'collect_num':collect_num
+    		  }
+    return render(request, website.all_list, conf)
 
 def downed_list(request):
 '''
 展示按照下载次数排序结果
 '''
-	pass
-
+	user = request.user
+    designer = Designer.objects.get(user_id=user.id)
+    design_list = Goods.objects.filter(customer_id=customer.id).order_by(downed)
+    conf = {'all_list':all_list
+    		  }
+    return HttpResponse(json.dumps(conf))
 
 def collect_list(request):
 '''
@@ -103,7 +98,37 @@ def necklace_list(request):
 
 
 def show_more(request):
-	pass
+    count = int(request.POST['count'])
+    photo_lists = Toy_photo.objects.filter(is_active=True)
+    print "count",count
+    length = len(photo_lists)
+    #status = True
+    print "length:",length
+    if (length-count*show_num)>0:
+        photo_lists = photo_lists[((count)*show_num):((count+1)*show_num)]
+    elif (length-count*show_num)<show_num:
+        photo_lists = photo_lists[(count*show_num):]
+    else:
+        photo_lists = []
+    #    status = False
+    print "photo_lists:",len(photo_lists)
+    return_list = []
+    for photo in photo_lists:
+        temp = {'id':photo.id,
+                'name':photo.name,
+                'describe':photo.describe,
+                'preview_1':str(adminer_website.toy_server_path)+str(photo.preview_1),
+                'marked_count':photo.marked_count,
+                'thumbnail_1':str(adminer_website.toy_server_path)+str(photo.thumbnail_1),
+                'stl_file_url':str(adminer_website.toy_server_path)+str(photo.stl_file_url)
+                }
+        return_list.append(temp)
+    context = {
+        'photo_list':return_list,
+        'length':length
+
+    }
+    return HttpResponse(json.dumps(context))
 
 
 def show_detail(request):
