@@ -171,19 +171,16 @@
 						<div id="imgDiv1">
 							<img src=""/>
 						</div>
-						<span class="edit-detail-remove">删除</span>
 					</div>
 					<div class="edit-detail-imgBox">
 						<div id="imgDiv2">
 							<img src=""/>
 						</div>
-						<span class="edit-detail-remove">删除</span>
 					</div>
 					<div class="edit-detail-imgBox">
 						<div id="imgDiv3">
 							<img src=""/>
 						</div>
-						<span class="edit-detail-remove">删除</span>
 					</div>
 				</div>
 				<div class="edit-detail-describe">
@@ -233,6 +230,20 @@
 	}
 	upreset.on('click',function(){//取消上传的图片
 		count=1;
+	
+		edit_detail_imgBox.each(function(index, el) {
+			 $(this).empty();
+			 var imgBoxStr= '<div id="imgDiv'+ (index+1) +'"><img src=""/></div>'
+			 $(this).append(imgBoxStr);
+		}); 
+		edit_detail_upload_hidden.empty();
+		var reInpt = '<input name="photo" type="file" class="editInput" value="选取图片并上传" id="edit_detail_upload1">'
+		edit_detail_upload_hidden.append(reInpt);
+		$('#edit_detail_upload'+count).on('change',function(){
+				upFile();
+		});
+		return false;
+
 	})
 	edit_describe.on('focus',function(){
 		var _this = $(this);
