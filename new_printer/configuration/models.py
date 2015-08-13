@@ -31,12 +31,12 @@ class Vender_User(models.Model):
     #手机号
     phone = models.CharField(max_length=15)
     #用户名
-    vendername = models.CharField(max_length=30, default=None, blank=True) 
+    vendername = models.CharField(max_length=30, default=None, blank=True)
     #头像
     img = models.ImageField(blank=True)
     #建立Vender,Designer关联表
     designer = models.ManyToManyField(Designer_User,through='Vender_Designer', blank=True)
-    
+
 
 class Vender_Designer(models.Model):
     '''
