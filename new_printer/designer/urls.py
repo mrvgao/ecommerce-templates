@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 
 	url(r'^workd_execute$',up_works.workd_execute,name = 'workd_execute'),
 
-	url(r'^delete$',up_works.delete,name = 'delete'),
+	#url(r'^delete$',up_works.delete,name = 'delete'),
 
 	url(r'^photo_edit$',up_works.photo_edit,name = 'edit'),
 

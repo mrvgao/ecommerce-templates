@@ -30,7 +30,30 @@ def download_work(request):
     ids = request.POST['id']
     for id in ids:
         this_work = Goods_Upload.objects.get(id=id)
-         
+        name = this_work.name
+        stl_md5 = this_work.stl_path
+    #pdb.set_trace()
+        boundary = '----------%s' % hex(int(time.time() * 1000))
+        data = []
+        data.append('--%s' % boundary)
+        data.append('Content-Disposition: form-data; name="%s"\r\n' % 'stl_md5')
+        data.append(stl_md5)
+        data.append('--%s' % boundary)
+        data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(name)))
+        data.append('Content-Type: %s\r\n' % 'image/png')
+        data.append(chunks)
+        data.append('--%s--\r\n' % boundary)
+        http_url = website.toy_server_upload#'http://192.168.1.104:8888/file/upload'
+        http_body = '\r\n'.join(data)
+        req = urllib2.Request(http_url, data=http_body)
+        req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
+        req.add_header('User-Agent','Mozilla/5.0')
+        req.add_header('Referer','%s'%website.toy_server_ip)#'http://192.168.1.104:8888/')
+        resp = urllib2.urlopen(req, timeout=2545)
+        qrcont=resp.read()
+        md = json.loads(qrcont)
+        md5 = md[name]
+        
 @login_required
 def design_list(request):
     '''
