@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>处理并提交</title>
+<style type="text/css">
+.edit-container{
+	height: 660px;
+	width: 860px;
+	border: 1px solid #000;
+	margin: 100px auto;
+	padding: 20px;
+}
+.edit-form{
+	width: 100%;
+	height: 100%;
+}
+.edit-3dmsg{
+	width: 330px;
+	height: 480px;
+	float: left;
+}
+.edit-show3d{
+	height: 330px;
+	width: 328px;
+	border: 1px solid #000;
+	line-height: 330px;
+	text-align: center;
+}
+.edit-3dmsg-name{
+	width: 240px;
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 35px;
+	border: none;
+	outline: none;
+
+}
+.edit-3dmsg-rename{
+	cursor: pointer;
+}
+.edit-3dmsg-detail{
+	font-size: 14px;
+	margin-top: 15px;
+}
+.edit-detail{
+	width: 455px;
+	height: 600px;
+	float: left;
+	margin-left: 30px;
+}
+.edit-detail-title{
+	height: 20px;
+	line-height: 20px;
+	font-size: 16px;
+	font-weight: bold;
+	border-left: 5px solid #000;
+	text-indent: 5px;
+}
+.edit-detail-ps{
+	font-size: 12px;
+	color: #aaa;
+	text-indent: 10px;
+}
+.edit-payment{
+	float: right;
+	display: block;
+	font-size: 12px;
+
+}
+.edit-detail-money{
+	clear: both;
+}
+.edit-detail-money input{
+	height: 25px;
+	width: 110px;
+	text-indent: 5px;
+	font-size: 12px;
+	color: #aaa;
+}
+.edit-detail-upload-box{
+	text-align: center;
+	overflow: hidden;
+	margin: 10px 0;
+}
+.edit-detail-model{
+	height: 235px;
+	margin-top: 40px;
+	overflow: hidden;
+}
+.edit-detail-imgBox{
+	float: left;
+	overflow: hidden;
+	height: 130px;
+	width: 130px;
+	margin: 5px;
+	position: relative;
+	display: inline-block;
+}
+.upreset{
+	margin-left: 5px;
+}
+.edit-detail-model img{
+	height: 130px;
+	width: 130px;
+	cursor: pointer;
+}
+.edit-detail-upload-hidden{
+	height: 5px;
+	visibility: hidden;
+	overflow: hidden;
+}
+.edit-detail-describe{
+	margin-top: 30px;
+}
+.edit-detail-describe-desc{
+	width: 100%;
+	height: 60px;
+	padding: 5px;
+	resize:none;
+}
+.edit-submit-btn,.edit-cancle-btn{
+	margin-top: 10px;
+	padding: 0 20px;
+}
+</style>
+</head>
+<body>
+	<div class="edit-container">
+		<form action="#" method="post" class="edit-form">
+			<div class="edit-3dmsg">
+				<div class="edit-show3d">
+					模型效果图
+				</div>
+				<input type="text" name="edit_name" value="海洋之心" class="edit-3dmsg-name" disabled/><span class="edit-3dmsg-rename">*</span>
+				<div class="edit-3dmsg-detail">格式：{{ product.type }}  大小{{ product.size }}</div>
+				<div class="edit-3dmsg-detail">上传时间：{{ product.upTime }}</div>
+			</div>
+			<div class="edit-detail">
+				<div class="edit-detail-price">
+					<h2 class="edit-detail-title">模型价格</h2>
+					<p class="edit-detail-ps">模型价格一半定为30-50元，收入将在3个工作日内打到您的支付宝账号。</p>
+					<a class="edit-payment" href="#">还未绑定支付宝账号？去绑定&gt;&gt;</a>
+					<div class="edit-detail-money">
+						<span>￥</span><input type="text" name="edit_price" form-valid form-null="请填写价格" form-type="intnum" form-err="只能填写整数"/>
+					</div>
+				</div>
+				<div class="edit-detail-model">
+					<h2 class="edit-detail-title">预览效果图</h2>
+					<p class="edit-detail-ps">模型价格一半定为30-50元，收入将在3个工作日内打到您的支付宝账号。</p>
+					<div class="edit-detail-upload-box">
+						<div class="edit-detail-upload-hidden">
+							<input type="file" value="选取图片并上传" id="edit_detail_upload1">
+						</div>
+						<button type="button" class="up-btn">选取图片并上传</button><button class="upreset">重新选择</button>
+					</div>
+					<div class="edit-detail-imgBox" id="imgDiv1">
+						<img src="http://center.blueidea.com/avatar.php?uid=282190&size=small"/>
+					</div>
+					<div class="edit-detail-imgBox" id="imgDiv2">
+						<img src="http://center.blueidea.com/avatar.php?uid=282190&size=small"/>
+					</div>
+					<div class="edit-detail-imgBox" id="imgDiv3">
+						<img src="http://center.blueidea.com/avatar.php?uid=282190&size=small"/>
+					</div>
+				</div>
+				<div class="edit-detail-describe">
+					<h2 class="edit-detail-title">设计语义</h2>
+					<p class="edit-detail-ps">填写设计语义将可能被推荐至网站首页，获得更多收藏与下载</p>
+					<textarea class="edit-detail-describe-desc">例：细胞流动的结构，象征生命的本质。 让活力注入指间，让美源自根本。</textarea> 
+				</div>
+				<button type="submit" class="edit-submit-btn" form-submit>保存并提交</button>
+				<button type="button" class="edit-cancle-btn">取消</button>
+			</div>
+		</form>
+	</div>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="img.js"></script>
+<script type="text/javascript" src="formvalid.js"></script>
+<script type="text/javascript">  
+	var edit_detail_upload_hidden = $('.edit-detail-upload-hidden'),
+		up_btn = $('.up-btn'),
+		upImgs = $('.edit-detail-model img'),
+		upreset = $('.upreset'),
+		edit_describe = $('.edit-detail-describe-desc'),
+		edit_3dmsg_rename = $('.edit-3dmsg-rename'),
+		edit_3dmsg_name = $('.edit-3dmsg-name'),
+		count=1;
+	$('#edit_detail_upload'+count).on('change',function(){
+		upFile();
+	})
+	up_btn.on('click',function(){
+		$('#edit_detail_upload'+count).click();
+		$("#edit_detail_upload"+count).uploadPreview({ width: 130, height: 130, imgDiv: "#imgDiv"+count});  
+
+	})
+	function upFile(){ //上传图片
+		count++;
+		var newInpt = '<input type="file" value="选取图片并上传" id="edit_detail_upload'+count+'">'
+		edit_detail_upload_hidden.append(newInpt);
+		$('#edit_detail_upload'+count).on('change',function(){
+			upFile();
+		});
+		console.log(count);
+		if(count==4){
+			up_btn.attr('disabled', 'disabled');
+		}
+	}
+	upreset.on('click',function(){//取消上传的图片
+		count=1;
+	})
+	edit_describe.on('focus',function(){
+		var _this = $(this);
+		if(_this.text()=='例：细胞流动的结构，象征生命的本质。 让活力注入指间，让美源自根本。'){
+			_this.text('');
+		}
+	});
+	edit_describe.on('blur',function(){
+		var _this = $(this);
+		if(_this.text()===''){
+			_this.text('例：细胞流动的结构，象征生命的本质。 让活力注入指间，让美源自根本。');
+		}
+	})
+	edit_3dmsg_rename.on('click',function(){ //编辑名字
+		edit_3dmsg_name.removeAttr('disabled');
+		edit_3dmsg_name.css('background','#ddd');
+		edit_3dmsg_name.focus();
+	});
+	edit_3dmsg_name.on('blur',function(){
+		edit_3dmsg_name.attr('disabled', 'disabled');
+		edit_3dmsg_name.css('background','#fff');
+
+	})
+
+</script>  
+</script>
+</body>
+</html>
