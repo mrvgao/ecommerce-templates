@@ -26,16 +26,16 @@ import json,pdb
 
 
 def index(request):
-    return render(request, website.index)
+    return render(request, website.edit)
 
-def jwary_save(stls,ids):
+def jwary_save(stls):
     stl_md5s = {}
     count = 0
     for stl in stls:
         #pdb.set_trace()         
         stl_type=str(stl)
         stl_type=stl_type.split('.')
-        stl_md5 = file_save(stl,stl_type[0],ids[count],stl_type[1])
+        stl_md5 = file_save(stl,stl_type[0],stl_type[1])
         stl_md5s.setdefault(stl_type[0],stl_md5)
     return stl_md5s
 
@@ -51,27 +51,26 @@ def works_save(request):
         #necklace_stl = request.FILES.getlist('5')
         ##needle_stl = request.FILES.getlist('6')
         file_size = []
-        ids = []
+        #ids = []
         #pdb.set_trace()
         count = 0
         if jwary_stl:
             for stl in jwary_stl:
                 size = len(stl)
                 file_size.append(size)
-                new = Goods_Upload.objects.create(designer_id = 1)
-                ids.append(new.id)
-                print size,ids
+                print size
             print file_size
-            jwary_md5=jwary_save(jwary_stl,ids)
+            jwary_md5=jwary_save(jwary_stl)
             for md5 in jwary_md5:
                 stl_url = str(jwary_md5[md5])+'.stl'
                 tags = 'Jweary'
                 print md5,stl_url
-                new_jwary = Goods_Upload.objects.filter(id = ids[count]).update(goods_name = str(md5),
-                                        #designer_id = 1,
+                new_jwary = Goods_Upload.objects.create(goods_name = str(md5),
+                                         designer_id = 1,
                                          stl_path = str(stl_url),
                                          tags = tags,
-                                         file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M'
+                                         file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
+                                         good_state = 0
                                         )
                 count = count + 1
 
@@ -80,7 +79,7 @@ def works_save(request):
             return render(request, website.up_error)
 
 
-def file_save(model,name,this_id,stl_type):
+def file_save(model,name,stl_type):
     #pdb.set_trace()
     chunks = ""
     for chunk in model.chunks():
@@ -90,7 +89,8 @@ def file_save(model,name,this_id,stl_type):
     data.append('--%s' % boundary)
     data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
     data.append(stl_type)
-    data.append(this_id)
+    #data.append('Content-Disposition: form-data; name="%s"\r\n' % 'this_id')
+    #data.append(this_id)
     data.append('--%s' % boundary)
     data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(name)))
     data.append('Content-Type: %s\r\n' % 'image/png')
@@ -105,7 +105,8 @@ def file_save(model,name,this_id,stl_type):
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
     md = json.loads(qrcont)
-    md5 = md[name]
+    md5 = md['status']
+    print md5
     return md5
 
 
@@ -135,49 +136,80 @@ def photo_edit(request):
 
 #未处理页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
 def edit_submit(request):
-    file_id = request.POST['id']
-    photo = Goods_Upload.objects.filter(id=file_id)
+
+    #file_id = request.POST['id']
+    file_id = 23
+    count = 1
+    p_url = []
+    #pdb.set_trace()
+    photo = Goods_Upload.objects.get(id=file_id)
+    stl_md5 = photo.stl_path
+    print stl_md5
+    stl_md5 = str(stl_md5).split('.')
+    
+    stl_md5 = stl_md5[0]
     price = request.POST['price']
-    preview_1 = request.FILES['preview_1']
-    preview_2 = request.FILES['preview_2']
-    preview_3 = request.FILES['preview_3']
+    #previews = request.FILES.getlist['photo']
+    previews = request.FILES['photo']
     describe = request.POST['describe']
-    name = request.POST['name']
-    if not name:
-        name = photo.name
-    if not describe:
-        describe = photo.describe
-    if preview_1:
-        preview_1_type=str(preview_1)
-        preview_1_type=preview_1_type.split('.')
-        preview_1_md5 = file_save(preview_1,name,file_id,preview_1_type[1])
-        p1_url = str(preview_1_md5)+'.'+str(preview_1_type[1])
-    else:
-        preview_1 = photo.preview_1
-    if preview_2:
-        preview_2_type=str(preview_2)
-        preview_2_type=preview_2_type.split('.')
-        preview_2_md5 = file_save(preview_2,name,preview_2_type[1])
-        p2_url = str(preview_2_md5)+'.'+str(preview_2_type[1])
-    else:
-        preview_2 = photo.preview_2
-    if preview_3:
-        preview_3_type=str(preview_3)
-        preview_3_type=preview_3_type.split('.')
-        preview_3_md5 = file_save(preview_3,name,preview_3_type[1])
-        p3_url = str(preview_3_md5)+'.'+str(preview_3_type[1])
-    else:
-        preview_3 = photo.preview_3
-    s=Goods_Uploadobjects.filter(id= id).update(name=str(name),
-                        price = int(price),
-                        preview_1 = p1_url,
-                        preview_2 = p2_url,
-                        preview_3 = p3_url,
-                        describe = describe
+    #name = request.POST['edit_name']
+    '''if not name:
+        name = photo.name'''
+    if previews:
+        #for preview_one in previews:
+        preview_type=str(previews)
+        preview_type=preview_type.split('.')
+        preview_md5 = photo_save(previews,preview_type[0],preview_type[1],stl_md5)
+        p1_url = str(preview_md5)+'.'+str(preview_type[1])
+        p_url.append(p1_url)
+
+    s=Goods_Upload.objects.filter(id= file_id).update(#name=str(name),
+                        goods_price = int(price),
+                        preview_1 = p_url[0],
+                        #preview_2 = p_url[1],
+                        #preview_3 = p_url[2],
+                        description = describe
                       )
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
-
+    '''else:
+        s=Goods_Uploadobjects.filter(id= id).update(name=str(name),
+                        price = int(price),
+                        describe = describe
+                      )
+        conf = {'status':"success"}
+        return HttpResponse(json.dumps(conf))'''
+def photo_save(model,name,stl_type,stl_md5):
+    #pdb.set_trace()
+    chunks = ""
+    for chunk in model.chunks():
+        chunks = chunks + chunk
+    boundary = '----------%s' % hex(int(time.time() * 1000))
+    data = []
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
+    data.append(stl_type)
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"\r\n' % 'md5')
+    data.append(stl_md5)
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(name)))
+    data.append('Content-Type: %s\r\n' % 'image/png')
+    data.append(chunks)
+    data.append('--%s--\r\n' % boundary)
+    http_url = 'http://192.168.1.116:8888/file/imgupload'
+    http_body = '\r\n'.join(data)
+    req = urllib2.Request(http_url, data=http_body)
+    req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
+    req.add_header('User-Agent','Mozilla/5.0')
+    req.add_header('Referer','%s'%website.toy_server_ip)#'http://192.168.1.104:8888/')
+    resp = urllib2.urlopen(req, timeout=2545)
+    qrcont=resp.read()
+    md = json.loads(qrcont)
+    print md
+    md5 = md['status']
+    print md5
+    return md5
 
 #未通过页面，点击重新申请发布
 def photo_not_passed(request):#未通过页面，点击重新申请发布

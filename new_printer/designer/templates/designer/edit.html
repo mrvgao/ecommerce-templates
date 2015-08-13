@@ -84,7 +84,7 @@
 	margin: 10px 0;
 }
 .edit-detail-model{
-	height: 235px;
+	height: 255px;
 	margin-top: 40px;
 	overflow: hidden;
 }
@@ -100,11 +100,24 @@
 .upreset{
 	margin-left: 5px;
 }
-.edit-detail-model img{
+.edit-detail-imgBox img{
 	height: 130px;
 	width: 130px;
 	cursor: pointer;
 }
+/*.edit-detail-imgBox span{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	cursor: pointer;
+	height: 20px;
+	width: 40px;
+	background: #ddd;
+	display: none;
+}
+.edit-detail-imgBox span:hover{
+	color: #f00;
+}*/
 .edit-detail-upload-hidden{
 	height: 5px;
 	visibility: hidden;
@@ -151,28 +164,39 @@
 					<p class="edit-detail-ps">模型价格一半定为30-50元，收入将在3个工作日内打到您的支付宝账号。</p>
 					<div class="edit-detail-upload-box">
 						<div class="edit-detail-upload-hidden">
-							<input type="file"  value="选取图片并上传" id="edit_detail_upload1" name="photo">
+ 
+							<input  type="file" value="选取图片并上传" id="edit_detail_upload1" name="photo">
 						</div>
 						<button type="button" class="up-btn">选取图片并上传</button><button class="upreset">重新选择</button>
 					</div>
-					<div class="edit-detail-imgBox" id="imgDiv1">
-						<img src="http://center.blueidea.com/avatar.php?uid=282190&size=small"/>
+					<div class="edit-detail-imgBox">
+						<div id="imgDiv1">
+							<img src=""/>
+						</div>
+						<span class="edit-detail-remove">删除</span>
 					</div>
-					<div class="edit-detail-imgBox" id="imgDiv2">
-						<img src="http://center.blueidea.com/avatar.php?uid=282190&size=small"/>
+					<div class="edit-detail-imgBox">
+						<div id="imgDiv2">
+							<img src=""/>
+						</div>
+						<span class="edit-detail-remove">删除</span>
 					</div>
-					<div class="edit-detail-imgBox" id="imgDiv3">
-						<img src="http://center.blueidea.com/avatar.php?uid=282190&size=small"/>
+					<div class="edit-detail-imgBox">
+						<div id="imgDiv3">
+							<img src=""/>
+						</div>
+						<span class="edit-detail-remove">删除</span>
 					</div>
 				</div>
 				<div class="edit-detail-describe">
 					<h2 class="edit-detail-title">设计语义</h2>
 					<p class="edit-detail-ps">填写设计语义将可能被推荐至网站首页，获得更多收藏与下载</p>
-					<textarea class="edit-detail-describe-desc">例：细胞流动的结构，象征生命的本质。 让活力注入指间，让美源自根本。</textarea> 
+					<textarea name="describe" class="edit-detail-describe-desc">例：细胞流动的结构，象征生命的本质。 让活力注入指间，让美源自根本。</textarea> 
 				</div>
+			
+			</div>
 				<button type="submit" class="edit-submit-btn" form-submit>保存并提交</button>
 				<button type="button" class="edit-cancle-btn">取消</button>
-			</div>
 		</form>
 	</div>
 
@@ -182,31 +206,35 @@
 <script type="text/javascript">  
 	var edit_detail_upload_hidden = $('.edit-detail-upload-hidden'),
 		up_btn = $('.up-btn'),
-		upImgs = $('.edit-detail-model img'),
+		edit_detail_imgBox = $('.edit-detail-imgBox'),
+		upImgs = $('.edit-detail-imgBox img'),
 		upreset = $('.upreset'),
 		edit_describe = $('.edit-detail-describe-desc'),
+		edit_detail_remove = $('.edit-detail-remove'),
 		edit_3dmsg_rename = $('.edit-3dmsg-rename'),
 		edit_3dmsg_name = $('.edit-3dmsg-name'),
+		removeId=1;
 		count=1;
 	$('#edit_detail_upload'+count).on('change',function(){
-		upFile();
+			upFile();
+		if(count>3){
+			up_btn.attr('disabled', 'disabled');
+		}
 	})
 	up_btn.on('click',function(){
+			console.log(count);
 		$('#edit_detail_upload'+count).click();
 		$("#edit_detail_upload"+count).uploadPreview({ width: 130, height: 130, imgDiv: "#imgDiv"+count});  
 
-	})
-	function upFile(){ //上传图片
+	});
+	function upFile(){ //增加下一个Input
 		count++;
-		var newInpt = '<input type="file" value="选取图片并上传" id="edit_detail_upload '+count+'">'
+
+		var newInpt = '<input name="photo" type="file"  value="选取图片并上传" id="edit_detail_upload'+count+'">'
 		edit_detail_upload_hidden.append(newInpt);
 		$('#edit_detail_upload'+count).on('change',function(){
-			upFile();
+				upFile();
 		});
-		console.log(count);
-		if(count==4){
-			up_btn.attr('disabled', 'disabled');
-		}
 	}
 	upreset.on('click',function(){//取消上传的图片
 		count=1;
@@ -233,6 +261,17 @@
 		edit_3dmsg_name.css('background','#fff');
 
 	})
+	$('.edit-detail-imgBox').each(function(index, el) {
+		var _this = $(this);
+		_this.hover(function() {
+			if(!_this.find('div').html()){
+				_this.find('span').css('display','block');
+			}
+		}, function() {
+			_this.find('span').css('display','none');
+		});
+
+	});
 
 </script>  
 </script>

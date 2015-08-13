@@ -26,32 +26,33 @@ import json,pdb
 
 
 def index(request):
-    return render(request, website.index)
+    return render(request, website.edit)
 
 def stls_save(stls):
     jwary_md5 = {}
     file_size = []
-    has_existed = {}
     count = 0
     for stl in stls:
         #pdb.set_trace()         
         stl_type=str(stl)
         stl_type=stl_type.split('.')
         stl_md5 = file_save(stl,stl_type[0],stl_type[1])
-        #jwary_md5.setdefault(stl_type[0],stl_md5)
+        jwary_md5.setdefault(stl_type[0],stl_md5)
+    return stl_md5s
+    for stl in stls:
         size = len(stl)
         file_size.append(size)
+        print size
+        print file_size
+        #jwary_md5=jwary_save(jwary_stl)
         stl_type=str(stl)
         stl_type=stl_type.split('.')
         stl_md5 = file_save(stl,stl_type[0],stl_type[1])
-        stl_path = str(stl_md5) + '.stl'
-        if not Goods_Upload.objects.filter(stl_path=stl_path).exists():
-            jwary_md5.setdefault(stl_type[0],stl_md5)
-        else:
-            has_existed.setdefault(stl_type[0],stl_md5)
+        stl_md5s.setdefault(stl_type[0],stl_md5)
     for md5 in jwary_md5:
         stl_url = str(jwary_md5[md5])+'.stl'
         tags = 'Jweary'
+        print md5,stl_url
         new_jwary = Goods_Upload.objects.create(goods_name = str(md5),
                                          designer_id = 1,
                                          stl_path = str(stl_url),
@@ -60,34 +61,46 @@ def stls_save(stls):
                                          good_state = 0
                                         )
         count = count + 1
-    print has_existed
-    return has_existed
+
 #@login_required
 def works_save(request):
     #pdb.set_trace()
     if request.method == 'POST':
         a_have = True
         jwary_stl = request.FILES.getlist('jiezhi')
-        drop_stl = request.FILES.getlist('2')
+        #drop_stl = request.FILES.getlist('2')
         #eardrop_stl = request.FILES.getlist('3')
         #twist_stl = request.FILES.getlist('4')
         #necklace_stl = request.FILES.getlist('5')
         ##needle_stl = request.FILES.getlist('6')
-        file_hased = []
+        file_size = []
         #ids = []
         #pdb.set_trace()
         count = 0
         if jwary_stl:
-            existed = stls_save(jwary_stl)
-            if existed:
-                for i in existed:
-                    conf = {'hased':i}
-                    file_hased.append(conf)
-        if drop_stl:
-            stls_save(drop_stl)
-        return HttpResponse(json.dumps(file_hased))
-    else:
-        return render(request, website.up_error)
+            stls_save(jwary_stl)
+        ''' for stl in jwary_stl:
+                size = len(stl)
+                file_size.append(size)
+                print size
+            print file_size
+            jwary_md5=jwary_save(jwary_stl)
+            for md5 in jwary_md5:
+                stl_url = str(jwary_md5[md5])+'.stl'
+                tags = 'Jweary'
+                print md5,stl_url
+                new_jwary = Goods_Upload.objects.create(goods_name = str(md5),
+                                         designer_id = 1,
+                                         stl_path = str(stl_url),
+                                         tags = tags,
+                                         file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
+                                         good_state = 0
+                                        )
+                count = count + 1'''
+
+            return render(request, website.up_success)
+        else:
+            return render(request, website.up_error)
 
 
 def file_save(model,name,stl_type):
@@ -117,6 +130,7 @@ def file_save(model,name,stl_type):
     qrcont=resp.read()
     md = json.loads(qrcont)
     md5 = md['status']
+    print md5
     return md5
 
 
