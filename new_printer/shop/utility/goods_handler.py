@@ -1,6 +1,17 @@
+from django.core.exceptions import ObjectDoesNotExist
+
+
 from configuration.models import Goods
 
 class GoodsHandler(object):
+
+    def get_goods_by_id(self,goods_id):
+        try:
+            goods = Goods.objects.get(id = goods_id)
+        except ObjectDoesNotExist:
+            goods = None
+        return goods
+
 
     def get_all_goods_by_style(self,goods_style):
         goods_list = Goods.objects.filter(style = goods_style)
@@ -12,3 +23,11 @@ class GoodsHandler(object):
         return style_goods_list
 
 
+    def get_goods_by_designer(self,designer_id):
+        goods_list = Goods.objects.filter(designer_id = designer_id)
+        return goods_list
+
+
+    def set_collected_count(self,goods,count):
+        goods.collected_count += count
+        goods.save()
