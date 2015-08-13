@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %} 3DiLove 世界上最大的珠宝设计平台, 珠宝3D模型在线交易平台 {% endblock %}</title>
+
+	{% block initstaticfiles %}
+		{% include 'common-files.html' %}
+	{% endblock %}
+
+	{% block selfFiles %}
+	{% endblock %}
+
+</head>
+<body>
+	<div id="mallPage">
+
+		{% block header %}
+			{% include 'header.html' %}
+		{% endblock %}
+
+		<div id="mallContent">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</div>
+
+	{% block footer %}
+		{% include 'footer.html' %}
+	{% endblock %}
+
+</body>
+</html>
