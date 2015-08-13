@@ -67,17 +67,23 @@ class Goods_Upload(models.Model):
     #类型
     style = models.CharField(max_length=255, default='', blank=True)
     #stl文件
-    stl_path = models.FileField(blank=True)
+    stl_path = models.CharField(max_length=255)
     #预览图
-    preview_1 = models.ImageField()
-    preview_2 = models.ImageField()
-    preview_3 = models.ImageField()
+    preview_1 = models.CharField(max_length=255)
+    preview_2 = models.CharField(max_length=255)
+    preview_3 = models.CharField(max_length=255)
     #zip
     zip_path = models.FileField(blank=True)
     #Jcad
     jcad_path = models.FileField(blank=True)
     #上传时间
     upload_time = models.DateTimeField(auto_now_add=True)
+    #大小
+    file_size = models.CharField(max_length=5,default = 0,blank=True)
+    #商品状态，0：只有STl；1：审核中； 2：未通过
+    good_state = models.IntegerField(11)
+    #没有通过审核的原因
+    not_passed = models.CharField(max_length=255) 
 
 
 class Goods(models.Model):
@@ -114,6 +120,8 @@ class Goods(models.Model):
     approval_time = models.DateTimeField(auto_now_add=True)
     #关联 收藏\下载\购买
     vender = models.ManyToManyField(Vender_User,through='Vender_Goods', blank=True)
+    #大小
+    file_size = models.CharField(max_length=6,default = 0,blank=True)
 
 class Vender_Goods(models.Model):
     '''

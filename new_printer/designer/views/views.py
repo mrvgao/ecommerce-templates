@@ -10,16 +10,15 @@ from django.contrib.auth import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from conf import website
+from designer.conf import website
 import json, os, uuid, base64, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
-from adminer.conf import website as adminer_website
-from adminer.models import Toy_photo
 from django.contrib.auth.models import User
+from configuration.models import Goods_Upload
 import httplib, urllib
 import urllib2,os
 from datetime import date ,datetime
@@ -27,12 +26,17 @@ import time
 import json,pdb
 
 
+def download_work(request):
+    ids = request.POST['id']
+    for id in ids:
+        this_work = Goods_Upload.objects.get(id=id)
+         
 @login_required
 def design_list(request):
-'''
+    '''
 	个人中心首页，按时间列出全部作品
-'''
-	user = request.user
+    '''
+    user = request.user
     designer = Designer.objects.get(user_id=user.id)
     designer.icon = str(adminer_website.icon_server_path) + designer.icon
     design_list = Goods.objects.filter(customer_id=customer.id)
@@ -40,17 +44,17 @@ def design_list(request):
     all_list = []
     for design in design_list:
     	if design.collect > 1:
-    		collect_num++
+            collect_num = collect_num + 1
     conf = {'all_list':all_list,
     			'collect_num':collect_num
     		  }
     return render(request, website.all_list, conf)
 
 def downed_list(request):
-'''
-展示按照下载次数排序结果
-'''
-	user = request.user
+    '''
+    展示按照下载次数排序结果
+    '''
+    user = request.user
     designer = Designer.objects.get(user_id=user.id)
     design_list = Goods.objects.filter(customer_id=customer.id).order_by(downed)
     conf = {'all_list':all_list
@@ -58,43 +62,43 @@ def downed_list(request):
     return HttpResponse(json.dumps(conf))
 
 def collect_list(request):
-'''
-按照被收藏的个数排序
-'''
-	pass
+    '''
+    按照被收藏的个数排序
+    '''
+
 
 
 def new_list(request):
-'''
-最新上传的作品排序
-'''
-	pass
+    '''
+    最新上传的作品排序
+    '''
+
 
 
 def ring_list(request):
-'''
-点击戒指，列出戒指的所以设计作品
-'''
-	pass
+    '''
+    点击戒指，列出戒指的所以设计作品
+    '''
+
 
 
 def pendant_list(request):
-'''
-点击吊坠，列出吊坠的所以设计作品
-'''
-	pass
+    '''
+    点击吊坠，列出吊坠的所以设计作品
+    '''
 
 
-def eardrop_list(request):
-	pass
+
+#def eardrop_list(request):
 
 
-def barcedt_list(request):
-	pass
+
+#def barcedt_list(request):
 
 
-def necklace_list(request):
-	pass
+
+#def necklace_list(request):
+
 
 
 def show_more(request):

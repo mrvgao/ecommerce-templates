@@ -59,15 +59,15 @@
 </style>
 </head>
 <body>
-	<form action="/toy_photo/photo_save" method="post" class="list-form" enctype="multipart/form-data">
+	<form type="file" action="/designer/works_save" method="post" class="list-form" enctype="multipart/form-data" multiple="">
 	<h1>上传模型文件</h1>
 		<div class="input_wrap">
-			<input type="file" class="shangchuan" id="jiezhi1" name="jiezhi1" value="戒指上传">
-			<input type="file" class="shangchuan" id="diaozhui1" name="diaozhui1" value="吊坠上传"/>
-			<input type="file" class="shangchuan" id="erzhui1" name="erzhui1" value="耳坠上传"/>
-			<input type="file" class="shangchuan" id="shoulian1" name="shoulian1" value="手链上传"/>
-			<input type="file" class="shangchuan" id="xianglian1" name="xianglian1" value="项链上传"/>
-			<input type="file" class="shangchuan" id="xiongzhen1" name="xiongzhen1" value="胸针上传"/>
+			<input type="file" class="shangchuan" id="jiezhi1" name="jiezhi" value="戒指上传">
+			<input type="file" class="shangchuan" id="diaozhui1" name="2" value="吊坠上传"/>
+			<input type="file" class="shangchuan" id="erzhui1" name="3" value="耳坠上传"/>
+			<input type="file" class="shangchuan" id="shoulian1" name="4" value="手链上传"/>
+			<input type="file" class="shangchuan" id="xianglian1" name="5" value="项链上传"/>
+			<input type="file" class="shangchuan" id="xiongzhen1" name="6" value="胸针上传"/>
 		</div>
 		<div class="btn-wrap">
 			<button type="button" class="btn" id="jiezhi_btn">戒指上传</button>
@@ -126,7 +126,7 @@
 		}	
 
 		var Id = thisId+typeCount;
-		var inputText = '<input type="file" class="shangchuan" id="'+thisId+typeCount+'" name="'+thisId+typeCount+'" value="'+thisVal+'" >';
+		var inputText = '<input type="file" class="shangchuan" id="'+thisId+typeCount+'" name="'+thisId+'" value="'+thisVal+'" >';
 		$(inputText).insertAfter(obj);
 		$("#"+Id).on('change',function(){
 			change($(this));
