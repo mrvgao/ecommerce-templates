@@ -163,7 +163,7 @@
 					<p class="edit-detail-ps">模型价格一半定为30-50元，收入将在3个工作日内打到您的支付宝账号。</p>
 					<div class="edit-detail-upload-box">
 						<div class="edit-detail-upload-hidden">
-							<input name="photo" type="file" value="选取图片并上传" class="editInput" id="edit_detail_upload1">
+							<input name="photo" type="file" value="选取图片并上传"  id="edit_detail_upload1">
 						</div>
 						<button type="button" class="up-btn">选取图片并上传</button><button class="upreset">重新选择</button>
 					</div>
@@ -188,9 +188,9 @@
 					<p class="edit-detail-ps">填写设计语义将可能被推荐至网站首页，获得更多收藏与下载</p>
 					<textarea class="edit-detail-describe-desc">例：细胞流动的结构，象征生命的本质。 让活力注入指间，让美源自根本。</textarea> 
 				</div>
-				<button type="submit" class="edit-submit-btn" form-submit>保存并提交</button>
-				<button type="button" class="edit-cancle-btn">取消</button>
 			</div>
+			<button type="submit" class="edit-submit-btn" form-submit>保存并提交</button>
+			<button type="button" class="edit-cancle-btn">取消</button>
 		</form>
 	</div>
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -222,7 +222,7 @@
 	});
 	function upFile(){ //增加下一个Input
 		count++;
-		var newInpt = '<input name="photo" type="file" class="editInput" value="选取图片并上传" id="edit_detail_upload'+count+'">'
+		var newInpt = '<input name="photo" type="file" value="选取图片并上传" id="edit_detail_upload'+count+'">'
 		edit_detail_upload_hidden.append(newInpt);
 		$('#edit_detail_upload'+count).on('change',function(){
 				upFile();
@@ -237,7 +237,7 @@
 			 $(this).append(imgBoxStr);
 		}); 
 		edit_detail_upload_hidden.empty();
-		var reInpt = '<input name="photo" type="file" class="editInput" value="选取图片并上传" id="edit_detail_upload1">'
+		var reInpt = '<input name="photo" type="file" value="选取图片并上传" id="edit_detail_upload1">'
 		edit_detail_upload_hidden.append(reInpt);
 		$('#edit_detail_upload'+count).on('change',function(){
 				upFile();

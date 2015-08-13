@@ -57,12 +57,13 @@ body {
 /* header */
 #header {
 	width:100%;
-	height:160px;
+	height:115px;
+	padding-top:45px;
 	border-bottom:1px solid #ddd;
 }
 #header img {
-	width:500px;
-	height:160px;
+	width:350px;
+	height:86px;
 	margin:0 auto;
 }
 
