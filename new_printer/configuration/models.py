@@ -20,8 +20,6 @@ class Designer_User(models.Model):
     marked_count = models.IntegerField(default=0, blank=True)
     #绑定支付宝账号
     alipay = models.CharField(max_length=50)
-    #头像
-    img = models.ImageField(blank=True)
     
 
 class Vender_User(models.Model):

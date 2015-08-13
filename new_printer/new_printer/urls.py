@@ -18,4 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^account/', include('account.urls', namespace='account')),
+    url(r'^payment/', include('payment.urls', namespace='payment')),
 ]
