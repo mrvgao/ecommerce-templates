@@ -76,6 +76,7 @@ body{
 }
 .mainbody-nav-ul{
 	width: 425px;
+	height: 50px;
 	float: right;
 	position: relative;
 }
@@ -85,14 +86,15 @@ body{
 	line-height: 50px;
 	text-align: center;
 	float: left;
+	cursor: pointer;
 }
-.mainbody-nav-ul li:hover a{
+.mainbody-nav-ul li:hover{
 	color: #62cdd7;
 }
-.mainbody-nav-current a{
+.mainbody-nav-current {
 	color: #62cdd7;
 }
-.current{
+.nav-current{
 	width: 105px;
 	height: 2px;
 	background:  #62cdd7;
@@ -100,7 +102,7 @@ body{
 	bottom: 0;	
 	left: 105px;
 }
-.current em{
+.nav-current em{
 	position: absolute;
 	left: 45px;
 	top: -5px;
