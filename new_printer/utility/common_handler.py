@@ -30,3 +30,11 @@ class CommonHandler(object):
     def get_file_path(self,part_path):
         path = admin_website.server_path + part_path
         return path
+
+
+    def utf_to_unicode(self,word):
+        import sys
+        reload(sys)
+        sys.setdefaultencoding('utf-8')
+        unicode_word = word.decode('utf-8')
+        return unicode_word

@@ -1,9 +1,12 @@
 from django.core.exceptions import ObjectDoesNotExist
 
-
 from configuration.models import Goods
 
+from utility.common_handler import CommonHandler
+
 class GoodsHandler(object):
+
+    common_handler = CommonHandler()
 
     def get_goods_by_id(self,goods_id):
         try:
@@ -14,11 +17,13 @@ class GoodsHandler(object):
 
 
     def get_all_goods_by_style(self,goods_style):
+        goods_style = common_handler.utf_to_unicode(goods_style)
         goods_list = Goods.objects.filter(style = goods_style)
         return goods_list
 
 
     def get_goods_by_style(self,goods_list,goods_style):
+        goods_style = common_handler.utf_to_unicode(goods_style)
         style_goods_list = goods_list.filter(style = goods_style)
         return style_goods_list
 
