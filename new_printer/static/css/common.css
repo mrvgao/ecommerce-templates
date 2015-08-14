@@ -1,5 +1,6 @@
 body {
 	background:#f4fcfc;
+	color: #5b5b5b;
 }
 .container {
 	width:1140px;
@@ -108,5 +109,3 @@ body {
 	margin-left:0;
 	border-left:0;
 }
-
-
