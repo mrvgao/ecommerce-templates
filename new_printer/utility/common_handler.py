@@ -1,5 +1,7 @@
 import random
 
+from configuration import website as admin_website
+
 
 class AlgorithmHandler(object):
 
@@ -21,3 +23,10 @@ class AlgorithmHandler(object):
             return list
         else:
             return list[0:certain_number]
+
+
+class CommonHandler(object):
+
+    def get_file_path(self,part_path):
+        path = admin_website.server_path + part_path
+        return path
