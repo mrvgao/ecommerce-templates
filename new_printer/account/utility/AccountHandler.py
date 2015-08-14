@@ -55,14 +55,14 @@ class Verification():
         params: phone code
         return: True or False
         '''
-        beta = BetaApply.objects.get(phone = phone)
-        if beta is None:
-            return False
-        else:
+        try:
+            beta = BetaApply.objects.get(phone = phone)
             if beta.InvitationCode == code:
                 return True
             else:
                 return False
+        except Exception as e:
+            return False
 
 
 
