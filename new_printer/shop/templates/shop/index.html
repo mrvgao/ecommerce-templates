@@ -14,9 +14,258 @@
 		<div class="top-pic-left"></div>
 		<div class="top-pic-right"></div>
 	</div>
-	<div class="mianbody">
-		<div class="mainbody-nav">
-			<h2 class="mianbody-nav-title">戒指</h2>
+	<div class="container">
+		<div class="mainbody">
+			<div class="mainbody-typebox">
+				<div class="mainbody-nav clearfix">
+					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-ring-icon"></span>戒指</h2>
+					<ul class="mainbody-nav-ul f16">
+						<li><a href="/goods/ring/young">青春洋溢</a></li>
+						<li class="mainbody-nav-current"><a href="/goods/ring/rich">富丽典雅</a><span class="current"><em></em></span></li>
+						<li><a href="/goods/ring/nature">自然亲切</a></li>
+						<li><a href="/goods/ring/fashion">时尚潮流</a></li>
+					</ul>
+				</div>
+				<div class="mainbody-list clearfix">
+					{# {% for good in goods %} #}
+					<div class="list-goodsbox fl">
+						<div class="list-picbox">
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
+							<div class="list-goods-name f14">
+								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+								<em class="fr"></em>
+							</div>
+						</div>
+						<p class="list-goods-describe f12">
+							{# {{ good.describe }} #}
+							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+						</p>
+						<div class="list-goods-show clearfix">
+							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+						</div>
+						<div class=" list-goods-info f16 clearfix">
+							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
+						</div>
+					</div>
+
+
+					{# {% endfor %} #}
+				</div>
+			</div>{# 戒指结束 #}
+
+
+			<div class="mainbody-typebox">
+				<div class="mainbody-nav clearfix">
+					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-pendant-icon"></span>吊坠</h2>
+					<ul class="mainbody-nav-ul f16">
+						<li><a href="/goods/ring/young">青春洋溢</a></li>
+						<li class="mainbody-nav-current"><a href="/goods/ring/rich">富丽典雅</a><span class="current"><em></em></span></li>
+						<li><a href="/goods/ring/nature">自然亲切</a></li>
+						<li><a href="/goods/ring/fashion">时尚潮流</a></li>
+					</ul>
+				</div>
+				<div class="mainbody-list clearfix">
+
+					{# {% for good in goods %} #}
+
+					<div class="list-goodsbox fl">
+						<div class="list-picbox">
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
+							<div class="list-goods-name f14">
+								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+								<em class="fr"></em>
+							</div>
+						</div>
+						<p class="list-goods-describe f12">
+							{# {{ good.describe }} #}
+							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+						</p>
+						<div class="list-goods-show clearfix">
+							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+						</div>
+						<div class=" list-goods-info f16 clearfix">
+							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
+						</div>
+					</div>
+
+					{# {% endfor %} #}
+
+				</div>
+			</div>{# 吊坠结束 #}
+
+			<div class="mainbody-typebox">
+				<div class="mainbody-nav clearfix">
+					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-earbob-icon"></span>耳坠</h2>
+					<ul class="mainbody-nav-ul f16">
+						<li><a href="/goods/ring/young">青春洋溢</a></li>
+						<li class="mainbody-nav-current"><a href="/goods/ring/rich">富丽典雅</a><span class="current"><em></em></span></li>
+						<li><a href="/goods/ring/nature">自然亲切</a></li>
+						<li><a href="/goods/ring/fashion">时尚潮流</a></li>
+					</ul>
+				</div>
+				<div class="mainbody-list clearfix">
+
+					{# {% for good in goods %} #}
+
+					<div class="list-goodsbox fl">
+						<div class="list-picbox">
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
+							<div class="list-goods-name f14">
+								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+								<em class="fr"></em>
+							</div>
+						</div>
+						<p class="list-goods-describe f12">
+							{# {{ good.describe }} #}
+							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+						</p>
+						<div class="list-goods-show clearfix">
+							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+						</div>
+						<div class=" list-goods-info f16 clearfix">
+							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
+						</div>
+					</div>
+
+					{# {% endfor %} #}
+
+				</div>
+			</div>{# 耳坠结束 #}
+
+			<div class="mainbody-typebox">
+				<div class="mainbody-nav clearfix">
+					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-bracelet-icon"></span>手链</h2>
+					<ul class="mainbody-nav-ul f16">
+						<li><a href="/goods/ring/young">青春洋溢</a></li>
+						<li class="mainbody-nav-current"><a href="/goods/ring/rich">富丽典雅</a><span class="current"><em></em></span></li>
+						<li><a href="/goods/ring/nature">自然亲切</a></li>
+						<li><a href="/goods/ring/fashion">时尚潮流</a></li>
+					</ul>
+				</div>
+				<div class="mainbody-list clearfix">
+
+					{# {% for good in goods %} #}
+
+					<div class="list-goodsbox fl">
+						<div class="list-picbox">
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
+							<div class="list-goods-name f14">
+								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+								<em class="fr"></em>
+							</div>
+						</div>
+						<p class="list-goods-describe f12">
+							{# {{ good.describe }} #}
+							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+						</p>
+						<div class="list-goods-show clearfix">
+							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+						</div>
+						<div class=" list-goods-info f16 clearfix">
+							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
+						</div>
+					</div>
+
+					{# {% endfor %} #}
+
+				</div>
+			</div>{# 手链结束 #}
+
+			<div class="mainbody-typebox">
+				<div class="mainbody-nav clearfix">
+					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-torque-icon"></span>项链</h2>
+					<ul class="mainbody-nav-ul f16">
+						<li><a href="/goods/ring/young">青春洋溢</a></li>
+						<li class="mainbody-nav-current"><a href="/goods/ring/rich">富丽典雅</a><span class="current"><em></em></span></li>
+						<li><a href="/goods/ring/nature">自然亲切</a></li>
+						<li><a href="/goods/ring/fashion">时尚潮流</a></li>
+					</ul>
+				</div>
+				<div class="mainbody-list clearfix">
+
+					{# {% for good in goods %} #}
+
+					<div class="list-goodsbox fl">
+						<div class="list-picbox">
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
+							<div class="list-goods-name f14">
+								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+								<em class="fr"></em>
+							</div>
+						</div>
+						<p class="list-goods-describe f12">
+							{# {{ good.describe }} #}
+							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+						</p>
+						<div class="list-goods-show clearfix">
+							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+						</div>
+						<div class=" list-goods-info f16 clearfix">
+							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
+						</div>
+					</div>
+
+					{# {% endfor %} #}
+
+				</div>
+			</div>{# 项链结束 #}
+
+			<div class="mainbody-typebox">
+				<div class="mainbody-nav clearfix">
+					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-brooch-icon"></span>胸针</h2>
+					<ul class="mainbody-nav-ul f16">
+						<li><a href="/goods/ring/young">青春洋溢</a></li>
+						<li class="mainbody-nav-current"><a href="/goods/ring/rich">富丽典雅</a><span class="current"><em></em></span></li>
+						<li><a href="/goods/ring/nature">自然亲切</a></li>
+						<li><a href="/goods/ring/fashion">时尚潮流</a></li>
+					</ul>
+				</div>
+				<div class="mainbody-list clearfix">
+
+					{# {% for good in goods %} #}
+
+					<div class="list-goodsbox fl">
+						<div class="list-picbox">
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
+							<div class="list-goods-name f14">
+								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+								<em class="fr"></em>
+							</div>
+						</div>
+						<p class="list-goods-describe f12">
+							{# {{ good.describe }} #}
+							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+						</p>
+						<div class="list-goods-show clearfix">
+							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
+						</div>
+						<div class=" list-goods-info f16 clearfix">
+							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
+						</div>
+					</div>
+
+					{# {% endfor %} #}
+
+				</div>
+			</div>{# 胸针结束 #}
 		</div>
 	</div>
 {% endblock %}

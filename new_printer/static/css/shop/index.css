@@ -5,28 +5,182 @@ body{
 	width: 100%;
 	height: 480px;
 	background-color: #62cdd7;
+	overflow: hidden;
 	position: relative;
 }
 .top-pic{
 	min-width: 1140px;
 	height: 480px;
 	margin: 0 auto;
-	background: url(../../images/common/index/topring.png) center no-repeat;
-	z-index: 2;
+	background: url(../../images/index/topring.png) center no-repeat;
 }
 .top-pic-left,.top-pic-right{
 	position: absolute;
 	top: 0;
 	height: 480px;
 	width: 409px;
-	z-index: 1;
 }
 .top-pic-left{
 
-	background: url(../../images/common/index/topPicleft.png) no-repeat center right;
+	background: url(../../images/index/topPicleft.png) no-repeat center right;
 	left: -50px;
 }
 .top-pic-right{
-	background: url(../../images/common/index/topPicright.png) no-repeat center left;
+	background: url(../../images/index/topPicright.png) no-repeat center left;
 	right: -50px;
+}
+.mainbody{
+	overflow: hidden;
+}
+.mainbody-typebox{
+	margin-top: 20px;
+	background: #fff;
+	box-shadow: 1px 0 5px #eee;
+}
+.mainbody-nav{
+	height: 48px;
+	border-bottom:2px solid #e0e0e0;
+}
+.mainbody-nav h2{
+	height: 50px;
+	width:80px;
+	line-height: 50px;
+	text-indent: 1px;
+	float: left;
+}
+.mianbody-nav-title-icon{
+	background: url(../../images/common/Indexicon.png);
+	float: left;
+	height: 19px;
+	width: 30px;
+	margin-top:15px;
+	margin-left: 10px;
+}
+.mianbody-nav-ring-icon{
+	background-position: -10px -58px;
+}
+.mianbody-nav-pendant-icon{
+	background-position: -40px -59px;
+}
+.mianbody-nav-earbob-icon{
+	background-position: -71px -58px;
+}
+.mianbody-nav-bracelet-icon{
+	background-position: -101px -58px;
+}
+.mianbody-nav-torque-icon{
+	background-position: -133px -60px;
+}
+.mianbody-nav-brooch-icon{
+	background-position: -160px -60px;
+}
+.mainbody-nav-ul{
+	width: 425px;
+	float: right;
+	position: relative;
+}
+.mainbody-nav-ul li{
+	width: 105px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	float: left;
+}
+.mainbody-nav-ul li:hover a{
+	color: #62cdd7;
+}
+.mainbody-nav-current a{
+	color: #62cdd7;
+}
+.current{
+	width: 105px;
+	height: 2px;
+	background:  #62cdd7;
+	position: absolute;
+	bottom: 0;	
+	left: 105px;
+}
+.current em{
+	position: absolute;
+	left: 45px;
+	top: -5px;
+	height: 5px;
+	width: 18px;
+	color: #62cdd7;
+	background: url(../../images/common/Indexicon.png) -59px -14px;
+}
+.mainbody-list{
+	width: 100%;
+	padding: 16px 0;
+}
+.list-goodsbox{
+	height: 335px;
+	width: 238px;
+	margin: 22px 23px;
+	cursor: pointer;
+	transition:box-shadow .3s ease;
+}
+.list-goodsbox:hover{
+	box-shadow:2px 1px 15px #ccc;
+}
+.list-goodsbox:hover .list-goods-describe{
+	display: none;
+}
+.list-goodsbox:hover .list-goods-show{
+	display: block;
+}
+.list-goodsbox:hover .list-goods-name{
+	visibility: visible;
+}
+.list-picbox{
+	height: 238px;
+	width: 238px;
+	overflow: hidden;
+	text-align: center;
+	position: relative;
+}
+.list-goods-name{
+	position: absolute;
+	right: 0;
+	top: 9px;
+	color: #fff;
+	height: 16px;
+	width: 78px;
+	padding: 4px 14px;
+	background: #62cdd7;
+	visibility: hidden;
+}
+.list-goods-name em{
+	height: 14px;
+	width: 14px;
+	background: url(../../images/common/Indexicon.png) no-repeat -86px -11px;
+}
+.list-goods-describe{
+	height: 33px;
+	width: 232px;
+	line-height: 20px;
+	color: #949494;
+	padding: 17px 4px;
+}
+.list-goods-show{
+	height: 67px;
+	width: 230px;
+/*	background: #f6f6f6;*/
+	display: none;
+}
+.list-goods-info{
+	height: 30px;
+	line-height: 30px;
+	color: #3c3c3c;
+	background: #f6f6f6;
+	padding: 0 13px;
+}
+.list-goods-show img{
+	height: 48px;
+	width: 48px;
+	border:1px solid #fff;
+	cursor: pointer;
+}
+.list-goods-show img:hover{
+	border-color:#ccc;
 }
