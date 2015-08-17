@@ -11,6 +11,7 @@ $(function() {
 					var thisleft = 105*(index%4);
 					thisParent.find('span').animate({'left':thisleft}, 400);
 					_this.addClass('mainbody-nav-current');
+					
 				});
 		});
 	});
