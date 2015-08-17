@@ -40,6 +40,12 @@ def index(request):
     return render(request,website.index,context)
 
 
+def filter_type(request):
+    context = {
+        'state':'SUCCESS',
+    }
+    return HttpResponse(json.dumps(context))
+
 def modify_goods_list(goods_list):
     return_list = []
     for goods in goods_list:
