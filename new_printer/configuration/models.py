@@ -81,7 +81,7 @@ class Goods_Upload(models.Model):
     #大小 新加
     file_size = models.CharField(max_length=5,default = 0,blank=True)
     #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
-    good_state = models.IntegerField(11)
+    good_state = models.IntegerField()
     #没有通过审核的原因 新加
     not_passed = models.CharField(max_length=255) 
 

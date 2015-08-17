@@ -100,7 +100,7 @@ if not in_test_server:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'jkbrother5',
+            'NAME': 'jkbrother',
             'USER': 'root',
             'PASSWORD': 'passw0rd',
             'HOST': '120.26.38.125',
