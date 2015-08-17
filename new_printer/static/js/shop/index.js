@@ -18,11 +18,11 @@ $(function() {//导航切换效果
 					thisShowlist.empty();
 
 					$.ajax({
-						url: '/shop/filter_type',
+						url: '/shop/filter-type',
 						type: 'GET',
 						data: { 'type': thisType,
 								'style': thisStyle
-							},
+								},
 					})
 					.done(function(res) {
 						var list = JSON.parse(data).type.goods_list;
