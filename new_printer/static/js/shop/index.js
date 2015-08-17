@@ -18,7 +18,7 @@ $(function() {//导航切换效果
 					thisShowlist.empty();
 
 					$.ajax({
-						url: '/shop/filterType',
+						url: '/shop/filter_type',
 						type: 'GET',
 						data: { 'type': thisType,
 								'style': thisStyle
