@@ -164,8 +164,9 @@
 					<p class="edit-detail-ps">模型价格一半定为30-50元，收入将在3个工作日内打到您的支付宝账号。</p>
 					<div class="edit-detail-upload-box">
 						<div class="edit-detail-upload-hidden">
- 
-							<input  type="file" value="选取图片并上传" id="edit_detail_upload1" name="photo">
+
+							<input name="photo" type="file" value="选取图片并上传"  id="edit_detail_upload1">
+
 						</div>
 						<button type="button" class="up-btn">选取图片并上传</button><button class="upreset">重新选择</button>
 					</div>
@@ -173,19 +174,16 @@
 						<div id="imgDiv1">
 							<img src=""/>
 						</div>
-						<span class="edit-detail-remove">删除</span>
 					</div>
 					<div class="edit-detail-imgBox">
 						<div id="imgDiv2">
 							<img src=""/>
 						</div>
-						<span class="edit-detail-remove">删除</span>
 					</div>
 					<div class="edit-detail-imgBox">
 						<div id="imgDiv3">
 							<img src=""/>
 						</div>
-						<span class="edit-detail-remove">删除</span>
 					</div>
 				</div>
 				<div class="edit-detail-describe">
@@ -193,10 +191,10 @@
 					<p class="edit-detail-ps">填写设计语义将可能被推荐至网站首页，获得更多收藏与下载</p>
 					<textarea name="describe" class="edit-detail-describe-desc">例：细胞流动的结构，象征生命的本质。 让活力注入指间，让美源自根本。</textarea> 
 				</div>
-			
+
 			</div>
-				<button type="submit" class="edit-submit-btn" form-submit>保存并提交</button>
-				<button type="button" class="edit-cancle-btn">取消</button>
+			<button type="submit" class="edit-submit-btn" form-submit>保存并提交</button>
+			<button type="button" class="edit-cancle-btn">取消</button>
 		</form>
 	</div>
 
@@ -230,7 +228,8 @@
 	function upFile(){ //增加下一个Input
 		count++;
 
-		var newInpt = '<input name="photo" type="file"  value="选取图片并上传" id="edit_detail_upload'+count+'">'
+		var newInpt = '<input name="photo" type="file" value="选取图片并上传" id="edit_detail_upload'+count+'">'
+
 		edit_detail_upload_hidden.append(newInpt);
 		$('#edit_detail_upload'+count).on('change',function(){
 				upFile();
@@ -238,6 +237,20 @@
 	}
 	upreset.on('click',function(){//取消上传的图片
 		count=1;
+	
+		edit_detail_imgBox.each(function(index, el) {
+			 $(this).empty();
+			 var imgBoxStr= '<div id="imgDiv'+ (index+1) +'"><img src=""/></div>'
+			 $(this).append(imgBoxStr);
+		}); 
+		edit_detail_upload_hidden.empty();
+		var reInpt = '<input name="photo" type="file" value="选取图片并上传" id="edit_detail_upload1">'
+		edit_detail_upload_hidden.append(reInpt);
+		$('#edit_detail_upload'+count).on('change',function(){
+				upFile();
+		});
+		return false;
+
 	})
 	edit_describe.on('focus',function(){
 		var _this = $(this);

@@ -78,11 +78,13 @@ class Goods_Upload(models.Model):
     jcad_path = models.FileField(blank=True)
     #上传时间
     upload_time = models.DateTimeField(auto_now_add=True)
-    #大小
+    #修改时间  新加
+    modify_time = models.DateTimeField(auto_now_add=True)
+    #大小 新加
     file_size = models.CharField(max_length=5,default = 0,blank=True)
-    #商品状态，0：只有STl；1：审核中； 2：未通过
+    #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
     good_state = models.IntegerField(11)
-    #没有通过审核的原因
+    #没有通过审核的原因 新加
     not_passed = models.CharField(max_length=255) 
 
 
@@ -116,7 +118,7 @@ class Goods(models.Model):
     zip_path = models.FileField(blank=True)
     #Jcad
     jcad_path = models.FileField(blank=True)
-    #审批通过时间
+    #审批通过时间 
     approval_time = models.DateTimeField(auto_now_add=True)
     #关联 收藏\下载\购买
     vender = models.ManyToManyField(Vender_User,through='Vender_Goods', blank=True)

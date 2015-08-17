@@ -1,0 +1,32 @@
+body{
+	min-width: 1200px;
+}
+.top-wrap{
+	width: 100%;
+	height: 480px;
+	background-color: #62cdd7;
+	position: relative;
+}
+.top-pic{
+	min-width: 1140px;
+	height: 480px;
+	margin: 0 auto;
+	background: url(../../images/common/index/topring.png) center no-repeat;
+	z-index: 2;
+}
+.top-pic-left,.top-pic-right{
+	position: absolute;
+	top: 0;
+	height: 480px;
+	width: 409px;
+	z-index: 1;
+}
+.top-pic-left{
+
+	background: url(../../images/common/index/topPicleft.png) no-repeat center right;
+	left: -50px;
+}
+.top-pic-right{
+	background: url(../../images/common/index/topPicright.png) no-repeat center left;
+	right: -50px;
+}

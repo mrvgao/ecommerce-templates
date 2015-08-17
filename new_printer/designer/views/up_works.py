@@ -16,7 +16,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
 from designer.conf import website 
-from configuration.models import Goods_Upload
+from configuration.models import Goods_Upload,Designer_User,Vender_Goods
 from django.contrib.auth.models import User
 import httplib, urllib
 import urllib2,os
@@ -26,7 +26,7 @@ import json,pdb
 
 
 def index(request):
-    return render(request, website.index)
+    return render(request, website.edit)
 
 def stls_save(stls):
     jwary_md5 = {}
@@ -38,7 +38,6 @@ def stls_save(stls):
         stl_type=str(stl)
         stl_type=stl_type.split('.')
         stl_md5 = file_save(stl,stl_type[0],stl_type[1])
-        #jwary_md5.setdefault(stl_type[0],stl_md5)
         size = len(stl)
         file_size.append(size)
         stl_type=str(stl)
@@ -57,7 +56,10 @@ def stls_save(stls):
                                          stl_path = str(stl_url),
                                          tags = tags,
                                          file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
-                                         good_state = 0
+                                         good_state = 0,
+                                         #preview_1 = ,
+                                         #preview_2 = ,
+                                         #preview_3 = ,
                                         )
         count = count + 1
     print has_existed
@@ -69,10 +71,10 @@ def works_save(request):
         a_have = True
         jwary_stl = request.FILES.getlist('jiezhi')
         drop_stl = request.FILES.getlist('2')
-        #eardrop_stl = request.FILES.getlist('3')
-        #twist_stl = request.FILES.getlist('4')
-        #necklace_stl = request.FILES.getlist('5')
-        ##needle_stl = request.FILES.getlist('6')
+        eardrop_stl = request.FILES.getlist('3')
+        twist_stl = request.FILES.getlist('4')
+        necklace_stl = request.FILES.getlist('5')
+        needle_stl = request.FILES.getlist('6')
         file_hased = []
         #ids = []
         #pdb.set_trace()
@@ -100,8 +102,6 @@ def file_save(model,name,stl_type):
     data.append('--%s' % boundary)
     data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
     data.append(stl_type)
-    #data.append('Content-Disposition: form-data; name="%s"\r\n' % 'this_id')
-    #data.append(this_id)
     data.append('--%s' % boundary)
     data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(name)))
     data.append('Content-Type: %s\r\n' % 'image/png')
@@ -112,43 +112,46 @@ def file_save(model,name,stl_type):
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%website.toy_server_ip)#'http://192.168.1.104:8888/')
+    req.add_header('Referer','%s'%website.toy_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
     md = json.loads(qrcont)
     md5 = md['status']
     return md5
 
-
-def workd_execute(request):
-    user = request.user
-    designer = Designer.objects.get(user_id=user.id)
-    designer.icon = str(website.icon_server_path) + designer.icon
-    unpass_list = Goods_Upload.objects.filter(customer_id=customer.id)
-    conf = {'all_list':unpass_list,
+#设计师作品管理，显示 未处理 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
+def workd_unexecute(request):
+    user = 1#request.user
+    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer.icon = str(website.toy_server_imgupload) + str(designer.img)
+    unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
+    conf = {'all_list':unexecute_list,
             'icon' : designer.icon,
-            'name':designer.name,
+            'name':designer.designername,
               }
     return render(request, website.all_list, conf)
 
-def delete(request):
+#在未处理页面直接删除作品
+def unexecute_delete(request):
     ids = request.POST['ids']
     for id in ids:
-        Goods_Upload.objects.remove(id = id)
+        Goods_Upload.objects.filter(id = id).delete()
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
-def photo_edit(request):
-    id = request.POST['id']
-    photo = Goods_Upload.objects.filter(id=id)
-    conf = {'photo':'photo'}
-    return HttpResponse(json.dumps(conf))
-
+#在未处理页面 点击处理并提交 后往JS传得值
+def unexecute_edit(request):
+    id = request.POST['id'] 
+    good = Goods_Upload.objects.get(id = id)
+    return_good = {
+                    'id':good.id,
+                    'name':good.goods_name
+ #                   ''
+                }
 #未处理页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
 def edit_submit(request):
-
     #file_id = request.POST['id']
-    file_id = 23
+    file_id = 44
     count = 1
     p_url = []
     #pdb.set_trace()
@@ -156,7 +159,6 @@ def edit_submit(request):
     stl_md5 = photo.stl_path
     print stl_md5
     stl_md5 = str(stl_md5).split('.')
-    
     stl_md5 = stl_md5[0]
     price = request.POST['price']
     #previews = request.FILES.getlist['photo']
@@ -170,7 +172,7 @@ def edit_submit(request):
         preview_type=str(previews)
         preview_type=preview_type.split('.')
         preview_md5 = photo_save(previews,preview_type[0],preview_type[1],stl_md5)
-        p1_url = str(preview_md5)+'.'+str(preview_type[1])
+        p1_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
         p_url.append(p1_url)
 
     s=Goods_Upload.objects.filter(id= file_id).update(#name=str(name),
@@ -178,6 +180,7 @@ def edit_submit(request):
                         preview_1 = p_url[0],
                         #preview_2 = p_url[1],
                         #preview_3 = p_url[2],
+                        good_state = 1,
                         description = describe
                       )
     conf = {'status':"success"}
@@ -207,12 +210,12 @@ def photo_save(model,name,stl_type,stl_md5):
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(chunks)
     data.append('--%s--\r\n' % boundary)
-    http_url = 'http://192.168.1.116:8888/file/imgupload'
+    http_url = website.toy_server_imgupload#'http://192.168.1.101:8888/file/imgupload'
     http_body = '\r\n'.join(data)
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%website.toy_server_ip)#'http://192.168.1.104:8888/')
+    req.add_header('Referer','%s'%website.toy_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
     md = json.loads(qrcont)
@@ -221,35 +224,54 @@ def photo_save(model,name,stl_type,stl_md5):
     print md5
     return md5
 
-#未通过页面，点击重新申请发布
+#未通过页面，点击 重新申请发布 后的反馈操作
 def photo_not_passed(request):#未通过页面，点击重新申请发布
-    id = request.POST['id']
+    id = 38#request.POST['id']
     photo = Goods_Upload.objects.filter(id=id)
-    conf = {'photo':'photo'}
+    conf = {'photo':photo}
     return HttpResponse(json.dumps(conf))
 
 
 
 
-
-def auditing(request):#审核中
+#审核中,显示未审核
+def auditing(request):
     user = request.user
     designer = Designer.objects.get(user_id=user.id)
-    photo = Goods_Upload.objects.filter(design_id=design.id)
-    conf = {'photo':'photo'}
+    photo = Goods_Upload.objects.filter(design_id=design.id,good_state = 1)
+    conf = {'photo':photo}
     return HttpResponse(json.dumps(conf))
 
-
-def has_published(request):#显示已发布页面
+#显示已发布页面
+def has_published(request):
     user = request.user
-    designer = Designer.objects.get(user_id=user.id)
-    photo = Goods.objects.filter(design_id=design.id)
-    conf = {'photo':'photo'}
+    designer = Designer_User.objects.get(user_id=user.id)
+    goods = Goods.objects.filter(designer_id=designer.id)
+    goods_all = []
+    for good in goods:
+        venders = Vender_Goods.objects.get(goods_id = good.id)
+        this_good = {'goods_name':good.goods_name,
+                    'preview_1':str(good.preview_1),
+                    'preview_2':str(good.preview_2),
+                    'preview_3':str(good.preview_3),
+                    'goods_price':good.goods_price,
+                    'description':good.description,
+                    'download_count':good.download_count
+                    }
+        #count = 1
+        '''for vender in venders:
+                vender = Vender_User.objects.get(id=vender)
+                this_good[count]=vender.img'''
+        goods_all.append(this_good)               
+    conf = {'goods':goods_all
+            }
     return HttpResponse(json.dumps(conf))
-def published_edit(request):#在已发布页面点击编辑后，传的值
+
+#在已发布页面点击编辑后，传的值
+def published_edit(request):
     id = request.POST['id']
     photo = Goods.objects.get(id=id)
-    conf = {'photo':'photo'}
+    conf = {'photo':photo}
     return HttpResponse(json.dumps(conf))
 
 
@@ -265,7 +287,7 @@ def published_submit(request):#在已发布页面点击编辑后，修改后提�
         describe = photo.describe
     if not price:
         price = photo.price
-    s=Goods_Uploadobjects.filter(id= id).update(name=str(name),
+    s=Goods.objects.filter(id = id).update(name=str(name),
                         price = int(price),
                         describe = describe
                       )
@@ -273,5 +295,13 @@ def published_submit(request):#在已发布页面点击编辑后，修改后提�
     return HttpResponse(json.dumps(conf))
 
 def published_delete(request):#在已发布页面点击编辑后，点击删除
-    pass
+    del_id = request.POST['id']
+    for id in ids:
+        Goods.objects.filter(id = id).delete()
+    if delete:
+        conf = {'status':"success"}
+    else:
+        conf = {'status':'eror'}
+    return HttpResponse(json.dumps(conf))
+
 
