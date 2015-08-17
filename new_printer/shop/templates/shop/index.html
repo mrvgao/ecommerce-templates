@@ -17,9 +17,10 @@
 	</div>
 	<div class="container">
 		<div class="mainbody">
+            {% for type in type_list %}
 			<div class="mainbody-typebox">
 				<div class="mainbody-nav clearfix">
-					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-ring-icon"></span>戒指</h2>
+                    <h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-{{type.type_class}}-icon"></span>{{ type.type_name }}</h2>
 					<ul class="mainbody-nav-ul f16">
 						<li>青春洋溢</li>
 						<li class="mainbody-nav-current">富丽典雅</li>
@@ -29,17 +30,17 @@
 					</ul>
 				</div>
 				<div class="mainbody-list clearfix">
-					{% for ring in ring_list %}
+					{% for goods in type.goods_list %}
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-                                <span class="fl">{{ring.goods_name}}</span>
+                                <span class="fl">{{goods.goods.goods_name}}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
 						<p class="list-goods-describe f12">
-                        {{ ring.discription}}
+                        {{ goods.goods.discription}}
                         </p>
 						<div class="list-goods-show clearfix">
 							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
@@ -47,226 +48,16 @@
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-                            <span class="list-goods-price fl">￥{{ring.goods_price}}</span>
-							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
+                            <span class="list-goods-price fl">￥{{goods.goods.goods_price}}</span>
+							<span class="list-goods-author fr">{{ goods.designer }}</span>
 						</div>
 					</div>
-
-
 					{% endfor %} 
 				</div>
 			</div>{# 戒指结束 #}
+            {% endfor %}
 
 
-			<div class="mainbody-typebox">
-				<div class="mainbody-nav clearfix">
-					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-pendant-icon"></span>吊坠</h2>
-					<ul class="mainbody-nav-ul f16">
-						<li>青春洋溢</li>
-						<li class="mainbody-nav-current">富丽典雅</li>
-						<li>自然亲切</li>
-						<li>时尚潮流</li>
-						<span class="nav-current"><em></em></span>
-					</ul>
-				</div>
-				<div class="mainbody-list clearfix">
-
-					{% for pendant in pendant_list %}
-
-					<div class="list-goodsbox fl">
-						<div class="list-picbox">
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
-							<div class="list-goods-name f14">
-                                <span class="fl">{{pendant.goods_name}}</span>
-								<em class="fr"></em>
-							</div>
-						</div>
-						<p class="list-goods-describe f12">
-							{{ pendant.description }} 
-						</p>
-						<div class="list-goods-show clearfix">
-							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-						</div>
-						<div class=" list-goods-info f16 clearfix">
-                            <span class="list-goods-price fl">￥{{pendant.goods_price}}</span>
-							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
-						</div>
-					</div>
-
-					{% endfor %} 
-
-				</div>
-			</div>{# 吊坠结束 #}
-
-			<div class="mainbody-typebox">
-				<div class="mainbody-nav clearfix">
-					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-earbob-icon"></span>耳坠</h2>
-					<ul class="mainbody-nav-ul f16">
-						<li>青春洋溢</li>
-						<li class="mainbody-nav-current">富丽典雅</li>
-						<li>自然亲切</li>
-						<li>时尚潮流</li>
-						<span class="nav-current"><em></em></span>
-					</ul>
-				</div>
-				<div class="mainbody-list clearfix">
-
-					{% for eardrop in eardrop_list %} 
-
-					<div class="list-goodsbox fl">
-						<div class="list-picbox">
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
-							<div class="list-goods-name f14">
-                                <span class="fl">{{eardrop.goods_name}}</span>
-								<em class="fr"></em>
-							</div>
-						</div>
-						<p class="list-goods-describe f12">
-							{{ eardrop.description }} 
-						</p>
-						<div class="list-goods-show clearfix">
-							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-						</div>
-						<div class=" list-goods-info f16 clearfix">
-                            <span class="list-goods-price fl">￥{{ eardrop.goods_price }}</span>
-							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
-						</div>
-					</div>
-
-					{% endfor %} 
-
-				</div>
-			</div>{# 耳坠结束 #}
-
-			<div class="mainbody-typebox">
-				<div class="mainbody-nav clearfix">
-					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-bracelet-icon"></span>手链</h2>
-					<ul class="mainbody-nav-ul f16">
-						<li>青春洋溢</li>
-						<li class="mainbody-nav-current">富丽典雅</li>
-						<li>自然亲切</li>
-						<li>时尚潮流</li>
-						<span class="nav-current"><em></em></span>
-					</ul>
-				</div>
-				<div class="mainbody-list clearfix">
-
-                    {% for bracelet in bracelet_list %}
-
-					<div class="list-goodsbox fl">
-						<div class="list-picbox">
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
-							<div class="list-goods-name f14">
-                                <span class="fl">{{ bracelet.goods_name }}</span>
-								<em class="fr"></em>
-							</div>
-						</div>
-						<p class="list-goods-describe f12">
-							{{ bracelet.description }} 
-						</p>
-						<div class="list-goods-show clearfix">
-							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-						</div>
-						<div class=" list-goods-info f16 clearfix">
-                            <span class="list-goods-price fl">￥{{ bracelet.goods_price }}</span>
-							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
-						</div>
-					</div>
-
-					{% endfor %} 
-
-				</div>
-			</div>{# 手链结束 #}
-
-			<div class="mainbody-typebox">
-				<div class="mainbody-nav clearfix">
-					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-torque-icon"></span>项链</h2>
-					<ul class="mainbody-nav-ul f16">
-						<li>青春洋溢</li>
-						<li class="mainbody-nav-current">富丽典雅</li>
-						<li>自然亲切</li>
-						<li>时尚潮流</li>
-						<span class="nav-current"><em></em></span>
-					</ul>
-				</div>
-				<div class="mainbody-list clearfix">
-
-					{% for necklace in necklace_list %}
-
-					<div class="list-goodsbox fl">
-						<div class="list-picbox">
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
-							<div class="list-goods-name f14">
-                                <span class="fl">{{ necklace.goods_name }}</span>
-								<em class="fr"></em>
-							</div>
-						</div>
-						<p class="list-goods-describe f12">
-                            {{ necklace.description }}
-						</p>
-						<div class="list-goods-show clearfix">
-							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-						</div>
-						<div class=" list-goods-info f16 clearfix">
-                            <span class="list-goods-price fl">￥{{ necklace.goods_price }}</span>
-							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
-						</div>
-					</div>
-
-					{% endfor %} 
-
-				</div>
-			</div>{# 项链结束 #}
-
-			<div class="mainbody-typebox">
-				<div class="mainbody-nav clearfix">
-					<h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-brooch-icon"></span>胸针</h2>
-					<ul class="mainbody-nav-ul f16">
-						<li>青春洋溢</li>
-						<li class="mainbody-nav-current">富丽典雅</li>
-						<li>自然亲切</li>
-						<li>时尚潮流</li>
-						<span class="nav-current"><em></em></span>
-					</ul>
-				</div>
-				<div class="mainbody-list clearfix">
-
-					{% for brooch in brooch_list %}
-
-					<div class="list-goodsbox fl">
-						<div class="list-picbox">
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
-							<div class="list-goods-name f14">
-                                <span class="fl">{{ brooch.goods_name }}</span>
-								<em class="fr"></em>
-							</div>
-						</div>
-						<p class="list-goods-describe f12">
-                            {{ brooch.description }}
-						</p>
-						<div class="list-goods-show clearfix">
-							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
-						</div>
-						<div class=" list-goods-info f16 clearfix">
-                            <span class="list-goods-price fl">￥{{ brooch.goods_price }}</span>
-							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
-						</div>
-					</div>
-
-					{% endfor %} 
-
-				</div>
-			</div>{# 胸针结束 #}
 		</div>
 	</div>
 {% endblock %}
