@@ -48,6 +48,13 @@
 > ####  Engineer: Minchiuan Gao
 * **static\_file\_server**
 >> _define static file server information_
+
+>>> * toy\_server\_path
+>>> * toy\_server\_upload
+>>> * toy\_server\_download
+>>> * toy\_server\_ip
+
+
 * **identity**
 >>> define the tags and other global information
 
@@ -118,3 +125,4 @@
 
 * **Editor**
 >> _the function of edit work, show workm etc_
+

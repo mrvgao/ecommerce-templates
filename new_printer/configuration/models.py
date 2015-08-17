@@ -20,8 +20,6 @@ class Designer_User(models.Model):
     marked_count = models.IntegerField(default=0, blank=True)
     #绑定支付宝账号
     alipay = models.CharField(max_length=50)
-    #头像
-    img = models.ImageField(blank=True)
     
 
 class Vender_User(models.Model):
@@ -33,12 +31,12 @@ class Vender_User(models.Model):
     #手机号
     phone = models.CharField(max_length=15)
     #用户名
-    vendername = models.CharField(max_length=30, default=None, blank=True) 
+    vendername = models.CharField(max_length=30, default=None, blank=True)
     #头像
     img = models.ImageField(blank=True)
     #建立Vender,Designer关联表
     designer = models.ManyToManyField(Designer_User,through='Vender_Designer', blank=True)
-    
+
 
 class Vender_Designer(models.Model):
     '''
@@ -134,15 +132,15 @@ class Vender_Goods(models.Model):
     #是否收藏
     is_collected = models.BooleanField(default=False)
     #收藏时间
-    collected_time = models.DateTimeField(blank=True)
+    collected_time = models.DateTimeField(null=True, blank=True)
     #是否下载
     is_download = models.BooleanField(default=False)
     #下载时间
-    download_time = models.DateTimeField(blank=True)
+    download_time = models.DateTimeField(null=True, blank=True)
     #是否加入购物车
     is_buy = models.BooleanField(default=False)
     #加入购物车时间
-    buy_time = models.DateTimeField(blank=True)
+    buy_time = models.DateTimeField(null=True, blank=True)
 
 
 class Bills(models.Model):

@@ -18,8 +18,6 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-
-
     #url(r'^$', include('shop.urls', namespace='index')),
     #url(r'^shop/', include('shop.urls', namespace='shop')),
     #url(r'^social/', include('social.urls', namespace='social')),
@@ -30,10 +28,12 @@ urlpatterns = [
 
 
     #url(r'^shop/', include('shop.urls', namespace='shop')),
-    # url(r'^social/', include('social.urls', namespace='social')),
-    # url(r'^adminer/', include('adminer.urls', namespace='adminer')),
-    # url(r'^account/', include('account.urls', namespace='account')),
-    # url(r'^designer/', include('designer.urls', namespace='designer')),
+
+    url(r'^account/', include('account.urls', namespace='account')),
+    url(r'^payment/', include('payment.urls', namespace='payment')),
+    url(r'^$', include('shop.urls', namespace='index')),
+    url(r'^shop/', include('shop.urls', namespace='shop')),
+
     # url(r'^payment/', include('payment.urls', namespace='payment')),
 
 ]
