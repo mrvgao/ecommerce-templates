@@ -7,7 +7,7 @@ from utility.common_handler import CommonHandler
 class GoodsHandler(object):
 
     def __init__(self):
-        common_handler = CommonHandler()
+        self.common_handler = CommonHandler()
 
     def get_goods_by_id(self,goods_id):
         try:
