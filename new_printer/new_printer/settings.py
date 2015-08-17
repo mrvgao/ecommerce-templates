@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'social',
     'account',
     'payment',
+    'utility',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -6,7 +6,8 @@ from utility.common_handler import CommonHandler
 
 class GoodsHandler(object):
 
-    common_handler = CommonHandler()
+    def __init__(self):
+        common_handler = CommonHandler()
 
     def get_goods_by_id(self,goods_id):
         try:
@@ -17,19 +18,19 @@ class GoodsHandler(object):
 
 
     def get_all_goods_by_style(self,goods_style):
-        goods_style = common_handler.utf_to_unicode(goods_style)
+        goods_style = self.common_handler.utf_to_unicode(goods_style)
         goods_list = Goods.objects.filter(style = goods_style)
         return goods_list
 
 
     def get_goods_by_style(self,goods_list,goods_style):
-        goods_style = common_handler.utf_to_unicode(goods_style)
+        goods_style = self.common_handler.utf_to_unicode(goods_style)
         style_goods_list = goods_list.filter(style = goods_style)
         return style_goods_list
 
 
     def get_all_goods_by_tags(self,goods_tags):
-        goods_tags = GoodsHandler.common_handler.utf_to_unicode(goods_tags)
+        goods_tags = self.common_handler.utf_to_unicode(goods_tags)
         goods_list = Goods.objects.filter(tags = goods_tags)
         return goods_list
 
