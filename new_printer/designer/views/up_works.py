@@ -148,6 +148,7 @@ def unexecute_edit(request):
                     'name':good.goods_name
  #                   ''
                 }
+
 #未处理页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
 def edit_submit(request):
     #file_id = request.POST['id']
@@ -259,9 +260,9 @@ def has_published(request):
                     'download_count':good.download_count
                     }
         #count = 1
-        '''for vender in venders:
+        for vender in venders:
                 vender = Vender_User.objects.get(id=vender)
-                this_good[count]=vender.img'''
+                this_good[count]=vender.img
         goods_all.append(this_good)               
     conf = {'goods':goods_all
             }
