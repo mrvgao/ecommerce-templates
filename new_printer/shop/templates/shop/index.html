@@ -22,8 +22,9 @@
 				<div class="mainbody-nav clearfix">
                     <h2 class="mianbody-nav-title f18"><span class="mianbody-nav-title-icon mianbody-nav-{{type.type_class}}-icon"></span>{{ type.type_name }}</h2>
 					<ul class="mainbody-nav-ul f16">
+						<li class="mainbody-nav-current">全部</li>
 						<li>青春洋溢</li>
-						<li class="mainbody-nav-current">富丽典雅</li>
+						<li>富丽典雅</li>
 						<li>自然亲切</li>
 						<li>时尚潮流</li>
 						<span class="nav-current"><em></em></span>
@@ -33,7 +34,7 @@
 					{% for goods in type.goods_list %}
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
-							<img src="{{ goods.goods.preview_1 }}" alt="商品图片"/>
+							<a href="#"><img src="{{ goods.goods.preview_1 }}" alt="商品图片"/></a>
 							<div class="list-goods-name f14">
                                 <span class="fl">{{goods.goods.goods_name}}</span>
 								<em class="fr"></em>
