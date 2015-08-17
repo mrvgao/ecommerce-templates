@@ -17,12 +17,11 @@ $(function() {//导航切换效果
 					_this.addClass('mainbody-nav-current');
 					thisShowlist.empty();
 					$.post('/shop/filter-type',{ 'type': thisType,'style': thisStyle},function(data){
-						var list = JSON.parse(data);
-						var listStr;
-						console.log(list);
+						var list = JSON.parse(data).goods_list;
+						var listStr='';
 						for(var i = 0,len=list.length;i<len;i++){
 
-							//listStr += '<div class="list-goodsbox fl"><div class="list-picbox"><a href="#"><img src="'+list[i].preview_1 +'"alt="商品图片"/></a><div class="list-goods-name f14"><span class="fl">'+list[i].name+'</span><em class="fr"></em></div></div><p class="list-goods-describe f12">'+list[i].discription +'</p><div class="list-goods-show clearfix"><img src="'+list[i].preview_1+'" alt="商品图片" class="fl"/><img src="'+list[i].preview_2+'" alt="商品图片" class="fl"/><img src="'+list[i].preview_3+' " alt="商品图片" class="fl"/></div><div class=" list-goods-info f16 clearfix"><span class="list-goods-price fl">￥'+list[i].price+'</span><span class="list-goods-author fr">'+list[i].designer_name+'</span></div></div>'
+							listStr += '<div class="list-goodsbox fl"><div class="list-picbox"><a href="#"><img src="'+list[i].preview_1 +'"alt="商品图片"/></a><div class="list-goods-name f14"><span class="fl">'+list[i].name+'</span><em class="fr"></em></div></div><p class="list-goods-describe f12">'+list[i].discription +'</p><div class="list-goods-show clearfix"><img src="'+list[i].preview_1+'" alt="商品图片" class="fl"/><img src="'+list[i].preview_2+'" alt="商品图片" class="fl"/><img src="'+list[i].preview_3+' " alt="商品图片" class="fl"/></div><div class=" list-goods-info f16 clearfix"><span class="list-goods-price fl">￥'+list[i].price+'</span><span class="list-goods-author fr">'+list[i].designer_name+'</span></div></div>'
 						}
 						thisShowlist.append(listStr);
 				});
