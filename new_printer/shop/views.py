@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
 import json
+import pdb
 
 from conf import website
 from configuration import website as admin_website
@@ -43,6 +44,7 @@ def index(request):
 
 def filter_type(request):
 
+    # pdb.set_trace()
     style = request.POST['style'].strip()
     tag = request.POST['type'].strip()
 
@@ -51,18 +53,19 @@ def filter_type(request):
 
     goods_list = []
     for goods in tag_style_list:
-        designer_name = Designer_User.objects.filter(id = goods.designer_id).designername
+        designer_name = Designer_User.objects.get(id = goods.designer_id).designername
         # temp = (goods.goods_name,goods.description,goods.preview_1,goods.preview_2,goods.preview_3,goods.goods_price,designer_name)
         temp = {
             'name':goods.goods_name,'description':goods.description,
-            'preview_1':goods.preview_1,'preview_2':goods.preview_2,'preview_3':goods.preview_3,
-            'price':goods.price,'designer_name':designer_name,
+            'preview_1':str(goods.preview_1),'preview_2':str(goods.preview_2),'preview_3':str(goods.preview_3),
+            'price':goods.goods_price,'designer_name':designer_name,
         }
         goods_list.append(temp)
 
     context = {
         'goods_list':goods_list,
     }
+
     return HttpResponse(json.dumps(context))
 
 def modify_goods_list(goods_list):
