@@ -28,6 +28,12 @@ class GoodsHandler(object):
         return style_goods_list
 
 
+    def get_all_goods_by_tags(self,goods_tags):
+        goods_tags = GoodsHandler.common_handler.utf_to_unicode(goods_tags)
+        goods_list = Goods.objects.filter(tags = goods_tags)
+        return goods_list
+
+
     def get_goods_by_designer(self,designer_id):
         goods_list = Goods.objects.filter(designer_id = designer_id)
         return goods_list

@@ -29,32 +29,31 @@
 					</ul>
 				</div>
 				<div class="mainbody-list clearfix">
-					{# {% for good in goods %} #}
+					{% for ring in ring_list %}
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+                                <span class="fl">{{ring.goods_name}}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
 						<p class="list-goods-describe f12">
-							{# {{ good.describe }} #}
-							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
-						</p>
+                        {{ ring.discription}}
+                        </p>
 						<div class="list-goods-show clearfix">
 							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+                            <span class="list-goods-price fl">￥{{ring.goods_price}}</span>
 							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
 						</div>
 					</div>
 
 
-					{# {% endfor %} #}
+					{% endfor %} 
 				</div>
 			</div>{# 戒指结束 #}
 
@@ -72,19 +71,18 @@
 				</div>
 				<div class="mainbody-list clearfix">
 
-					{# {% for good in goods %} #}
+					{% for pendant in pendant_list %}
 
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+                                <span class="fl">{{pendant.goods_name}}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
 						<p class="list-goods-describe f12">
-							{# {{ good.describe }} #}
-							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+							{{ pendant.description }} 
 						</p>
 						<div class="list-goods-show clearfix">
 							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
@@ -92,12 +90,12 @@
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+                            <span class="list-goods-price fl">￥{{pendant.goods_price}}</span>
 							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
 						</div>
 					</div>
 
-					{# {% endfor %} #}
+					{% endfor %} 
 
 				</div>
 			</div>{# 吊坠结束 #}
@@ -115,19 +113,18 @@
 				</div>
 				<div class="mainbody-list clearfix">
 
-					{# {% for good in goods %} #}
+					{% for eardrop in eardrop_list %} 
 
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+                                <span class="fl">{{eardrop.goods_name}}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
 						<p class="list-goods-describe f12">
-							{# {{ good.describe }} #}
-							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+							{{ eardrop.description }} 
 						</p>
 						<div class="list-goods-show clearfix">
 							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
@@ -135,12 +132,12 @@
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+                            <span class="list-goods-price fl">￥{{ eardrop.goods_price }}</span>
 							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
 						</div>
 					</div>
 
-					{# {% endfor %} #}
+					{% endfor %} 
 
 				</div>
 			</div>{# 耳坠结束 #}
@@ -158,19 +155,18 @@
 				</div>
 				<div class="mainbody-list clearfix">
 
-					{# {% for good in goods %} #}
+                    {% for bracelet in bracelet_list %}
 
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+                                <span class="fl">{{ bracelet.goods_name }}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
 						<p class="list-goods-describe f12">
-							{# {{ good.describe }} #}
-							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+							{{ bracelet.description }} 
 						</p>
 						<div class="list-goods-show clearfix">
 							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
@@ -178,12 +174,12 @@
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+                            <span class="list-goods-price fl">￥{{ bracelet.goods_price }}</span>
 							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
 						</div>
 					</div>
 
-					{# {% endfor %} #}
+					{% endfor %} 
 
 				</div>
 			</div>{# 手链结束 #}
@@ -201,19 +197,18 @@
 				</div>
 				<div class="mainbody-list clearfix">
 
-					{# {% for good in goods %} #}
+					{% for necklace in necklace_list %}
 
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+                                <span class="fl">{{ necklace.goods_name }}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
 						<p class="list-goods-describe f12">
-							{# {{ good.describe }} #}
-							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+                            {{ necklace.description }}
 						</p>
 						<div class="list-goods-show clearfix">
 							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
@@ -221,12 +216,12 @@
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+                            <span class="list-goods-price fl">￥{{ necklace.goods_price }}</span>
 							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
 						</div>
 					</div>
 
-					{# {% endfor %} #}
+					{% endfor %} 
 
 				</div>
 			</div>{# 项链结束 #}
@@ -244,19 +239,18 @@
 				</div>
 				<div class="mainbody-list clearfix">
 
-					{# {% for good in goods %} #}
+					{% for brooch in brooch_list %}
 
 					<div class="list-goodsbox fl">
 						<div class="list-picbox">
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-								<span class="fl">{# {{ good.name }} #}蓝色之恋</span>
+                                <span class="fl">{{ brooch.goods_name }}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
 						<p class="list-goods-describe f12">
-							{# {{ good.describe }} #}
-							全镂空3D打印，线与面构成极具现代感的象头设计，灵动有型。
+                            {{ brooch.description }}
 						</p>
 						<div class="list-goods-show clearfix">
 							<img src="{% static 'images/goods.jpg' %} " alt="商品图片" class="fl"/>
@@ -264,12 +258,12 @@
 							<img src="{% static 'images/goods.jpg' %}" alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-							<span class="list-goods-price fl">￥{# {{ good.price }} #}25</span>
+                            <span class="list-goods-price fl">￥{{ brooch.goods_price }}</span>
 							<span class="list-goods-author fr">{# {{ good.author }} #}xxx</span>
 						</div>
 					</div>
 
-					{# {% endfor %} #}
+					{% endfor %} 
 
 				</div>
 			</div>{# 胸针结束 #}
