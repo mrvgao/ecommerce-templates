@@ -35,26 +35,24 @@
 						<div class="list-picbox">
 							<img src="{{ goods.goods.preview_1 }}" alt="商品图片"/>
 							<div class="list-goods-name f14">
-                                <span class="fl">{{goods.goods.goods_name}}</span>
+                                <span class="fl">{{ goods.goods.goods_name }}</span>
 								<em class="fr"></em>
 							</div>
 						</div>
-						<p class="list-goods-describe f12">
-                        {{ goods.goods.discription}}
-                        </p>
+						<p class="list-goods-describe f12">{{ goods.goods.discription}}</p>
 						<div class="list-goods-show clearfix">
 							<img src="{{ goods.goods.preview_1 }} " alt="商品图片" class="fl"/>
 							<img src="{{ goods.goods.preview_2 }} " alt="商品图片" class="fl"/>
 							<img src="{{ goods.goods.preview_3 }} " alt="商品图片" class="fl"/>
 						</div>
 						<div class=" list-goods-info f16 clearfix">
-                            <span class="list-goods-price fl">￥{{goods.goods.goods_price}}</span>
+                            <span class="list-goods-price fl">￥{{ goods.goods.goods_price }}</span>
 							<span class="list-goods-author fr">{{ goods.designer }}</span>
 						</div>
 					</div>
 					{% endfor %} 
 				</div>
-			</div>{# 戒指结束 #}
+			</div>
             {% endfor %}
 		</div>
 	</div>
