@@ -1,3 +1,4 @@
+# coding=utf-8
 class IndexGoods(object):
     def __init__(self):
         self.goods = None
