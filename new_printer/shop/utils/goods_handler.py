@@ -1,4 +1,4 @@
-# coding=utg-8
+# coding=utf-8
 from django.core.exceptions import ObjectDoesNotExist
 
 from configuration.models import Goods
