@@ -2,6 +2,7 @@
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.http import HttpResponse
+import json
 
 from conf import website
 from configuration import website as admin_website
@@ -41,8 +42,21 @@ def index(request):
 
 
 def filter_type(request):
+
+    style = request.POST['style'].strip()
+    tag = request.POST['type'].strip()
+
+    tag_list = goods_handler.get_all_goods_by_tags(tag)
+    tag_style_list = goods_handler.get_goods_by_style(tag_list,style)
+
+    goods_list = []
+    for goods in tag_style_list:
+        designer_name = Designer_User.objects.filter(id = goods.designer_id).designername
+        temp = (goods.goods_name,goods.description,goods.preview_1,goods.preview_2,goods.preview_3,goods.goods_price,designer_name)
+        goods_list.append(temp)
+
     context = {
-        'state':'SUCCESS',
+        'goods_list':goods_list,
     }
     return HttpResponse(json.dumps(context))
 
