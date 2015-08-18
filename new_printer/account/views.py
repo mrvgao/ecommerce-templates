@@ -13,7 +13,7 @@ import json
 import urllib, urllib2
 import re
 import time
-
+from django import forms
 
 # Create your views here.
 
@@ -321,13 +321,13 @@ class ImgForm(forms.Form):
     img_name = forms.CharField(max_length=100)
     img_up = forms.FileField()
 
-
 @login_required
 def u_img(request):
     '''
     description:操作头像
     params:
     return:
+    '''
     '''
     if request.method == 'POST':
         conf = {}
@@ -350,3 +350,4 @@ def u_img(request):
             else:
                 conf = {'status':'FAILURE'}
             return HttpResponse(json.dumps(conf))
+        '''
