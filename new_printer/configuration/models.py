@@ -20,7 +20,7 @@ class Designer_User(models.Model):
     marked_count = models.IntegerField(default=0, blank=True)
     #绑定支付宝账号
     alipay = models.CharField(max_length=50)
-    
+
 
 class Vender_User(models.Model):
     '''
@@ -33,7 +33,7 @@ class Vender_User(models.Model):
     #用户名
     vendername = models.CharField(max_length=30, default=None, blank=True)
     #头像
-    img = models.ImageField(blank=True)
+    img = models.CharField(max_length=255, default='', blank=True)
     #建立Vender,Designer关联表
     designer = models.ManyToManyField(Designer_User,through='Vender_Designer', blank=True)
 
@@ -65,17 +65,25 @@ class Goods_Upload(models.Model):
     #类型
     style = models.CharField(max_length=255, default='', blank=True)
     #stl文件
-    stl_path = models.FileField(blank=True)
+    stl_path = models.CharField(max_length=255)
     #预览图
-    preview_1 = models.ImageField()
-    preview_2 = models.ImageField()
-    preview_3 = models.ImageField()
+    preview_1 = models.CharField(max_length=255)
+    preview_2 = models.CharField(max_length=255)
+    preview_3 = models.CharField(max_length=255)
     #zip
     zip_path = models.FileField(blank=True)
     #Jcad
     jcad_path = models.FileField(blank=True)
     #上传时间
     upload_time = models.DateTimeField(auto_now_add=True)
+    #修改时间  新加
+    modify_time = models.DateTimeField(auto_now_add=True)
+    #大小 新加
+    file_size = models.CharField(max_length=5,default = 0,blank=True)
+    #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
+    good_state = models.IntegerField()
+    #没有通过审核的原因 新加
+    not_passed = models.CharField(max_length=255) 
 
 
 class Goods(models.Model):
@@ -101,17 +109,19 @@ class Goods(models.Model):
     #stl文件
     stl_path = models.FileField(blank=True)
     #预览图
-    preview_1 = models.ImageField()
-    preview_2 = models.ImageField()
-    preview_3 = models.ImageField()
+    preview_1 = models.CharField(max_length=255, default='', blank=True)
+    preview_2 = models.CharField(max_length=255, default='', blank=True)
+    preview_3 = models.CharField(max_length=255, default='', blank=True)
     #zip
     zip_path = models.FileField(blank=True)
     #Jcad
     jcad_path = models.FileField(blank=True)
-    #审批通过时间
+    #审批通过时间 
     approval_time = models.DateTimeField(auto_now_add=True)
     #关联 收藏\下载\购买
     vender = models.ManyToManyField(Vender_User,through='Vender_Goods', blank=True)
+    #大小
+    file_size = models.CharField(max_length=6,default = 0,blank=True)
 
 class Vender_Goods(models.Model):
     '''

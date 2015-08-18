@@ -12,6 +12,20 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+# from easy_thumbnails.conf import Settings as thumbnail_settings
+ip = os.popen("cat /etc/network/interfaces | grep address")
+l = []
+in_test_server = True
+
+
+for i in ip.readlines():
+    l.append(i)
+    print i
+for i in l:
+    if '121.43.234.208' in i:
+
+        in_test_server = False
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,12 +58,13 @@ INSTALLED_APPS = (
     'social',
     'account',
     'payment',
+    'utility',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -81,17 +96,28 @@ WSGI_APPLICATION = 'new_printer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jkbrother',
-        'USER': 'root',
-        'PASSWORD': 'passw0rd',
-        'HOST': '120.26.38.125',
-        'PORT': '3306',
-    }
-}
-
+if not in_test_server:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'jkbrother',
+            'USER': 'root',
+            'PASSWORD': 'passw0rd',
+            'HOST': '120.26.38.125',
+            'PORT': '3306',
+            }
+        }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'jkbrother',
+            'USER': 'root',
+            'HOST': '192.168.1.101',
+            'PASSWORD': '1',
+            'PORT': '3306',
+            }
+        }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
