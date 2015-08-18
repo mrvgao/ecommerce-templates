@@ -1,3 +1,4 @@
+# coding=utf-8
 from configuration.models import Goods
 from configuration.models import Vender_Goods
 

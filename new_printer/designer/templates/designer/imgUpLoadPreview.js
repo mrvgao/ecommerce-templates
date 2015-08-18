@@ -1,13 +1,15 @@
-//说明：图片上传预览插件  
-//上传的时候可以生成固定宽高范围内的等比例缩放图  
-  
-//参数设置：  
-//width                     存放图片固定大小容器的宽  
-//height                    存放图片固定大小容器的高  
-//imgDiv                    页面DIV的JQuery的id  
-//maxSize                   图片大小最大限制(K)  
-//imgType                   数组后缀名  
-//**********************图片上传预览插件*************************  
+/*  图片上传预览插件  
+*
+*   上传的时候可以生成固定宽高范围内的等比例缩放图 
+*   参数设置：  
+*   width                     存放图片固定大小容器的宽  
+*   height                    存放图片固定大小容器的高  
+*   imgDiv                    页面DIV的JQuery的id  
+*   maxSize                   图片大小最大限制(K)  
+*   imgType                   数组后缀名  
+*/
+
+
 (function($) {  
     jQuery.fn.extend({  
         uploadPreview: function(opts) {  

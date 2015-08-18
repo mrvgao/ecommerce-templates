@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*
-*  @名称：base.css
+*  @名称：base.css v0.1.0
 *  @功能：1、重置浏览器默认样式
 * 		 2、设置通用类
 */
@@ -115,6 +115,9 @@ a:focus,*:focus {
 }
 .no_unl {
 	text-decoration:none;
+}
+.ww-bw {
+	word-wrap:break-word;
 }
 .t-el {
 	overflow:hidden;
@@ -467,11 +470,10 @@ a:focus,*:focus {
 	right:0px;
 	top:-2px;
 	background:#cc3333;
-	transition:all .4s ease;
 	-webkit-transition:all .4s ease;
-	-moz-transition:all .4s ease;
-	-ms-transition:all .4s ease;
-	-o-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
 }
 .hoverTline:after {
 	content:'';
@@ -481,11 +483,10 @@ a:focus,*:focus {
 	left:0;
 	bottom:-2px;
 	background:#cc3333;
-	transition:all .4s ease;
 	-webkit-transition:all .4s ease;
-	-moz-transition:all .4s ease;
-	-ms-transition:all .4s ease;
-	-o-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
 	
 }
 .hoverLline:before {
@@ -496,11 +497,10 @@ a:focus,*:focus {
 	bottom:0;
 	right:-2px;
 	background:#cc3333;
-	transition:all .4s ease;
 	-webkit-transition:all .4s ease;
-	-moz-transition:all .4s ease;
-	-ms-transition:all .4s ease;
-	-o-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
 }
 .hoverLline:after {
 	content:'';
@@ -510,11 +510,10 @@ a:focus,*:focus {
 	top:0;
 	left:-2px;
 	background:#cc3333;
-	transition:all .4s ease;
 	-webkit-transition:all .4s ease;
-	-moz-transition:all .4s ease;
-	-ms-transition:all .4s ease;
-	-o-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
 }
 .hoverTline:hover .hoverLline:after, .hoverTline:hover .hoverLline:before {
 	height:100%;
@@ -523,4 +522,42 @@ a:focus,*:focus {
 .hoverTline:hover::after, .hoverTline:hover::before {
 	width:100%;
 	padding-left:2px;
+}
+
+/* 按钮 */
+.btn {
+  	display: inline-block;
+  	padding: 4px 12px;
+  	line-height: 20px;
+  	color: #333333;
+  	text-align: center;
+  	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  	vertical-align: middle;
+  	cursor: pointer;
+  	background-color: #f5f5f5;
+    background-image: -webkit-linear-gradient(#ffffff, #e6e6e6);
+    background-image: -o-linear-gradient(#ffffff, #e6e6e6);
+    background-image: linear-gradient(#ffffff, #e6e6e6);
+  	background-repeat: repeat-x;
+  	border: 1px solid #cccccc;
+  	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  	border-bottom-color: #b3b3b3;
+    border-radius: 4px;
+  	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn:hover {
+  	color: #333333;
+  	background-position: 0 -15px;
+  	background-color: #e6e6e6;
+  	-webkit-transition: background-position 0.1s linear;
+     	-moz-transition: background-position 0.1s linear;
+       		-o-transition: background-position 0.1s linear;
+          		transition: background-position 0.1s linear;
+}
+.btn:active {
+  	background-image: none;
+  	outline: 0;
 }

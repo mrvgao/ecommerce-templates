@@ -104,9 +104,6 @@ if not in_test_server:
             'USER': 'root',
             'PASSWORD': 'passw0rd',
             'HOST': '120.26.38.125',
-            #'HOST':'192.168.1.132',
-            #'PASSWORD':'root',
-
             'PORT': '3306',
             }
         }

@@ -20,7 +20,7 @@ class Designer_User(models.Model):
     marked_count = models.IntegerField(default=0, blank=True)
     #绑定支付宝账号
     alipay = models.CharField(max_length=50)
-    
+
 
 class Vender_User(models.Model):
     '''
@@ -33,7 +33,7 @@ class Vender_User(models.Model):
     #用户名
     vendername = models.CharField(max_length=30, default=None, blank=True)
     #头像
-    img = models.ImageField(blank=True)
+    img = models.CharField(max_length=255, default='', blank=True)
     #建立Vender,Designer关联表
     designer = models.ManyToManyField(Designer_User,through='Vender_Designer', blank=True)
 
@@ -109,9 +109,9 @@ class Goods(models.Model):
     #stl文件
     stl_path = models.FileField(blank=True)
     #预览图
-    preview_1 = models.ImageField()
-    preview_2 = models.ImageField()
-    preview_3 = models.ImageField()
+    preview_1 = models.CharField(max_length=255, default='', blank=True)
+    preview_2 = models.CharField(max_length=255, default='', blank=True)
+    preview_3 = models.CharField(max_length=255, default='', blank=True)
     #zip
     zip_path = models.FileField(blank=True)
     #Jcad

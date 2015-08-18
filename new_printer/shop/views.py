@@ -44,7 +44,6 @@ def index(request):
 
 def filter_type(request):
 
-    # pdb.set_trace()
     style = request.POST['style'].strip()
     tag = request.POST['type'].strip()
 
@@ -54,7 +53,6 @@ def filter_type(request):
     goods_list = []
     for goods in tag_style_list:
         designer_name = Designer_User.objects.get(id = goods.designer_id).designername
-        # temp = (goods.goods_name,goods.description,goods.preview_1,goods.preview_2,goods.preview_3,goods.goods_price,designer_name)
         temp = {
             'name':goods.goods_name,'description':goods.description,
             'preview_1':str(goods.preview_1),'preview_2':str(goods.preview_2),'preview_3':str(goods.preview_3),
