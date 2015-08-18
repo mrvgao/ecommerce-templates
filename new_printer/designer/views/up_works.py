@@ -77,7 +77,6 @@ def works_save(request):
         needle_stl = request.FILES.getlist('6')
         file_hased = []
         #ids = []
-        #pdb.set_trace()
         count = 0
         if jwary_stl:
             existed = stls_save(jwary_stl)
@@ -261,8 +260,8 @@ def has_published(request):
                     }
         #count = 1
         for vender in venders:
-                vender = Vender_User.objects.get(id=vender)
-                this_good[count]=vender.img
+            vender = Vender_User.objects.get(id=vender)
+            this_good[count]=vender.img
         goods_all.append(this_good)               
     conf = {'goods':goods_all
             }

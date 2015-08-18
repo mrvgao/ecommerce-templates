@@ -77,13 +77,13 @@ class Goods_Upload(models.Model):
     #上传时间
     upload_time = models.DateTimeField(auto_now_add=True)
     #修改时间  新加
-    modify_time = models.DateTimeField(auto_now_add=True)
+    modify_time = models.DateTimeField(auto_now_add=True,null=True)
     #大小 新加
     file_size = models.CharField(max_length=5,default = 0,blank=True)
     #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
-    good_state = models.IntegerField()
+    good_state = models.IntegerField(default=0)
     #没有通过审核的原因 新加
-    not_passed = models.CharField(max_length=255) 
+    not_passed = models.CharField(max_length=255,null=True) 
 
 
 class Goods(models.Model):
@@ -122,6 +122,22 @@ class Goods(models.Model):
     vender = models.ManyToManyField(Vender_User,through='Vender_Goods', blank=True)
     #大小
     file_size = models.CharField(max_length=6,default = 0,blank=True)
+
+#设计师个人主页访问记录表
+class Design_record(models.Model):
+    designer = models.ForeignKey(Designer_User)
+    d_visit_time = models.DateTimeField(auto_now_add=True)
+    day_visits = models.IntegerField(default=0)
+    week_visits = models.IntegerField(default=0)
+    month_visits = models.IntegerField(default=0)
+
+#作品访问记录表
+class Good_record(models.Model):
+    good = models.ForeignKey(Goods)
+    g_visit_time = models.DateTimeField(auto_now_add=True)
+    day_visit = models.IntegerField(default=0)
+    week_visit = models.IntegerField(default=0)
+    month_visit = models.IntegerField(default=0)
 
 class Vender_Goods(models.Model):
     '''

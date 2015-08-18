@@ -40,5 +40,17 @@ urlpatterns = patterns('',
 	#显示我的动态的页面 my_state
 	url(r'^my_state$',views.my_state,name = 'my_state'),
 	#download_work
-	url(r'^download_work$',views.download_work,name = 'download_work'),
+	#url(r'^download_work$',views.download_work,name = 'download_work'),
+	#design_week_visit
+	url(r'^design_week_visit$',views.design_week_visit,name = 'design_week_visit'),
+	#design_month_visit
+	url(r'^design_month_visit$',views.design_month_visit,name = 'design_month_visit'),
+	#good_week_visit
+	url(r'^good_week_visit$',views.good_week_visit,name = 'good_week_visit'),
+	#good_month_visit
+	url(r'^good_month_visit$',views.good_month_visit,name = 'good_month_visit'),
+	#unpublish_eardrop_list
+	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
+	#publish_eardrop_list
+	url(r'^publish_eardrop_list$',views.publish_eardrop_list,name = 'publish_eardrop_list'),
 )
