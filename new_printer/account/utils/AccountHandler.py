@@ -142,4 +142,35 @@ class UserManager():
             return True
         else:
             return False
+    
 
+    def file_save(self, f_content, f_name, f_type):
+        '''
+        description:保存头像图片文件
+        params:
+        reutrn:
+        '''
+        chunks = ""
+        for chunk in model.chunks():
+            chunks = chunks + chunk
+            boundary = '----------%s' % hex(int(time.time() * 1000))
+            data = []
+            data.append('--%s' % boundary)
+            data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
+            data.append(f_type)
+            data.append('--%s' % boundary)
+            data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(f_name)))
+            data.append('Content-Type: %s\r\n' % 'image/png')
+            data.append(chunks)
+            data.append('--%s--\r\n' % boundary)
+            http_url = 'http://192.168.1.101:8888/file/upload'
+            http_body = '\r\n'.join(data)
+            req = urllib2.Request(http_url, data=http_body)
+            req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
+            req.add_header('User-Agent','Mozilla/5.0')
+            req.add_header('Referer','http://192.168.1.101:8888')
+            resp = urllib2.urlopen(req, timeout=2545)
+            qrcont=resp.read()
+            md = json.loads(qrcont)
+            md5 = md[name]
+            return md5

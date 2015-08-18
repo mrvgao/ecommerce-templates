@@ -4,10 +4,11 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from django.views.decorators.csrf import csrf_exempt
 
 from configuration.models import Bills, Goods, Goods_Bills, Vender_Goods
-from utility.BillsHandler import BillsManager
-from utility.Payment import Alipay, Tenpay
+from utils.BillsHandler import BillsManager
+from utils import alipay, tenpay
 
 import json
 
@@ -158,9 +159,7 @@ def pay(request):
     return:
     '''
     if request.method == 'GET':
-        ali = Alipay()
-        ten = Tenpay()
-        pay_way = 'alipay'
+        pay_way = 'tenpay'
         bills_id = '10'
         bills = Bills.objects.filter(id=bills_id)
         for b in bills:
@@ -169,10 +168,105 @@ def pay(request):
             body = b.bill_body
             total_fee = b.total_fee
         if pay_way == 'alipay':
-            url = ali.create_direct_pay_by_user(bill, subject, body, total_fee)
+            url = alipay.create_direct_pay_by_user(bill, subject, body, total_fee)
         elif pay_way == 'tenpay':
-            url = ten.create_direct_pay_by_user(bill, subject, body, total_fee)
+            ip = '123.158.36.208'
+            url = tenpay.create_direct_tenpay_by_user(bill, subject, body, total_fee, ip)
+            pass
         else:
             return HttpResponse('please choose a way to pay')
         return HttpResponse(json.dumps({'state': url}))
-        
+ 
+
+def ali_return_url(request):
+    '''
+    description:alipay 同步通知
+    params:
+    return:
+    '''
+    if ali_notify_verify(request.GET):
+        tn = request.GET.get('out_trade_no')
+        trade_status = request.GET.get('trade_status')
+        if trade_status == 'TRADE_SUCCESS':
+            bills = Bills.objects.get(bill=tn)
+            bills.trade_status = trade_status
+            bills.bill_status = 'down'
+            bills.save()
+            goods_bills = Goods_Bills.objects.filter(bills=bills)
+            if len(goods_bills) == 0:
+                return HttpResponse('fail')
+            else:
+                return render(request, 'payment/index.html', goods_bills)
+        else:
+            return HttpResponse('fail')
+    return render(request, website.payment_error, None)
+
+
+@csrf_exempt
+def ali_notify_url(request):
+    '''
+    description:alipay异步通知
+    params:
+    return:
+    '''
+    if request.method == 'POST':
+        if ali_notify_verify(request.POST):
+            tn = request.POST.get('out_trade_no')
+            trade_status = request.POST.get('trade_status')
+            if trade_status == 'WAIT_SELLER_SEND_GOODS':
+                bills = Bills.objects.get(bill=tn)
+                bills.trade_status = trade_status
+                bills.bill_status = 'down'
+                bills.save()
+                return HttpResponse('success')
+            else:
+                return HttpResponse('success')
+    return HttpResponse('fail')
+
+
+def ten_return_url(request):
+    '''
+    description:tenpay同步通知
+    params:
+    return:
+    '''
+    if ten_notify_verify(request.GET):
+        tn = request.GET.get('out_trade_no')
+        trade_no = request.GET.get('transaction_id')
+        trade_status = request.GET.get('trade_state')
+        if trade_status == '0':
+            bills = Bills.objects.get(bill=tn)
+            bills.trade_status = trade_status
+            bills.bill_status = 'down'
+            bills.save()
+            goods_bills = Goods_Bills.objects.filter(bills=bills)
+            if len(goods_bills) == 0:
+                return HttpResponse('fail')
+            else:
+                return render(request, 'payment/index.html', goods_bills)
+
+@csrf_exempt
+def ten_notify_url(request):
+    '''
+    description:tenpay异步通知
+    params:
+    return:
+    '''
+    if request.method == 'POST':
+        if ten_notify_verify(request.POST):
+            tn = request.POST.get('out_trade_no')
+            trade_status = request.POST.get('trade_state')
+            if trade_status == '0':
+                bills = Bills.objects.get(bill=tn)
+                bills.trade_status = trade_status
+                bills.bill_status = 'down'
+                bills.save()
+                goods_bills = Goods_Bills.objects.filter(bills=bills)
+                if len(goods_bills) == 0:
+                    return HttpResponser('fail')
+                else:
+                    return render(request, 'payment/index.html', goods_bills)
+
+
+def index(request):
+    return render(request, 'payment/index.html')

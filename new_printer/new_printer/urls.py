@@ -18,24 +18,19 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^$', include('shop.urls', namespace='index')),
-    #url(r'^shop/', include('shop.urls', namespace='shop')),
     #url(r'^social/', include('social.urls', namespace='social')),
     url(r'^adminer/', include('adminer.urls', namespace='adminer')),
-    #url(r'^account/', include('account.urls', namespace='account')),
     url(r'^designer/', include('designer.urls', namespace='designer')),
-    #url(r'^payment/', include('payment.urls', namespace='payment')),
-
-
-    #url(r'^shop/', include('shop.urls', namespace='shop')),
-
     url(r'^account/', include('account.urls', namespace='account')),
     url(r'^payment/', include('payment.urls', namespace='payment')),
     url(r'^$', include('shop.urls', namespace='index')),
     url(r'^shop/', include('shop.urls', namespace='shop')),
 
+<<<<<<< HEAD
     url(r'^vc/', include('vender.urls', namespace='venderCenter')),
 
     # url(r'^payment/', include('payment.urls', namespace='payment')),
 
+=======
+>>>>>>> 426fff7874a5bd13f13907eed4bdabbce9a12c51
 ]
