@@ -76,11 +76,11 @@ def vender_center(request):
     return render(request, website.vender_center, context)
 
 
-def collect_designers(request):
-	return render(request,website.collect_designers)
+def designers_collection(request):
+	return render(request,website.designers_collection)
 
-def collect_works(request):
-	return render(request,website.collect_works)
+def works_collection(request):
+	return render(request,website.works_collection)
 
 # setup
 def set_account(request):
