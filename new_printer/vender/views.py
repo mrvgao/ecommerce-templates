@@ -103,15 +103,20 @@ def designers_collection(request):
             self.designer_img = img
             self.designer_mark = marked_number
 
+    def get_designer_list(vender_designer_list):
+        designer_list = []
+        for vender_designer in vender_designer_list:
+            designer = Designer_User.objects.get(id=vender_designer.designer_id)
+            designer_collection = DesignerCollection()
+            designer_collection.set_designer_collection(designer.id, designer.designername,designer.img,designer.marked_count)
+            designer_list.append(designer_collection)
+        return designer_list
+
     vender_id = 2
     vender = Vender_User.objects.get(id=vender_id)
+
     vender_designer_list  = Vender_Designer.objects.filter(vender_id=vender_id)
-    designer_list = []
-    for vender_designer in vender_designer_list:
-        designer = Designer_User.objects.get(id=vender_designer.designer_id)
-        designer_collection = DesignerCollection()
-        designer_collection.set_designer_collection(designer.id, designer.designername,designer.img,designer.marked_count)
-        designer_list.append(designer_collection)
+    designer_list = get_designer_list(vender_designer_list)
 
     context = {
         'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)),
@@ -119,7 +124,6 @@ def designers_collection(request):
     }
 
     return render(request,website.designers_collection,context)
-
 
 
 def works_collection(request):
@@ -142,19 +146,24 @@ def works_collection(request):
             self.designer_name = work[5]
             print work
 
+
+    def get_work_list(vender_goods_list):
+        work_list = []
+        for vender_goods in vender_goods_list:
+            goods = Goods.objects.get(id=vender_goods.goods_id)
+            designer_name = Designer_User.objects.get(id=goods.designer_id).designername
+            work_param = (goods.goods_name, common_handler.get_file_path(goods.preview_1),
+                          goods.goods_price, goods.description, vender_goods.is_buy, designer_name)
+            works_collection = WorksCollection()
+            works_collection.set_works_collection(work_param)
+            work_list.append(works_collection)
+        return work_list
+
     vender_id = 2
     vender = Vender_User.objects.get(id=vender_id)
 
     vender_goods_list = Vender_Goods.objects.filter(vender_id=vender_id).filter(is_collected=True)
-    work_list = []
-    for vender_goods in vender_goods_list:
-        goods = Goods.objects.get(id=vender_goods.goods_id)
-        designer_name = Designer_User.objects.get(id=goods.designer_id).designername
-        work_param = (goods.goods_name, common_handler.get_file_path(goods.preview_1),
-                      goods.goods_price, goods.description, vender_goods.is_buy, designer_name)
-        works_collection = WorksCollection()
-        works_collection.set_works_collection(work_param)
-        work_list.append(works_collection)
+    work_list = get_work_list(vender_goods_list)
 
     context = {
         'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)),
@@ -182,6 +191,7 @@ def set_account(request):
 
     identity = u'商家'
     vender_id = 2
+
     vender = Vender_User.objects.get(id=vender_id)
     vender_account = VenderAccount()
     vender_account.set_vender_account(vender.vendername, common_handler.get_file_path(str(vender.img)),vender.phone, identity)
