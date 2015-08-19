@@ -6,14 +6,14 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 from configuration.models import BetaApply, Designer_User, Vender_User 
-from utility.AccountHandler import Verification, UserManager
+from utils.AccountHandler import Verification, UserManager
 from conf import config 
 
 import json
 import urllib, urllib2
 import re
 import time
-
+from django import forms
 
 # Create your views here.
 
@@ -311,6 +311,16 @@ def u_alipay(request):
     else:
         raise Http404
 
+
+class ImgForm(forms.Form):
+    '''
+    description:头像表单
+    params:
+    return:
+    '''
+    img_name = forms.CharField(max_length=100)
+    img_up = forms.FileField()
+
 @login_required
 def u_img(request):
     '''
@@ -318,3 +328,26 @@ def u_img(request):
     params:
     return:
     '''
+    '''
+    if request.method == 'POST':
+        conf = {}
+        user = request.user
+        img = ImgForm(request.POST, request.FILES)
+        if img.is_valid():
+            img_name = photo.cleaned_data['img_name']
+            img_up = request.FILES['img_up']
+            file_type = str(img_up).split('.')
+            md5 = file_save(img_up, img_name, file_type[1])
+
+            img_url ='img/' + str(stl_md5)+ '.' +str(stl_type[1])  
+            identity = UserManager().user_which(user)
+            if identity == 'D':
+                d = Designer_User.objects.filter(user=user).update(img=img_url)
+                conf = {'status':img_url}
+            elif:
+                v = Vender_User.objects.filter(user=user).update(img=img_url)
+                conf = {'status':img_url}
+            else:
+                conf = {'status':'FAILURE'}
+            return HttpResponse(json.dumps(conf))
+        '''

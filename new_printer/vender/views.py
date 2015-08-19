@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 
 from configuration.models import Vender_User
 from configuration.models import Bills
@@ -72,4 +73,19 @@ def vender_center(request):
         'vender_name': vender.vendername, 'vender_img': str(vender.img),
         'vender_bills_list': vender_bills_list,
     }
-    return render(request, website.test, context)
+    return render(request, website.vender_center, context)
+
+
+def collect_designers(request):
+	return render(request,website.collect_designers)
+
+def collect_works(request):
+	return render(request,website.collect_works)
+
+# setup
+def set_account(request):
+	return render(request, website.set_account)
+
+# logout
+def logout_account(request):
+	return HttpResponseRedirect('/')

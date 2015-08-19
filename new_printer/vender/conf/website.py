@@ -1,1 +1,5 @@
 test = 'vender/test.html'
+vender_center = 'vender/all-downloads.html'
+collect_designers = 'vender/collection-designers.html'
+collect_works = 'vender/collection-works.html'
+set_account = 'vender/account-setup.html'
