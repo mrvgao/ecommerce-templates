@@ -8,6 +8,7 @@ from configuration.models import Goods_Bills
 from configuration.models import Designer_User
 from configuration.models import Vender_Goods
 from configuration.models import Goods
+from configuration.models import Vender_Designer
 
 from conf import website
 
@@ -86,15 +87,43 @@ def vender_center(request):
 
 
 def designers_collection(request):
-	return render(request,website.designers_collection)
+
+    class DesignerCollection(object):
+
+        def __init__(self):
+            self.designer_name = None
+            self.designer_img = None
+            self.designer_mark = None
+
+        def set_designer_collection(self, name, img, marked_number):
+            self.designer_name = name
+            self.designer_img = img
+            self.designer_mark = marked_number
+
+    vender_id = 2
+    vender = Vender_User.objects.get(id=vender_id)
+    desigenr_list = Vender_Designer.objects.filter(vender_id=vender_id)
+    vender_designer_list = []
+    for designer in vender_designer_list:
+        designer_collection = DesignerCollection()
+        designer_collection.set_designer_collection(designer.designername,designer.img,designer.marked_count)
+        vender_designer_list.append(designer_collection)
+
+    context = {
+        'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)),
+        'designer_list': vender_designer_list,
+    }
+
+    return render(request,website.designers_collection,context)
+
 
 def works_collection(request):
 	return render(request,website.works_collection)
 
-# setup
+
 def set_account(request):
 	return render(request, website.set_account)
 
-# logout
+
 def logout_account(request):
 	return HttpResponseRedirect('/')
