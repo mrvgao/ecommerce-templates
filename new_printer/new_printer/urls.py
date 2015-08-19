@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^payment/', include('payment.urls', namespace='payment')),
     url(r'^$', include('shop.urls', namespace='index')),
     url(r'^shop/', include('shop.urls', namespace='shop')),
+    url(r'^vender/', include('vender.urls', namespace='vender')),
 
     # url(r'^payment/', include('payment.urls', namespace='payment')),
 
