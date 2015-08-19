@@ -12,7 +12,7 @@ from conf import website
 
 
 def test(request):
-    vender_id = request.GET['vender_id']
+    vender_id = 2
     vender = Vender_User.objects.get(id=vender_id)
     print vender.vendername, str(vender.img)
     bill_list = Bills.objects.filter(vender_id=vender_id)
@@ -60,7 +60,7 @@ def vender_center(request):
             vender_bills_list = get_bills_goods_information(bills_goods_list, vender_id, bill)
         return vender_bills_list
 
-    vender_id = request.GET['vender_id']
+    vender_id = 2
 
     vender = Vender_User.objects.get(id=vender_id)
     print vender.vendername, str(vender.img)
