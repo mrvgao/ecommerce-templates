@@ -91,27 +91,30 @@ def designers_collection(request):
     class DesignerCollection(object):
 
         def __init__(self):
+            self.designer_id = None
             self.designer_name = None
             self.designer_img = None
             self.designer_mark = None
 
-        def set_designer_collection(self, name, img, marked_number):
+        def set_designer_collection(self, designer_id, name, img, marked_number):
+            self.designer_id = designer_id
             self.designer_name = name
             self.designer_img = img
             self.designer_mark = marked_number
 
     vender_id = 2
     vender = Vender_User.objects.get(id=vender_id)
-    desigenr_list = Vender_Designer.objects.filter(vender_id=vender_id)
-    vender_designer_list = []
-    for designer in vender_designer_list:
+    vender_designer_list  = Vender_Designer.objects.filter(vender_id=vender_id)
+    designer_list = []
+    for vender_designer in vender_designer_list:
+        designer = Designer_User.objects.get(id=vender_designer.designer_id)
         designer_collection = DesignerCollection()
-        designer_collection.set_designer_collection(designer.designername,designer.img,designer.marked_count)
-        vender_designer_list.append(designer_collection)
+        designer_collection.set_designer_collection(designer.id, designer.designername,designer.img,designer.marked_count)
+        designer_list.append(designer_collection)
 
     context = {
         'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)),
-        'designer_list': vender_designer_list,
+        'designer_list': designer_list,
     }
 
     return render(request,website.designers_collection,context)
