@@ -49,7 +49,6 @@ def vender_center(request):
         vender_bills_list = []
         for bills_goods in bills_goods_list:
             goods = Goods.objects.get(id=bills_goods.goods_id)
-
             designer = Designer_User.objects.get(id=goods.designer_id)
             designer_name = designer.designername
             vender_goods = Vender_Goods.objects.filter(goods_id=goods.id).get(vender_id=vender_id)
@@ -63,9 +62,11 @@ def vender_center(request):
         return vender_bills_list
 
     def get_bills_information(bills_list, vender_id):
+        vender_bills_list = []
         for bill in bill_list:
             bills_goods_list = Goods_Bills.objects.filter(bills_id=bill.id)
-            vender_bills_list = get_bills_goods_information(bills_goods_list, vender_id, bill)
+            vender_bills_part_list = get_bills_goods_information(bills_goods_list, vender_id, bill)
+            vender_bills_list.extend(vender_bills_part_list)
         return vender_bills_list
 
     vender_id = 2
