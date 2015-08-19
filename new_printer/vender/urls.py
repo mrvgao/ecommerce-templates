@@ -8,9 +8,6 @@ urlpatterns = patterns('',
 
         # 商家个人中心
         url('vender-center', views.vender_center, name="vender_center"),
-        # 商家后台首页(全部下载)
-
-        url('^$', views.vender_center, name="vender_center"),
 
         # 商家后台我的收藏(设计师)
         url('^myCollection/designers$', views.designers_collection, name="designers_collection"),
