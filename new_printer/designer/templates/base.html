@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{% block title %}设计师个人中心{% endblock %}</title>
+	    
+	{% block initstaticfiles %}
+		{% include shop 'common-files.html' %}
+	{% endblock %}
+
+	{% block selfFiles %}
+	{% endblock %}
+
+</head>
+<body>
+
+	{% block header %}
+		{% include 'header.html' %}
+	{% endblock %}
+
+	{% block content %}
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock %}
+		{% block mainContent %}
+			
+		{% endblock %}
+	{% endblock %}
+
+	{% block footer %}
+		{% include 'footer.html' %}
+	{% endblock %}
+	
+</body>
+</html>
