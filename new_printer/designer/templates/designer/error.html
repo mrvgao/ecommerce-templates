@@ -1,28 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="utf-8" /> 
-	<title>网页倒计时效果代码</title> 
-	<script type="text/javascript">
-	window.onload=function(){
-	  var myspan=document.getElementById("myspan");
-	  var timer=4;
-	  var flag;
-	  function daoji(){
-	     timer=timer-1;
-	     myspan.innerHTML=timer;
-	     if(timer==0){
-	       location.href="/toy_photo/photo_list";
-	       clearInterval(flag);
-	     }
-	  }
-	  flag=setInterval(daoji,1000);
-	}
-	</script> 
+<title></title>
+<!--以下css,js地址都要根据自己文件配置而改变-->
+<link href="/static/css/uploadify.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/swfobject.js"></script>
+<script type="text/javascript" src="/static/js/jquery.uploadify.v2.1.4.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+  var file_name='';
+  $('#file_upload').uploadify({
+    'uploader'  : '/static/image/uploadify/uploadify.swf',//根据文件存放地址改变
+    'script'    : '/upload_script/',
+    'cancelImg' : '/static/image/uploadify/cancel.png',//根据文件存放地址改变
+    'folder'    : '/upload',
+    'auto'      : true,//false,//
+    'multi': false,//设置可以上传多个文件
+    'simUploadLimit':1,
+   'buttonText':'上传',   
+    'removeCompleted':false,//
+    'sizeLimit':10240000,//设置上传文件大小单位kb
+    'fileExt':'*.doc;*.docx;*.odt',//设置上传文件类型为常用文档格式
+    'fileDesc':'支持文档格式',                
+    'onInit': function () {},
+    'onError' : function (event,ID,fileObj,errorObj) {
+            $('#id_span_msg').html("上传失败，错误码:"+errorObj.type+" "+errorObj.info);
+        },
+    'onSelect': function (e, queueId, fileObj) {
+        $('#id_span_msg').html("");
+    },
+	'onCancel'    : function(event,ID,fileObj,data) {
+      $.post("/delete_uploadfile/", { delete_file: file_name } );
+      file_name='';
+    },
+    'onComplete': function(event, ID, fileObj, response, data) {
+    	var result = eval ("(" + response + ")");
+  	 	file_name=result.save_name;
+    }
+  });
+});
+</script>
 </head>
+
 <body>
-<p>
-	Upload Error！已经存在
-</p>
-<div>页面返回倒计时:<a href="/toy_photo/photo_list">点击回到上传列表</a><span id="myspan"></span></div>
+
+<h1>Uploadify组件上传方式</h1>
+<div class="demo-box">
+    <input id="file_upload" type="file" name="Filedata">
+    <div id="file_uploadQueue" class="uploadifyQueue"></div>
+    <p><span id="id_span_msg"></span></p>
+</div>
+
+</div>
 </body>
+</html>
