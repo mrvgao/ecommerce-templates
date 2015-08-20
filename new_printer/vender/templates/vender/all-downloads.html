@@ -6,9 +6,11 @@
 	</div>
 	<div class="vender-cont-wrap">
 
+		{% for goods in vender_bills_list %}
+
 		<div class="vender-product-list">
 			<div class="product-info-nav">
-				<span class="vc-w370 f16 inl-b">订单号：234123234234</span>
+				<span class="vc-w370 f16 inl-b">订单号：{{ goods.bill_id }}</span>
 				<span class="vc-w180 f16 inl-b tc">价格</span>
 				<span class="vc-w180 f16 inl-b tc">设计师</span>
 				<span class="vc-w180 f16 inl-b tc">下载时间</span>
@@ -16,62 +18,22 @@
 			<div class="product-info-cont mt15 mb15 clearfix">
 				<div class="vc-w370 fl">
 					<div class="product-info-img mr30 inl-b">
-						<a target="_blank" href="/product/goods-detail"><img src="" alt="" /></a>
+						<a target="_blank" href="/product/goods-detail">
+							<img src="{{ goods.goods_img }}" alt="" />
+						</a>
 					</div>
 					<p class="product-info-txt mt10 inl-b">
-						<a target="_blank" href="/product/goods-detail">蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋</a>
+						<a target="_blank" href="/product/goods-detail">{{ goods.description }}</a>
 					</p>
 				</div>
-				<p class="vc-w180 vc-lh-100 fl tc">goods.price</p>
-				<p class="vc-w180 vc-lh-100 fl tc">designer.name</p>
-				<p class="vc-w180 vc-lh-100 fl tc">download.time</p>
+				<p class="vc-w180 vc-lh-100 fl tc">{{ goods.goods_price }}</p>
+				<p class="vc-w180 vc-lh-100 fl tc">{{ goods.designer_name }}</p>
+				<p class="vc-w180 vc-lh-100 fl tc">{{ goods.download_time }}</p>
 			</div>
 		</div>
 
-		<div class="vender-product-list">
-			<div class="product-info-nav">
-				<span class="vc-w370 f16 inl-b">订单号：234123234234</span>
-				<span class="vc-w180 f16 inl-b tc">价格</span>
-				<span class="vc-w180 f16 inl-b tc">设计师</span>
-				<span class="vc-w180 f16 inl-b tc">下载时间</span>
-			</div>
-			<div class="product-info-cont mt15 mb15 clearfix">
-				<div class="vc-w370 fl">
-					<div class="product-info-img mr30 inl-b">
-						<a target="_blank" href="/product/goods-detail"><img src="" alt="" /></a>
-					</div>
-					<p class="product-info-txt mt10 inl-b">
-						<a target="_blank" href="/product/goods-detail">蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋</a>
-					</p>
-				</div>
-				<p class="vc-w180 vc-lh-100 fl tc">goods.price</p>
-				<p class="vc-w180 vc-lh-100 fl tc">designer.name</p>
-				<p class="vc-w180 vc-lh-100 fl tc">download.time</p>
-			</div>
-		</div>
-
-		<div class="vender-product-list">
-			<div class="product-info-nav">
-				<span class="vc-w370 f16 inl-b">订单号：234123234234</span>
-				<span class="vc-w180 f16 inl-b tc">价格</span>
-				<span class="vc-w180 f16 inl-b tc">设计师</span>
-				<span class="vc-w180 f16 inl-b tc">下载时间</span>
-			</div>
-			<div class="product-info-cont mt15 mb15 clearfix">
-				<div class="vc-w370 fl">
-					<div class="product-info-img mr30 inl-b">
-						<a target="_blank" href="/product/goods-detail"><img src="" alt="" /></a>
-					</div>
-					<p class="product-info-txt mt10 inl-b">
-						<a target="_blank" href="/product/goods-detail">蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋蓝色之恋</a>
-					</p>
-				</div>
-				<p class="vc-w180 vc-lh-100 fl tc">goods.price</p>
-				<p class="vc-w180 vc-lh-100 fl tc">designer.name</p>
-				<p class="vc-w180 vc-lh-100 fl tc">download.time</p>
-			</div>
-		</div>
-
+		{% endfor %}
+		
 	</div>
 
 	{# {% include 'vender/paging.html' %} #}
