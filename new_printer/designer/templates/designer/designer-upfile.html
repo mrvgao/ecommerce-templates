@@ -1,0 +1,21 @@
+{% extends 'designer/designer-base.html' %}
+	{% block mainContent %}
+		<div class="designer-upfile">
+			<input type="file" class="designer-upfile-hidden" id="upfile"/>
+			<div class="designer-upfile-container clearfix">
+				<button class="designer-upfile-btn fl" id="designer-upfile-btn">我要上传</button>
+				<p class="designer-upfile-instructions fl">
+					请选择模型类别支持JCAD、STL文件格式模型背景一律使用白色，模型材质颜色一律为银色，否则将不能通过审核。
+				</p>
+			</div>
+			<div class="designer-upfile-show">
+				
+			</div>
+			<div class="designer-upfile-container clearfix">
+				<button class="designer-upfile-btn fl" id="designer-next-btn">下一步</button>
+				<p class="designer-upfile-instructions fl">
+					点击为自己的作品标价、更改名称、添加预览图，这样您的作品将更有可能推荐至网站首页。
+				</p>
+			</div>
+		</div>
+	{% endblock %}

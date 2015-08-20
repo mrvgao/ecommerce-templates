@@ -44,21 +44,33 @@ def index(request):
 
 def filter_type(request):
 
+    def get_list_by_tag_style(tags,style):
+        tag_list = goods_handler.get_all_goods_by_tags(tags)
+        if common_handler.utf_to_unicode(style) != u'全部':
+            tag_style_list = goods_handler.get_goods_by_style(tag_list,style)
+        else:
+            tag_style_list = tag_list
+        return tag_style_list
+
+
+    def change_list_to_json(tag_style_list):
+        goods_list = []
+        for goods in tag_style_list:
+            designer_name = Designer_User.objects.get(id = goods.designer_id).designername
+            temp = {
+                'name':goods.goods_name,'description':goods.description,
+                'preview_1':str(goods.preview_1),'preview_2':str(goods.preview_2),'preview_3':str(goods.preview_3),
+                'price':goods.goods_price,'designer_name':designer_name,
+            }
+            goods_list.append(temp)
+        return goods_list
+
     style = request.POST['style'].strip()
     tag = request.POST['type'].strip()
 
-    tag_list = goods_handler.get_all_goods_by_tags(tag)
-    tag_style_list = goods_handler.get_goods_by_style(tag_list,style)
+    tag_style_list = get_list_by_tag_style(tag,style)
+    goods_list = change_list_to_json(tag_style_list)
 
-    goods_list = []
-    for goods in tag_style_list:
-        designer_name = Designer_User.objects.get(id = goods.designer_id).designername
-        temp = {
-            'name':goods.goods_name,'description':goods.description,
-            'preview_1':str(goods.preview_1),'preview_2':str(goods.preview_2),'preview_3':str(goods.preview_3),
-            'price':goods.goods_price,'designer_name':designer_name,
-        }
-        goods_list.append(temp)
 
     context = {
         'goods_list':goods_list,
@@ -66,15 +78,19 @@ def filter_type(request):
 
     return HttpResponse(json.dumps(context))
 
+
 def modify_goods_list(goods_list):
     return_list = []
     for goods in goods_list:
-        designer_name = Designer_User.objects.get(id = goods.designer_id).designername
+        designer_name = Designer_User.objects.get(id=goods.designer_id).designername
         index_goods = IndexGoods()
-        index_goods.set_index_goods(goods,designer_name)
+        index_goods.set_index_goods(goods, designer_name)
         index_goods.goods.preview_1 = common_handler.get_file_path(str(index_goods.goods.preview_1))
         return_list.append(index_goods)
     return return_list
 
+
 def goods_detail(request):
+    goods_id =  request.GET['goods_id']
+    print goods_id
     return render(request,website.goods_detail)

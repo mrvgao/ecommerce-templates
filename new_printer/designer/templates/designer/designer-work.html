@@ -1,0 +1,78 @@
+{% extends 'designer/designer-base.html' %}
+	{% block mainContent %}
+	<div class="designer-works-container">
+		<div class="designer-works-btn">
+			<button id="works_wait_btn">未审核{{ designer.worksWait }}</button>
+			<button class="works-current" id="works_on_btn">审核中{{ designer.worksOn }}</button>
+			<button id="works_not_btn">未通过{{ designer.worksNot }}</button>
+			<button id="works_Suc_btn">已发布{{ designer.worksSuc }}</button>
+		</div>
+		<ul class="designer-works-nav fl">
+			<li class="designer-works-nav-current">全部</li>
+			<li>戒指</li>
+			<li>吊坠</li>
+			<li>耳坠</li>
+			<li>手链</li>
+			<li>项链</li>
+			<li>胸针</li>
+		</ul>
+		<div class="designer-works-search fr">
+			<input type="text" class="fl"/><span class="designer-works-search-icon fl"></span>
+		</div>
+		<div class="designer-works-lists">
+			<ul class="designer-works-sort">
+				<li class="works-sort-download"><span>下载量</span></li>
+				<li class="works-sort-collection"><span>收藏量</span></li>
+				<li class="works-sort-time"><span>时间</span></li>
+			</ul>
+			<div class="designer-works-list-box clearfix">
+				<div class="designer-works-list-bigpic fl">
+					<img src="../../../static/images/designer/test.jpg"  />
+				</div>
+				<div class="designer-works-list-detail fl">
+					<p class="designer-works-list-title">海洋之心</p>
+					<p class="designer-works-list-describe">细胞流动的结构，象征生命的本质。让活力注入指间，让美源自根本</p>
+					<div class="designer-works-list-pics clearfix">
+						<img src="../../../static/images/designer/test.jpg">
+						<img src="../../../static/images/designer/test.jpg">
+						<img src="../../../static/images/designer/test.jpg">
+					</div>
+				</div>
+				<div class="designer-works-list-status fl">
+					<strong>审核中···</strong>
+					<p>您的作品预计在3天内被审核完毕并发布。</p>
+				</div>
+			</div>
+			<div class="designer-works-list-box clearfix">
+				<div class="designer-works-list-bigpic fl">
+					<img src="../../../static/images/designer/test.jpg"  />
+				</div>
+				<div class="designer-works-list-detail fl">
+					<p class="designer-works-list-title">海洋之心</p>
+					<p class="designer-works-list-describe">细胞流动的结构，象征生命的本质。让活力注入指间，让美源自根本</p>
+					<div class="designer-works-list-pics clearfix">
+						<img src="../../../static/images/designer/test.jpg">
+						<img src="../../../static/images/designer/test.jpg">
+						<img src="../../../static/images/designer/test.jpg">
+					</div>
+				</div>
+				<div class="designer-works-list-status fl">
+					<strong>审核中···</strong>
+					<p>您的作品预计在3天内被审核完毕并发布。</p>
+				</div>
+			</div>
+		</div>
+		<ul class="designer-works-page">
+			<li class="designer-works-page-first">首页</li>
+			<li class="designer-works-page-prev">上一页</li>
+			<li class="page-current">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li class="designer-works-page-dots">...</li>
+			<li class="designer-works-page-next">下一页</li>
+			<li class="designer-works-page-last">末页</li>
+		</ul>
+	</div>
+	{% endblock %}
