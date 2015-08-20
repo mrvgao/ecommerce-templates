@@ -13,6 +13,7 @@ from configuration.models import Designer_User
 
 from utils.common_class import IndexGoods
 from utils.common_class import IndexGoodsDesigner
+from utils.common_class import AllGoods
 
 from shop.utils.goods_handler import GoodsHandler
 from utility.common_handler import CommonHandler
