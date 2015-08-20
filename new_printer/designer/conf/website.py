@@ -34,11 +34,11 @@ recent_pic_url = '%supload'%baseurl
 
 base_site = 'designer'
 
-index = '%s/demo.html'%base_site
+edit = '%s/designer-work.html'%base_site
 #works_up = '%s/demo.html'%base_site
 up_success = '%s/su.html'%base_site
 up_error = '%s/error.html'%base_site
-edit = '%s/edit.html'%base_site
+#edit = '%s/edit.html'%base_site
 #logout_success = '%s/logout.html'%base_site
 
 

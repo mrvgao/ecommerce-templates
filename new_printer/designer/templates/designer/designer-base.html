@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}
+	设计师个人中心
+{% endblock %}
+{% load staticfiles %}
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/designer/designer.css' %}" />
+{% endblock %}
+	{% block header %}
+		{% include 'designer/designer-header.html' %}
+	{% endblock %}
+
+	{% block content %}
+		<div class="designer-main clearfix">
+			<div class="container">
+				{% block sidebar %}
+					{% include 'designer/designer-sidebar.html' %}
+				{% endblock %}
+				<div class="designer-mainContent fl">	
+					{% block mainContent %}
+						
+					{% endblock %}
+				</div>	
+			</div>
+		</div>
+	{% endblock %}
+
+</body>
+</html>
