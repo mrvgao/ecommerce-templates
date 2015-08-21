@@ -3,18 +3,22 @@ from django.conf.urls import patterns, url
 from shop import views
 
 urlpatterns = patterns('',
+
+        # test
+        url('^test$', views.test, name="test"),
+
         # 首页
         url('^$', views.list, name="index"),
 
         # 商品列表(戒指)
-        url('^ring$', views.list, name="list"),
-        
+        url('^ring$', views.ring, name="ring"),
         # 商品列表(吊坠)
+
         url('^pendant$', views.list, name="list"),
-        
+
         # 商品列表(耳坠)
         url('^earbob$', views.list, name="list"),
-        
+
         # 商品列表(手链)
         url('^bracelet$', views.list, name="list"),
 
