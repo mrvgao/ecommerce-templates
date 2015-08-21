@@ -131,7 +131,11 @@ function isCheckAll(obj){
 	}
 }
 function deleteAll(){
-	var deleteTag = $('.works-wait-delete-check:checked');
+	var deleteTag = $('.works-wait-delete-check:checked'),
+		worksList = $('tr'),
+		worksContainer = $('.designer-works-wait').find('tbody');
+	var str ='<tr><td colspan="3">没有数据啦⊙.⊙</td></tr>',
+		rest = worksList.length - deleteTag.length;
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('tr').attr('data-id');
@@ -142,4 +146,8 @@ function deleteAll(){
 		});
 		$(this).parents('tr').remove();
 	});
+	$('#checkall').attr('checked',false);
+	if(rest==1){
+		worksContainer.append(str);
+	}
 }
