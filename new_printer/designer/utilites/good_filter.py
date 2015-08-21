@@ -108,6 +108,15 @@ def publish_exec(good_list):
 def unpublish_exec(good_list):
     return_list = []
     for good in good_list:
+        photo = []
+        temp = {}
+        if good.preview_1:
+            photo.append(good.preview_1)
+        if good.preview_2:
+            photo.append(good.preview_2)
+        if good.preview_3:
+            photo.append(good.preview_3)
+        temp['pic']=photo
         temp={'id':good.id,
                 'name':good.goods_name,
                 'description':good.description,
