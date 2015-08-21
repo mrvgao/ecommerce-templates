@@ -25,6 +25,10 @@ from datetime import date ,datetime
 import time
 import json,pdb,hashlib
 
+unexec_one = 2 #
+auditing_one = 2#
+unpassed_one = 2#
+publish_one = 2#
 
 def index(request):
     return render(request, website.index)
@@ -134,18 +138,23 @@ def stl_delete(request):
 
 #设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
 def workd_unexecute(request):
+    #pdb.set_trace()
     user = 1#request.user
+    now_page = 3 #request.POST['now_page']
     designer = Designer_User.objects.get(user_id=1)#user.id)
     designer.icon = str(website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
+    return_list = good_filter.unpublish_exec(unexecute_list)
     all_len = len(unexecute_list)
-    total_pages = all_len/12
-    last_page = all_len%12
-    conf = {'all_list':unexecute_list,
+    total_pages = all_len/unexec_one+1
+    last_page = all_len%unexec_one
+    return_list = return_list[now_page*unexec_one:(now_page+1)*unexec_one]
+    conf = {'all_list':return_list,
             'icon' : designer.icon,
-            'name':designer.designername,
+            'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'all_len':all_len,
               }
-    return render(request, website.all_list, conf)
+    #return render(request, website.all_list, conf)
+    return HttpResponse(json.dumps(conf))
 
 #在未审核页面直接删除作品
 def unexecute_delete(request):
