@@ -31,7 +31,7 @@ unpassed_one = 2#
 publish_one = 2#
 
 def index(request):
-    return render(request, website.edit)
+    return render(request, website.index)
 
 def stls_save(stls):
     jwary_md5 = {}
@@ -68,10 +68,8 @@ def stls_save(stls):
                                          file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
                                          good_state = 0,
                                          not_passed = 'null',
-                                         preview_1 = 'photo.png',
-                                         preview_3 = 'photo.png',
-                                         preview_2 = 'photo.png'
-                                        )
+                                         preview_1 = 'photo.png'
+                                         )
         count = count + 1
     print has_existed
     return has_existed
@@ -145,21 +143,26 @@ def workd_unexecute(request):
     designer.icon = str(website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
     return_list = good_filter.unpublish_exec(unexecute_list)
+    worksWait = unexecute_list.count()
+    worksOn = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1).count()
+    worksNot = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2).count()
+    worksSuc = Goods.objects.filter(designer_id=designer.id).count()
     all_len = len(unexecute_list)
     total_pages = all_len/unexec_one+1
     last_page = all_len%unexec_one
     return_list = return_list[now_page*unexec_one:(now_page+1)*unexec_one]
     conf = {'all_list':return_list,
             'icon' : designer.icon,
-            'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'all_len':all_len,
+            'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'now_page':now_page,
+            'worksWait':worksWait,'designer.worksOn':worksOn,'designer.worksNot':worksNot,'designer.worksSuc':worksSuc
               }
+    #return render(request, website.works_execute, conf)
     return HttpResponse(json.dumps(conf))
 
 #在未审核页面直接删除作品
 def unexecute_delete(request):
     ids = request.POST['id']
-    for id in ids:
-        Goods_Upload.objects.filter(id = id).delete()
+    Goods_Upload.objects.filter(id = ids).delete()
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
@@ -264,8 +267,8 @@ def auditing(request):
     return_list = good_filter.unpublish_exec(design_list)
     conf = {'all_list':return_list
               }
-    #return HttpResponse(json.dumps(conf))
-    return render(request, website.works_execute, conf)
+    return HttpResponse(json.dumps(conf))
+    #return render(request, website.works_execute, conf)
 
 #显示 未通过 页面
 def not_passed(request):

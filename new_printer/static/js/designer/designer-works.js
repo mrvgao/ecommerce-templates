@@ -76,7 +76,7 @@ function workd_unexecute(page){//加载未审核的数据
 	var designer_works_lists = $('.designer-works-lists');
 	designer_works_lists.empty();
 	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
-	$.post('/designer/workd_unexecute',{"page":page}, function(e) {
+	$.post('/designer/workd_unexecute',{"page":0}, function(e) {
 		if(e){
 			var waitList = JSON.parse(e).all_list;
 			for(var i=0,len=waitList.length;i<len;i++){
@@ -155,6 +155,7 @@ function deleteAll(){//批量删除函数
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('tr').attr('data-id');
+			console.log(_id)
 		$.post('/designer/unexecute_delete', {"id":_id}, function(e) {
 			if(e){
 				alert(e);
