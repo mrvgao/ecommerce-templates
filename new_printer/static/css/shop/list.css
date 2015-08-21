@@ -99,7 +99,7 @@ em.list-mark-btn-ico {
 a.list-mark-btn:hover, a.list-mark-btn.active {
 	color:#f25149;
 }
-a.list-mark-btn:hover em.list-mark-btn-ico, a.list-mark-btn.active {
+a.list-mark-btn:hover em.list-mark-btn-ico, a.list-mark-btn.active em.list-mark-btn-ico {
 	background-position-y:-36px;
 }
 

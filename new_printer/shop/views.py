@@ -13,15 +13,18 @@ from configuration.models import Designer_User
 
 from utils.common_class import IndexGoods
 from utils.common_class import IndexGoodsDesigner
+from utils.common_class import TagGoods
 
 from shop.utils.goods_handler import GoodsHandler
 from utility.common_handler import CommonHandler
+from utility.vender_goods_handler import VenderGoodsHandler
 
 # Create your views here.
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
+vender_goods_handler = VenderGoodsHandler()
 
-def list(request):
+def test(request):
 
     type_name = [u'戒指',u'吊坠',u'耳坠',u'手链',u'项链',u'胸针']
     type_class = ['ring','pendant','earbob','bracelet','torque','brooch']
@@ -40,6 +43,43 @@ def list(request):
     }
 
     return render(request,website.list,context)
+
+
+def list(request):
+
+    return render(request,website.list)
+
+
+def ring(request):
+    goods_tags = u'戒指'
+    vender_id = 2
+
+    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
+
+    context = {
+        'goods_kind': goods_tags, 'goods_list': goods_list,
+    }
+
+    return render(request, website.list, context)
+
+
+def get_goods_list_by_tags(goods_tags, vender_id):
+
+    def change_to_tag_goods(sort_goods_list, vender_id):
+        goods_list = []
+        for goods in sort_goods_list:
+            is_collected = vender_goods_handler.get_is_collected(goods.id, vender_id)
+            goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
+                           goods.tags,is_collected, goods.download_count,
+                           goods.collected_count, goods.goods_price)
+            tag_goods = TagGoods(goods_param)
+            goods_list.append(tag_goods)
+        return goods_list
+
+    all_goods_list = goods_handler.get_all_goods_by_tags(goods_tags)
+    sort_goods_list = goods_handler.comprehension_sort(all_goods_list)
+    goods_list = change_to_tag_goods(sort_goods_list, vender_id)
+    return goods_list
 
 
 def filter_type(request):
@@ -93,4 +133,4 @@ def modify_goods_list(goods_list):
 def goods_detail(request):
     goods_id =  request.GET['goods_id']
     print goods_id
-    return render(request,website.goods_detail)
+    return render(request,website.test)
