@@ -8,25 +8,26 @@ $(document).ready(function() {
 	works_wait_btn.on('click',function(){//未审核页面
 		designer_works_lists.empty();
 
-		var waitStr='';
-		$.post('/designer/workd_unexecute',{"page":1}, function(e) {
+		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
+		$.post('/designer/workd_unexecute', {"page":1}, function(e) {
 			if(e){
-				var waitlist = JSON.parse(e).all_list;
-				console.log(waitlist);
-				for(var i=0,len=waitlist.length;i<len;i++){
-					waitStr+='<div class="designer-works-list-box clearfix"><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+waitlist[i].name+'"</p><p class="designer-works-list-describe">'+waitlist[i].file_size+'</p><div class="designer-works-list-pics clearfix">';
-						// for(var j=0,jlen=waitlist[i].pic.length;j<jlen;j++){
-						// 	waitStr +='<img src="'+waitlist[i].pic[j]+'"/>';
-						// }
-					waitStr +='</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+waitlist[i].restdate+'天内被审核完毕并发布。</p></div></div>';
+				var waitList = JSON.parse(e).all_list;
+				for(var i=0,len=waitList.length;i<len;i++){
+					waitStr+='<tr><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'｜'+waitList[i].size+'</span></td><td><span>'+waitList[i].date+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span>删除<input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+				}
+				waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall"/></div></table>';
+			}else{
+				waitStr ='数据加载失败...';
+			}
+			designer_works_lists.append(waitStr);
+		});
 
-		var waitStr = '';
 	});
 
 	works_on_btn.on('click',function(){//审核中页面
 		designer_works_lists.empty();
 		var onStr='';
-		$.post('designer/photo_on_review',{"page":1}, function(e) {
+		$.post('/designer/auditing',{"page":1}, function(e) {
 			if(e){
 				var onList = JSON.parse(e).list;
 				for(var i=0,len=onList.length;i<len;i++){
@@ -49,7 +50,7 @@ $(document).ready(function() {
 
 
 		var sucStr ='';
-		$.post('designer/photo_success_pubulic',{"page":1}, function(e) {
+		$.post('/designer/has_published',{"page":1}, function(e) {
 
 			if(e){
 				var sucList = JSON.parse(e).list;
