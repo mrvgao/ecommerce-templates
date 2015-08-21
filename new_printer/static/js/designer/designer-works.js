@@ -131,7 +131,7 @@ function deleteAll(){//批量删除函数
 	var deleteTag = $('.works-wait-delete-check:checked'),
 		worksList = $('tr'),
 		worksContainer = $('.designer-works-wait').find('tbody');
-	var str ='<tr><td colspan="3">没有数据啦⊙.⊙</td></tr>',
+	var str ='<tr><td colspan="4">没有数据啦⊙.⊙</td></tr>',
 		rest = worksList.length - deleteTag.length;
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
