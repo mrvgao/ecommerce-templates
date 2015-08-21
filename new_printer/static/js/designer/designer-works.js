@@ -78,7 +78,6 @@ function workd_unexecute(page){//加载未审核的数据
 	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
 	$.post('/designer/workd_unexecute',{"page":page}, function(e) {
 		if(e){
-			console.log(e);
 			var waitList = JSON.parse(e).all_list;
 			for(var i=0,len=waitList.length;i<len;i++){
 				waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span>删除<input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
