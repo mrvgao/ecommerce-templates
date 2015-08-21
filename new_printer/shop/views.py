@@ -21,7 +21,7 @@ from utility.common_handler import CommonHandler
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
 
-def index(request):
+def list(request):
 
     type_name = [u'戒指',u'吊坠',u'耳坠',u'手链',u'项链',u'胸针']
     type_class = ['ring','pendant','earbob','bracelet','torque','brooch']
@@ -39,7 +39,7 @@ def index(request):
         'type_list':type_list,
     }
 
-    return render(request,website.index,context)
+    return render(request,website.list,context)
 
 
 def filter_type(request):
