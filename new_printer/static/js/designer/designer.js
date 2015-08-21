@@ -9,10 +9,11 @@ $(document).ready(function(){
 
 	works_wait_btn.on('click',function(){//未审核页面
 		designer_works_lists.empty();
+
 		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
-		$.post('designer/photo_not_review', {"page":1}, function(e) {
+		$.post('/designer/workd_unexecute', {"page":1}, function(e) {
 			if(e){
-				var waitList = JSON.parse(e).list;
+				var waitList = JSON.parse(e).all_list;
 				for(var i=0,len=waitList.length;i<len;i++){
 					waitStr+='<tr><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'｜'+waitList[i].size+'</span></td><td><span>'+waitList[i].date+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span>删除<input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 				}
@@ -23,13 +24,16 @@ $(document).ready(function(){
 			designer_works_lists.append(waitStr);
 		});
 
+<<<<<<< HEAD
 		addWorkBtnCurrent($(this));
+=======
+>>>>>>> 7be52803554e08d0696006dbda59917af911c8ec
 	});
 
 	works_on_btn.on('click',function(){//审核中页面
 		designer_works_lists.empty();
 		var onStr='';
-		$.post('designer/photo_on_review',{"page":1}, function(e) {
+		$.post('/designer/auditing',{"page":1}, function(e) {
 			if(e){
 				var onList = JSON.parse(e).list;
 				for(var i=0,len=onList.length;i<len;i++){
@@ -38,6 +42,7 @@ $(document).ready(function(){
 						waitStr +='<img src="'+onList[i].pic[j]+'"/>';
 					}
 					onStr +='</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
+
 				}
 			}else{
 				onStr='信息加载失败..';
@@ -49,8 +54,11 @@ $(document).ready(function(){
 
 	works_Suc_btn.on('click',function(){//已发布页面
 		designer_works_lists.empty();
+
+
 		var sucStr ='';
-		$.post('designer/photo_success_pubulic',{"page":1}, function(e) {
+		$.post('/designer/has_published',{"page":1}, function(e) {
+
 			if(e){
 				var sucList = JSON.parse(e).list;
 				for(var i=0,len=sucList.length;i<len;i++){
@@ -70,7 +78,13 @@ $(document).ready(function(){
 
 	});
 
+<<<<<<< HEAD
 	works_not_btn.on('click',function(){//未通过页面
+=======
+
+	works_not_btn.on('click',function(){//未通过页面
+
+>>>>>>> 7be52803554e08d0696006dbda59917af911c8ec
 		designer_works_lists.empty();
 		var notStr ='';
 		$.post('designer/photo_not_passed',{"page":1}, function(e){
