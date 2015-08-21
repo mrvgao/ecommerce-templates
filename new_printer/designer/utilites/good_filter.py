@@ -25,6 +25,8 @@ from datetime import date ,datetime,timedelta
 import time
 import json,pdb
 
+pwd = '/Users/renjie/Desktop/static'
+
 def unpublish_good_filter(good_state,tags,designer):
 	good_list = Goods_Upload.objects.filter(designer_id=designer,tags = tags,good_state=good_state)
 	return_list = []
@@ -71,6 +73,7 @@ def publish_good_filter(tags,designer):
         return_list.append(temp)
 	return return_list
 
+#对 未发布 商品的处理
 def unpublish_exec(good_list):
 	return_list = []
 	for good in good_list:
@@ -118,3 +121,34 @@ def publish_exec(good_list):
 		return_list.append(temp)
         
 	return return_list
+
+#下载STL 文件到本地,以便预览stl
+def down_stl(_url):
+    stl_path = "%s/.temp/"%pwd
+    #_url = request.POST['url']
+    local_filename = _url.split('/')[-1]
+    r = requests.get(_url, stream=True)
+    lists = os.listdir(stl_path)
+    aleady_h = _url.split('/')[-1]
+    stl_path = stl_path + str(local_filename)
+    if aleady_h in lists :
+        stl_path = stl_path.split('/')[-3:]
+        stl_path = "/".join(stl_path)
+        stl_path = '/' + stl_path
+        print stl_path
+        context = {'stl_path':stl_path}
+    else:
+        print stl_path
+        with open(stl_path, 'wb') as f:
+            for chunk in r.iter_content(chunk_size=1024):
+                if chunk:  # filter out keep-alive new chunks
+                    f.write(chunk)
+                    f.flush()
+        stl_path = stl_path.split('/')
+        stl_path = stl_path[-3:]
+        stl_path = "/".join(stl_path)
+        stl_path = '/' + stl_path
+        print stl_path
+        context = {'stl_path':stl_path}
+
+    return stl_path

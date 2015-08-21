@@ -67,7 +67,10 @@ a:focus,*:focus {
 }
 
 /* 取消双击选取出现的不良好现象 */
-
+button{
+	border: none;
+	outline: none;
+}
 *.unselectable {
 	-moz-user-select:-moz-none;
 	-khtml-user-select:none;
