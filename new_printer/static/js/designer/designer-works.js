@@ -39,11 +39,8 @@ $(document).ready(function(){
 
 	works_Suc_btn.on('click',function(){//已发布页面
 		designer_works_lists.empty();
-
-
 		var sucStr ='';
 		$.post('/designer/has_published',{"page":1}, function(e) {
-
 			if(e){
 				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){

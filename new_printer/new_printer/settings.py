@@ -152,6 +152,4 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(New_s, 'static'),
 )
-print STATICFILES_DIRS
-print New_s
 
