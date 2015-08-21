@@ -5,6 +5,8 @@
 {% load staticfiles %}
 {% block selfFiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/designer/designer.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'plugin/js/ichart.min.js' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'js/designer/designer-chart.js'%}">
 {% endblock %}
 	{% block header %}
 		{% include 'designer/designer-header.html' %}
@@ -16,11 +18,13 @@
 				{% block sidebar %}
 					{% include 'designer/designer-sidebar.html' %}
 				{% endblock %}
-				<div class="designer-mainContent fl">	
-					{% block mainContent %}
-						
-					{% endblock %}
-				</div>	
+				{% block rightContent%}
+					<div class="designer-mainContent fl">	
+						{% block mainContent %}
+							
+						{% endblock %}
+					</div>
+				{% endblock %}
 			</div>
 		</div>
 	{% endblock %}

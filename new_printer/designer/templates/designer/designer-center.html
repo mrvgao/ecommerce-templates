@@ -1,2 +1,68 @@
 {% extends 'designer/designer-base.html' %}
-
+	{% block rightContent %}
+		<div class="designer-mydata fl">
+			<ul>
+				<li>
+					<div class="designer-mydata-box first-box">
+						<label class="mydata-worksNum">作品总数：</label>
+						<strong>{# {{ designer.worksNum }} #}100</strong>
+					</div>
+				</li>
+				<li>
+					<div class="designer-mydata-box">
+						<label class="mydata-collectionNum">作品收藏量：</label>
+						<strong>{# {{ designer.worksCollection }} #}100</strong>
+					</div>
+				</li>
+				<li>
+					<div class="designer-mydata-box">
+						<label class="mydata-downloadNum">下载量：</label>
+						<strong>{# {{ designer.downloadNum }} #}100</strong>
+					</div>
+				</li>
+				<li>
+					<div class="designer-mydata-box">
+						<label class="mydata-focusNum">关注量：</label>
+						<strong>{# {{ designer.focusNum }} #}100</strong>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="designer-mydata-group fl">
+			<div class="designer-mydata-groupbox">
+				<div class="num-visit">
+					<h3 class="num-visit-title">作品访问量</h3>
+					<div class="chart-visit-wrap">
+						<div class="chart-show-list">
+							<div class="chart-btn-box fr">
+								<div class="isHome clearfix">
+									<a class="chart-btn" href="javascript:;">day</a>
+									<a class="chart-btn active" href="javascript:;">week</a>
+									<a class="chart-btn" href="javascript:;">month</a>
+								</div>
+							</div>
+						</div>
+						<div id="homeVisit"></div>
+					</div>
+				</div>
+				<div class="num-visit">
+					<h3 class="num-visit-title">个人中心访问量</h3>
+					<div class="chart-visit-wrap">
+						<div class="chart-show-list">
+							<div class="chart-btn-box fr">
+								<div class="clearfix">
+									<a class="chart-btn" href="javascript:;">day</a>
+									<a class="chart-btn active" href="javascript:;">week</a>
+									<a class="chart-btn" href="javascript:;">month</a>
+								</div>
+							</div>
+						</div>
+						<div id="goodsVisit"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% load staticfiles %}
+	<script type="text/javascript" src="{% static 'plugin/js/ichart.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/designer/designer-chart.js' %}"></script>
+	{% endblock %}
