@@ -11,11 +11,11 @@ $(document).ready(function(){
 		designer_works_lists.empty();
 
 		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
-		$.post('/designer/workd_unexecute', {"page":1}, function(e) {
+		$.post('/designer/workd_unexecute', {"page":'1'}, function(e) {
 			if(e){
 				var waitList = JSON.parse(e).all_list;
 				for(var i=0,len=waitList.length;i<len;i++){
-					waitStr+='<tr><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'｜'+waitList[i].size+'</span></td><td><span>'+waitList[i].date+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span>删除<input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+					waitStr+='<tr><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span>删除<input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 				}
 				waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall"/></div></table>';
 			}else{
@@ -24,6 +24,7 @@ $(document).ready(function(){
 			designer_works_lists.append(waitStr);
 		});
 		addWorkBtnCurrent($(this));
+
 	});
 
 	works_on_btn.on('click',function(){//审核中页面
@@ -31,7 +32,7 @@ $(document).ready(function(){
 		var onStr='';
 		$.post('/designer/auditing',{"page":1}, function(e) {
 			if(e){
-				var onList = JSON.parse(e).list;
+				var onList = JSON.parse(e).all_list;
 				for(var i=0,len=onList.length;i<len;i++){
 					onStr+='<div class="designer-works-list-box clearfix"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].bigPic+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+onList[i].name+'"</p><p class="designer-works-list-describe">'+onList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
 					for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
@@ -56,7 +57,7 @@ $(document).ready(function(){
 		$.post('/designer/has_published',{"page":1}, function(e) {
 
 			if(e){
-				var sucList = JSON.parse(e).list;
+				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){
 					sucList+='<div class="designer-works-list-box clearfix"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].bigPic+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+sucList[i].name+'"</p><p class="designer-works-list-describe">'+sucList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
 					for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
@@ -75,17 +76,20 @@ $(document).ready(function(){
 	});
 
 	works_not_btn.on('click',function(){//未通过页面
-
 		designer_works_lists.empty();
 		var notStr ='';
-		$.post('designer/photo_not_passed',{"page":1}, function(e){
+
+		$.post('/designer/not_passed', {"page":1}, function(e){
+
 			if(e){
-				var notList = JSON.parse(e).list;
+				var notList = JSON.parse(e).all_list;
 				for(var i=0,len=notList.length;i<len;i++){
 				notStr+='</div><div class="designer-works-list-box clearfix"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].bigPic+'" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
+
 					for(var j=0,jlen=notList[i].pic.length;j<jlen;j++){
 						notList +='<img src="'+notList[i].pic[j]+'"/>';
 					}
+
 					notList+='</div></div><div class="designer-works-list-data fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].explain+'</p><p class="works-not-time fr">'+notList[i].notTime+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
 				}
 			}else{

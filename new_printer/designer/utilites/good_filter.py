@@ -95,7 +95,8 @@ def unpublish_exec(good_list):
                 'tags':good.tags,
                 'upload_time':good.upload_time.strftime("%Y-%m-%d"),
                 'modify_time':good.modify_time.strftime("%Y-%m-%d"),
-                'good_state':good.good_state
+                'good_state':good.good_state,
+                'type':'stl'
                 }
 		return_list.append(temp)
 	return return_list
