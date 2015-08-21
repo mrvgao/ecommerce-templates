@@ -68,14 +68,16 @@ $(document).ready(function(){
 
 			if(e){
 				var notList = JSON.parse(e).all_list;
+				console.log(notList.length)
 				for(var i=0,len=notList.length;i<len;i++){
-				notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].bigPic+'" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
-
-					for(var j=0,jlen=notList[i].pic.length;j<jlen;j++){
-						notList +='<img src="'+notList[i].pic[j]+'"/>';
+				notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].bigPic+'" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					var picList=notList[i].pic;
+					console.log(picList.length)
+					for(var j=0,jlen=picList.length;j<jlen;j++){
+						notStr +='<img src="'+picList[j]+'"/>';
 					}
 
-					notList+='</div></div><div class="designer-works-list-data fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].explain+'</p><p class="works-not-time fr">'+notList[i].notTime+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
+					notStr+='</div></div><div class="designer-works-list-data fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].not_passed+'</p><p class="works-not-time fr">'+notList[i].modify_time+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
 				}
 			}else{
 				notStr='信息加载失败';
@@ -121,7 +123,7 @@ function isCheckAll(obj){//全选函数
 		_this.attr('checked',true);
 	$('input[type="checkbox"]').attr("checked",true);
 		console.log(_this.attr("checked"));
-	}else{
+	}else{picList
 		_this.attr('checked',false);
 		$('input[type="checkbox"]').attr('checked',false);
 		console.log(_this.attr('checked'));
@@ -136,7 +138,7 @@ function deleteAll(){//批量删除函数
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('tr').attr('data-id');
-		$.post('designer/remove_unexecute', {"id":_id}, function(e) {
+		$.post('/designer/unexecute_delete', {"id":_id}, function(e) {
 			if(e){
 				alert(e);
 			}

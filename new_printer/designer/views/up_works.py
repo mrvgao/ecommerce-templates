@@ -157,7 +157,7 @@ def workd_unexecute(request):
 
 #在未审核页面直接删除作品
 def unexecute_delete(request):
-    ids = request.POST['ids']
+    ids = request.POST['id']
     for id in ids:
         Goods_Upload.objects.filter(id = id).delete()
     conf = {'status':"success"}
