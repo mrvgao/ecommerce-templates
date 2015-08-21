@@ -138,7 +138,7 @@ def stl_delete(request):
 def workd_unexecute(request):
     #pdb.set_trace()
     user = 1#request.user
-    now_page = int(request.POST['page'])
+    now_page = 1#int(request.POST['page'])
     designer = Designer_User.objects.get(user_id=1)#user.id)
     designer.icon = str(website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
@@ -159,6 +159,20 @@ def workd_unexecute(request):
     #return render(request, website.works_execute, conf)
     return HttpResponse(json.dumps(conf))
 
+
+def designer_works(request):
+    user = 1#request.user
+    designer = Designer_User.objects.get(user_id=1)#user.id)
+    unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
+    return_list = good_filter.unpublish_exec(unexecute_list)
+    worksWait = unexecute_list.count()
+    worksOn = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1).count()
+    worksNot = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2).count()
+    worksSuc = Goods.objects.filter(designer_id=designer.id).count()
+    conf = {
+            'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc
+              }
+    return render(request, website.works_execute, conf)
 #在未审核页面直接删除作品
 def unexecute_delete(request):
     ids = request.POST['id']
