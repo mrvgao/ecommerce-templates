@@ -20,6 +20,8 @@ urlpatterns = patterns('',
 	#审核中,显示未审核的页面
 	url(r'^auditing$',up_works.auditing,name = 'auditing'),
 	#显示已发布页面
+	#designer_works
+	url(r'^designer_works$',up_works.designer_works,name = 'designer_works'),
 	url(r'^has_published$',up_works.has_published,name = 'has_published'),
 	#在已发布页面点击编辑后，传的值
 	url(r'^published_edit$',up_works.published_edit,name = 'published_edit'),
