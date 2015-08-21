@@ -14,12 +14,37 @@
 .filter-bynum a:hover, .filter-bynum a.active {
 	background:#e8e8e8;
 }
+.classify-nav-box {
+	margin-right:-343px;
+}
+.guide-box {
+	overflow:hidden;
+}
 .classify-nav a {
 	margin-left:15px;
 	font-weight:bold;
 }
 .classify-nav a:hover, .classify-nav a.active {
 	color:#e0944f;
+}
+.classify-guide {
+	cursor:pointer;
+	color:#B96060;
+}
+.classify-guide.active {
+	color:#999;
+}
+em.guide-ico {
+	top:0;
+	right:-16px;
+	width:14px;
+	height:14px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	background-position:-170px -9px;
+}
+em.guide-ico.active {
+	background-position:-170px -35px;
 }
 .list-box {
 	float:left;
