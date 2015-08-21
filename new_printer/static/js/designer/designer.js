@@ -23,11 +23,7 @@ $(document).ready(function(){
 			}
 			designer_works_lists.append(waitStr);
 		});
-
-<<<<<<< HEAD
 		addWorkBtnCurrent($(this));
-=======
->>>>>>> 7be52803554e08d0696006dbda59917af911c8ec
 	});
 
 	works_on_btn.on('click',function(){//审核中页面
@@ -78,13 +74,8 @@ $(document).ready(function(){
 
 	});
 
-<<<<<<< HEAD
-	works_not_btn.on('click',function(){//未通过页面
-=======
-
 	works_not_btn.on('click',function(){//未通过页面
 
->>>>>>> 7be52803554e08d0696006dbda59917af911c8ec
 		designer_works_lists.empty();
 		var notStr ='';
 		$.post('designer/photo_not_passed',{"page":1}, function(e){
