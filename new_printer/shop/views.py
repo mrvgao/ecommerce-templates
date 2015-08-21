@@ -22,7 +22,7 @@ from utility.common_handler import CommonHandler
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
 
-def list(request):
+def test(request):
 
     type_name = [u'戒指',u'吊坠',u'耳坠',u'手链',u'项链',u'胸针']
     type_class = ['ring','pendant','earbob','bracelet','torque','brooch']
@@ -38,6 +38,15 @@ def list(request):
 
     context = {
         'type_list':type_list,
+    }
+
+    return render(request,website.list,context)
+
+
+def list(request):
+
+
+    context = {
     }
 
     return render(request,website.list,context)
