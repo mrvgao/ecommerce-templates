@@ -22,19 +22,6 @@ $(function(){
 			setGoodsVisitChart();
 		}
 	});
-
-	var data = [
-    	{
-    		value:[4,16,18,24,32,36,38,38,36,26,20,14],
-    		color:'#aad0db',
-    		line_width:2
-    	},
-    	{
-    		value:[4,4,12,20,26,30,32,29,22,12,8,6],
-    		color:'#7ecbed',
-    		line_width:2
-    	}
-    ];
     
 	var arrLabels = [
 		["MON","TUE","WED","THUR","FRI","SAT","SUN"],
@@ -45,6 +32,26 @@ $(function(){
 	
 	// 作品访问量函数
 	function setHomeVisitChart(){
+		var weekNum=[],monthNum=[];
+		$.post('/designer/works_visit',{}, function(e) {
+			if(e){
+				weekNum = e.weekNum;
+				monthNum = e.monthNum;
+			}
+		});
+
+		var data = [
+			{
+				value:weekNum,
+				color:'#aad0db',
+				line_width:2
+			},
+			{
+				value:monthNum,
+				color:'#7ecbed',
+				ine_width:2
+			}
+		];
 		var homeVisit_chart = new iChart.Area2D({
 			render : 'homeVisit',
 			data: data,
@@ -92,6 +99,26 @@ $(function(){
 	setHomeVisitChart();
 	// 个人中心访问量函数
 	function setGoodsVisitChart(){
+		var weekNum=[],monthNum=[];
+		$.post('/designer/center_visit',{}, function(e) {
+			if(e){
+				weekNum = e.weekNum;
+				monthNum = e.monthNum;
+			}
+		});
+
+		var data = [
+			{
+				value:weekNum,
+				color:'#aad0db',
+				line_width:2
+			},
+			{
+				value:monthNum,
+				color:'#7ecbed',
+				ine_width:2
+			}
+		];
 		var goodsVisit_chart = new iChart.Area2D({
 			render : 'goodsVisit',
 			data: data,

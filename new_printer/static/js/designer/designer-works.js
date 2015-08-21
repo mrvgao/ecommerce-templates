@@ -97,7 +97,7 @@ function addWorkBtnCurrent(_this){
 		_this.addClass('works-current');
 	}
 }
-function workd_unexecute(){
+function workd_unexecute(){//加载未审核的数据
 	var designer_works_lists = $('.designer-works-lists');
 	designer_works_lists.empty();
 	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
@@ -115,7 +115,7 @@ function workd_unexecute(){
 	});
 }
 
-function isCheckAll(obj){
+function isCheckAll(obj){//全选函数
 	var _this = $(obj);
 	if(!_this.attr('checked')){
 		_this.attr('checked',true);
@@ -127,11 +127,11 @@ function isCheckAll(obj){
 		console.log(_this.attr('checked'));
 	}
 }
-function deleteAll(){
+function deleteAll(){//批量删除函数
 	var deleteTag = $('.works-wait-delete-check:checked'),
 		worksList = $('tr'),
 		worksContainer = $('.designer-works-wait').find('tbody');
-	var str ='<tr><td colspan="3">没有数据啦⊙.⊙</td></tr>',
+	var str ='<tr><td colspan="4">没有数据啦⊙.⊙</td></tr>',
 		rest = worksList.length - deleteTag.length;
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
