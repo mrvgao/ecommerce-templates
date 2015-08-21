@@ -25,7 +25,7 @@ urlpatterns = patterns('',
         url('^brooch$', views.list, name="list"),
 
         # 商品详情页
-        url('goods_detail', views.goods_detail, name="goods_detail"),
+        url('goods-detail', views.goods_detail, name="goods_detail"),
 
         # 首页按类型筛选，ajax
         url('filter-type', views.filter_type, name="filter_type"),
