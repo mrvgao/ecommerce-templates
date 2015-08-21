@@ -97,10 +97,11 @@ $(function(){
 		homeVisit_chart.draw();
 	}
 	setHomeVisitChart();
+	
 	// 个人中心访问量函数
 	function setGoodsVisitChart(){
 		var weekNum=[],monthNum=[];
-		$.post('/designer/center_visit',{}, function(e) {
+		$.post('/designer/center_visit',{}, function(e){
 			if(e){
 				weekNum = e.weekNum;
 				monthNum = e.monthNum;
@@ -119,6 +120,7 @@ $(function(){
 				ine_width:2
 			}
 		];
+
 		var goodsVisit_chart = new iChart.Area2D({
 			render : 'goodsVisit',
 			data: data,
@@ -128,7 +130,7 @@ $(function(){
 			tip:{
 				enable : true,
 				listeners:{
-					 //tip:提示框对象、name:数据名称、value:数据值、text:当前文本、i:数据点的索引
+				 //tip:提示框对象、name:数据名称、value:数据值、text:当前文本、i:数据点的索引
 					parseText:function(tip,name,value){
 						return value;
 					}
