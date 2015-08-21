@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'new_printer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-if not in_test_server:
+if in_test_server:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -152,6 +152,4 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
     os.path.join(New_s, 'static'),
 )
-print STATICFILES_DIRS
-print New_s
 

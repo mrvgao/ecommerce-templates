@@ -33,37 +33,37 @@
 		</div>
 		<div data-kind="{{ goods_kind }}" class="list-wrap mt20 clearfix">
 			
-			{# {% for goods in goods_list %} #}
+			{% for goods in goods_list %} 
 
 			<div class="list-box pr">
 				<div class="list-img mb10">
-					<a target="_blank" href="goods_detail?id=1">
+                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
 						<img class="goods_img" src="{{ goods.goods_img }}" alt="" />
 					</a>
 				</div>
 				<div class="num-box tc mb10">
 					<p class="mr15 inl-b">
 						<em class="download-num-ico"></em>
-						<span class="goods_downloadNum">{{ goods.goods_downloadNum }}</span>
+						<span class="goods_downloadNum">{{ goods.goods_download_num }}</span>
 					</p>
 					<p class="inl-b">
 						<em class="mark-num-ico"></em>
-						<span class="goods_markNum">{{ goods.goods_markNum }}</span>
+						<span class="goods_markNum">{{ goods.goods_mark_num }}</span>
 					</p>
 				</div>
 				<div class="list-title tc mb10">
-					<a class="goods_name" target="_blank" href="goods_detail?id=1">
+                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
 					{{ goods.goods_name }}
 					</a>
 				</div>
 				<p class="goods_price f12 tc">￥{{ goods.goods_price }}</p>
-				<a class="list-mark-btn {% if goods.goods_mark %}active{% else %}{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+                <a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
 					<em class="list-mark-btn-ico"></em>
 					收藏
 				</a>
 			</div>
 
-			{# {% endfor %} #}
+			{% endfor %} 
 
 		</div>
 		

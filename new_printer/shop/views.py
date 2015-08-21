@@ -53,25 +53,33 @@ def list(request):
 def ring(request):
     goods_tags = u'戒指'
     vender_id = 2
-    all_goods_list = goods_handler.get_all_goods_by_tags(goods_tags)
-    print all_goods_list
-    sort_goods_list = goods_handler.comprehension_sort(all_goods_list)
-    goods_list = []
-    for goods in sort_goods_list:
-        is_collected = vender_goods_handler.get_is_collected(goods.id, vender_id)
-        goods_param = (goods.id, goods.goods_name, goods.preview_1, goods.tags,
-                       is_collected, goods.download_count, goods.collected_count, goods.goods_price)
-        tag_goods = TagGoods(goods_param)
-        goods_list.append(tag_goods)
 
-    for goods in goods_list:
-        print goods.goods_id, goods.goods_name, goods.goods_classify, goods.goods_mark
+    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
 
     context = {
-        'goods_list': goods_list,
+        'goods_kind': goods_tags, 'goods_list': goods_list,
     }
 
-    return render(request, website.test, context)
+    return render(request, website.list, context)
+
+
+def get_goods_list_by_tags(goods_tags, vender_id):
+
+    def change_to_tag_goods(sort_goods_list, vender_id):
+        goods_list = []
+        for goods in sort_goods_list:
+            is_collected = vender_goods_handler.get_is_collected(goods.id, vender_id)
+            goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
+                           goods.tags,is_collected, goods.download_count,
+                           goods.collected_count, goods.goods_price)
+            tag_goods = TagGoods(goods_param)
+            goods_list.append(tag_goods)
+        return goods_list
+
+    all_goods_list = goods_handler.get_all_goods_by_tags(goods_tags)
+    sort_goods_list = goods_handler.comprehension_sort(all_goods_list)
+    goods_list = change_to_tag_goods(sort_goods_list, vender_id)
+    return goods_list
 
 
 def filter_type(request):
@@ -125,4 +133,4 @@ def modify_goods_list(goods_list):
 def goods_detail(request):
     goods_id =  request.GET['goods_id']
     print goods_id
-    return render(request,website.goods_detail)
+    return render(request,website.test)
