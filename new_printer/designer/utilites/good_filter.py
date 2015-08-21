@@ -85,9 +85,9 @@ def unpublish_exec(good_list):
                 'name':good.goods_name,
                 'description':good.description,
                 'good_price':good.goods_price,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
+                #'preview_1':str(website.file_server_path)+str(good.preview_1),
+                #'preview_2':str(website.file_server_path)+str(good.preview_2),
+                #'preview_3':str(website.file_server_path)+str(good.preview_3),
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
                 'stl_path':str(website.file_server_path)+good.stl_path,
@@ -98,7 +98,8 @@ def unpublish_exec(good_list):
                 'good_state':good.good_state,
                 'type':'stl'
                 }
-		return_list.append(temp)
+
+        return_list.append(temp)
 	return return_list
 
 def publish_exec(good_list):
@@ -124,7 +125,7 @@ def publish_exec(good_list):
                 }
 		print good.id
 		return_list.append(temp)
-        
+
 	return return_list
 
 #下载STL 文件到本地,以便预览stl

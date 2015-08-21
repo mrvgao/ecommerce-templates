@@ -17,7 +17,7 @@ from django.template import RequestContext
 from django import forms
 from designer.conf import website 
 from designer.utilites import search_handle,good_filter
-from configuration.models import Goods_Upload,Designer_User,Vender_Goods
+from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
 from django.contrib.auth.models import User
 import httplib, urllib
 import urllib2,os
@@ -288,8 +288,9 @@ def photo_not_passed(request):#未通过页面，点击重新申请发布
 
 #显示已发布页面
 def has_published(request):
-    user = request.user
-    designer = Designer_User.objects.get(user_id=user.id)
+    #user = request.user
+    #pdb.set_trace()
+    designer = Designer_User.objects.get(user_id=1)#user.id)
     design_list = Goods.objects.filter(designer_id=designer.id)
     return_list = good_filter.publish_exec(design_list)
     '''for good in goods:
@@ -307,7 +308,7 @@ def has_published(request):
             vender = Vender_User.objects.get(id=vender)
             this_good[count]=vender.img
         goods_all.append(this_good)'''               
-    conf = {'goods':return_list
+    conf = {'all_list':return_list
             }
     return HttpResponse(json.dumps(conf))
 
