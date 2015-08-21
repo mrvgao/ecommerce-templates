@@ -39,11 +39,8 @@ $(document).ready(function(){
 
 	works_Suc_btn.on('click',function(){//已发布页面
 		designer_works_lists.empty();
-
-
 		var sucStr ='';
 		$.post('/designer/has_published',{"page":1}, function(e) {
-
 			if(e){
 				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){
@@ -100,7 +97,7 @@ function addWorkBtnCurrent(_this){
 		_this.addClass('works-current');
 	}
 }
-function workd_unexecute(){
+function workd_unexecute(){//加载未审核的数据
 	var designer_works_lists = $('.designer-works-lists');
 	designer_works_lists.empty();
 	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
@@ -118,20 +115,24 @@ function workd_unexecute(){
 	});
 }
 
-function isCheckAll(obj){
-	var _this = $(obj);
-	if(!_this.attr('checked')){
-		_this.attr('checked',true);
-	$('input[type="checkbox"]').attr("checked",true);
-		console.log(_this.attr("checked"));
+function isCheckAll(obj){//全选函数
+	var allList = document.getElementsByTagName("input");
+	if(obj.checked){
+		for(var i=0,len=allList.length;i<len;i++){
+				allList[i].checked=true;
+		}
 	}else{
-		_this.attr('checked',false);
-		$('input[type="checkbox"]').attr('checked',false);
-		console.log(_this.attr('checked'));
+		for(var i=0,len=allList.length;i<len;i++){
+				allList[i].checked=false;
+		}
 	}
 }
-function deleteAll(){
-	var deleteTag = $('.works-wait-delete-check:checked');
+function deleteAll(){//批量删除函数
+	var deleteTag = $('.works-wait-delete-check:checked'),
+		worksList = $('tr'),
+		worksContainer = $('.designer-works-wait').find('tbody');
+	var str ='<tr><td colspan="4">没有数据啦⊙.⊙</td></tr>',
+		rest = worksList.length - deleteTag.length;
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('tr').attr('data-id');
@@ -142,4 +143,8 @@ function deleteAll(){
 		});
 		$(this).parents('tr').remove();
 	});
+	$('#checkall').attr('checked',false);
+	if(rest==1){
+		worksContainer.append(str);
+	}
 }

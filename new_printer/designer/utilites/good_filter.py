@@ -77,29 +77,6 @@ def publish_good_filter(tags,designer):
         return_list.append(temp)
 	return return_list
 
-#对 未发布 商品的处理
-def unpublish_exec(good_list):
-	return_list = []
-	for good in good_list:
-		temp={ 'id':good.id,
-                'name':good.goods_name,
-                'description':good.description,
-                'good_price':good.goods_price,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
-                'file_size':good.file_size,
-                'not_passed':good.not_passed,
-                'stl_path':str(website.file_server_path)+good.stl_path,
-                'style':good.style,
-                'tags':good.tags,
-                'upload_time':good.upload_time.strftime("%Y-%m-%d"),
-                'modify_time':good.modify_time.strftime("%Y-%m-%d"),
-                'good_state':good.good_state,
-                'type':'stl'
-                }
-		return_list.append(temp)
-	return return_list
 
 def publish_exec(good_list):
 	return_list = []
@@ -124,8 +101,33 @@ def publish_exec(good_list):
                 }
 		print good.id
 		return_list.append(temp)
-        
+
 	return return_list
+
+#对 未发布 商品的处理
+def unpublish_exec(good_list):
+    return_list = []
+    for good in good_list:
+        temp={'id':good.id,
+                'name':good.goods_name,
+                'description':good.description,
+                'good_price':good.goods_price,
+                'preview_1':str(website.file_server_path)+str(good.preview_1),
+                'preview_2':str(website.file_server_path)+str(good.preview_2),
+                'preview_3':str(website.file_server_path)+str(good.preview_3),
+                'file_size':good.file_size,
+                'not_passed':good.not_passed,
+                'stl_path':str(website.file_server_path)+good.stl_path,
+                'style':good.style,
+                'tags':good.tags,
+                'upload_time':good.upload_time.strftime("%Y-%m-%d"),
+                'modify_time':good.modify_time.strftime("%Y-%m-%d"),
+                'good_state':good.good_state,
+                'type':'stl'
+                }
+        return_list.append(temp)
+    return return_list
+
 
 #下载STL 文件到本地,以便预览stl
 def down_stl(_url):
