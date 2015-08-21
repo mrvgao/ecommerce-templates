@@ -13,14 +13,16 @@ from configuration.models import Designer_User
 
 from utils.common_class import IndexGoods
 from utils.common_class import IndexGoodsDesigner
-from utils.common_class import AllGoods
+from utils.common_class import TagGoods
 
 from shop.utils.goods_handler import GoodsHandler
 from utility.common_handler import CommonHandler
+from utility.vender_goods_handler import VenderGoodsHandler
 
 # Create your views here.
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
+vender_goods_handler = VenderGoodsHandler()
 
 def test(request):
 
@@ -45,11 +47,31 @@ def test(request):
 
 def list(request):
 
+    return render(request,website.list)
+
+
+def ring(request):
+    goods_tags = u'戒指'
+    vender_id = 2
+    all_goods_list = goods_handler.get_all_goods_by_tags(goods_tags)
+    print all_goods_list
+    sort_goods_list = goods_handler.comprehension_sort(all_goods_list)
+    goods_list = []
+    for goods in sort_goods_list:
+        is_collected = vender_goods_handler.get_is_collected(goods.id, vender_id)
+        goods_param = (goods.id, goods.goods_name, goods.preview_1, goods.tags,
+                       is_collected, goods.download_count, goods.collected_count, goods.goods_price)
+        tag_goods = TagGoods(goods_param)
+        goods_list.append(tag_goods)
+
+    for goods in goods_list:
+        print goods.goods_id, goods.goods_name, goods.goods_classify, goods.goods_mark
 
     context = {
+        'goods_list': goods_list,
     }
 
-    return render(request,website.list,context)
+    return render(request, website.test, context)
 
 
 def filter_type(request):
