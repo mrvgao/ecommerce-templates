@@ -8,6 +8,14 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/vender/vender.css' %}" />
 {% endblock %}
 
+{% block bodyColor %}
+<body class="vc">
+{% endblock %}
+
+{% block header %}
+	{% include 'vender/vender-header.html' %}
+{% endblock %}
+
 {% block content %}
 	<div class="vender-center">
 		<div class="container clearfix">
