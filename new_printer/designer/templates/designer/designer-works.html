@@ -2,8 +2,8 @@
 	{% block mainContent %}
 	<div class="designer-works-container">
 		<div class="designer-works-btn">
-			<button id="works_wait_btn">未审核{{ designer.worksWait }}</button>
-			<button class="works-current" id="works_on_btn">审核中{{ designer.worksOn }}</button>
+			<button class="works-current" id="works_wait_btn">未审核{{ designer.worksWait }}</button>
+			<button id="works_on_btn">审核中{{ designer.worksOn }}</button>
 			<button id="works_not_btn">未通过{{ designer.worksNot }}</button>
 			<button id="works_Suc_btn">已发布{{ designer.worksSuc }}</button>
 		</div>
@@ -25,143 +25,6 @@
 				<li class="works-sort-collection"><span>收藏量</span></li>
 				<li class="works-sort-time"><span>时间</span></li>
 			</ul>
-			<div class="designer-works-list-box clearfix">
-				<div class="designer-works-list-bigpic fl">
-					<img src="../../../static/images/designer/test.jpg"  />
-				</div>
-				<div class="designer-works-list-detail fl">
-					<p class="designer-works-list-title">海洋之心</p>
-					<p class="designer-works-list-describe">细胞流动的结构，象征生命的本质。让活力注入指间，让美源自根本</p>
-					<div class="designer-works-list-pics clearfix">
-						<img src="../../../static/images/designer/test.jpg">
-						<img src="../../../static/images/designer/test.jpg">
-						<img src="../../../static/images/designer/test.jpg">
-					</div>
-				</div>
-				<div class="designer-works-list-status fl">
-					<strong>审核中···</strong>
-					<p>您的作品预计在3天内被审核完毕并发布。</p>
-				</div>
-			</div>
-			<div class="designer-works-list-box clearfix">
-				<div class="designer-works-list-bigpic fl">
-					<img src="../../../static/images/designer/test.jpg"  />
-				</div>
-				<div class="designer-works-list-smdetail fl">
-					<p class="designer-works-list-title">海洋之心</p>
-					<p class="designer-works-list-describe">细胞流动的结构，象征生命的本质。让活力注入指间，让美源自根本</p>
-					<div class="designer-works-list-pics clearfix">
-						<img src="../../../static/images/designer/test.jpg">
-						<img src="../../../static/images/designer/test.jpg">
-						<img src="../../../static/images/designer/test.jpg">
-					</div>
-				</div>
-				<div class="designer-works-list-data fl">
-					<div class="list-data-container clearfix">
-						<div class="list-data-box fl">
-							<span class="list-data-num list-download-num">999</span>次下载
-						</div>
-						<div class="list-data-box fl">
-							<span class="list-data-num list-collection-num">999</span>次收藏
-						</div>
-					</div>
-					<div class="list-data-price">售价：<span class="list-data-price-num">242</span>RMB</div>
-					<div class="list-data-update">发布时间：<span class="list-data-update-num">2014.09.04</span></div>
-				</div>
-				<div class="designer-works-modify fl">
-					<button class="works-modify-btn ">编辑</button>
-					<button class="works-cancel-btn">取消发布</button>
-					<input type="checkbox" class="works-cancel-check"/>
-				</div>
-			</div>
-			<div class="designer-works-list-box clearfix">
-				<div class="designer-works-list-bigpic fl">
-					<img src="../../../static/images/designer/test.jpg"  />
-				</div>
-				<div class="designer-works-list-smdetail fl">
-					<p class="designer-works-list-title">海洋之心</p>
-					<p class="designer-works-list-describe">细胞流动的结构，象征生命的本质。让活力注入指间，让美源自根本</p>
-					<div class="designer-works-list-pics clearfix">
-						<img src="../../../static/images/designer/test.jpg">
-						<img src="../../../static/images/designer/test.jpg">
-						<img src="../../../static/images/designer/test.jpg">
-					</div>
-				</div>
-				<div class="designer-works-list-data fl">
-					<div class="works-not-container clearfix">
-						<p class="works-not-explain"><span>未通过说明:</span> 请将预览效果图背景改为白色或者透明色，可申请重新发布。</p>
-						<p class="works-not-time fr">2015 / 8.9 /12:00</p>
-					</div>
-				</div>
-				<div class="designer-works-modify fl">
-					<button class="works-modify-btn ">编辑</button>
-					<button class="works-cancel-btn">取消发布</button>
-					<input type="checkbox" class="works-cancel-check"/>
-				</div>
-			</div>
-			<div class="designer-works-canelAll">
-				<button class="works-canelAll-btn">批量取消发布</button>
-				<label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall"/>
-			</div>
-			<table class="designer-works-wait" cellpadding="0" cellspacing="0">
-				<tr>
-					<th>
-						<span>作品名称</span>
-					</th>
-					<th>
-						<span>文件类型｜文件大小</span>
-					</th>
-					<th>
-						<span>上传时间</span>
-					</th>
-					<th colspan="2">操作</th>
-				</tr>
-				<tr>
-					<td>
-						<span>海洋之心</span>
-					</td>
-					<td>
-						<span>STL文件｜0.8m</span>
-					</td>
-					<td>
-						<span>2015 / 4.23 / 12:11</span>
-					</td>
-					<td>
-						<span>
-							<button class="go-setprice">去定价</button>
-						</span>
-					</td>
-					<td>
-						</span>删除<input type="checkbox" class="works-wait-delete-check"></span>
-					</td>
-	
-				</tr>
-				<tr>
-					<td>
-						<span>海洋之心</span>
-					</td>
-					<td>
-						<span>STL文件｜0.8m</span>
-					</td>
-					<td>
-						<span>2015 / 4.23 / 12:11</span>
-					</td>
-					<td>
-						<span>
-							<button class="go-setprice">去定价</button>
-						</span>
-					</td>
-					<td>
-						</span>删除<input type="checkbox" class="works-wait-delete-check"></span>
-					</td>
-	
-				</tr>
-			<div class="designer-works-deleteAll">
-				<button class="works-deleteAll-btn">批量删除</button>
-				<label for="checkall">全选</label>
-				<input type="checkbox" class="works-delete-allcheck" id="checkall"/>
-			</div>
-			</table>
 		</div>
 		<ul class="designer-works-page">
 			<li class="designer-works-page-first">首页</li>

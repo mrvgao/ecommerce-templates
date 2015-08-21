@@ -251,6 +251,7 @@
 	left: 0;
 	top: -28px;
 	border-right: 1px solid #ddd;
+	display: none;
 }
 .designer-works-sort li{
 	float: left;
