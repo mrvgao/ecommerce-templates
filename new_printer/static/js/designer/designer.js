@@ -6,10 +6,10 @@ $(document).ready(function() {
 		designer_works_lists = $('.designer-works-lists');
 
 
-	works_wait_btn.on('click',function(){//未审核页面
+	works_on_btn.on('click',function(){//审核中页面
 		designer_works_lists.empty();
 		var waitStr='';
-		$.post('designer/photo_wait_review',{"page":1}, function(e) {
+		$.post('designer/photo_on_review',{"page":1}, function(e) {
 			if(e){
 				var waitlist = JSON.parse(e).list;
 				for(var i=0,len=waitlist.length;i<len;i++){
@@ -26,10 +26,10 @@ $(document).ready(function() {
 		});
 	});
 
-	works_on_btn.on('click',function(){//审核中页面
+	works_Suc_btn.on('click',function(){//已发布页面
 		designer_works_lists.empty();
 		var onStr ='';
-		$.post('designer/photo_on_review',{"page":1}, function(e) {
+		$.post('designer/photo_success_pubulic',{"page":1}, function(e) {
 			if(e){
 				var onList = JSON.parse(e).list;
 				for(var i=0,len=onList.length;i<len;i++){
@@ -48,7 +48,7 @@ $(document).ready(function() {
 
 	});
 
-	works_not_btn.on('click',funtion(){
+	works_not_btn.on('click',funtion(){//未通过页面
 		designer_works_lists.empty();
 		var notStr ='';
 		$.post('designer/photo_not_passed', {"page":1}, function(e){
