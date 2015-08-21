@@ -1,9 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function(){
 	var works_wait_btn = $('#works_wait_btn'),//未审核
 		works_on_btn = $('#works_on_btn'),//审核中
 		works_not_btn = $('#works_not_btn'),//未通过
 		works_Suc_btn = $('#works_Suc_btn');//已发布
-		designer_works_lists = $('.designer-works-lists');
+		designer_works_lists = $('.designer-works-lists'),
+		designer_sidebar_menulist = $('.designer-sidebar-menulist');
+
 
 	works_wait_btn.on('click',function(){//未审核页面
 		designer_works_lists.empty();
@@ -21,6 +23,8 @@ $(document).ready(function() {
 			}
 			designer_works_lists.append(waitStr);
 		});
+
+		addWorkBtnCurrent($(this));
 
 	});
 
@@ -43,6 +47,7 @@ $(document).ready(function() {
 			}
 			designer_works_lists.append(onStr);
 		});
+			addWorkBtnCurrent($(this));
 	});
 
 	works_Suc_btn.on('click',function(){//已发布页面
@@ -67,22 +72,29 @@ $(document).ready(function() {
 			}
 				designer_works_lists.append(sucStr);
 		});
+		addWorkBtnCurrent($(this));
 
 	});
 
 
+
 	works_not_btn.on('click',function(){//未通过页面
+
 
 		designer_works_lists.empty();
 		var notStr ='';
+
 		$.post('/designer/not_passed', {"page":1}, function(e){
+
 			if(e){
 				var notList = JSON.parse(e).all_list;
 				for(var i=0,len=notList.length;i<len;i++){
 				notStr+='</div><div class="designer-works-list-box clearfix"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].bigPic+'" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
-					// for(var j=0,jlen=notList[i].pic.length;j<jlen;j++){
-					// 	notList +='<img src="'+notList.pic[j]+'"/>';
-					// }
+
+					for(var j=0,jlen=notList[i].pic.length;j<jlen;j++){
+						notList +='<img src="'+notList[i].pic[j]+'"/>';
+					}
+
 					notList+='</div></div><div class="designer-works-list-data fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].explain+'</p><p class="works-not-time fr">'+notList[i].notTime+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
 				}
 			}else{
@@ -90,6 +102,30 @@ $(document).ready(function() {
 			}
 			designer_works_lists.append(notStr);
 		});
+		addWorkBtnCurrent($(this));
+	});
+
+	designer_sidebar_menulist.each(function(index, el) {//侧边导航点击效果
+		var _this = $(this);
+		_this.on('click',function(){
+			if(_this.hasClass('menu-current')){
+				return false;
+			}else{
+				designer_sidebar_menulist.removeClass('menu-current');
+				_this.addClass('menu-current');
+			}
+		});
 	});
 
 });
+
+
+function addWorkBtnCurrent(_this){
+	var designer_works_btn = $('.designer-works-btn').find('button');
+	if(_this.hasClass('works-current')){
+		return false;
+	}else{
+		designer_works_btn.removeClass('works-current');
+		_this.addClass('works-current');
+	}
+}
