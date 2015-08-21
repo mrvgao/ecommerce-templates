@@ -116,15 +116,15 @@ function workd_unexecute(){//加载未审核的数据
 }
 
 function isCheckAll(obj){//全选函数
-	var _this = $(obj);
-	if(!_this.attr('checked')){
-		_this.attr('checked',true);
-	$('input[type="checkbox"]').attr("checked",true);
-		console.log(_this.attr("checked"));
+	var allList = document.getElementsByTagName("input");
+	if(obj.checked){
+		for(var i=0,len=allList.length;i<len;i++){
+				allList[i].checked=true;
+		}
 	}else{
-		_this.attr('checked',false);
-		$('input[type="checkbox"]').attr('checked',false);
-		console.log(_this.attr('checked'));
+		for(var i=0,len=allList.length;i<len;i++){
+				allList[i].checked=false;
+		}
 	}
 }
 function deleteAll(){//批量删除函数
