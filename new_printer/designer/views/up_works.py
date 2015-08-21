@@ -140,7 +140,7 @@ def stl_delete(request):
 def workd_unexecute(request):
     #pdb.set_trace()
     user = 1#request.user
-    now_page = 3 #request.POST['now_page']
+    now_page = 0 #request.POST['now_page']
     designer = Designer_User.objects.get(user_id=1)#user.id)
     designer.icon = str(website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
@@ -153,7 +153,7 @@ def workd_unexecute(request):
             'icon' : designer.icon,
             'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'all_len':all_len,
               }
-    return render(request, website.works_execute, conf)
+    #return render(request, website.works_execute, conf)
     #return HttpResponse(json.dumps(conf))
 
 #在未审核页面直接删除作品
