@@ -1,0 +1,46 @@
+{% extends 'designer/designer-base.html' %}
+{% load staticfiles %}
+	{% block selfJs %}
+	<script type="text/javascript" src="{% static 'js/designer/designer-works.js' %}"></script>
+	{% endblock %}
+	{% block mainContent %}
+	<div class="designer-works-container">
+		<div class="designer-works-btn">
+			<button class="works-current" id="works_wait_btn">未审核{{ designer.worksWait }}</button>
+			<button id="works_on_btn">审核中{{ designer.worksOn }}</button>
+			<button id="works_not_btn">未通过{{ designer.worksNot }}</button>
+			<button id="works_Suc_btn">已发布{{ designer.worksSuc }}</button>
+		</div>
+		<ul class="designer-works-nav fl">
+			<li class="designer-works-nav-current">全部</li>
+			<li>戒指</li>
+			<li>吊坠</li>
+			<li>耳坠</li>
+			<li>手链</li>
+			<li>项链</li>
+			<li>胸针</li>
+		</ul>
+		<div class="designer-works-search fr">
+			<input type="text" class="fl"/><span class="designer-works-search-icon fl"></span>
+		</div>
+		<div class="designer-works-lists">
+			<ul class="designer-works-sort">
+				<li class="works-sort-download sort-current"><span>下载量</span></li>
+				<li class="works-sort-collection"><span>收藏量</span></li>
+				<li class="works-sort-time"><span>时间</span></li>
+			</ul>
+		</div>
+		<ul class="designer-works-page">
+			<li class="designer-works-page-first">首页</li>
+			<li class="designer-works-page-prev">上一页</li>
+			<li class="page-current">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li class="designer-works-page-dots">...</li>
+			<li class="designer-works-page-next">下一页</li>
+			<li class="designer-works-page-last">末页</li>
+		</ul>
+	</div>
+	{% endblock %}

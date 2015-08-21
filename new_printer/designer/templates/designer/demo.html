@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>上传部分</title>
+<style type="text/css">
+	form{
+		width: 635px;
+		margin: 200px auto;
+	}
+	h1{
+		font-size: 16px;
+		width: 100px;
+		border-left: 4px solid #000;
+	}
+	.input_wrap{
+		height: 5px;
+		overflow: hidden;
+	}
+	.shangchuan{
+		visibility: hidden;
+	}
+	.btn-wrap{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	.btn{
+		height: 45px;
+		width: 80px;
+		border:1px solid #aaa;
+		border-radius: 5px;
+		background: transparent;
+		margin-left:15px;
+		cursor:pointer;
+	}
+	.sub-btn{
+		margin:20px auto 0;
+		width: 310px;
+		height: 35px;
+		border:1px solid #555;
+		outline: none;
+		background: transparent;
+		cursor: pointer;
+	}
+	.showmsg{
+		height: 30px;
+		line-height: 30px;
+		width: 600px;
+	}
+	.fimetype{
+		font-size: 18px;
+		font-weight: bold;
+		margin-right: 45px;
+	}
+	.filename{
+		color: #555;
+		font-size: 14px;
+	}
+</style>
+</head>
+<body>
+	<form type="file" action="/designer/works_save" method="post" class="list-form" enctype="multipart/form-data" multiple="">
+	<h1>上传模型文件</h1>
+		<div class="input_wrap">
+			<input type="file" class="shangchuan" id="jiezhi1" name="jiezhi" value="戒指上传">
+			<input type="file" class="shangchuan" id="diaozhui1" name="2" value="吊坠上传"/>
+			<input type="file" class="shangchuan" id="erzhui1" name="3" value="耳坠上传"/>
+			<input type="file" class="shangchuan" id="shoulian1" name="4" value="手链上传"/>
+			<input type="file" class="shangchuan" id="xianglian1" name="5" value="项链上传"/>
+			<input type="file" class="shangchuan" id="xiongzhen1" name="6" value="胸针上传"/>
+		</div>
+		<div class="btn-wrap">
+			<button type="button" class="btn" id="jiezhi_btn">戒指上传</button>
+			<button type="button" class="btn" id="diaozhui_btn">吊坠上传</button>
+			<button type="button" class="btn" id="erzhui_btn">耳坠上传</button>
+			<button type="button" class="btn" id="shoulian_btn">手链上传</button>
+			<button type="button" class="btn" id="xianglian_btn">项链上传</button>
+			<button type="button" class="btn" id="xiongzhen_btn">胸针上传</button>
+		</div>
+		<button type="submit" class="sub-btn"/>去处理</button>
+    </form>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+	var sub_btn = $('.sub-btn'),
+		jiezhi_btn = $("#jiezhi_btn"),
+		jiezhiCount = 1,
+		diaozhuiCount = 1,
+		erzhuiCount = 1,
+		slianCount = 1,
+		xlianCount = 1,
+		xzhenCount = 1,
+		count = 1;
+		
+	$('.shangchuan').each(function(index, el) {
+		$(this).on('change',function(){
+			change($(this));
+		});
+	});
+
+	function change(obj){//上传文件后增加上传文件的input以继续上传
+		count ++;
+		var thisId = onlystr(obj.attr('id')), //获取id的字母部分
+			thisId3= thisId.substr(0,3); 
+			thisTypeId = "fimetype"+count, //展示部分的类型的id
+			thisFileName = "filename"+count, //展示部分文件名的Id
+			thisVal = obj.val(),
+			typeCount =0;
+
+		var show = '<div class="showmsg"><span class="fimetype" id="'+thisTypeId+'"></span><span>√</span><span class="filename" id="'+thisFileName+'"></span>已上传，点击标签可继续上传</div>';
+
+		$(show).insertBefore(sub_btn);
+		$('#'+thisTypeId).text(getFileType(thisId3));
+		$('#'+thisFileName).text(getFileName(thisVal));
+		switch(thisId3){
+			case "jie":  typeCount=jiezhiCount;
+							break;
+			case "dia":  typeCount=diaozhuiCount;
+							break;
+			case "erz":  typeCount=erzhuiCount;
+							break;
+			case "sho":  typeCount=slianCount;
+							break;
+			case "xia":  typeCount=xlianCount;
+							break;
+			case "xio":  typeCount=xzhenCount;
+		}	
+
+		var Id = thisId+typeCount;
+		var inputText = '<input type="file" class="shangchuan" id="'+thisId+typeCount+'" name="'+thisId+'" value="'+thisVal+'" >';
+		$(inputText).insertAfter(obj);
+		$("#"+Id).on('change',function(){
+			change($(this));
+		})
+	}
+	//给各个按钮绑定相应的文件上传事件
+	$("#jiezhi_btn").on('click',function(){
+		$("#jiezhi"+jiezhiCount).click();
+		jiezhiCount++;
+	})
+	$("#diaozhui_btn").on('click',function(){
+		$("#diaozhui"+diaozhuiCount).click();
+		diaozhuiCount++;
+	})
+	$("#erzhui_btn").on('click',function(){
+		$("#erzhui"+erzhuiCount).click();
+		erzhuiCount++;
+	})
+	$("#shoulian_btn").on('click',function(){
+		$("#shoulian"+slianCount).click();
+		slianCount++;
+	})
+	$("#xianglian_btn").on('click',function(){
+		$("#xianglian"+xlianCount).click();
+		xlianCount++;xlianCount
+	})
+	$("#xiongzhen_btn").on('click',function(){
+		$("#xiongzhen"+xzhenCount).click();
+		xzhenCount++;
+	})
+
+	function getFileName(obj){//获取上传文件的文件名
+	    var pos=obj.lastIndexOf("\\");
+	    return obj.substring(pos+1);  
+	}
+
+	function getFileType(id){//获取显示的类型文字
+		switch(id){
+			case "jie":  return "戒指";
+							break;
+			case "dia":  return "吊坠";
+							break;
+			case "erz":  return "耳坠";
+							break;
+			case "sho":  return "手链";
+							break;
+			case "xia":  return "项链";
+							break;
+			case "xio":  return "胸针";
+							break;
+		}
+	}
+	function onlystr(str){//剔除数字只要字母
+		var reg = /[A-Za-z]/g;
+		var s = str.match(reg).join("");
+		return s;
+	}
+</script>
+</body>
+</html>

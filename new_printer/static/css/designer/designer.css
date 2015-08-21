@@ -1,3 +1,6 @@
+body{
+	background: #f4fcfc;
+}
 .designer-header{
 	height: 30px;
 	line-height: 30px;
@@ -251,6 +254,7 @@
 	left: 0;
 	top: -28px;
 	border-right: 1px solid #ddd;
+	display: none;
 }
 .designer-works-sort li{
 	float: left;
@@ -406,9 +410,6 @@
 	bottom: -35px;
 	font-size: 14px;
 }
-.designer-works-canelAll{
-	display: none;
-}
 .works-canelAll-btn,.works-deleteAll-btn{
 	width: 90px;
 	height: 23px;
@@ -543,7 +544,7 @@
 }
 .mydata-downloadNum::before{
 	background: url(../../images/designer/designerIcon.png) no-repeat  -153px -10px;
-	height: 68px;
+	height: 77px;
 	width: 93px;
 	margin: 0 auto;
 }
