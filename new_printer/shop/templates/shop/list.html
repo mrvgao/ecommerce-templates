@@ -1,13 +1,63 @@
 {% extends 'base.html' %}
 
-{% block title %} 3DiLove 世界上最大的珠宝设计平台, 珠宝3D模型在线交易平台 {% endblock %}
-
 {% load staticfiles %}
 
 {% block selfFiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/list.css' %}" />
+	<script type="text/javascript" src="{% static 'js/shop/list.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-	
+	<div class="container">
+		<div class="filter-nav clearfix">
+			<div class="filter-bynum mt10 fl">
+				<a class="chover filter_all active" href="javascript:void(0)">综合</a>
+				<a class="chover filter_download_num" href="javascript:void(0)">下载量</a>
+				<a class="chover filter_mark_num" href="javascript:void(0)">收藏量</a>
+				<a class="chover filter_time" href="javascript:void(0)">最新作品</a>
+			</div>
+			<div class="classify-nav mt30 fr">
+				<a class="classify_all active" href="javascript:void(0)">全部</a>
+				<a class="classify_young" href="javascript:void(0)">青春洋溢</a>
+				<a class="classify_elegant" href="javascript:void(0)">富丽典雅</a>
+				<a class="classify_kindness" href="javascript:void(0)">亲切自然</a>
+				<a class="classify_fashion" href="javascript:void(0)">时尚潮流</a>
+			</div>
+		</div>
+		<div class="list-wrap mt20 clearfix">
+
+			{% for goods in goods_list %}
+
+			<div class="list-box pr">
+				<div class="list-img mb10">
+					<a target="_blank" href="goods_detail?id=1">
+						<img src="{{ goods.goods_img }}" alt="" />
+					</a>
+				</div>
+				<p class="num-box tc mb10">
+					<span class="mr15">
+						<em class="download-num-ico"></em>
+						{{ goods.goods_downloadNum }}
+					</span>
+					<span>
+						<em class="mark-num-ico"></em>
+						{{ goods.goods_markNum }}
+					</span>
+				</p>
+				<p class="list-title tc mb10">
+					<a target="_blank" href="goods_detail?id=1">
+					{{ goods.goods_name }}
+					</a>
+				</p>
+				<p class="f12 tc">￥{{ goods.goods_price }}</p>
+				<a class="list-mark-btn {% if goods.goods_mark %}active{% else %}{% endif %} chover pa" href="javascript:void(0)">
+					<em class="list-mark-btn-ico"></em>
+					收藏
+				</a>
+			</div>
+
+			{% endfor %}
+
+		</div>
+	</div>
 {% endblock %}
