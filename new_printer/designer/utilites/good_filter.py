@@ -25,6 +25,10 @@ from datetime import date ,datetime,timedelta
 import time
 import json,pdb
 
+unexec_one = 2 #
+auditing_one = 2#
+unpassed_one = 2#
+publish_one = 2#
 pwd = '/Users/renjie/Desktop/static'
 
 def unpublish_good_filter(good_state,tags,designer):
@@ -86,12 +90,13 @@ def unpublish_exec(good_list):
                 'preview_3':str(website.file_server_path)+str(good.preview_3),
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
-                'stl_path':good.stl_path,
+                'stl_path':str(website.file_server_path)+good.stl_path,
                 'style':good.style,
                 'tags':good.tags,
                 'upload_time':good.upload_time.strftime("%Y-%m-%d"),
                 'modify_time':good.modify_time.strftime("%Y-%m-%d"),
-                'good_state':good.good_state
+                'good_state':good.good_state,
+                'type':'stl'
                 }
 		return_list.append(temp)
 	return return_list
@@ -152,3 +157,49 @@ def down_stl(_url):
         context = {'stl_path':stl_path}
 
     return stl_path
+
+#首页
+def to_first(good_state,designer):
+    if good_state > 3:
+        good_list = Goods.objects.filter(designer_id=designer)
+        return_list = publish_exec(good_list)
+        return_list = return_list[:publish_one]
+    else:
+        good_list = Goods_Upload.objects.filter(designer_id=designer,good_state=good_state)
+        return_list = unpublish_exec(good_list)
+        return_list = return_list[:unexec_one]
+    return return_list
+
+#未页
+def to_last(good_state,designer):
+    if good_state > 3:
+        good_list = Goods.objects.filter(designer_id=designer)
+        len_good = len(good_list)
+        last = len_good/publish_one
+        return_list = publish_exec(good_list)
+        return_list = return_list[last:]
+    else:
+        good_list = Goods_Upload.objects.filter(designer_id=designer,good_state=good_state)
+        len_good = len(good_list)
+        last = len_good/unexec_one
+        return_list = unpublish_exec(good_list)
+        return_list = return_list[last:]
+    return return_list
+
+#下一页
+def next_page(good_state,designer,now_page):
+    if good_state > 3:
+        good_list = Goods.objects.filter(designer_id=designer)
+        len_good = len(good_list)
+        last = len_good/publish_one
+        return_list = good_list[(now_page*publish_one):(now_page+1)*publish_one]
+        return_list = publish_exec(return_list)
+    else:
+        good_list = Goods_Upload.objects.filter(designer_id=designer,good_state=good_state)
+        len_good = len(good_list)
+        last = len_good/unexec_one
+        return_list = good_list[(now_page*publish_one):(now_page+1)*publish_one]
+        return_list = unpublish_exec(return_list)
+    return return_list
+
+#go to now_page

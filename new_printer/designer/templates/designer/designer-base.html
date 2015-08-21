@@ -5,7 +5,8 @@
 {% load staticfiles %}
 {% block selfFiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/designer/designer.css' %}" />
-	<script type="text/javascript" src="{% static 'js/designer/designer.js' %}"></script>
+	{% block selfJs %}
+	{% endblock %}
 {% endblock %}
 	{% block header %}
 		{% include 'designer/designer-header.html' %}

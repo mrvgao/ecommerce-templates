@@ -15,6 +15,8 @@ urlpatterns = patterns('',
 	url(r'^unexecute_delete$',up_works.unexecute_delete,name = 'unexecute_delete'),
 	#未通过 页面，点击重新申请发布
 	url(r'^photo_not_passed$',up_works.photo_not_passed,name = 'photo_not_passed'),
+	#未通过 页面
+	url(r'^not_passed$',up_works.not_passed,name = 'not_passed'),
 	#审核中,显示未审核的页面
 	url(r'^auditing$',up_works.auditing,name = 'auditing'),
 	#显示已发布页面
