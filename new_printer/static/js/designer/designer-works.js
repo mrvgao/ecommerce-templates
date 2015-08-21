@@ -134,7 +134,7 @@ function deleteAll(){
 	var deleteTag = $('.works-wait-delete-check:checked');
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
-			_id = _this.attr('data-id');
+			_id = _this.parents('tr').attr('data-id');
 		$.post('designer/remove_unexecute', {"id":_id}, function(e) {
 			if(e){
 				alert(e);
