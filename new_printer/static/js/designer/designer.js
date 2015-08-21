@@ -23,7 +23,6 @@ $(document).ready(function(){
 			}
 			designer_works_lists.append(waitStr);
 		});
-
 		addWorkBtnCurrent($(this));
 
 	});
@@ -76,11 +75,7 @@ $(document).ready(function(){
 
 	});
 
-
-
 	works_not_btn.on('click',function(){//未通过页面
-
-
 		designer_works_lists.empty();
 		var notStr ='';
 
