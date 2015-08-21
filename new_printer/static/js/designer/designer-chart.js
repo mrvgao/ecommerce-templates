@@ -97,6 +97,7 @@ $(function(){
 		homeVisit_chart.draw();
 	}
 	setHomeVisitChart();
+	
 	// 个人中心访问量函数
 	function setGoodsVisitChart(){
 		var weekNum=[],monthNum=[];
@@ -119,7 +120,7 @@ $(function(){
 				ine_width:2
 			}
 		];
-		
+
 		var goodsVisit_chart = new iChart.Area2D({
 			render : 'goodsVisit',
 			data: data,
