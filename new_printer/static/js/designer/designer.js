@@ -96,17 +96,17 @@ $(document).ready(function(){
 		addWorkBtnCurrent($(this));
 	});
 
-	designer_sidebar_menulist.each(function(index, el) {//侧边导航点击效果
-		var _this = $(this);
-		_this.on('click',function(){
-			if(_this.hasClass('menu-current')){
-				return false;
-			}else{
-				designer_sidebar_menulist.removeClass('menu-current');
-				_this.addClass('menu-current');
-			}
-		});
-	});
+	// designer_sidebar_menulist.each(function(index, el){//侧边导航点击效果
+	// 	var _this = $(this);
+	// 	_this.on('click',function(){
+	// 		if(_this.hasClass('menu-current')){
+	// 			return false;
+	// 		}else{
+	// 			designer_sidebar_menulist.removeClass('menu-current');
+	// 			_this.addClass('menu-current');
+	// 		}
+	// 	});
+	// });
 
 });
 
