@@ -138,6 +138,7 @@ def stl_delete(request):
 
 #设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
 def workd_unexecute(request):
+    #pdb.set_trace()
     user = 1#request.user
     now_page = int(request.POST['page'])
     designer = Designer_User.objects.get(user_id=1)#user.id)
@@ -156,7 +157,7 @@ def workd_unexecute(request):
 
 #在未审核页面直接删除作品
 def unexecute_delete(request):
-    ids = request.POST['ids']
+    ids = request.POST['id']
     for id in ids:
         Goods_Upload.objects.filter(id = id).delete()
     conf = {'status':"success"}

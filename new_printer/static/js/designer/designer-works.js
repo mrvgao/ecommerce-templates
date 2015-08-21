@@ -41,14 +41,16 @@ $(document).ready(function(){
 
 			if(e){
 				var notList = JSON.parse(e).all_list;
+				console.log(notList.length)
 				for(var i=0,len=notList.length;i<len;i++){
-				notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].bigPic+'" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
-
-					for(var j=0,jlen=notList[i].pic.length;j<jlen;j++){
-						notList +='<img src="'+notList[i].pic[j]+'"/>';
+				notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].bigPic+'" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					var picList=notList[i].pic;
+					console.log(picList.length)
+					for(var j=0,jlen=picList.length;j<jlen;j++){
+						notStr +='<img src="'+picList[j]+'"/>';
 					}
 
-					notList+='</div></div><div class="designer-works-list-data fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].explain+'</p><p class="works-not-time fr">'+notList[i].notTime+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
+					notStr+='</div></div><div class="designer-works-list-data fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].not_passed+'</p><p class="works-not-time fr">'+notList[i].modify_time+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
 				}
 			}else{
 				notStr='信息加载失败';
@@ -76,7 +78,6 @@ function workd_unexecute(page){//加载未审核的数据
 	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
 	$.post('/designer/workd_unexecute',{"page":page}, function(e) {
 		if(e){
-			console.log(e);
 			var waitList = JSON.parse(e).all_list;
 			for(var i=0,len=waitList.length;i<len;i++){
 				waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span>删除<input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
@@ -131,6 +132,7 @@ function published(page){
 	});
 }
 function isCheckAll(obj){//全选函数
+
 	var allList = document.getElementsByTagName("input");
 	if(obj.checked){
 		for(var i=0,len=allList.length;i<len;i++){
@@ -140,6 +142,7 @@ function isCheckAll(obj){//全选函数
 		for(var i=0,len=allList.length;i<len;i++){
 			allList[i].checked=false;
 		}
+
 	}
 }
 
@@ -152,7 +155,7 @@ function deleteAll(){//批量删除函数
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('tr').attr('data-id');
-		$.post('designer/remove_unexecute', {"id":_id}, function(e) {
+		$.post('/designer/unexecute_delete', {"id":_id}, function(e) {
 			if(e){
 				alert(e);
 			}
