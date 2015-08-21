@@ -26,15 +26,15 @@ $(document).ready(function(){
 			}else if(toPage=="..."){
 				return false;
 			}
-			switch(thisType){
-				case "未审核":workd_unexecute(toPage);
-				break;
-				case "审核中":auditing(toPage);
-				break;
-				case "未通过":published(toPage);
-				break;
-				case "已发布":not_passed(toPage);
-				break;
+			
+			if(thisType=="未审核"){
+				workd_unexecute(toPage);
+			}else if(thisType=="审核中"){
+				auditing(toPage);
+			}else if(thisType=="未通过"){
+				published(toPage);
+			}else if(thisType=="已发布"){
+				not_passed(toPage);
 			}
 		});
 	});
