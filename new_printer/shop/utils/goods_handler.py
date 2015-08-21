@@ -1,5 +1,6 @@
-# coding=utf-8
+#coding=utf-8
 from django.core.exceptions import ObjectDoesNotExist
+from operator import attrgetter
 import heapq
 
 from configuration.models import Goods
@@ -67,6 +68,26 @@ class GoodsHandler(object):
     def get_other_goods(self, designer_id, goods_id):
         goods_list = Goods.objects.filter(designer_id=designer_id).exclude(id=goods_id)
         return goods_list
+
+
+    def sort_by_download(self, goods_list, order=True):
+        return_list = sorted(goods_list, key=attrgetter('download_count'), reverse=order)
+        return return_list
+
+
+    def sort_by_collect(self, goods_list, order=True):
+        return_list = sorted(goods_list, key=attrgetter('collected_count'), reverse=order)
+        return return_list
+
+
+    def sort_by_time(self, goods_list, order=True):
+        return_list = sorted(goods_list, key=attrgetter('approval_time'), reverse=order)
+        return return_list
+
+
+    def comprehension_sort(self, goods_list):
+        return_list = sorted(goods_list, key=attrgetter('download_count', 'collected_count', 'approval_time'))
+        return return_list
 
 
 class RecommendGoodsHandler(object):
