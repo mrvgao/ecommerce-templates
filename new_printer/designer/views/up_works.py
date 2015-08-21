@@ -27,7 +27,7 @@ import json,pdb,hashlib
 
 
 def index(request):
-    return render(request, website.index)
+    return render(request, website.edit)
 
 def stls_save(stls):
     jwary_md5 = {}
@@ -157,7 +157,7 @@ def unexecute_delete(request):
 
 #在未审核页面 点击处理并提交 后往JS传得值
 def unexecute_edit(request):
-    id = request.POST['id'] 
+    id = 40#request.POST['id'] 
     goods_list = Goods_Upload.objects.filter(id = id)
     return_good = []
     for good in goods_list:
@@ -271,7 +271,7 @@ def not_passed(request):
 
 #未通过页面，点击 重新申请发布 后的反馈操作
 def photo_not_passed(request):#未通过页面，点击重新申请发布
-    id = 38#request.POST['id']
+    id = 56#request.POST['id']
     design_list = Goods_Upload.objects.filter(id=id)
     return_list = good_filter.unpublish_exec(design_list)
     conf = {'return_list':return_list}
