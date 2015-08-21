@@ -105,17 +105,29 @@ body {
 	min-width:1140px;
 	background:#fff;
 	border-top:1px solid #ddd;
-	padding:25px 0 45px 0;
+	padding:45px 0;
 	margin-top:60px;
 }
 .site-about ul li {
-	padding-left:12px;
-	margin-left:12px;
-	border-left:1px solid #888;
-	display:inline-block;	
+	margin-bottom:5px;
 }
-.site-about ul li:first-child {
-	padding-left:0;
-	margin-left:0;
-	border-left:0;
+.copyright {
+	border-top:1px solid #ddd;
+}
+
+
+/* 分页部分 paging */
+.paging-btn, .paging-more {
+	display:inline-block;
+	padding:10px 15px;
+	background:#eee;
+	text-align:center;
+}
+.paging-btn.active {
+	background:#79d0d8;
+	color:#fff;
+}
+.paging-btn:hover {
+	background:#79d0d8;
+	color:#fff;
 }

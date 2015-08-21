@@ -8,23 +8,28 @@
 			<strong class="designer-sidebar-title-text">个人中心</strong>
 		</div>
 		<div class="designer-sidebar-username">
-			<span>{{ name}} </span>
+			<span>{{ name }} </span>
 			<a href="javascript:void(0);" class="designer-quiet">退出</a>
 		</div>
 	</div>
 	<div class="designer-sidebar-menu">
 		<ul>
-			<li class="designer-sidebar-menulist">
-				<a href="{% url 'designer:my_state'%}">我的动态</a>
+
+			
+			<li class="designer-sidebar-menulist {% if state %}menu-current{% else %}{% endif %}">
+				<a href="/designer/my_state">我的动态</a>
+
 			</li>
-			<li class="designer-sidebar-menulist menu-current">
+			<li class="designer-sidebar-menulist {% if work %}menu-current{% else %}{% endif %}">
 				<a href="/designer/works_save">作品上传</a>
 			</li>
-			<li class="designer-sidebar-menulist">
-				<a href="{% url 'designer:auditing'%}">作品管理</a>
+
+			<li class="designer-sidebar-menulist {% if auditing %}menu-current{% else %}{% endif %}">
+				<a href="/designer/auditing">作品管理</a>
+
 			</li>
-			<li class="designer-sidebar-menulist">
-				<a href="/designer/designer-center">账号设置</a>
+			<li class="designer-sidebar-menulist {% if setup %}menu-current{% else %}{% endif %}">
+				<a href="/designer/setup">账号设置</a>
 			</li>
 		</ul>
 	</div>
