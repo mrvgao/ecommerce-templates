@@ -133,4 +133,4 @@ def modify_goods_list(goods_list):
 def goods_detail(request):
     goods_id =  request.GET['goods_id']
     print goods_id
-    return render(request,website.test)
+    return render(request,website.goods_detail)
