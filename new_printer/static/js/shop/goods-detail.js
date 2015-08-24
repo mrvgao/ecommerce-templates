@@ -48,6 +48,7 @@ $(function (){
 	// 去支付
 	gopay.on('click',function (){
 		$.post('/shop/goods-detail/gopay',{
+			'goods_id': goods_id,
 			'pay_method': _method
 		},function (){});
 	});
