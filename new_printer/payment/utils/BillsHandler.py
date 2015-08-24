@@ -9,7 +9,7 @@ import time
 
 class BillsManager():
 
-    def now_time():
+    def now_time(self):
         '''
         description:获取当前时间
         params:

@@ -16,5 +16,5 @@ urlpatterns = patterns('',
     url(r'^u_change_phone', views.u_change_phone, name='u_change_phone'),
     url(r'^u_change_username', views.u_change_username, name='u_change_username'),
     url(r'^u_alipay', views.u_alipay, name='u_alipay'),
-
+    url(r'^u_img', views.u_img, name='u_img'),
 )

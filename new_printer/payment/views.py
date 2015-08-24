@@ -25,7 +25,7 @@ def build_bills(request):
     if request.method == 'GET':
         bm = BillsManager()
         user = request.user
-        goods_list = [1]
+        goods_list = [1,6]
         bill_id = bm.random_bill()
         conf = {}
         vender_user = bm.authtovender(user)
@@ -38,6 +38,8 @@ def build_bills(request):
                     conf = {'status': result}
                 else:
                     conf = {'status':'FAILURE'}
+            else:
+                conf = {'status':'FAILURE'}
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
@@ -58,15 +60,15 @@ def list_bills(request):
             bills = Bills.objects.filter(vender=vender_user,bill_status='init')
             for b in bills:
                 bills_id = b.id
+            goods_bills = Goods_Bills.objects.filter(bills_id=bills_id)
+            if len(goods_bills) == 0:
+                conf = {'status':'bill is null'}
+            else:
+                for gb in goods_bills:
+                    gb.goods
+                conf = {'goods_bills':goods_bills}
         except Exception as e:
-            conf = {'status':'bill is not build at before'}
-        goods_bills = Goods_Bills.objects.filter(bills_id=bills_id)
-        if len(goods_bills) == 0:
-            conf = {'status':'bill is null'}
-        else:
-            for gb in goods_bills:
-                gb.goods
-            conf = {'goods_bills':goods_bills}
+            conf = {'status':'FAILURE'} 
         return HttpResponse(json.dumps(conf))#render(request, website.index, conf)
     else:
         raise Http404
@@ -82,23 +84,23 @@ def add_cart(request):
     if request.method == 'GET':
         bm = BillsManager()
         user = request.user
-        goods_id = '3'   
+        goods_id = '6'   
         conf = {}
         vender_user = bm.authtovender(user)
         try:
             goods = Goods.objects.get(id=goods_id)
+            vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
+            if (vg):
+                v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_buy=True,buy_time=bm.now_time())
+            else:
+                vender_goods = Vender_Goods(goods=goods,
+                        vender=vender_user,
+                        is_buy=True,
+                        buy_time=bm.now_time())
+                vender_goods.save()
+            conf = {'goods',goods}
         except Exception as e:
             conf = {'status':'add to cart error'}
-        vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
-        if (vg):
-            vender_goods = Vender_Goods(is_buy=True,buy_time=bm.now_time())
-        else:
-            vender_goods = Vender_Goods(goods=goods,
-                    vender=vender_user,
-                    is_buy=True,
-                    buy_time=bm.now_time())
-        vender_goods.save()
-        conf = {'goods',goods}
         return HttpResponse(json.dumps(conf))#render(request, website.index, conf)
     else:
         raise Http404
@@ -138,7 +140,7 @@ def del_cart(request):
     if request.method == 'GET':
         bm = BillsManager()
         user = request.user
-        goods_list = [1,2]
+        goods_list = [1,6]
         conf = {}
         vender_user = bm.authtovender(user)
         if vender_user is not None:
