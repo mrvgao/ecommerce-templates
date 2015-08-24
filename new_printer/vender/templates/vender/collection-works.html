@@ -6,6 +6,7 @@
 	</div>
 	<div class="vender-cont-wrap pt20 pb20 clearfix">
 	
+		{% if work_list %}
 		{% for work in work_list %}
 
 		<div class="work-list pr mb20 pl10 pr10 fl">
@@ -28,6 +29,9 @@
 		</div>
 
 		{% endfor %}
+		{% else %}
+		<p class="mt10 pl20">您还没有收藏的作品，马上去收藏~</p>
+		{% endif %}
 
 	</div>
 {% endblock %}
