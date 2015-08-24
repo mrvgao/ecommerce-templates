@@ -138,7 +138,7 @@ def stl_delete(request):
 def workd_unexecute(request):
     #pdb.set_trace()
     user = 1#request.user
-    now_page = 1#int(request.POST['page'])
+    now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
     designer.icon = str(website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
@@ -276,10 +276,19 @@ def photo_save(model,name,stl_type,stl_md5):
 #显示 审核中 页面
 def auditing(request):
     #user = request.user
+    user = 1#request.user
+    now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    design_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
-    return_list = good_filter.unpublish_exec(design_list)
-    conf = {'all_list':return_list
+    designer.icon = str(website.file_server_imgupload) + str(designer.img)
+    unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
+    return_list = good_filter.unpublish_exec(unexecute_list)
+    all_len = len(unexecute_list)
+    total_pages = all_len/unexec_one+1
+    last_page = all_len%unexec_one
+    return_list = return_list[now_page*unexec_one:(now_page+1)*unexec_one]
+    conf = {'all_list':return_list,
+            'icon' : designer.icon,
+            'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'now_page':now_page,
               }
     return HttpResponse(json.dumps(conf))
     #return render(request, website.works_execute, conf)

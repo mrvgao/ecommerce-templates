@@ -133,7 +133,7 @@ function auditing(page){//加载审核中的数据
 			for(var i=0,len=onList.length;i<len;i++){
 				onStr+='<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+onList[i].name+'"</p><p class="designer-works-list-describe">'+onList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
 				for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
-					waitStr +='<img src="'+onList[i].pic[j]+'"/>';
+					onStr +='<img src="'+onList[i].pic[j]+'"/>';
 				}
 				onStr +='</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
 			getPage(totalPage,page);
@@ -155,9 +155,9 @@ function published(page){//获取已发布数据
 			var sucList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=sucList.length;i<len;i++){
-				sucList+='<div class="designer-works-list-box clearfix" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+sucList[i].name+'"</p><p class="designer-works-list-describe">'+sucList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
+				sucStr+='<div class="designer-works-list-box clearfix" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+sucList[i].name+'"</p><p class="designer-works-list-describe">'+sucList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
 				for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
-					sucList +='<img src="'+sucList[i].pic[j]+'"/>';
+					sucStr +='<img src="'+sucList[i].pic[j]+'"/>';
 				}
 				sucStr +='</div></div><div class="designer-works-list-data fl"><div class="list-data-container clearfix"><div class="list-data-box fl"><span class="list-data-num list-download-num">'+sucList[i].downloadNum+'</span>次下载</div><div class="list-data-box fl"><span class="list-data-num list-collection-num">'+sucList[i].collectionNum+'</span>次收藏</div></div><div class="list-data-price">售价：<span class="list-data-price-num">'+sucList[i].price+'</span>RMB</div><div class="list-data-update">发布时间：<span class="list-data-update-num">'+sucList[i].update+'</span></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>'
 			}
