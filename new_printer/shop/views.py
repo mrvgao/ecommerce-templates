@@ -197,8 +197,71 @@ def goods_detail(request):
 
 
 def sort_goods(request):
-    return HttpResponse(json.dumps({'state': 'SUCCESS'}))
+
+    tags_name  = request.POST['list_type']
+    sort_name = request.POST['filter_type']
+    style_name = request.POST['classify_type']
+
+    goods_list = common_filter(tags_name, sort_name, style_name)
+
+    context = {
+        'goods_list': goods_list,
+    }
+
+    return HttpResponse(json.dumps(context))
 
 
 def filter_goods(request):
-    return HttpResponse(json.dumps({'state': 'SUCCESS'}))
+
+    tags_name  = request.POST['list_type']
+    sort_name = request.POST['filter_type']
+    style_name = request.POST['classify_type']
+
+    goods_list = common_filter(tags_name, sort_name, style_name)
+
+    context = {
+        'goods_list': goods_list,
+    }
+
+    return HttpResponse(json.dumps(context))
+
+
+def common_filter(tags_name, sort_name, style_name):
+
+    sort_prefix = 'sort_by_'
+    sort_map = {'filter_all': 'comprehension_sort', 'filter_download_num': sort_prefix + 'download',
+                'filter_mark_num': sort_prefix + 'collect', 'filter_time': sort_prefix + 'time'}
+    style_map = {'classify_all': 'all', 'classify_young': u'青春洋溢', 'classify_elegant': u'富丽典雅',
+                 'classify_kindness': u'亲切自然', 'classify_fashion': u'时尚潮流'}
+
+    sort_name = sort_map[sort_name]
+    style_name = style_map[style_name]
+
+    def get_style_list(style_name, tags_list):
+        if style_name != 'all':
+            style_list = goods_handler.get_goods_by_style(tags_list, style_name)
+        else:
+            style_list = tags_list
+        return style_list
+
+    def get_sorted_list(sort_name, style_list):
+        sort_method = getattr(goods_handler, sort_name)
+        sorted_list = sort_method(style_list)
+        return sorted_list
+
+    def change_list_to_json(sorted_list):
+        goods_list = []
+        for goods in sorted_list:
+            goods_dict = {'goods_name': goods.goods_name, 'goods_img': common_handler.get_file_path(goods.preview_1),
+                        'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
+                        'goods_price': goods.goods_price}
+            goods_list.append(goods_dict)
+        return goods_list
+
+    tags_list = goods_handler.get_all_goods_by_tags(tags_name)
+    style_list = get_style_list(style_name, tags_list)
+    sorted_list = get_sorted_list(sort_name, style_list)
+
+    goods_list = change_list_to_json(sorted_list)
+
+    return goods_list

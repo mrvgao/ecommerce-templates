@@ -21,14 +21,15 @@ $(function (){
 			filter_type: _filter,
 			classify_type: _classify
 		},function (e){
+            e = JSON.parse(e).goods_list;
 			list_wrap.html('');
 			for(var i=0;i<e.length;i++){
 				list_wrap.append(_node);
 
 				// 添加数据
 				$('.list-box').eq(i).find('.goods_img').attr('src',e[i].goods_img);
-				$('.list-box').eq(i).find('.goods_downloadNum').text(e[i].goods_downloadNum);
-				$('.list-box').eq(i).find('.goods_markNum').text(e[i].goods_markNum);
+				$('.list-box').eq(i).find('.goods_downloadNum').text(e[i].goods_download_num);
+				$('.list-box').eq(i).find('.goods_markNum').text(e[i].goods_mark_num);
 				$('.list-box').eq(i).find('.goods_name').text(e[i].goods_name);
 				$('.list-box').eq(i).find('.goods_price').text(e[i].goods_price);
 				if(e[i].goods_mark){
@@ -52,14 +53,15 @@ $(function (){
 			filter_type: _filter,
 			classify_type: _classify
 		},function (e){
+            e = JSON.parse(e).goods_list;
 			list_wrap.html('');
 			for(var i=0;i<e.length;i++){
 				list_wrap.append(_node);
 
 				// 添加数据
 				$('.list-box').eq(i).find('.goods_img').attr('src',e[i].goods_img);
-				$('.list-box').eq(i).find('.goods_downloadNum').text(e[i].goods_downloadNum);
-				$('.list-box').eq(i).find('.goods_markNum').text(e[i].goods_markNum);
+				$('.list-box').eq(i).find('.goods_downloadNum').text(e[i].goods_download_num);
+				$('.list-box').eq(i).find('.goods_markNum').text(e[i].goods_mark_num);
 				$('.list-box').eq(i).find('.goods_name').text(e[i].goods_name);
 				$('.list-box').eq(i).find('.goods_price').text(e[i].goods_price);
 				if(e[i].goods_mark){
