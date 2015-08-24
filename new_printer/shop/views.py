@@ -14,12 +14,14 @@ from utils.common_class import IndexGoodsDesigner
 from utils.common_class import TagGoods
 
 from shop.utils.goods_handler import GoodsHandler
+from shop.utils.goods_handler import RecommendGoodsHandler
 from utility.common_handler import CommonHandler
 from utility.vender_goods_handler import VenderGoodsHandler
 
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
 vender_goods_handler = VenderGoodsHandler()
+recommend_goods_handler = RecommendGoodsHandler()
 
 
 def test(request):
@@ -192,8 +194,65 @@ def modify_goods_list(goods_list):
 
 
 def goods_detail(request):
+
+    class RecommendGoods(object):
+
+        def __init__(self, goods):
+            self.goods_id = goods[0]
+            self.goods_name = goods[1]
+            self.goods_img = goods[2]
+            self.goods_price = goods[3]
+            self.goods_download_num = goods[4]
+            self.goods_mark_num = goods[5]
+
+
+    def get_recommend_goods_list(recommend_id_list):
+        recommend_goods_list = []
+        for recommend_id in recommend_id_list:
+            goods = Goods.objects.get(id=recommend_id)
+            goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
+                        goods.goods_price, goods.download_count, goods.collected_count)
+            recommend_goods = RecommendGoods(goods_param)
+            recommend_goods_list.append(recommend_goods)
+        return recommend_goods_list
+
+    def get_other_goods_list(designer_goods_list):
+        other_goods_list = []
+        for goods in designer_goods_list:
+            goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
+                        goods.goods_price, goods.download_count, goods.collected_count)
+            other_goods  = RecommendGoods(goods_param)
+            other_goods_list.append(other_goods)
+        return other_goods_list
+
     goods_id = request.GET['goods_id']
-    return render(request,website.goods_detail)
+    goods = Goods.objects.get(id=goods_id)
+    designer_id = goods.designer_id
+    designer = Designer_User.objects.get(id=designer_id)
+
+    goods_img_list = []
+    goods_img_list.append(common_handler.get_file_path(goods.preview_1))
+    goods_img_list.append(common_handler.get_file_path(goods.preview_2))
+    goods_img_list.append(common_handler.get_file_path(goods.preview_3))
+
+    recommend_id_list = recommend_goods_handler.get_recommend_by_id(goods_id)
+    recommend_goods_list = get_recommend_goods_list(recommend_id_list)
+
+    designer_goods_list = goods_handler.get_other_goods(designer_id, goods_id)
+    other_goods_list = get_other_goods_list(designer_goods_list)
+
+    context = {
+        'goods_id': goods.id, 'goods_name': goods.goods_name, 'goods_img_list': goods_img_list,
+        'goods_img': common_handler.get_file_path(goods.preview_1), 'goods_name': goods.goods_name,
+        'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
+        'goods_moduleType': goods.tags, 'goods_description': goods.description,
+        'goods_price': goods.goods_price, 'designer_name': designer.designername,
+        'designer_img': common_handler.get_file_path(str(designer.img)),
+        'other_goods_list': recommend_goods_list,
+        'designer_goods_list': other_goods_list,
+    }
+
+    return render(request,website.goods_detail,context)
 
 
 def sort_goods(request):
@@ -234,9 +293,6 @@ def common_filter(tags_name, sort_name, style_name):
     style_map = {'classify_all': 'all', 'classify_young': u'青春洋溢', 'classify_elegant': u'富丽典雅',
                  'classify_kindness': u'亲切自然', 'classify_fashion': u'时尚潮流'}
 
-    sort_name = sort_map[sort_name]
-    style_name = style_map[style_name]
-
     def get_style_list(style_name, tags_list):
         if style_name != 'all':
             style_list = goods_handler.get_goods_by_style(tags_list, style_name)
@@ -257,6 +313,9 @@ def common_filter(tags_name, sort_name, style_name):
                         'goods_price': goods.goods_price}
             goods_list.append(goods_dict)
         return goods_list
+
+    sort_name = sort_map[sort_name]
+    style_name = style_map[style_name]
 
     tags_list = goods_handler.get_all_goods_by_tags(tags_name)
     style_list = get_style_list(style_name, tags_list)
