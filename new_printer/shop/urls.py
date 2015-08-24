@@ -32,7 +32,7 @@ urlpatterns = patterns('',
         url('^getGoods/filter$', views.sort_goods, name="sort_goods"),
 
         # 商品列表，过滤筛选
-        url('^getGoods/classify$', views.filter_goods, name="filter_goods"),
+        # url('^getGoods/classify$', views.filter_goods, name="filter_goods"),
 
         # 商品详情页
         url('goods-detail', views.goods_detail, name="goods_detail"),
@@ -42,9 +42,6 @@ urlpatterns = patterns('',
 
         # 商品详情页，下载，返回下载地址
         url('^goods-detail/download$', views.list, name="list"),
-
-        # 商品购物车
-        url('cart', views.cart, name="cart"),
 
         # 首页按类型筛选，ajax
         url('filter-type', views.filter_type, name="filter_type"),
