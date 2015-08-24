@@ -78,43 +78,28 @@ def publish_good_filter(tags,designer):
 	return return_list
 
 
-def publish_exec(good_list):
-	return_list = []
-	#pdb.set_trace()
-	print len(good_list)
-	for good in good_list:
-		temp = {'id':good.id,
-                'name':good.goods_name,
-                'description':good.description,
-                'collected_count':good.collected_count,
-                'download_count':good.download_count,
-                'good_price':good.goods_price,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
-                #'stl_file_url':str(website.toy_server_imgupload)+str(photo.stl_file_url),
-                'file_size':good.file_size,
-                'style':good.style,
-                'stl_path':str(good.stl_path),
-                'approval_time':good.approval_time.strftime("%Y-%m-%d"),
-          		'tags':good.tags
-                }
-		print good.id
-		return_list.append(temp)
 
-	return return_list
 
 #对 未发布 商品的处理
 def unpublish_exec(good_list):
     return_list = []
     for good in good_list:
+        photo = []
+        temp = {}
+        if good.preview_1:
+            photo.append(str(website.file_server_path)+str(good.preview_1))
+        if good.preview_2:
+            photo.append(str(website.file_server_path)+str(good.preview_2))
+        if good.preview_3:
+            photo.append(str(website.file_server_path)+str(good.preview_3))
+        #temp{'pic']=photo
         temp={'id':good.id,
                 'name':good.goods_name,
                 'description':good.description,
                 'good_price':good.goods_price,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
+                #'preview_1':str(website.file_server_path)+str(good.preview_1),
+                #'preview_2':str(website.file_server_path)+str(good.preview_2),
+                #'preview_3':str(website.file_server_path)+str(good.preview_3),
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
                 'stl_path':str(website.file_server_path)+good.stl_path,
@@ -123,12 +108,46 @@ def unpublish_exec(good_list):
                 'upload_time':good.upload_time.strftime("%Y-%m-%d"),
                 'modify_time':good.modify_time.strftime("%Y-%m-%d"),
                 'good_state':good.good_state,
-                'type':'stl'
+                'type':'stl',
+                'pic':photo
                 }
         return_list.append(temp)
     return return_list
 
+def publish_exec(good_list):
+    return_list = []
+    #pdb.set_trace()
+    print len(good_list)
+    for good in good_list:
+        photo = []
+        temp = {}
+        if good.preview_1:
+            photo.append(str(website.file_server_path)+str(good.preview_1))
+        if good.preview_2:
+            photo.append(str(website.file_server_path)+str(good.preview_2))
+        if good.preview_3:
+            photo.append(str(website.file_server_path)+str(good.preview_3))
+        temp = {'id':good.id,
+                'name':good.goods_name,
+                'description':good.description,
+                'collected_count':good.collected_count,
+                'download_count':good.download_count,
+                'good_price':good.goods_price,
+                #'preview_1':str(website.file_server_path)+str(good.preview_1),
+                #'preview_2':str(website.file_server_path)+str(good.preview_2),
+                #'preview_3':str(website.file_server_path)+str(good.preview_3),
+                #'stl_file_url':str(website.toy_server_imgupload)+str(photo.stl_file_url),
+                'file_size':good.file_size,
+                'style':good.style,
+                'stl_path':str(good.stl_path),
+                'approval_time':good.approval_time.strftime("%Y-%m-%d"),
+                'tags':good.tags,
+                'pic':photo
+                }
+        print good.id
+        return_list.append(temp)
 
+    return return_list
 #下载STL 文件到本地,以便预览stl
 def down_stl(_url):
     stl_path = "%s/.temp/"%pwd

@@ -1,5 +1,6 @@
 body{
 	background: #f4fcfc;
+	position: relative;
 }
 .designer-header{
 	height: 30px;
@@ -404,13 +405,13 @@ body{
 	width: 16px;
 	cursor: pointer;
 }
-.designer-works-canelAll,.designer-works-deleteAll{
+.designer-works-cancelAll,.designer-works-deleteAll{
 	position: absolute;
 	right: 0;
 	bottom: -35px;
 	font-size: 14px;
 }
-.works-canelAll-btn,.works-deleteAll-btn{
+.works-cancelAll-btn,.works-deleteAll-btn{
 	width: 90px;
 	height: 23px;
 	line-height: 23px;
@@ -620,4 +621,169 @@ body{
 	border-left: 1px solid #ddd;
 	margin-left: 75px;
 	font-size: 20px;
+}
+.modify-content{
+	position: fixed;
+	background: #fff;
+	top: 225px;
+	left: 50%;
+	margin-left: -383px;
+	height: 428px;
+	width: 656px;
+	padding: 55px 40px;
+	z-index: 33;
+	color: #949494;
+	display: none;
+}
+.designer-zoom{
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	background: #000;
+	opacity: .5;
+	z-index: 22;
+	display: none;
+}
+.modify-left{
+	height: 320px;
+	width: 300px;
+	border-right: 1px solid #ccc;
+}
+.modify-stl{
+	width: 260px;
+	height: 260px;
+	border:1px solid #ccc;
+	overflow: hidden;
+	position: relative;
+	cursor: pointer;
+}
+.modify-stl-preview{
+	width: 260px;
+	height: 260px; 
+}
+.modify-stl-show{
+	position: absolute;
+	width: 100%;
+	height:54px;
+	bottom: 0;
+	left: 0;
+	background: #62cdd7;
+	opacity: .8;
+	color: #fff;
+	line-height: 22px;
+	font-size: 12px;
+	text-align: center;
+	padding-top: 10px;
+}
+
+.modify-show-info{
+	margin-top: 20px;
+}
+.modify-info-box{
+	margin-left: -15px;
+	height: 20px;
+}
+.modify-info-box label{
+	margin-left: 15px;
+}
+.modify-right{
+	width: 315px;
+	height: 320px;
+	padding-left: 37px;
+}
+.modify-imgs-modify-hidden{
+	height: 0;
+	visibility: hidden;
+}
+.modify-imgs-container{
+	height: 90px;
+	margin-left: -30px;
+}
+.modify-imgs-box{
+	height: 88px;
+	width: 88px;
+	border:1px solid #ccc;
+	margin-left: 25px;
+	position: relative;
+}
+.modify-imgs-box img{
+	height: 88px;
+	width: 88px;
+}
+.modify-imgs-modify{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 24px;
+	line-height: 24px;
+	width: 88px;
+	background: #62cdd7;
+	opacity: .8;
+	text-align: center;
+}
+.modify-imgs-modify a{
+	color: #fff;	
+}
+.modify-imgs-modify a:hover{
+	color: #d666b3;
+}
+.modify-imgs-modify-btn{
+	border-right: 1px solid #fff;
+}
+.modify-name,.modify-price{
+	display: block;
+	width: 110px;
+	height: 30px;
+	border:1px solid #ccc;
+	margin-top: 35px;
+	text-indent: 4px;
+}
+.modify-price{
+	height: 20px;
+	width: 80px;
+}
+.modify-describe{
+	width: 309px;
+	height: 64px;
+	margin-top: 30px;
+	padding: 5px;
+}
+.modify-btn-container{
+	clear: both;
+	margin-top: 30px;
+	border-top: 1px solid #ccc;
+	width: 100%;
+	height: 65px;
+	text-align: center;
+	padding-top: 35px;
+}
+.modify-btn-submit,.modify-btn-cancel{
+	display: inline-block;
+	height: 36px;
+	line-height: 36px;
+	width: 100px;
+	font-size: 16px;
+	cursor: pointer;
+}
+.modify-btn-submit{
+	background: #62cdd7;
+	color: #fff;
+	margin-right: 25px;
+}
+.modify-btn-cancel{
+	background: #f6f6f6;
+	color: #949494;
+}
+.modify-container-close{
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 40px;
+	width: 40px;
+	background: url(../../images/designer/designerIcon.png) no-repeat -10px -332px;
+	cursor: pointer;
 }

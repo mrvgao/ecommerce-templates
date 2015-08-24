@@ -14,19 +14,24 @@ urlpatterns = patterns('',
         url('^ring$', views.ring, name="ring"),
         
         # 商品列表(吊坠)
+<<<<<<< HEAD
         url('^pendant$', views.list, name="list"),
+=======
+
+        url('^pendant$', views.pendant, name="pendant"),
+>>>>>>> 5790c8d0e7652257ff27ef1a03b342e744d08188
 
         # 商品列表(耳坠)
-        url('^earbob$', views.list, name="list"),
+        url('^earbob$', views.earbob, name="earbob"),
 
         # 商品列表(手链)
-        url('^bracelet$', views.list, name="list"),
+        url('^bracelet$', views.bracelet, name="bracelet"),
 
         # 商品列表(项链)
-        url('^torque$', views.list, name="list"),
+        url('^torque$', views.torque, name="torque"),
 
         # 商品列表(胸针)
-        url('^brooch$', views.list, name="list"),
+        url('^brooch$', views.brooch, name="brooch"),
 
         # 商品列表，过滤筛选
         url('^getGoods/filter$', views.list, name="list"),
