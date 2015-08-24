@@ -1,13 +1,73 @@
 {% extends 'base.html' %}
 
-{% block title %} 3DiLove 世界上最大的珠宝设计平台, 珠宝3D模型在线交易平台 {% endblock %}
-
 {% load staticfiles %}
 
 {% block selfFiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/list.css' %}" />
+	<script type="text/javascript" src="{% static 'js/shop/list.js' %}"></script>
 {% endblock %}
 
 {% block content %}
-	
+	<div class="container">
+		<div class="filter-nav clearfix">
+			<div class="filter-bynum mt10 fl">
+				<a data-tag="filter_all" class="filter-btn chover active" href="javascript:void(0)">综合</a>
+				<a data-tag="filter_download_num" class="filter-btn chover" href="javascript:void(0)">下载量</a>
+				<a data-tag="filter_mark_num" class="filter-btn chover" href="javascript:void(0)">收藏量</a>
+				<a data-tag="filter_time" class="filter-btn chover" href="javascript:void(0)">最新作品</a>
+			</div>
+			<div class="classify-nav mt30 mr20 fr pr">
+				<div class="guide-box">
+					<span class="classify-guide fb fl">风格筛选</span>
+					<div class="classify-nav-box hide fr">
+						<a data-tag="classify_all"  class="classify-btn active" href="javascript:void(0)">全部</a>
+						<a data-tag="classify_young"  class="classify-btn" href="javascript:void(0)">青春洋溢</a>
+						<a data-tag="classify_elegant"  class="classify-btn" href="javascript:void(0)">富丽典雅</a>
+						<a data-tag="classify_kindness"  class="classify-btn" href="javascript:void(0)">亲切自然</a>
+						<a data-tag="classify_fashion"  class="classify-btn" href="javascript:void(0)">时尚潮流</a>
+					</div>
+					
+				</div>
+				<em class="guide-ico inl-b pa"></em>
+			</div>
+		</div>
+		<div data-kind="{{ goods_kind }}" class="list-wrap mt20 clearfix">
+			
+			{% for goods in goods_list %} 
+
+			<div class="list-box pr">
+				<div class="list-img mb10">
+                    <a target="_blank" href="goods-detail?goods_id={{ goods.goods_id }}">
+						<img class="goods_img" src="{{ goods.goods_img }}" alt="" />
+					</a>
+				</div>
+				<div class="num-box tc mb10">
+					<p class="mr15 inl-b">
+						<em class="download-num-ico"></em>
+						<span class="goods_downloadNum">{{ goods.goods_download_num }}</span>
+					</p>
+					<p class="inl-b">
+						<em class="mark-num-ico"></em>
+						<span class="goods_markNum">{{ goods.goods_mark_num }}</span>
+					</p>
+				</div>
+				<div class="list-title tc mb10">
+                    <a class="goods_name" target="_blank" href="goods-detail?goods_id={{ goods.goods_id }}">
+					{{ goods.goods_name }}
+					</a>
+				</div>
+				<p class="goods_price f12 tc">￥{{ goods.goods_price }}</p>
+                <a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+					<em class="list-mark-btn-ico"></em>
+					收藏
+				</a>
+			</div>
+
+			{% endfor %} 
+
+		</div>
+		
+		{% include 'paging.html' %}
+
+	</div>
 {% endblock %}

@@ -1,2 +1,5 @@
-index = 'shop/index.html'
-goods_detail = 'shop/goods_detail.html'
+list = 'shop/list.html'
+
+goods_detail = 'shop/goods-detail.html'
+
+test = 'shop/test.html'

@@ -12,7 +12,11 @@
 	{% endblock %}
 
 </head>
+
+{% block bodyColor %}
 <body>
+{% endblock %}
+
 	<div id="mallPage">
 
 		{% block header %}
@@ -28,6 +32,9 @@
 	{% block footer %}
 		{% include 'footer.html' %}
 	{% endblock %}
-	
+
+	{% block otherModules %}
+	{% endblock %}
+
 </body>
 </html>

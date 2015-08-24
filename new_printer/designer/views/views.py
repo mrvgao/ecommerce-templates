@@ -260,32 +260,35 @@ def my_state(request):
         #if good.download_count > 0:
         download = download + good.download_count
     all_list = unpublished_list.count() + published_list.count()
-    now = datetime.now()
-    design_day = [0]
-    good_day = [0]
     designer_record = Design_record.objects.filter(designer_id=designer.id)
-    for time in range(24):
-        start = now - timedelta(hours=time,minutes=59, seconds=59)
+    now = datetime.now()
+    design_week = [0]
+    good_week = [0]
+    published_list = Goods.objects.filter(designer_id=designer.id)
+    for time in range(7):
+        start = now - timedelta(days=time,hours=23)
         a=designer_record.filter(d_visit_time__gte=start)
-        a = len(a) - sum(design_day)
-        design_day.append(a)
-    for time in range(24):
+        a = len(a) - sum(design_week)
+        design_week.append(a)
+    for time in range(7):
         record = 0
         for good in published_list:
             goods_record = Good_record.objects.filter(good_id=good.id)
-            start = now - timedelta(hours=time,minutes=59, seconds=59)
+            start = now - timedelta(days=time,hours=23)
             a=goods_record.filter(g_visit_time__gte=start)
             record = record+len(a)
-        record = record - sum(good_day)
-        good_day.append(record)
-    conf = { 'all_count':all_list,
-            'collect':collect,
-            'download':download,
-            'marked_count':designer.marked_count,
-            'd_records':design_day,
-            'g_record':good_day
+        record = record - sum(good_week)
+        good_week.append(record)
+    conf = { 'worksNum':all_list,
+            'worksCollection':collect,
+            'downloadNum':download,
+            'focusNum':designer.marked_count,
+            'd_records':design_week,
+            'g_record':good_week,
+            'name':designer.designername,
+            'photo':str(website.file_server_path)+str(designer.img)
             }
-    return HttpResponse(json.dumps(conf))#return render(request, website.my_state, conf)
+    return render(request, website.edit, conf)
 
 #设计师的 day 访问量
 def design_week_visit(request):

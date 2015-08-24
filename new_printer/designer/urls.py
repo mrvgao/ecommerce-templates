@@ -15,9 +15,13 @@ urlpatterns = patterns('',
 	url(r'^unexecute_delete$',up_works.unexecute_delete,name = 'unexecute_delete'),
 	#未通过 页面，点击重新申请发布
 	url(r'^photo_not_passed$',up_works.photo_not_passed,name = 'photo_not_passed'),
+	#未通过 页面
+	url(r'^not_passed$',up_works.not_passed,name = 'not_passed'),
 	#审核中,显示未审核的页面
 	url(r'^auditing$',up_works.auditing,name = 'auditing'),
 	#显示已发布页面
+	#designer_works
+	url(r'^designer_works$',up_works.designer_works,name = 'designer_works'),
 	url(r'^has_published$',up_works.has_published,name = 'has_published'),
 	#在已发布页面点击编辑后，传的值
 	url(r'^published_edit$',up_works.published_edit,name = 'published_edit'),

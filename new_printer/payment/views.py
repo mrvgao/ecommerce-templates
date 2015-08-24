@@ -125,7 +125,7 @@ def list_cart(request):
             for cart in vender_goods:
                 cart.goods
             conf = {'vender_goods':vender_goods}
-        return HttpResponse(json.dumps(conf)) #render(request, website.index, conf)
+        return render(request, 'payment/cart.html', conf)
     else:
         raise Http404
 
@@ -272,3 +272,7 @@ def ten_notify_url(request):
 
 def index(request):
     return render(request, 'payment/index.html')
+
+
+def cart(request):
+    return render(request, 'payment/cart.html')
