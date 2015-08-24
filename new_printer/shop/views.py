@@ -193,4 +193,12 @@ def modify_goods_list(goods_list):
 
 def goods_detail(request):
     goods_id = request.GET['goods_id']
-    return render(request, website.goods_detail)
+    return render(request,website.goods_detail)
+
+
+def sort_goods(request):
+    return HttpResponse(json.dumps({'state': 'SUCCESS'}))
+
+
+def filter(request):
+    return HttpResponse(json.dumps({'state': 'SUCCESS'}))

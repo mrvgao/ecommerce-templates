@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/cart.css' %}" />
+	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/shop/cart.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+	
+	<div class="container">
+		<div class="cart-wrap">
+			<p class="f20 fb mb20 mt30"> 3DiLove 购物车</p>
+
+			{% if not cart %}
+
+			<div class="cart-cont">
+				<div class="cart-head cart-layout clearfix">
+					<p class="select-all layout-b tc">
+						<label for=""><input class="cart-head-all mr5" type="checkbox" value="all" />全选</label>
+					</p>
+					<p class="goods-t-photo layout-b">作品预览图</p>
+					<p class="goods-t-info layout-b tc">作品信息</p>
+					<p class="layout-b tc">价格</p>
+					<p class="layout-b tc">操作</p>
+				</div>
+				<div class="cart-cont-wrap">
+
+					{# {% for goods in goods_cart_list %} #}
+
+					<div class="cart-box pb20 pt20">
+						<p class="f16 fb pl15 mb15">设计师：{{ goods.designer_name }}</p>
+						<div class="cart-layout clearfix">
+							<p class="select-all lh90 layout-b tc">
+								<input class="cart-head-all ml-30" type="checkbox" value="{{ goods.goods_id }}" />
+							</p>
+							<p class="goods-t-photo layout-b">
+								<img src="{{ goods.goods_img }}" alt="" />
+							</p>
+							<div class="goods-t-info layout-b">
+								<p class="f16 fb">蓝色之类</p>
+								<p class="mt5 c888">
+									<span class="mr15">大小：{{ goods.goods_size }}</span>
+									<span>格式：{{ goods.goods_kind }}</span>
+								</p>
+								<div class="cart-goods-txt c888 mt10">
+									<span class="inl-b">设计语义：</span>
+									<p class="inl-b">s蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类</p>
+								</div>
+							</div>
+							<p class="layout-b tc lh90">价格：{{ goods.goods_price }} RMB</p>
+							<p class="layout-b mt30 cart-play">
+								<a class="mb10" href="javascript:void(0)">移入收藏夹</a>
+								<a href="javascript:void(0)">删 除</a>
+							</p>
+						</div>
+					</div>
+
+					{# {% endfor %} #}
+
+				</div>
+				<div class="cart-foot cart-layout clearfix">
+					<p class="select-all layout-b tc">
+						<label for=""><input class="cart-head-all mr5" type="checkbox" value="all" />全选</label>
+					</p>
+					<p class="goods-t-photo layout-b">作品预览图</p>
+					<p class="goods-t-info layout-b tc">作品信息</p>
+					<p class="layout-b tc">价格</p>
+					<p class="layout-b tc">操作</p>
+				</div>
+			</div>
+
+			{% else %}
+
+			<p class="pl20 h200">您暂时还没有添加任何商品到购物车，<a class="ml10" style="color:#54c5d0" href="/shop">马上去挑 >></a></p>
+
+			{% endif %}
+
+		</div>
+	</div>
+
+{% endblock %}
