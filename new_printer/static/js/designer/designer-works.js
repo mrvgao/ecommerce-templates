@@ -1,4 +1,4 @@
-$(document).ready(function(){
+	$(document).ready(function(){
 	var works_wait_btn = $('#works_wait_btn'),//未审核
 		works_on_btn = $('#works_on_btn'),//审核中
 		works_not_btn = $('#works_not_btn'),//未通过
@@ -131,7 +131,7 @@ function auditing(page){//加载审核中的数据
 			var onList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=onList.length;i<len;i++){
-				onStr+='<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+onList[i].name+'"</p><p class="designer-works-list-describe">'+onList[i].describe+'</p><div class="designer-works-list-pics clearfix">';
+				onStr+='<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">"'+onList[i].name+'"</p><p class="designer-works-list-describe">'+onList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
 					onStr +='<img src="'+onList[i].pic[j]+'"/>';
 				}
@@ -275,6 +275,7 @@ function cancelSigle(){//单个取消发布
 		var _this =$(this),
 			deleteObj = _this.parents('.designer-works-list-box');
 			_id = deleteObj.attr('data-id');
+			alert(11)
 		$.post('/designer/unexecute_delete', {"id":_id}, function(e){
 			if(e){
 				alert(e);
