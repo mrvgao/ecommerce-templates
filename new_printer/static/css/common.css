@@ -9,6 +9,8 @@ body {
 
 /* site-nav */
 #site-nav {
+	width:100%;
+	min-width:1140px;
 	height:30px;
 	background:#fff;
 	border-bottom:1px solid #ddd;
@@ -21,6 +23,7 @@ body {
 }
 .site-utool a {
 	position:relative;
+	float:left;
 	margin-left:13px;
 	padding-left:30px;
 	border-left:1px solid #888;
@@ -48,11 +51,10 @@ body {
 	background-position-x:-10px;
 }
 .site-cart-ico {
-	background-position-x:-10px;
+	background-position-x:-34px;
 }
 .site-favorite-ico {
-	background-position-y:-11px;
-	background-position-x:-34px;
+	background-position-x:-58px;
 }
 
 /* header */
@@ -93,6 +95,7 @@ body {
 /* footer */
 #footer {
 	width:100%;
+	min-width:1140px;
 	background:#fff;
 	border-top:1px solid #ddd;
 	padding:25px 0 45px 0;
