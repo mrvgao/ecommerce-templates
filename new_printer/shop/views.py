@@ -140,7 +140,6 @@ def get_goods_list_by_tags(goods_tags, vender_id):
         return goods_list
 
     all_goods_list = goods_handler.get_all_goods_by_tags(goods_tags)
-    print all_goods_list
     sort_goods_list = goods_handler.comprehension_sort(all_goods_list)
     goods_list = change_to_tag_goods(sort_goods_list, vender_id)
     return goods_list
@@ -194,13 +193,12 @@ def modify_goods_list(goods_list):
 
 def goods_detail(request):
     goods_id = request.GET['goods_id']
-    print goods_id
-<<<<<<< HEAD
     return render(request,website.goods_detail)
 
 
-def cart(request):
-    return render(request,'shop/cart.html')
-=======
-    return render(request, website.goods_detail)
->>>>>>> 5790c8d0e7652257ff27ef1a03b342e744d08188
+def sort_goods(request):
+    return HttpResponse(json.dumps({'state': 'SUCCESS'}))
+
+
+def filter(request):
+    return HttpResponse(json.dumps({'state': 'SUCCESS'}))

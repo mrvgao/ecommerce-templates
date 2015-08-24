@@ -12,14 +12,9 @@ urlpatterns = patterns('',
 
         # 商品列表(戒指)
         url('^ring$', views.ring, name="ring"),
-        
-        # 商品列表(吊坠)
-<<<<<<< HEAD
-        url('^pendant$', views.list, name="list"),
-=======
 
+        # 商品列表(吊坠)
         url('^pendant$', views.pendant, name="pendant"),
->>>>>>> 5790c8d0e7652257ff27ef1a03b342e744d08188
 
         # 商品列表(耳坠)
         url('^earbob$', views.earbob, name="earbob"),
@@ -34,10 +29,10 @@ urlpatterns = patterns('',
         url('^brooch$', views.brooch, name="brooch"),
 
         # 商品列表，过滤筛选
-        url('^getGoods/filter$', views.list, name="list"),
+        url('^getGoods/filter$', views.sort_goods, name="sort_goods"),
 
         # 商品列表，过滤筛选
-        url('^getGoods/classify$', views.list, name="list"),
+        url('^getGoods/classify$', views.filter_goods, name="filter_goods"),
 
         # 商品详情页
         url('goods-detail', views.goods_detail, name="goods_detail"),
