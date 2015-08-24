@@ -1,41 +1,41 @@
-$(document).ready(function(){
-	var works_wait_btn = $('#works_wait_btn'),//未审核
-		works_on_btn = $('#works_on_btn'),//审核中
-		works_not_btn = $('#works_not_btn'),//未通过
-		works_Suc_btn = $('#works_Suc_btn');//已发布
+$(function(){
+	var works_wait_btn = $('#works_wait_btn'),	//未审核
+		works_on_btn = $('#works_on_btn'),	//审核中
+		works_not_btn = $('#works_not_btn'),	//未通过
+		works_Suc_btn = $('#works_Suc_btn');	//已发布
 		designer_works_lists = $('.designer-works-lists'),
 		designer_works_container = $('.designer-works-container');
 
 	workd_unexecute(1);
 	
 
-	$('#checkall').on('click',function(){//全选按钮点击事件
+	$('#checkall').on('click',function(){	//全选按钮点击事件
 		isCheckAll();
 	});
 
-	works_wait_btn.on('click',function(){//未审核按钮点击
+	works_wait_btn.on('click',function(){	//未审核按钮点击
 		workd_unexecute(1);
 		addWorkBtnCurrent($(this));
 	});
-	works_on_btn.on('click',function(){//审核中按钮点击
+	works_on_btn.on('click',function(){		//审核中按钮点击
 		auditing(1);
 		addWorkBtnCurrent($(this));
 	});
 
-	works_Suc_btn.on('click',function(){//已发布按钮点击
+	works_Suc_btn.on('click',function(){	//已发布按钮点击
 		published(1);
 		addWorkBtnCurrent($(this));
 
 	});
 
-	works_not_btn.on('click',function(){//未通过按钮点击
+	works_not_btn.on('click',function(){	//未通过按钮点击
 		not_passed(1);
 		addWorkBtnCurrent($(this));
 	});
 
 });
 
-function creatPages(){//生成页码
+function creatPages(){		//生成页码
 	$('.designer-works-page li').on('click',function(){
 		var _this = $(this);
 		var toPage = _this.text(),
@@ -58,7 +58,7 @@ function creatPages(){//生成页码
 	});
 }
 
-function judgePage(toPage,curPage,totalPage){//判断点击的页码
+function judgePage(toPage,curPage,totalPage){	//判断点击的页码
 	var curPage = parseInt(curPage);
 	if(isNaN(parseInt(toPage))){
 		switch(toPage){
@@ -97,7 +97,7 @@ function addWorkBtnCurrent(_this){
 	}
 }
 
-function workd_unexecute(page){//加载未审核的数据
+function workd_unexecute(page){		//加载未审核的数据
 	var designer_works_lists = $('.designer-works-lists');
 	var designer_works_page =$('.designer-works-page');
 	designer_works_page.remove();
