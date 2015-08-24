@@ -16,7 +16,7 @@ $(function (){
 
 		clickFocus(_this);
 
-		$.post('getGoods/filter',{
+		$.post('/shop/getGoods/filter',{
 			list_type: _kind,
 			filter_type: _filter,
 			classify_type: _classify
@@ -47,7 +47,7 @@ $(function (){
 
 		clickFocus(_this);
 
-		$.post('getGoods/classify',{
+		$.post('/shop/getGoods/classify',{
 			list_type: _kind,
 			filter_type: _filter,
 			classify_type: _classify

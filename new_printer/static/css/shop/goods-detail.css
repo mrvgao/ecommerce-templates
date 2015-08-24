@@ -60,13 +60,125 @@
 }
 button.paynow {
 	width:240px;
-	background:#ffb572;
+	background:#ef635c;
 }
 button.addcart {
 	width:140px;
 }
+.detail-others {
+	margin-top:50px;
+}
+.detail-others-title {
+	width:160px;
+	height:30px;
+	line-height:30px;
+	background:#42b9c4;
+	color:#fff;
+}
+.other-goods-box ul li {
+	float:left;
+	padding:0 20px;
+}
+.list-box {
+	padding:20px;
+	border:1px solid #eee;
+	transition:all .3s ease;
+}
+.list-img {
+	width:200px;
+	height:200px;
+}
+.list-img img {
+	width:200px;
+	height:200px;
+}
+.list-title a {
+	color:#79d0d8;
+}
+em.download-num-ico, em.mark-num-ico, em.list-mark-btn-ico {
+	display:inline-block;
+	width:14px;
+	height:14px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	background-position-y:-11px;
+	vertical-align:bottom;
+}
+em.download-num-ico {
+	background-position-x:-10px;
+}
+em.mark-num-ico {
+	background-position-x:-192px;
+}
 
-
+a.alipay, a.tencenpay {
+	display:inline-block;
+	width:110px;
+	height:50px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	background-position:-10px -170px;
+	border:1px solid #ddd;
+	border-radius:6px;
+}
+a.tencenpay {
+	background-position:-140px -170px;
+}
+a.tencenpay.active, a.alipay.active {
+	border:1px solid #ef635c;
+}
+.gopay {
+	height:50px;
+	cursor:pointer;
+	border-radius:5px;
+	color:#fff;
+	width:120px;
+	background:#ef635c;
+}
+em.safa-ico {
+	display:inline-block;
+	width:18px;
+	height:18px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	background-position:-100px -60px;
+	vertical-align:bottom;
+}
+.download-btn {
+	display:block;
+	width:280px;
+	height:50px;
+	cursor:pointer;
+	border-radius:5px;
+	color:#fff;
+	background:#ef635c;
+}
+i.coverb {
+	position:absolute;
+	left:-30px;
+	top:0;
+	width:0px;
+    height:0px;
+    border-left:30px solid transparent;  /* left arrow slant */
+    border-right:20px solid transparent; /* right arrow slant */
+    border-bottom:30px solid #fff; /* bottom, add background color here */
+    font-size:0px;
+    line-height:0px;
+    margin:0 auto;
+}
+i.covera {
+	position:absolute;
+	right:-30px;
+	top:0;
+	width:0px;
+    height:0px;
+    border-left:20px solid transparent;  /* left arrow slant */
+    border-right:30px solid transparent; /* right arrow slant */
+    border-top:30px solid #fff; /* bottom, add background color here */
+    font-size:0px;
+    line-height:0px;
+    margin:0 auto;
+}
 
 
 

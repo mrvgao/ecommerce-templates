@@ -134,3 +134,7 @@ def goods_detail(request):
     goods_id =  request.GET['goods_id']
     print goods_id
     return render(request,website.goods_detail)
+
+
+def cart(request):
+    return render(request,'shop/cart.html')
