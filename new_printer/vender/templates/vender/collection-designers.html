@@ -6,6 +6,7 @@
 	</div>
 	<div class="vender-cont-wrap pt20 pb20 clearfix">
 
+		{% if designer_list %}
 		{% for designer in designer_list %}
 
 		<div class="designer-box pl10 pr10 pb15 fl">
@@ -32,6 +33,9 @@
 		</div>
 
 		{% endfor %}
+		{% else %}
+		<p class="mt10 pl20">您还没有喜欢的设计师，快去关注吧</p>
+		{% endif %}
 
 	</div>
 {% endblock %}

@@ -25,12 +25,12 @@ $(function(){
 	works_Suc_btn.on('click',function(){	//已发布按钮点击
 		published(1);
 		addWorkBtnCurrent($(this));
-
 	});
 
 	works_not_btn.on('click',function(){	//未通过按钮点击
 		not_passed(1);
 		addWorkBtnCurrent($(this));
+		cancelSigle();
 	});
 
 });
@@ -87,6 +87,7 @@ function judgePage(toPage,curPage,totalPage){	//判断点击的页码
 	}
 
 }
+
 function addWorkBtnCurrent(_this){
 	var designer_works_btn = $('.designer-works-btn').find('button');
 	if(_this.hasClass('works-current')){
@@ -121,7 +122,7 @@ function workd_unexecute(page){		//加载未审核的数据
 	});
 }
 
-function auditing(page){//加载审核中的数据
+function auditing(page){	//加载审核中的数据
 	var designer_works_page =$('.designer-works-page');
 	designer_works_page.remove();
 	designer_works_lists.empty();
@@ -136,7 +137,7 @@ function auditing(page){//加载审核中的数据
 					onStr +='<img src="'+onList[i].pic[j]+'"/>';
 				}
 				onStr +='</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
-			getPage(totalPage,page);
+				getPage(totalPage,page);
 			}
 		}else{
 			onStr='信息加载失败..';
@@ -200,7 +201,7 @@ function not_passed(page){//获取未通过数据
 	});
 }
 
-function isCheckAll(obj){//全选函数
+function isCheckAll(obj){	//全选函数
 
 	var allList = document.getElementsByTagName("input");
 	if(obj.checked){
@@ -214,7 +215,7 @@ function isCheckAll(obj){//全选函数
 	}
 }
 
-function deleteAll(){//批量删除函数
+function deleteAll(){	//批量删除函数
 	var deleteTag = $('.works-wait-delete-check:checked'),
 		worksList = $('tr'),
 		worksContainer = $('.designer-works-wait').find('tbody');
@@ -235,7 +236,7 @@ function deleteAll(){//批量删除函数
 		worksContainer.append(str);
 	}
 }
-function deleteSigle(){//单个删除
+function deleteSigle(){		//单个删除
 	$('.wait-delete-single').on('click',function(){
 		var _this =$(this),
 			deleteObj = _this.parents('tr');
@@ -248,7 +249,7 @@ function deleteSigle(){//单个删除
 		});
 	});
 }
-function cancelAll(){//批量取消发布
+function cancelAll(){	//批量取消发布
 	var cancelTag = $('.works-cancel-check:checked'),
 		worksList = $('.designer-works-list-box'),
 		worksContainer = designer_works_lists;
@@ -257,9 +258,9 @@ function cancelAll(){//批量取消发布
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('.designer-works-list-box').attr('data-id');
-		$.post('/designer/unexecute_delete', {"id":_id}, function(e){
-
+		$.post('/designer/unexecute_delete', { "id": _id }, function(e){
 			if(e){
+
 			}
 		});
 		_this.parents('.designer-works-list-box').remove();
@@ -270,7 +271,7 @@ function cancelAll(){//批量取消发布
 	}
 }
 
-function cancelSigle(){//单个取消发布
+function cancelSigle(){		//单个取消发布
 	$('.works-cancel-btn').on('click',function(){
 		var _this =$(this),
 			deleteObj = _this.parents('.designer-works-list-box');
@@ -326,7 +327,7 @@ function getPage(total,cur){//生成页码
 	creatPages();
 }
 
-function edit(data){//编辑弹窗函数
+function edit(data){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
 		var _this =$(this);
 			_parent = _this.parents('.designer-works-list-box'),

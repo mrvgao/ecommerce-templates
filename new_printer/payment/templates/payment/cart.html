@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/payment/cart.css' %}" />
+	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/payment/cart.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+	
+	<div class="container">
+		<div class="cart-wrap">
+			<p class="f20 fb mb20 mt30"> 3DiLove 购物车</p>
+
+			{% if not cart %}
+
+			<div class="cart-cont">
+				<div class="cart-head cart-layout clearfix">
+					<p class="select-all layout-b tc">
+						<label for=""><input class="cart-head-all mr5" type="checkbox" value="head-all" />全选</label>
+					</p>
+					<p class="goods-t-photo layout-b">作品预览图</p>
+					<p class="goods-t-info layout-b tc">作品信息</p>
+					<p class="layout-b tc">价格</p>
+					<p class="layout-b tc">操作</p>
+				</div>
+				<div class="cart-cont-wrap">
+
+					{# {% for goods in goods_cart_list %} #}
+
+					<div data-id="{{ goods.goods_id }}" class="cart-box pb20 pt20">
+						<p class="f16 fb pl15 mb15">设计师：{{ goods.designer_name }}</p>
+						<div class="cart-layout clearfix">
+							<p class="select-all lh90 layout-b tc">
+								<input class="cart-checkbox ml-30" type="checkbox" value="{{ goods.goods_id }}" />
+							</p>
+							<p class="goods-t-photo layout-b">
+								<a href="/shop/goods-detail?goods_id=1"><img src="{{ goods.goods_img }}" alt="" /></a>
+							</p>
+							<div class="goods-t-info layout-b">
+								<p class="f16">
+									<a href="/shop/goods-detail?goods_id=1">蓝色之类</a>
+								</p>
+								<p class="mt5 c888">
+									<span class="mr15">大小：{{ goods.goods_size }}</span>
+									<span>格式：{{ goods.goods_kind }}</span>
+								</p>
+								<div class="cart-goods-txt c888 mt10">
+									<span class="inl-b">设计语义：</span>
+									<p class="inl-b">s蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类</p>
+								</div>
+							</div>
+							<p class="layout-b tc lh90">价格：<span class="cart-price">{{ goods.goods_price }}</span> RMB</p>
+							<p class="layout-b mt30 cart-play">
+								{% if not is_paied %}
+								<a class="mb10 mark-btn" href="javascript:void(0)">移入收藏夹</a>
+								<a class="del-btn" href="javascript:void(0)">删 除</a>
+								{% else %}
+								<button class="cart-down-btn btn ml50">下载</button>
+								{% endif %}
+							</p>
+						</div>
+					</div>
+
+					{# {% endfor %} #}
+
+				</div>
+				<div class="cart-foot cart-layout clearfix">
+					<p class="select-all layout-b tc">
+						<label for=""><input class="cart-foot-all mr5" type="checkbox" value="all" />全选</label>
+					</p>
+					<div class="pay-count fr">
+						{% if not is_paied %}
+						<div class="pay-count-box mr30 fl">
+							已选作品 <span class="cart-pay-num f16">0</span> 件
+							<span class="ml20">合计<b class="f16 cart-total" style="color:#f00">￥0.00</b></span>
+						</div>
+						<button class="toPay">去支付</button>
+						{% else %}
+						<div class="pay-count-box mr30 fl">
+							已选作品<span class="cart-download-num f16"> 0 </span>件
+						</div>
+						<button class="toDownload">打包下载</button>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<p class="f16 mt30 tc c888">请务必尊重作者的版权和著作权</p>
+
+			{% else %}
+
+			<p class="pl20 h200">您购物车暂时还没有任何商品，<a class="ml10" style="color:#54c5d0" href="/shop">马上去挑 >></a></p>
+
+			{% endif %}
+
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block otherModules %}
+	{% include 'payment/paymethodBox.html' %}
+{% endblock %}
