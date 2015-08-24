@@ -200,5 +200,5 @@ def sort_goods(request):
     return HttpResponse(json.dumps({'state': 'SUCCESS'}))
 
 
-def filter(request):
+def filter_goods(request):
     return HttpResponse(json.dumps({'state': 'SUCCESS'}))
