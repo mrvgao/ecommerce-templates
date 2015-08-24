@@ -270,3 +270,7 @@ def ten_notify_url(request):
 
 def index(request):
     return render(request, 'payment/index.html')
+
+
+def cart(request):
+    return render(request, 'payment/cart.html')
