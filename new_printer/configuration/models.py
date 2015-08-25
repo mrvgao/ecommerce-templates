@@ -156,8 +156,12 @@ class Vender_Goods(models.Model):
     #下载时间
     download_time = models.DateTimeField(null=True, blank=True)
     #是否加入购物车
-    is_buy = models.BooleanField(default=False)
+    is_cart = models.BooleanField(default=False)
     #加入购物车时间
+    cart_time = models.DateTimeField(null=True, blank=True)
+    #是否完成购买
+    is_buy = models.BooleanField(default=False)
+    #购买时间
     buy_time = models.DateTimeField(null=True, blank=True)
 
 

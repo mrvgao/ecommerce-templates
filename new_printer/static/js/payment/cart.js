@@ -87,7 +87,7 @@ $(function (){
 				var _this = $(this),
 					_parent = _this.parents('.cart-box'),
 					goods_id = _parent.attr('data-id');
-				goods_list.push(goods_id)
+				goods_list.push(goods_id);
 			}
 		});
 	}

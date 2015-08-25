@@ -8,13 +8,31 @@ $(function (){
 		pay_method = $('.pay-method'),
 		detail_wrap = $('.detail-wrap'),
 		gopay = $('.gopay'),
-		_method = 'ali',
+		_method = 'alipay',
 		goods_id = detail_wrap.attr('data-id');
-
+	goods_list = [];
+	
 	// 立即下单
 	paynow.on('click',function (){
 		var _this = $(this);
+		
 		if(_this.attr('data-state') == 1){
+			
+			goods_list.push(goods_id);
+			//生成订单		
+			$.post('/payment/build_bills',{
+				'goods_list': goods_list,
+				'where':'detail'
+				},function (e){
+				// 生成订单成功，返回 SUCCESS
+				result = JSON.parse(e);
+				if(result['status'] == 'SUCCESS'){
+					bill_id = result['bill_id'];
+				}else{
+					$.msgBox.mini('生成订单失败，请重新操作');
+				}
+			});
+			
 			pay_info.hide();
 			pay_method.show();
 		}else if(_this.attr('data-state') == 0) {
@@ -26,7 +44,7 @@ $(function (){
 
 	// 加入购物车
 	addcart.on('click',function (){
-		$.post('/shop/goods-detail/addcart',{
+		$.post('/payment/add_cart',{
 			'goods_id': goods_id
 		},function (e){
 			$.msgBox.mini('添加成功');
@@ -39,19 +57,31 @@ $(function (){
 		_this.siblings().removeClass('active');
 		_this.addClass('active');
 		if(_this.hasClass('alipay')){
-			_method = 'ali';
+			_method = 'alipay';
 		}else {
-			_method = 'tencen';
+			_method = 'tenpay';
 		}
 	});
 
 	// 去支付
 	gopay.on('click',function (){
-		$.post('/shop/goods-detail/gopay',{
-			'goods_id': goods_id,
+
+		$.post('/payment/pay',{
+			'bills_id': bill_id,
 			'pay_method': _method
-		},function (){});
+		},function (e){
+			var url = JSON.parse(e)['state'];
+			gotoUrl(url);
+		});
+
 	});
+
+	function gotoUrl(url) {
+    	var gotoLink = document.createElement('a');
+    	gotoLink.href = url;
+    	document.body.appendChild(gotoLink);
+    	gotoLink.click();
+	};
 
 	download.on('click',function (){
 		

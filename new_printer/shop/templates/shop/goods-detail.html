@@ -58,7 +58,7 @@
 					{% if not isDownload %}
 
 					<!-- 下单 -->
-					<div class="pay-info hide">
+					<div class="pay-info">
 						<div class="pay-btn bc">
 							<button data-state="{% if user.is_authenticated %}1{% else %}0{% endif %}" class="paynow f18 fb mr10 tc">立即下单</button>
 							<button class="addcart f18 fb tc">加入购物车</button>
@@ -71,7 +71,7 @@
 					</div>
 					
 					<!-- 支付 -->
-					<div class="pay-method">
+					<div class="pay-method hide">
 						<p class="f18 mb10 fb">选择支付方式</p>
 						<div class="pay-method-box clearfix">
 							<div class="method-box fl">
