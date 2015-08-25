@@ -33,7 +33,72 @@ $(function(){
 		
 	});
 
+	toSearch();
+
 });
+
+// 搜索模块
+function toSearch(){
+	// 敲回车搜索
+	$('.search-box').on('keyup',function (e){
+		var _val = $('.search-box').val(),
+			_txt = $('.designer-works-nav-current').text(),
+			_title = $('.works-current').text().substr(0,3);
+		if(e.keyCode == 13){
+			if(_val != '' || _val != null){
+				$.post('',{
+					'search_val': _val,
+					'search_txt': _txt,
+					'search_type': _title
+				},function (e){
+					setData(e);
+				});
+			}
+		}
+	});
+
+	// 点击搜索
+	$('.designer-works-search-icon').on('click',function (){
+		var _val = $('.search-box').val(),
+			_txt = $('.designer-works-nav-current').text(),
+			_title = $('.works-current').text().substr(0,3);
+		if(_val != '' || _val != null){
+			$.post('',{
+				'search_val': _val,
+				'search_txt': _txt,
+				'search_type': _title
+			},function (e){
+				setData(e);
+			});
+		}
+	});
+
+	function setData(e){
+		$('.designer-works-wait tbody').html('');
+		var waitList = JSON.parse(e).all_list;
+		var totalPage = JSON.parse(e).total_pages;
+		for(var i=0,len=waitList.length;i<len;i++){
+			waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+		}
+		getPage(totalPage,page);
+		designer_works_lists.append(waitStr);
+		deleteSigle();
+	}
+
+	$('.designer-works-nav li').on('click',function (){
+		var _txt = $(this).text(),
+			_title = $('.works-current').text().substr(0,3);
+
+		$(this).siblings().removeClass('designer-works-nav-current');
+		$(this).addClass('designer-works-nav-current');
+		$.post('',{
+			'search_txt': _txt,
+			'search_type': _title
+		},function (e){
+			setData(e);
+		});
+	});
+}
 
 
 function addWorkBtnCurrent(_this){
@@ -51,7 +116,7 @@ function workd_unexecute(page){		//加载未审核的数据
 	var designer_works_page =$('.designer-works-page');
 	designer_works_page.remove();
 	designer_works_lists.empty();
-	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
+	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';
 	$.post('/designer/workd_unexecute',{"page":page}, function(e) {
 		if(e){
 			var waitList = JSON.parse(e).all_list;
@@ -59,6 +124,7 @@ function workd_unexecute(page){		//加载未审核的数据
 			for(var i=0,len=waitList.length;i<len;i++){
 				waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 			}
+			// waitStr = '<tbody>' + waitStr +'</tbody>';
 			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
 			getPage(totalPage,page);
 		}else{
@@ -86,6 +152,9 @@ function workd_unexecute(page){		//加载未审核的数据
 				});
 			});
 		});
+
+
+
 	});
 }
 
@@ -416,7 +485,7 @@ function edit(data){	//编辑弹窗函数
 		$('.modify-describe').text(describe);
 		for(var i=0;i<imgs.length;i++){
 			var imgsrc = imgs.eq(i).attr('src');
-			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
+			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="photo_file" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
 		}
 		$('.modify-imgs-container').append(imgStr);
 		$('.modify-imgs-delete-btn').on('click',function(){//删除图片
@@ -435,16 +504,15 @@ function edit(data){	//编辑弹窗函数
 		// 修改图片
 		$('.modify-imgs-modify-btn').on('click',function(){
 			// do something
-			alert (1);
+			$('.modify-imgs-modify-hidden input').click();
 		});
+
 	});
 
 	closeEdit();
 
 	$('.modify-btn-submit').on('click',function (){
-		$.post('',{},function (){
-			// do something
-		});
+		$('.changeInfo').submit();
 	});
 }
 

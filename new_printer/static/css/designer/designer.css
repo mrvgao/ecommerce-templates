@@ -123,6 +123,7 @@ body{
 }
 .designer-mainContent{
 	width: 900px;
+	min-height:556px;
 	padding-bottom:40px;
 	background: #fff;
 	margin-left: 25px;
@@ -148,19 +149,20 @@ body{
 	font-size: 14px;
 	color: #949494;
 	border: 1px solid #ccc;
-	margin-left: 38px;
+	margin-left: 54px;
 	padding: 10px;
 }
 .designer-upfile-show{
-	height: 135px;
-	width: 100%;
-	overflow: auto;
+	height:183px;
+	margin:26px 0;
+	width:100%;
+	overflow:scroll;
+}
+.designer-upfile-show p {
+	margin:8px;
 }
 #designer-upfile-btn{
 	background: #63cdd7;
-}
-.designer-upfile-hidden{
-	visibility: hidden;
 }
 .designer-works-menu{
 	display: block;
@@ -802,4 +804,17 @@ body{
 .works-canelbox {
 	float:right;
 	margin-top:20px;
+}
+em.upfile-success {
+	display:inline-block;
+	width:20px;
+	height:20px;
+	margin-right:20px;
+	background-image:url('/static/images/designer/designerIcon.png');
+	background-repeat:no-repeat;
+	background-position:-110px -128px;
+	vertical-align:center;
+}
+.delete-file {
+	color:#63cdd7;
 }
