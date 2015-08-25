@@ -9,7 +9,7 @@ import time
 
 class BillsManager():
 
-    def now_time():
+    def now_time(self):
         '''
         description:获取当前时间
         params:
@@ -54,7 +54,7 @@ class BillsManager():
         except Exception as e:
             return None
 
-    def addtobill(self, bill_id, vender_user, goods_list):
+    def addtobill(self, bill_id, vender_user, goods_list, where):
         '''
         description:添加订单
         params: 
@@ -80,7 +80,8 @@ class BillsManager():
                     trade_status = 'INIT',
                     bill_status = 'init',
                     bill_time = self.now_time(),
-                    vender = vender_user)
+                    vender = vender_user,
+                    where = where)
                 bills.save()
                 return bills
             except Exception as e:

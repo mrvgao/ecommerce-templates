@@ -14,7 +14,7 @@
 		<div class="cart-wrap">
 			<p class="f20 fb mb20 mt30"> 3DiLove 购物车</p>
 
-			{% if not cart %}
+			{% if vender_goods %}
 
 			<div class="cart-cont">
 				<div class="cart-head cart-layout clearfix">
@@ -28,31 +28,31 @@
 				</div>
 				<div class="cart-cont-wrap">
 
-					{# {% for goods in goods_cart_list %} #}
-
-					<div data-id="{{ goods.goods_id }}" class="cart-box pb20 pt20">
-						<p class="f16 fb pl15 mb15">设计师：{{ goods.designer_name }}</p>
+					{% for cart in vender_goods %}
+					
+					<div data-id="{{ cart.goods.id }}" class="cart-box pb20 pt20">
+						<p class="f16 fb pl15 mb15">设计师：{{ cart.goods.designer_name }}</p>
 						<div class="cart-layout clearfix">
 							<p class="select-all lh90 layout-b tc">
-								<input class="cart-checkbox ml-30" type="checkbox" value="{{ goods.goods_id }}" />
+								<input class="cart-checkbox ml-30" type="checkbox" value="{{ cart.goods.id }}" />
 							</p>
 							<p class="goods-t-photo layout-b">
-								<a href="/shop/goods-detail?goods_id=1"><img src="{{ goods.goods_img }}" alt="" /></a>
+								<a href="/shop/goods-detail?goods_id=1"><img src="http://192.168.1.101:8888/static/{{ cart.goods.preview_1 }}" alt="" /></a>
 							</p>
 							<div class="goods-t-info layout-b">
 								<p class="f16">
 									<a href="/shop/goods-detail?goods_id=1">蓝色之类</a>
 								</p>
 								<p class="mt5 c888">
-									<span class="mr15">大小：{{ goods.goods_size }}</span>
-									<span>格式：{{ goods.goods_kind }}</span>
+									<span class="mr15">大小：{{ cart.goods.file_size }}</span>
+									<span>格式：stl</span>
 								</p>
 								<div class="cart-goods-txt c888 mt10">
 									<span class="inl-b">设计语义：</span>
-									<p class="inl-b">s蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类蓝色之类</p>
+									<p class="inl-b">{{ cart.goods.description }}</p>
 								</div>
 							</div>
-							<p class="layout-b tc lh90">价格：<span class="cart-price">{{ goods.goods_price }}</span> RMB</p>
+							<p class="layout-b tc lh90">价格：<span class="cart-price">{{ cart.goods.goods_price }}</span> RMB</p>
 							<p class="layout-b mt30 cart-play">
 								{% if not is_paied %}
 								<a class="mb10 mark-btn" href="javascript:void(0)">移入收藏夹</a>
@@ -64,7 +64,7 @@
 						</div>
 					</div>
 
-					{# {% endfor %} #}
+					{% endfor %}
 
 				</div>
 				<div class="cart-foot cart-layout clearfix">

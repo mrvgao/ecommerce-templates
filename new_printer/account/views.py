@@ -28,9 +28,9 @@ def check_phone(request):
         phone = '15957440169'
         result = Verification().is_phone_exist(phone)
         if result == 'C':
-            conf = {'status':'FAILURE'}
+            conf = {'status':'USER EXISTED'}
         elif result == 'B':
-            conf = {'status':'Beta is existed'}
+            conf = {'status':'BETA EXISTED'}
         else:
             conf = {'status':'SUCCESS'} 
         return HttpResponse(json.dumps(conf))
@@ -65,12 +65,11 @@ def send_verify_message(request):
             res = res_data.read()
             rer = re.compile(r'(?<=<code>)(.+?)(?=</code>)').search(res)
             if rer.group(0) == '2': 
-                conf = {'state': 'SUCCESS'}
+                conf = {'status': 'SUCCESS'}
             else:
-                conf = {'state': 'FAILURE'}
+                conf = {'status': 'SEND AGAIN'}
         except Exception as e:
-            print e
-            conf = {'state': 'FAILURE'}
+            conf = {'status': 'FAILURE'}
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
@@ -328,8 +327,7 @@ def u_img(request):
     params:
     return:
     '''
-    '''
-    if request.method == 'POST':
+    if request.method == 'GET':
         conf = {}
         user = request.user
         img = ImgForm(request.POST, request.FILES)
@@ -344,10 +342,9 @@ def u_img(request):
             if identity == 'D':
                 d = Designer_User.objects.filter(user=user).update(img=img_url)
                 conf = {'status':img_url}
-            elif:
+            elif identity == 'V':
                 v = Vender_User.objects.filter(user=user).update(img=img_url)
                 conf = {'status':img_url}
             else:
                 conf = {'status':'FAILURE'}
             return HttpResponse(json.dumps(conf))
-        '''

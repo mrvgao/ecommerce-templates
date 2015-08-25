@@ -229,6 +229,8 @@ def goods_detail(request):
     goods = Goods.objects.get(id=goods_id)
     designer_id = goods.designer_id
     designer = Designer_User.objects.get(id=designer_id)
+    vender_id = 3
+    is_buy = vender_goods_handler.get_is_buy(goods_id, vender_id)
 
     goods_img_list = []
     goods_img_list.append(common_handler.get_file_path(goods.preview_1))
@@ -247,7 +249,7 @@ def goods_detail(request):
         'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
         'goods_moduleType': goods.tags, 'goods_description': goods.description,
         'goods_price': goods.goods_price, 'designer_name': designer.designername,
-        'designer_img': common_handler.get_file_path(str(designer.img)),
+        'designer_img': common_handler.get_file_path(str(designer.img)),'isDownload': is_buy,
         'other_goods_list': recommend_goods_list,
         'designer_goods_list': other_goods_list,
     }

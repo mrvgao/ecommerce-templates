@@ -156,8 +156,12 @@ class Vender_Goods(models.Model):
     #下载时间
     download_time = models.DateTimeField(null=True, blank=True)
     #是否加入购物车
-    is_buy = models.BooleanField(default=False)
+    is_cart = models.BooleanField(default=False)
     #加入购物车时间
+    cart_time = models.DateTimeField(null=True, blank=True)
+    #是否完成购买
+    is_buy = models.BooleanField(default=False)
+    #购买时间
     buy_time = models.DateTimeField(null=True, blank=True)
 
 
@@ -179,6 +183,8 @@ class Bills(models.Model):
     bill_status = models.CharField(max_length=4)
     #买家
     vender = models.ForeignKey(Vender_User)
+    #来自哪个页面
+    where = models.CharField(max_length=10, default=None)
     #订单生成日期
     bill_time = models.DateTimeField(auto_now_add=True)
     #
