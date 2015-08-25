@@ -1,7 +1,7 @@
 # -*- coding:UTF-8 -*-
 
 from django.shortcuts import render
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
@@ -83,27 +83,27 @@ def add_cart(request):
     params:
     return:
     '''
-    if request.method == 'GET':
+    if request.method == 'POST':
         bm = BillsManager()
         user = request.user
-        goods_id = '6'   
+        goods_id = request.POST.get('goods_id')
         conf = {}
         vender_user = bm.authtovender(user)
         try:
             goods = Goods.objects.get(id=goods_id)
             vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
             if (vg):
-                v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_buy=True,buy_time=bm.now_time())
+                v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_cart=True,cart_time=bm.now_time())
             else:
                 vender_goods = Vender_Goods(goods=goods,
                         vender=vender_user,
-                        is_buy=True,
-                        buy_time=bm.now_time())
+                        is_cart=True,
+                        cart_time=bm.now_time())
                 vender_goods.save()
             conf = {'goods',goods}
         except Exception as e:
             conf = {'status':'add to cart error'}
-        return HttpResponse(json.dumps(conf))#render(request, website.index, conf)
+        return render(request, 'payment/cart.html', conf)
     else:
         raise Http404
 
@@ -120,7 +120,7 @@ def list_cart(request):
         user = request.user
         conf = {}
         vender_user = bm.authtovender(user)
-        vender_goods = Vender_Goods.objects.filter(is_buy=True, vender=vender_user)
+        vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
         if len(vender_goods) == 0:
             conf = {'status':'cart is null'}
         else:
@@ -150,7 +150,7 @@ def del_cart(request):
         if vender_user is not None:
             delc = bm.delcart(vender_user, goods_list)
             if (delc):
-                vender_goods = Vender_Goods.objects.filter(is_buy=True, vender=vender_user)
+                vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
                 if len(vender_goods) == 0:
                     conf = {'status':'FALSE','cart_is_exist':'FALSE'}
                 else:
@@ -212,7 +212,7 @@ def ali_return_url(request):
                 conf = {}
                 goods_list = []
                 if where == 'cart':
-                    vender_goods = Vender_Goods.objects.filter(is_buy=True, vender=vender_user)
+                    vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
                     conf = {'vender_goods':vender_goods,'is_paied':True}
                     for cart in vender_goods:
                         goods_list.append(cart.goods.id)
@@ -222,7 +222,19 @@ def ali_return_url(request):
                     else:
                         return HttpResponse('fail')
                 elif where == 'detail':
-                    return render(request, '/detail.html', goods_bills)
+                    for gb in goods_bills:
+                        goods = gb.goods
+                    vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
+                    if(vg):
+                        v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_buy=True,buy_time=bm.now_time())
+                    else:
+                        vender_goods = Vender_Goods(goods=goods,
+                            vender=vender_user,
+                            is_buy=True,
+                            buy_time=bm.now_time())
+                        vender_goods.save()
+                    
+                    return HttpResponseRedirect('/shop/goods-detail?goods_id=%s'%goods.id)
 
         else:
             return HttpResponse('fail')
