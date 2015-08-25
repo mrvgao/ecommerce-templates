@@ -30,6 +30,14 @@ class VenderGoodsHandler(object):
             return False
 
 
+    def get_is_buy(self, goods_id, vender_id):
+        vender_goods = self.get_element(vender_id, goods_id)
+        if vender_goods:
+            return vender_goods.is_buy
+        else:
+            return False
+
+
     def set_collected_time(self,vender_goods):
         vender_goods.collected_time = datetime.now()
         vender_goods.save()
