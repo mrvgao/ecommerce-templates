@@ -14,7 +14,6 @@ $(function (){
 			var _val = $(this).val(),
 				name = getFileName(_val),
 				_cont;
-			$(this).attr('data-val',_val);
 			addCode(name);
 		});
 	});
