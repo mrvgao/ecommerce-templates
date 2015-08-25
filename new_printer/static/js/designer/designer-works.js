@@ -8,7 +8,6 @@ $(function(){
 		designer_works_container = $('.designer-works-container');
 
 	workd_unexecute(1);
-	
 
 	$('#checkall').on('click',function(){	//全选按钮点击事件
 		isCheckAll();
@@ -36,57 +35,6 @@ $(function(){
 
 });
 
-function creatPages(){		//生成页码
-	$('.designer-works-page li').on('click',function(){
-		var _this = $(this);
-		var toPage = _this.text(),
-			thisType = $('.works-current').text().substr(0,3),
-			curPage = $('.page-current').text();
-			totalPage = $('.designer-works-page').attr('data-total');
-
-		toPage = judgePage(toPage,curPage,totalPage);
-		if(toPage){
-			if(thisType=="未审核"){
-				workd_unexecute(toPage);
-			}else if(thisType=="审核中"){
-				auditing(toPage);
-			}else if(thisType=="未通过"){
-				published(toPage);
-			}else if(thisType=="已发布"){
-				not_passed(toPage);
-			}
-		}
-	});
-}
-
-function judgePage(toPage,curPage,totalPage){	//判断点击的页码
-	var curPage = parseInt(curPage);
-	if(isNaN(parseInt(toPage))){
-		switch(toPage){
-			case "首页": return 1;
-			case "末页": return totalPage;
-			case "...": return false;
-		}
-		if(toPage=="下一页"){
-			if(curPage<totalPage){
-				return (curPage+1);
-			}else{
-				alert("没有下一页啦!");
-				return false;
-			}
-		}else if(toPage=="上一页"){
-			if(curPage!=1){
-				return curPage-1;
-			}else{
-				alert("没有上一页啦!");
-				return false;
-			}
-		}
-	}else{
-		return toPage;
-	}
-
-}
 
 function addWorkBtnCurrent(_this){
 	var designer_works_btn = $('.designer-works-btn').find('button');
@@ -119,8 +67,28 @@ function workd_unexecute(page){		//加载未审核的数据
 
 		designer_works_lists.append(waitStr);
 		deleteSigle();
+
+		// 未审核弹窗,用于编辑
+		var _btn = $('.go-setprice');
+		_btn.on('click',function (){
+			$('.modify-content').show();
+			closeEdit();
+
+			$.post('',{},function (e){
+				// do something
+
+			});
+
+			$('.modify-btn-submit').on('click',function (){
+				$.post('',{},function (){
+					// do something
+
+				});
+			});
+		});
 	});
 }
+
 
 function auditing(page){	//加载审核中的数据
 	var designer_works_page = $('.designer-works-page');
@@ -171,6 +139,7 @@ function published(page){	//获取已发布数据
 		designer_works_lists.append(sucStr);
 		cancelAll();
 		cancelSigle();
+		edit();
 		$('.works-cancel-allcheck').on('click',function (){
 			if(this.checked){
 				$('.works-cancel-check').each(function(){ this.checked = true; });
@@ -338,7 +307,7 @@ function getPage(total,cur){	//生成页码
 		}
 	}else if(total>6){		//总页码大于6
 		if(cur>5){		//当前页大于5，前面出现小点
-			pageStr+='<li class="designer-works-page-dots">...</li>';
+			pageStr += '<li class="designer-works-page-dots">...</li>';
 			for(var p=cur-4;p<cur+2;p++){
 				if((p+1) == cur){
 					pageStr +='<li class="page-current">'+cur+'</li>';
@@ -346,13 +315,12 @@ function getPage(total,cur){	//生成页码
 					pageStr +='<li>'+(p+1)+'</li>';
 				}
 			}
-		}
-		else{
-			for(var p=0;p<6;p++){
+		}else{
+			for(var p=0; p<6; p++){
 				if((p+1) == cur){
-					pageStr +='<li class="page-current">'+cur+'</li>';
+					pageStr += '<li class="page-current">' + cur + '</li>';
 				}else{
-					pageStr +='<li>'+(p+1)+'</li>';
+					pageStr += '<li>' + (p+1) + '</li>';
 				}
 			}
 		}
@@ -367,6 +335,59 @@ function getPage(total,cur){	//生成页码
 	designer_works_container.append(pageStr);
 	creatPages();
 }
+
+function creatPages(){		//生成页码
+	$('.designer-works-page li').on('click',function(){
+		var _this = $(this);
+		var toPage = _this.text(),
+			thisType = $('.works-current').text().substr(0,3),
+			curPage = $('.page-current').text();
+			totalPage = $('.designer-works-page').attr('data-total');
+
+		toPage = judgePage(toPage, curPage, totalPage);
+		if(toPage){
+			if(thisType=="未审核"){
+				workd_unexecute(toPage);
+			}else if(thisType=="审核中"){
+				auditing(toPage);
+			}else if(thisType=="未通过"){
+				published(toPage);
+			}else if(thisType=="已发布"){
+				not_passed(toPage);
+			}
+		}
+	});
+}
+
+function judgePage(toPage, curPage, totalPage){		//判断点击的页码
+	var curPage = parseInt(curPage);
+	if(isNaN(parseInt(toPage))){
+		switch(toPage){
+			case "首页": return 1;
+			case "末页": return totalPage;
+			case "...": return false;
+		}
+		if(toPage == "下一页"){
+			if(curPage < totalPage){
+				return (curPage+1);
+			}else{
+				alert("没有下一页啦!");
+				return false;
+			}
+		}else if(toPage == "上一页"){
+			if(curPage != 1){
+				return curPage-1;
+			}else{
+				alert("没有上一页啦!");
+				return false;
+			}
+		}
+	}else{
+		return toPage;
+	}
+
+}
+
 
 function edit(data){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
@@ -410,11 +431,25 @@ function edit(data){	//编辑弹窗函数
 				deleteObj.remove();
 			}
 		});
+
+		// 修改图片
 		$('.modify-imgs-modify-btn').on('click',function(){
-		
+			// do something
+			alert (1);
 		});
 	});
-	
+
+	closeEdit();
+
+	$('.modify-btn-submit').on('click',function (){
+		$.post('',{},function (){
+			// do something
+		});
+	});
+}
+
+// 关闭弹窗
+function closeEdit(){
 	$('.modify-container-close').on('click',function(){
 		$('.designer-zoom').css('display','none');
 		$('.modify-content').css('display','none');
