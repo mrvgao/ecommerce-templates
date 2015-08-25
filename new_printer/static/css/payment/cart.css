@@ -1,6 +1,11 @@
-.cart-head, .cart-foot {
+.cart-head {
 	height:34px;
 	line-height:34px;
+	background:#f1f2f3;
+}
+.cart-foot {
+	height:44px;
+	line-height:44px;
 	background:#f1f2f3;
 }
 .cart-box {
@@ -54,4 +59,112 @@
 }
 .ml-30 {
 	margin-left:-30px;
+}
+.pay-count button {
+	float:left;
+	width:150px;
+	height:44px;
+	background:#ff7972;
+	cursor:pointer;
+	font-size:18px;
+	color:#fff;
+}
+
+body, html {
+	width:100%;
+	height:100%;
+}
+.cart-method-wrap {
+	width:100%;
+	height:100%;
+	left:0;
+	top:0;
+	background:rgba(0,0,0,.7);
+	z-index:999;
+}
+.cart-method-box {
+	width:500px;
+	height:320px;
+	left:50%;
+	top:50%;
+	margin-left:-250px;
+	margin-top:-160px;
+	background:#fff;
+	border-radius:5px;
+}
+.method-box {
+	width:260px;
+}
+a.alipay, a.tencenpay {
+	display:inline-block;
+	width:110px;
+	height:50px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	background-position:-10px -170px;
+	border:1px solid #ddd;
+	border-radius:6px;
+}
+a.tencenpay {
+	background-position:-140px -170px;
+}
+a.tencenpay.active, a.alipay.active {
+	border:1px solid #ef635c;
+}
+.gopay {
+	display:block;
+	width:180px;
+	height:50px;
+	margin-top:40px;
+	cursor:pointer;
+	border-radius:5px;
+	color:#fff;
+	background:#ef635c;
+}
+em.safa-ico {
+	display:inline-block;
+	width:18px;
+	height:18px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	background-position:-100px -60px;
+	vertical-align:bottom;
+}
+.download-btn {
+	display:block;
+	width:280px;
+	height:50px;
+	cursor:pointer;
+	border-radius:5px;
+	color:#fff;
+	background:#ef635c;
+}
+.pay-ts {
+	margin-top:40px;
+}
+i.coverb {
+	position:absolute;
+	left:-30px;
+	top:0;
+	width:0px;
+    height:0px;
+    border-left:30px solid transparent;  /* left arrow slant */
+    border-right:20px solid transparent; /* right arrow slant */
+    border-bottom:30px solid #fff; /* bottom, add background color here */
+    font-size:0px;
+    line-height:0px;
+    margin:0 auto;
+}
+i.covera {
+	position:absolute;
+	right:-30px;
+	top:0;
+	width:0px;
+    height:0px;
+    border-left:20px solid transparent;  /* left arrow slant */
+    border-right:30px solid transparent; /* right arrow slant */
+    border-top:30px solid #fff; /* bottom, add background color here */
+    font-size:0px;
+    line-height:0px;
+    margin:0 auto;
 }

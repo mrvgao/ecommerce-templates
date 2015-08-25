@@ -103,7 +103,7 @@ class RecommendGoodsHandler(object):
         score_dict = self.get_score_dict(style_list, goods_id)
         score_list = self.get_score_list(score_dict)
         recommend_list = self.get_recommend_list(score_list)
-        print recommend_list
+        return  recommend_list
 
 
     def get_style_list(self,goods_style):
