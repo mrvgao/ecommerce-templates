@@ -90,7 +90,7 @@ def works_save(request):
                     file_hased.append(conf)
         return HttpResponse(json.dumps(file_hased))
     else:
-        return render(request, website.up_error)
+        return render(request, website.upfile)
 
 
 def file_save(model,name,stl_type):
