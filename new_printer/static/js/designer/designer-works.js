@@ -159,7 +159,7 @@ function published(page){//获取已发布数据
 				for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
 					sucStr +='<img src="'+sucList[i].pic[j]+'"/>';
 				}
-				sucStr +='</div></div><div class="designer-works-list-data fl"><div class="list-data-container clearfix"><div class="list-data-box fl"><span class="list-data-num list-download-num">'+sucList[i].downloadNum+'</span>次下载</div><div class="list-data-box fl"><span class="list-data-num list-collection-num">'+sucList[i].collectionNum+'</span>次收藏</div></div><div class="list-data-price">售价：<span class="list-data-price-num">'+sucList[i].price+'</span>RMB</div><div class="list-data-update">发布时间：<span class="list-data-update-num">'+sucList[i].update+'</span></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>'
+				sucStr +='</div></div><div class="designer-works-list-data fl"><div class="list-data-container clearfix"><div class="list-data-box fl"><span class="list-data-num list-download-num">'+sucList[i].downloadNum+'</span>次下载</div><div class="list-data-box fl"><span class="list-data-num list-collection-num">'+sucList[i].collectionNum+'</span>次收藏</div></div><div class="list-data-price">售价：<span class="list-data-price-num">'+sucList[i].good_price+'</span>RMB</div><div class="list-data-update">发布时间：<span class="list-data-update-num">'+sucList[i].update+'</span></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>'
 			}
 			sucStr+='<div class="designer-works-canelAll"><button class="works-canelAll-btn">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall"/></div>';
 			getPage(totalPage,page);
@@ -181,7 +181,7 @@ function not_passed(page){//获取未通过数据
 			var notList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=notList.length;i<len;i++){
-			notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+			notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				var picList=notList[i].pic;
 				console.log(picList.length)
 				for(var j=0,jlen=picList.length;j<jlen;j++){
@@ -275,7 +275,7 @@ function cancelSigle(){//单个取消发布
 		var _this =$(this),
 			deleteObj = _this.parents('.designer-works-list-box');
 			_id = deleteObj.attr('data-id');
-			alert(11)
+			alert(111)
 		$.post('/designer/unexecute_delete', {"id":_id}, function(e){
 			if(e){
 				alert(e);
@@ -371,7 +371,7 @@ function edit(data){//编辑弹窗函数
 			}
 		});
 		$('.modify-imgs-modify-btn').on('click',function(){
-
+		
 		});
 	});
 	
