@@ -60,14 +60,12 @@ body{
 	height: 152px;
 	width: 152px;
 	margin: -48px auto 0;
-	background: #fff;
 	padding: 5px;
 	margin-bottom: 36px;
 }
 .designer-sidebar-pic img{
 	height: 152px;
 	width: 152px;
-	border: 1px solid #f7f7f7;
 }
 .designer-sidebar-title{
 	width: 130px;
@@ -125,7 +123,7 @@ body{
 }
 .designer-mainContent{
 	width: 900px;
-	min-height: 600px;
+	padding-bottom:40px;
 	background: #fff;
 	margin-left: 25px;
 }
@@ -239,6 +237,7 @@ body{
 	cursor: pointer;
 }
 .designer-works-lists{
+	margin-bottom:45px;
 	clear:both;
 	position: relative;
 }
@@ -296,14 +295,14 @@ body{
 	margin: 0 auto;
 }
 .designer-works-list-detail{
-	width: 362px;
+	width: 302px;
 	height: 122px;
 	padding: 0 21px;
 	border-left: 1px solid #8f9090;
 	border-right: 1px solid #8f9090;
 }
 .designer-works-list-smdetail{
-	width: 215px;
+	width: 235px;
 	height: 122px;
 	padding: 0 21px;
 	border-left: 1px solid #8f9090;
@@ -344,15 +343,18 @@ body{
 	line-height: 18px;
 }
 .designer-works-list-data{
-	width: 223px;
+	width:158px;
+	height:122px;
+	padding:0 10px;
+	overflow:hidden;
 }
 .list-data-box{
 	width: 60px;
-	padding: 0 25px;
+	padding:0 5px;
 	text-align: center;
 }
 .list-data-box:first-child{
-	border-right: 1px solid #8f9090;
+	-border-right: 1px solid #8f9090;
 }
 .list-data-num{
 	color: #ff7972;
@@ -361,8 +363,8 @@ body{
 	display: block;
 }
 .list-data-price{
-	margin-top: 28px;
-	padding: 0 25px;
+	margin-top: 15px;
+	font-size:12px;
 }
 .list-data-price-num{
 	font-size: 18px;
@@ -370,12 +372,11 @@ body{
 	margin-right: 8px;
 }
 .list-data-update{
-	padding: 0 25px;
+	margin-top:10px;
 }
 .designer-works-modify{
 	height: 122px;
-	width: 69px;
-	padding: 0 32px;
+	padding-left:10px;
 	border-left: 1px solid #8f9090;
 	position: relative;
 }
@@ -406,10 +407,11 @@ body{
 }
 .designer-works-cancelAll,.designer-works-deleteAll{
 	position: absolute;
-	right: 0;
+	right: 15px;
 	bottom: -35px;
 	font-size: 14px;
 }
+
 .works-cancelAll-btn,.works-deleteAll-btn{
 	width: 90px;
 	height: 23px;
@@ -427,7 +429,7 @@ body{
 }
 .designer-works-page{
 	height: 36px;
-	padding:52px 0;
+	padding:20px 0;
 	border-top: 1px solid #8f9090;
 }
 .designer-works-page li{
@@ -785,4 +787,17 @@ body{
 	width: 40px;
 	background: url(../../images/designer/designerIcon.png) no-repeat -10px -332px;
 	cursor: pointer;
+}
+
+.works-canelAll-btn {
+	width:120px;
+	height:36px;
+	cursor:pointer;
+	color:#fff;
+	border-radius:5px;
+	margin-right:20px;
+}
+.works-canelbox {
+	float:right;
+	margin-top:20px;
 }
