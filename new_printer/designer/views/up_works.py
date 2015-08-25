@@ -84,7 +84,7 @@ def works_save(request):
     #pdb.set_trace()
     if request.method == 'POST':
         a_have = True
-        stls = request.FILES.getlist('jiezhi')
+        stls = request.FILES.getlist('upfile-stl')
         file_hased = []
         count = 0
         if stls:
