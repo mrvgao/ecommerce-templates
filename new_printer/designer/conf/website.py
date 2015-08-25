@@ -41,6 +41,7 @@ up_success = '%s/su.html'%base_site
 upfile = '%s/designer-upfile.html'%base_site
 index = '%s/demo.html'%base_site
 works_execute = '%s/designer-works.html'%base_site
+setup = '%s/designer-setinfo.html'%base_site
 #logout_success = '%s/logout.html'%base_site
 
 

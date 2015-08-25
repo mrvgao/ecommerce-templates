@@ -1,7 +1,7 @@
 <div class="designer-sidebar fl">
 	<div class="designer-sidebar-headbox">
 		<div class="designer-sidebar-pic">
-			<img src="{{ photo }}"/>
+			<img src="{{ img }}"/>
 		</div>
 		<div class="designer-sidebar-title">
 			<span class="designer-sidebar-title-icon"></span>
@@ -9,7 +9,7 @@
 		</div>
 		<div class="designer-sidebar-username">
 			<span>{{ name }} </span>
-			<a href="javascript:void(0);" class="designer-quiet">退出</a>
+			<a href="/account/u_logout" class="designer-quiet">退出</a>
 		</div>
 	</div>
 	<div class="designer-sidebar-menu">
@@ -21,7 +21,7 @@
 
 			</li>
 			<li class="designer-sidebar-menulist {% if work %}menu-current{% else %}{% endif %}">
-				<a href="/designer/works_save">作品上传</a>
+				<a href="/designer/works_upload">作品上传</a>
 			</li>
 
 			<li class="designer-sidebar-menulist {% if auditing %}menu-current{% else %}{% endif %}">
