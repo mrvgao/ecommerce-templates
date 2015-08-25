@@ -123,9 +123,9 @@ else:
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh_cn'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -153,3 +153,4 @@ STATICFILES_DIRS = (
     os.path.join(New_s, 'static'),
 )
 
+LOGIN_URL = '/account/'

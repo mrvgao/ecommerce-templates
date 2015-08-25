@@ -14,9 +14,4 @@ urlpatterns = patterns('',
     url(r'^ali_notify_url$', views.ali_notify_url, name='ali_notify_url'),
     url(r'^ten_return_url$', views.ten_return_url, name='ten_return_url'),
     url(r'^ten_notify_url$', views.ten_notify_url, name='ten_notify_url'),
-    url(r'^$', views.index, name='test'),
-
-
-    # 商品购物车
-    url(r'^cart$', views.cart, name="cart"),
 )

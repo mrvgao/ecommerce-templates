@@ -6,6 +6,7 @@ from designer.views import up_works,views
 
 urlpatterns = patterns('',
     url(r'^$', up_works.index, name='login'),
+    url(r'^works_upload$',up_works.works_upload,name = 'works_upload'),
 	url(r'^works_save$',up_works.works_save,name = 'works_save'),
 	#未处理页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
 	url(r'^edit_submit$',up_works.edit_submit,name = 'edit_submit'),
@@ -46,15 +47,16 @@ urlpatterns = patterns('',
 	#download_work
 	#url(r'^download_work$',views.download_work,name = 'download_work'),
 	#design_week_visit
-	url(r'^design_week_visit$',views.design_week_visit,name = 'design_week_visit'),
+	url(r'^center_visit$',views.center_visit,name = 'center_visit'),
 	#design_month_visit
-	url(r'^design_month_visit$',views.design_month_visit,name = 'design_month_visit'),
+	#url(r'^design_month_visit$',views.design_month_visit,name = 'design_month_visit'),
 	#good_week_visit
-	url(r'^good_week_visit$',views.good_week_visit,name = 'good_week_visit'),
+	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
 	#good_month_visit
-	url(r'^good_month_visit$',views.good_month_visit,name = 'good_month_visit'),
+	#url(r'^good_month_visit$',views.good_month_visit,name = 'good_month_visit'),
 	#unpublish_eardrop_list
 	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
 	#publish_eardrop_list
 	url(r'^publish_eardrop_list$',views.publish_eardrop_list,name = 'publish_eardrop_list'),
+	url(r'^setup$',views.setup,name = 'setup'),
 )
