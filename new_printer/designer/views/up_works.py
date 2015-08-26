@@ -172,7 +172,7 @@ def designer_works(request):
     worksWait = unexecute_list.count()
     worksOn = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1).count()
     worksNot = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2).count()
-    worksSuc = Goods.objects.filter(designer_id=designer.id).count()
+    worksSuc = Goods.objects.filter(designer_id=designer.id,is_active=1).count()
     conf = {
             'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc,
             'name':designer.designername,'img':str(website.file_server_path)+str(designer.img)
@@ -184,7 +184,11 @@ def unexecute_delete(request):
         #在未审核页面直接删除作品
     '''
     ids = request.POST['id']
-    Goods_Upload.objects.filter(id = ids).delete()
+    state = int(request.POST['state'])
+    if state<4:
+        Goods_Upload.objects.filter(id = ids).delete()
+    else:
+        Goods.objects.filter(id = ids).update(is_active=0)
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
@@ -344,23 +348,8 @@ def has_published(request):
     #user = request.user
     #pdb.set_trace()
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    design_list = Goods.objects.filter(designer_id=designer.id)
+    design_list = Goods.objects.filter(designer_id=designer.id,is_active=1)
     return_list = good_filter.publish_exec(design_list)
-    '''for good in goods:
-        venders = Vender_Goods.objects.get(goods_id = good.id)
-        this_good = {'goods_name':good.goods_name,
-                    'preview_1':str(good.preview_1),
-                    'preview_2':str(good.preview_2),
-                    'preview_3':str(good.preview_3),
-                    'goods_price':good.goods_price,
-                    'description':good.description,
-                    'download_count':good.download_count
-                    }
-        #count = 1
-        for vender in venders:
-            vender = Vender_User.objects.get(id=vender)
-            this_good[count]=vender.img
-        goods_all.append(this_good)'''               
     conf = {'all_list':return_list
             }
     return HttpResponse(json.dumps(conf))
