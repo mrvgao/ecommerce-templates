@@ -283,26 +283,32 @@ def my_state(request):
             'worksCollection':collect,
             'downloadNum':download,
             'focusNum':designer.marked_count,
-            'd_records':design_week,
-            'g_record':good_week,
+            'p_weekNum':design_week,
+            'weekNum':good_week,
             'name':designer.designername,
-            'photo':str(website.file_server_path)+str(designer.img)
+            'img':str(website.file_server_path)+str(designer.img)
             }
     return render(request, website.edit, conf)
 
 #设计师的 day 访问量
-def design_week_visit(request):
+def center_visit(request):
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     now = datetime.now()
-    design_week = [0]
+    weekNum = [0]
     designer_record = Design_record.objects.filter(designer_id=designer.id)
     for time in range(7):
         start = now - timedelta(days=time,hours=23)
         a=designer_record.filter(d_visit_time__gte=start)
-        a = len(a) - sum(design_week)
-        design_week.append(a)
-    conf = { 'design_week':design_week}
+        a = len(a) - sum(weekNum)
+        weekNum.append(a)
+    monthNum = [0]
+    for time in range(30):
+        start = now - timedelta(days=time,hours=23)
+        a=designer_record.filter(d_visit_time__gte=start)
+        a = len(a) - sum(monthNum)
+        monthNum.append(a)
+    conf = { 'weekNum':weekNum,'monthNum':monthNum}
     return HttpResponse(json.dumps(conf))
 
 #设计师的  month 访问量
@@ -320,12 +326,12 @@ def design_month_visit(request):
     conf = { 'design_month':design_month}
     return HttpResponse(json.dumps(conf))
 
-#设计师作品的 day 访问量
-def good_week_visit(request):
+#设计师作品的 访问量
+def works_visit(request):
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     now = datetime.now()
-    good_week = [0]
+    weekNum = []
     published_list = Goods.objects.filter(designer_id=designer.id)
     for time in range(7):
         record = 0
@@ -334,10 +340,19 @@ def good_week_visit(request):
             start = now - timedelta(days=time,hours=23)
             a=goods_record.filter(g_visit_time__gte=start)
             record = record+len(a)
-        record = record - sum(good_week)
-        good_week.append(record)
-    
-    conf = { 'good_week':good_week}
+        record = record - sum(weekNum)
+        weekNum.append(record)
+    monthNum = []
+    for time in range(30):
+        record = 0
+        for good in published_list:
+            goods_record = Good_record.objects.filter(good_id=good.id)
+            start = now - timedelta(days=time,hours=23)
+            a=goods_record.filter(g_visit_time__gte=start)
+            record = record+len(a)
+        record = record - sum(monthNum)
+        monthNum.append(record)
+    conf = { 'weekNum':weekNum,'monthNum':monthNum}
     return HttpResponse(json.dumps(conf))
 
 #设计师的作品  month 访问量
@@ -359,3 +374,11 @@ def good_month_visit(request):
     
     conf = { 'good_month':good_month}
     return HttpResponse(json.dumps(conf))
+
+def setup(request):
+    #user = request.user
+    designer = Designer_User.objects.get(user_id=1)#user.id)
+    conf = {'name':designer.designername,'img':str(website.file_server_path)+str(designer.img) }
+    return render(request, website.setup, conf)
+
+

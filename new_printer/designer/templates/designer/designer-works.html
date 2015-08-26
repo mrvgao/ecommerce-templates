@@ -21,7 +21,8 @@
 			<li>胸针</li>
 		</ul>
 		<div class="designer-works-search fr">
-			<input type="text" class="fl"/><span class="designer-works-search-icon fl"></span>
+			<input type="text" class="search-box fl"/>
+			<span class="designer-works-search-icon fl"></span>
 		</div>
 		<div class="designer-works-lists">
 			<ul class="designer-works-sort">
@@ -31,8 +32,8 @@
 			</ul>
 		</div>
 	</div>
-	<div class="modify-content ">
-		<form action="#" method="post">
+	<form action="#" method="post" class="changeInfo">
+		<div class="modify-content ">
 			<div class="clearfix">
 				<div class="modify-left fl">
 					<div class="modify-stl">
@@ -60,7 +61,7 @@
 							<img src="" class="modify-imgs"/>
 							<div class="modify-imgs-modify">
 								<div class="modify-imgs-modify-hidden">
-									<input type="file" />
+									<input type="file" name="photo_file" />
 								</div>
 								<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
 								<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
@@ -70,7 +71,7 @@
 							<img src="" class="modify-imgs"/>
 							<div class="modify-imgs-modify">
 								<div class="modify-imgs-modify-hidden">
-									<input type="file" />
+									<input type="file" name="photo_file" />
 								</div>
 								<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
 								<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
@@ -80,7 +81,7 @@
 							<img src="" class="modify-imgs"/>
 							<div class="modify-imgs-modify">
 								<div class="modify-imgs-modify-hidden">
-									<input type="file" />
+									<input type="file" name="photo_file" />
 								</div>
 								<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
 								<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
@@ -91,11 +92,11 @@
 					<input type="text" class="modify-price"/>
 					<textarea class="modify-describe"></textarea>
 				</div>
-			</form>
-		</div>
-		<div class="modify-btn-container">
-			<button class="modify-btn-submit">重新发布</button>
-		</div>
+			</div>
+			<div class="modify-btn-container">
+				<button class="modify-btn-submit">重新发布</button>
+			</div>
+		</form>
 		<span class="modify-container-close"></span>
 	</div>
 	{% endblock %}

@@ -33,6 +33,11 @@ publish_one = 2#
 def index(request):
     return render(request, website.index)
 
+def works_upload(request):
+    designer = Designer_User.objects.get(user_id=1)#user.id)
+    conf = {'name':designer.designername,'img':str(website.file_server_path)+str(designer.img) }
+    return render(request, website.upfile,conf)
+
 def stls_save(stls):
     jwary_md5 = {}
     file_size = []
@@ -79,7 +84,7 @@ def works_save(request):
     #pdb.set_trace()
     if request.method == 'POST':
         a_have = True
-        stls = request.FILES.getlist('jiezhi')
+        stls = request.FILES.getlist('upfile-img')
         file_hased = []
         count = 0
         if stls:
@@ -88,10 +93,10 @@ def works_save(request):
                 for i in existed:
                     conf = {'hased':i}
                     file_hased.append(conf)
-        return HttpResponse(json.dumps(file_hased))
+        return HttpResponseRedirect('designer_works')
+        #return HttpResponse(json.dumps(file_hased))
     else:
-        return render(request, website.upfile)
-
+        return HttpResponse(json.dumps("Error"))
 
 def file_save(model,name,stl_type):
     #pdb.set_trace()
@@ -170,11 +175,15 @@ def designer_works(request):
     worksNot = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2).count()
     worksSuc = Goods.objects.filter(designer_id=designer.id).count()
     conf = {
-            'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc
+            'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc,
+            'name':designer.designername,'img':str(website.file_server_path)+str(designer.img)
               }
     return render(request, website.works_execute, conf)
-#在未审核页面直接删除作品
+
 def unexecute_delete(request):
+    '''
+        #在未审核页面直接删除作品
+    '''
     ids = request.POST['id']
     Goods_Upload.objects.filter(id = ids).delete()
     conf = {'status':"success"}

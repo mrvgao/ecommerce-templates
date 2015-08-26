@@ -1,16 +1,26 @@
 {% extends 'designer/designer-base.html' %}
+
+{% load staticfiles %}
+	{% block selfJs %}
+	<script type="text/javascript" src="{% static 'js/designer/works-save.js' %}"></script>
+	{% endblock %}
+
 	{% block mainContent %}
 		<div class="designer-upfile">
-			<input type="file" class="designer-upfile-hidden" id="upfile"/>
+			<form  type="file" action="/designer/works_save" method="post"  class="uploadFile"  enctype="multipart/form-data">
+				<div class="file-value hide">
+
+					<input name="upfile-img" type="file" class="upfile-hide" />
+
+				</div>
+			</form>
 			<div class="designer-upfile-container clearfix">
-				<button class="designer-upfile-btn fl" id="designer-upfile-btn">我要上传</button>
+				<button class="designer-upfile-btn up-btn fl" id="designer-upfile-btn">我要上传</button>
 				<p class="designer-upfile-instructions fl">
 					请选择模型类别支持JCAD、STL文件格式模型背景一律使用白色，模型材质颜色一律为银色，否则将不能通过审核。
 				</p>
 			</div>
-			<div class="designer-upfile-show">
-				
-			</div>
+			<div class="designer-upfile-show"></div>
 			<div class="designer-upfile-container clearfix">
 				<button class="designer-upfile-btn fl" id="designer-next-btn">下一步</button>
 				<p class="designer-upfile-instructions fl">
