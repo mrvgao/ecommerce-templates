@@ -144,7 +144,6 @@ def works_collection(request):
             self.work_description = work[3]
             self.work_status = work[4]
             self.designer_name = work[5]
-            print work
 
 
     def get_work_list(vender_goods_list):
