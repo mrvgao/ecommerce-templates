@@ -154,14 +154,11 @@
 
 function deisgnerWorkPicEvent(){
 	$('.designer-works-list-bigpic').click(function(){
-		/*console.log($(this).html());*/
-		/*var picId = $(this).parent*/
 		var picId = $(this).parent('.designer-works-list-box').attr('data-id'); 
 		$.post('',{
 			'pic_id': picId
 		},function (e){
-			console.log('stl_url:'e);
+			console.log('stl_url:'+e);
 		});
-		console.log('id:'+picId);
 	});
 }

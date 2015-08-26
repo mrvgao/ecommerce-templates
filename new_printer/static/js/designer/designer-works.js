@@ -33,20 +33,6 @@ $(function(){
 	});
 
 	toSearch();
-
-
-	window.onkeyup = function (e) {
-		e = e || window.event;
-		var keycode = parseInt(e.keyCode);
-
-		if (keycode === 13) {// 回车键
-			console.log('13');
-			$('.designer-works-list-bigpic').each(function(){
-				console.log($(this).html());
-				/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
-			});
-		}   
-	}; 
 });
 
 // 搜索模块
@@ -166,12 +152,6 @@ function workd_unexecute(page){		//加载未审核的数据
 		// 		});
 		// 	});
 		// });
-
-
-		$('.designer-works-list-bigpic fl').each(function(){
-			console.log($(this).html());
-			/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
-		});
 
 		// added by white
 		deisgnerWorkPicEvent();
