@@ -36,5 +36,12 @@
 	{% block otherModules %}
 	{% endblock %}
 
+	{% block customerTool %}
+		{% include 'customer-service.html' %}
+		
+		{% load staticfiles %}
+		<script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+	{% endblock %}
+
 </body>
 </html>

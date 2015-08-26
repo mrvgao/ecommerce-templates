@@ -99,7 +99,6 @@ def works_save(request):
         return HttpResponse(json.dumps("Error"))
 
 def file_save(model,name,stl_type):
-    #pdb.set_trace()
     chunks = ""
     for chunk in model.chunks():
         chunks = chunks + chunk
@@ -173,7 +172,7 @@ def designer_works(request):
     worksWait = unexecute_list.count()
     worksOn = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1).count()
     worksNot = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2).count()
-    worksSuc = Goods.objects.filter(designer_id=designer.id).count()
+    worksSuc = Goods.objects.filter(designer_id=designer.id,is_active=1).count()
     conf = {
             'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc,
             'name':designer.designername,'img':str(website.file_server_path)+str(designer.img)
@@ -185,7 +184,11 @@ def unexecute_delete(request):
         #在未审核页面直接删除作品
     '''
     ids = request.POST['id']
-    Goods_Upload.objects.filter(id = ids).delete()
+    state = int(request.POST['state'])
+    if state<4:
+        Goods_Upload.objects.filter(id = ids).delete()
+    else:
+        Goods.objects.filter(id = ids).update(is_active=0)
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
@@ -208,7 +211,7 @@ def unexecute_edit(request):
 #未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
 def edit_submit(request):
     #file_id = request.POST['id']
-    file_id = 44
+    file_id = 80
     count = 1
     p_url = []
     #pdb.set_trace()
@@ -217,26 +220,29 @@ def edit_submit(request):
     print stl_md5
     stl_md5 = str(stl_md5).split('.')
     stl_md5 = stl_md5[0]
-    price = request.POST['price']
-    #previews = request.FILES.getlist['photo']
-    previews = request.FILES['photo']
-    describe = request.POST['describe']
-    #name = request.POST['edit_name']
-    '''if not name:
-        name = photo.name'''
-    if previews:
-        #for preview_one in previews:
-        preview_type=str(previews)
+    stl_md5 = stl_md5.split('/')[0]
+    price = request.POST['stl_price']
+    previews = request.FILES
+    describe = request.POST['stl_describe']
+    name = request.POST['stl_name']
+    if not name:
+        name = good.goods_name
+    
+    for preview in previews:
+        count = int(preview)
+        preview_type=str(previews[preview])
         preview_type=preview_type.split('.')
-        preview_md5 = photo_save(previews,preview_type[0],preview_type[1],stl_md5)
+        preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
         p1_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
-        p_url.append(p1_url)
-
-    s=Goods_Upload.objects.filter(id= file_id).update(#name=str(name),
+        #p_url.append(p1_url)
+        if count == 1:
+            s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
+        if count == 2:
+            s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
+        if count == 3:
+            s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
+    s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
                         goods_price = int(price),
-                        preview_1 = p_url[0],
-                        #preview_2 = p_url[1],
-                        #preview_3 = p_url[2],
                         good_state = 1,
                         description = describe
                       )
@@ -252,17 +258,18 @@ def edit_submit(request):
 
 
 def deletePic(request):
-    pdb.set_trace()
     this_id = request.POST['id']
-    picid = request.POST['picId']
-    good = Goods_Upload.objects.get(id = this_id)
+    picid = int(request.POST['picId'])
+    print picid
+    good = Goods_Upload.objects.filter(id = this_id)
     if picid == 0:
-        delpic = good.update(preview_1=null)
+        delpic = good.update(preview_1='null')
     if picid == 1:
-        delpic = good.update(preview_2=null)
+        delpic = good.update(preview_2='null')
     if picid == 2:
-        delpic = good.update(preview_3=null)
-    return HttpResponse(json.dumps("success!"))
+        delpic = good.update(preview_3='null')
+    conf = {'status':'success'}
+    return HttpResponse(json.dumps(conf))
 
 def photo_save(model,name,stl_type,stl_md5):
     chunks = ""
@@ -341,23 +348,8 @@ def has_published(request):
     #user = request.user
     #pdb.set_trace()
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    design_list = Goods.objects.filter(designer_id=designer.id)
+    design_list = Goods.objects.filter(designer_id=designer.id,is_active=1)
     return_list = good_filter.publish_exec(design_list)
-    '''for good in goods:
-        venders = Vender_Goods.objects.get(goods_id = good.id)
-        this_good = {'goods_name':good.goods_name,
-                    'preview_1':str(good.preview_1),
-                    'preview_2':str(good.preview_2),
-                    'preview_3':str(good.preview_3),
-                    'goods_price':good.goods_price,
-                    'description':good.description,
-                    'download_count':good.download_count
-                    }
-        #count = 1
-        for vender in venders:
-            vender = Vender_User.objects.get(id=vender)
-            this_good[count]=vender.img
-        goods_all.append(this_good)'''               
     conf = {'all_list':return_list
             }
     return HttpResponse(json.dumps(conf))

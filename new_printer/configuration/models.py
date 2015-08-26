@@ -84,7 +84,8 @@ class Goods_Upload(models.Model):
     good_state = models.IntegerField(default=0)
     #没有通过审核的原因 新加
     not_passed = models.CharField(max_length=255,null=True) 
-
+    #restdate
+    restdate = models.IntegerField(default=0)
 
 class Goods(models.Model):
     '''
