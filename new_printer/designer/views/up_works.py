@@ -250,6 +250,20 @@ def edit_submit(request):
         conf = {'status':"success"}
         return HttpResponse(json.dumps(conf))'''
 
+
+def deletePic(request):
+    pdb.set_trace()
+    this_id = request.POST['id']
+    picid = request.POST['picId']
+    good = Goods_Upload.objects.get(id = this_id)
+    if picid == 0:
+        delpic = good.update(preview_1=null)
+    if picid == 1:
+        delpic = good.update(preview_2=null)
+    if picid == 2:
+        delpic = good.update(preview_3=null)
+    return HttpResponse(json.dumps("success!"))
+
 def photo_save(model,name,stl_type,stl_md5):
     chunks = ""
     for chunk in model.chunks():

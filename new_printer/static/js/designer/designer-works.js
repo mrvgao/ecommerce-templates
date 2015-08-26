@@ -148,7 +148,7 @@ function workd_unexecute(page){		//加载未审核的数据
 			$('.modify-btn-submit').on('click',function (){
 				$.post('',{},function (){
 					// do something
-
+					
 				});
 			});
 		});
@@ -375,6 +375,7 @@ function getPage(total,cur){	//生成页码
 			}
 		}
 	}else if(total>6){		//总页码大于6
+		
 		if(cur>5){		//当前页大于5，前面出现小点
 			pageStr += '<li class="designer-works-page-dots">...</li>';
 			for(var p=cur-4;p<cur+2;p++){
@@ -457,12 +458,11 @@ function judgePage(toPage, curPage, totalPage){		//判断点击的页码
 
 }
 
-
 function edit(data){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
-		var _this =$(this);
+		var _this = $(this),
 			_parent = _this.parents('.designer-works-list-box'),
-			id = _parent.attr('data-id');
+			id = _parent.attr('data-id'),
 			pic = _parent.find('.works-list-bigpic').attr('src'),
 			type = _parent.attr('data-type'),
 			size = _parent.attr('data-size'),
@@ -473,7 +473,8 @@ function edit(data){	//编辑弹窗函数
 			modify_imgs_container = $('.modify-imgs-container'),
 			imgStr = '',
 			up_time = _parent.attr('data-uptime');
-			modify_imgs_container.empty();
+
+		modify_imgs_container.empty();
 		$('.designer-zoom').css('display','block');
 		$('.modify-content').css('display','block');
 		$('.modify-stl-preview').attr('src',pic );
@@ -488,23 +489,23 @@ function edit(data){	//编辑弹窗函数
 			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="photo_file" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
 		}
 		$('.modify-imgs-container').append(imgStr);
-		$('.modify-imgs-delete-btn').on('click',function(){//删除图片
+		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
 			var imgBox = $('.modify-imgs-box');
 			if(imgBox.length==1){
 				alert("至少要有一张预览图");
 			}else{
-				var _this = $(this),
-					deleteObj = _this.parents('.modify-imgs-box'),
-					picId = deleteObj.find('img').attr('data-pid');//pic分别是0，1，2
-				$.post('designer/deletePic', {"picId":picId,"id":id});
+				var _index = $(this).index(),
+					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
+				
+				$.post('/designer/deletePic', { "picId": picId, "id": id });
 				deleteObj.remove();
 			}
 		});
 
 		// 修改图片
 		$('.modify-imgs-modify-btn').on('click',function(){
-			// do something
-			$('.modify-imgs-modify-hidden input').click();
+
+			$(this).prev().find('input').click();
 		});
 
 	});

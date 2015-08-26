@@ -26,6 +26,8 @@ urlpatterns = patterns('',
 	url(r'^has_published$',up_works.has_published,name = 'has_published'),
 	#在已发布页面点击编辑后，传的值
 	url(r'^published_edit$',up_works.published_edit,name = 'published_edit'),
+	#deletePic  删除图片
+	url(r'^deletePic$',up_works.deletePic,name = 'deletePic'),
 	#在已发布页面点击编辑后，修改后提交的值
 	url(r'^published_submit$',up_works.published_submit,name = 'published_submit'),
 	#在已发布页面点击编辑后，点击删除
