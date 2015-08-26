@@ -99,7 +99,6 @@ def works_save(request):
         return HttpResponse(json.dumps("Error"))
 
 def file_save(model,name,stl_type):
-    #pdb.set_trace()
     chunks = ""
     for chunk in model.chunks():
         chunks = chunks + chunk
@@ -208,7 +207,7 @@ def unexecute_edit(request):
 #未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
 def edit_submit(request):
     #file_id = request.POST['id']
-    file_id = 44
+    file_id = 80
     count = 1
     p_url = []
     #pdb.set_trace()
@@ -217,26 +216,29 @@ def edit_submit(request):
     print stl_md5
     stl_md5 = str(stl_md5).split('.')
     stl_md5 = stl_md5[0]
-    price = request.POST['price']
-    #previews = request.FILES.getlist['photo']
-    previews = request.FILES['photo']
-    describe = request.POST['describe']
-    #name = request.POST['edit_name']
-    '''if not name:
-        name = photo.name'''
-    if previews:
-        #for preview_one in previews:
-        preview_type=str(previews)
+    stl_md5 = stl_md5.split('/')[0]
+    price = request.POST['stl_price']
+    previews = request.FILES
+    describe = request.POST['stl_describe']
+    name = request.POST['stl_name']
+    if not name:
+        name = good.goods_name
+    
+    for preview in previews:
+        count = int(preview)
+        preview_type=str(previews[preview])
         preview_type=preview_type.split('.')
-        preview_md5 = photo_save(previews,preview_type[0],preview_type[1],stl_md5)
+        preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
         p1_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
-        p_url.append(p1_url)
-
-    s=Goods_Upload.objects.filter(id= file_id).update(#name=str(name),
+        #p_url.append(p1_url)
+        if count == 1:
+            s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
+        if count == 2:
+            s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
+        if count == 3:
+            s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
+    s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
                         goods_price = int(price),
-                        preview_1 = p_url[0],
-                        #preview_2 = p_url[1],
-                        #preview_3 = p_url[2],
                         good_state = 1,
                         description = describe
                       )
@@ -249,6 +251,21 @@ def edit_submit(request):
                       )
         conf = {'status':"success"}
         return HttpResponse(json.dumps(conf))'''
+
+
+def deletePic(request):
+    this_id = request.POST['id']
+    picid = int(request.POST['picId'])
+    print picid
+    good = Goods_Upload.objects.filter(id = this_id)
+    if picid == 0:
+        delpic = good.update(preview_1='null')
+    if picid == 1:
+        delpic = good.update(preview_2='null')
+    if picid == 2:
+        delpic = good.update(preview_3='null')
+    conf = {'status':'success'}
+    return HttpResponse(json.dumps(conf))
 
 def photo_save(model,name,stl_type,stl_md5):
     chunks = ""
