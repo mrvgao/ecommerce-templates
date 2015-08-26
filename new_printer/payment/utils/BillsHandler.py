@@ -116,8 +116,8 @@ class BillsManager():
                 goods = Goods.objects.get(id=goods_id)
                 vender_goods = Vender_Goods.objects.filter(goods=goods, vender=vender_user)             
                 for vg in vender_goods:
-                    vg.is_buy = False
-                    vg.buy_time = self.now_time()
+                    vg.is_cart = False
+                    vg.cart_time = self.now_time()
                     vg.save()
             return True
         except Exception as e:
