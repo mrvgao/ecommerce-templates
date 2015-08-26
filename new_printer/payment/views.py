@@ -100,10 +100,10 @@ def add_cart(request):
                         is_cart=True,
                         cart_time=bm.now_time())
                 vender_goods.save()
-            conf = {'goods',goods}
+            conf = {'status':'SUCCESS'}
         except Exception as e:
-            conf = {'status':'add to cart error'}
-        return render(request, 'payment/cart.html', conf)
+            conf = {'status':'FAILURE'}
+        return HttpResponse(json.dumps(conf))
     else:
         raise Http404
 
@@ -182,11 +182,51 @@ def pay(request):
         elif pay_way == 'tenpay':
             ip = '123.158.36.208'
             url = tenpay.create_direct_tenpay_by_user(bill, subject, body, total_fee, ip)
-            pass
         else:
             return HttpResponse('please choose a way to pay')
         return HttpResponse(json.dumps({'state': url}))
- 
+
+def pay_detail_return(bills):
+    '''
+    description:返回商品详情页
+    params:
+    return:
+    '''
+    bm = BillsManager()
+    vender_user = bills.vender
+    goods_bills = Goods_Bills.objects.filter(bills=bills)
+    for gb in goods_bills:
+        goods = gb.goods
+    vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
+    if(vg):
+        v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_buy=True,buy_time=bm.now_time())
+    else:
+        vender_goods = Vender_Goods(goods=goods,
+            vender=vender_user,
+            is_buy=True,
+            buy_time=bm.now_time())
+        vender_goods.save()        
+    return goods
+
+def pay_cart_return(bills):
+    '''
+    description:返回购物车页面
+    params:
+    return:
+    '''
+    bm = BillsManager()
+    vender_user = bills.vender
+    conf = {}
+    goods_list = []
+    vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
+    conf = {'vender_goods':vender_goods,'is_paied':True}
+    for cart in vender_goods:
+        goods_list.append(cart.goods.id)
+    delc = bm.delcart(vender_user, goods_list)
+    if delc:
+        return conf
+    else:
+        return None
 
 def ali_return_url(request):
     '''
@@ -195,7 +235,6 @@ def ali_return_url(request):
     return:
     '''
     if alipay.ali_notify_verify(request.GET):
-        bm = BillsManager()
         tn = request.GET.get('out_trade_no')
         trade_status = request.GET.get('trade_status')
         if trade_status == 'TRADE_SUCCESS':
@@ -204,41 +243,15 @@ def ali_return_url(request):
             bills.bill_status = 'down'
             bills.save()
             where = bills.where
-            vender_user = bills.vender
-            goods_bills = Goods_Bills.objects.filter(bills=bills)
-            if len(goods_bills) == 0:
-                return HttpResponse('fail')
-            else:
-                conf = {}
-                goods_list = []
-                if where == 'cart':
-                    vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
-                    conf = {'vender_goods':vender_goods,'is_paied':True}
-                    for cart in vender_goods:
-                        goods_list.append(cart.goods.id)
-                    delc = bm.delcart(vender_user, goods_list)
-                    if(delc):
-                        return render(request, 'payment/cart.html', conf)
-                    else:
-                        return HttpResponse('fail')
-                elif where == 'detail':
-                    for gb in goods_bills:
-                        goods = gb.goods
-                    vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
-                    if(vg):
-                        v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_buy=True,buy_time=bm.now_time())
-                    else:
-                        vender_goods = Vender_Goods(goods=goods,
-                            vender=vender_user,
-                            is_buy=True,
-                            buy_time=bm.now_time())
-                        vender_goods.save()
-                    
-                    return HttpResponseRedirect('/shop/goods-detail?goods_id=%s'%goods.id)
-
+            if where == 'cart':
+                conf = pay_cart_return(bills)
+                return render(request, 'payment/cart.html', conf)
+            elif where == 'detail':
+                goods = pay_detail_return(bills)
+                return HttpResponseRedirect('/shop/goods-detail?goods_id=%s'%goods.id)
         else:
-            return HttpResponse('fail')
-    return HttpResponse('fail')
+            return HttpResponse('pay fail')
+    return HttpResponse('verify fail')
 
 
 @csrf_exempt
@@ -257,6 +270,11 @@ def ali_notify_url(request):
                 bills.trade_status = trade_status
                 bills.bill_status = 'down'
                 bills.save()
+                where = bills.where
+                if where == 'cart':
+                    conf = pay_cart_return(bills)
+                elif where == 'detail':
+                    goods = pay_detail_return(bills)
                 return HttpResponse('success')
             else:
                 return HttpResponse('success')
@@ -278,11 +296,16 @@ def ten_return_url(request):
             bills.trade_status = trade_status
             bills.bill_status = 'down'
             bills.save()
-            goods_bills = Goods_Bills.objects.filter(bills=bills)
-            if len(goods_bills) == 0:
-                return HttpResponse('fail')
-            else:
-                return render(request, 'payment/index.html', goods_bills)
+            where = bills.where
+            if where == 'cart':
+                conf = pay_cart_return(bills)
+                return render(request, 'payment/cart.html', conf)
+            elif where == 'detail':
+                goods = pay_detail_return(bills)
+                return HttpResponseRedirect('/shop/goods-detail?goods_id=%s'%goods.id)
+        else:
+            return HttpResponse('fail')
+    return HttpResponse('fail')
 
 @csrf_exempt
 def ten_notify_url(request):
@@ -300,10 +323,12 @@ def ten_notify_url(request):
                 bills.trade_status = trade_status
                 bills.bill_status = 'down'
                 bills.save()
-                goods_bills = Goods_Bills.objects.filter(bills=bills)
-                if len(goods_bills) == 0:
-                    return HttpResponser('fail')
-                else:
-                    return render(request, 'payment/index.html', goods_bills)
-
-
+                where = bills.where
+                if where == 'cart':
+                    conf = pay_cart_return(bills)
+                elif where == 'detail':
+                    goods = pay_detail_return(bills)
+                return HttpResponse('success')
+            else:
+                return HttpResponse('fail')
+        return HttpResponse('fail')

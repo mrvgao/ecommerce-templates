@@ -47,7 +47,12 @@ $(function (){
 		$.post('/payment/add_cart',{
 			'goods_id': goods_id
 		},function (e){
-			$.msgBox.mini('添加成功');
+			result = JSON.parse(e);
+			if(result['status'] == 'SUCCESS'){
+				$.msgBox.mini('添加成功');
+			}else{
+				$.msgBox.mini('添加失败');
+			}
 		});
 	});
 
