@@ -30,7 +30,7 @@ unexec_one = 2 #
 auditing_one = 2#
 unpassed_one = 2#
 publish_one = 2#
-pwd = '/Users/renjie/Desktop/static'
+pwd = '/Users/laola/Desktop/static'
 
 def unpublish_good_filter(good_state,tags,designer):
 	good_list = Goods_Upload.objects.filter(designer_id=designer,tags = tags,good_state=good_state)
