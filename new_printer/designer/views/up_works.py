@@ -84,7 +84,7 @@ def works_save(request):
     #pdb.set_trace()
     if request.method == 'POST':
         a_have = True
-        stls = request.FILES.getlist('jiezhi')
+        stls = request.FILES.getlist('upfile-img')
         file_hased = []
         count = 0
         if stls:
@@ -93,7 +93,8 @@ def works_save(request):
                 for i in existed:
                     conf = {'hased':i}
                     file_hased.append(conf)
-        return HttpResponse(json.dumps(file_hased))
+        return HttpResponseRedirect('designer_works')
+        #return HttpResponse(json.dumps(file_hased))
     else:
         return HttpResponse(json.dumps("Error"))
 
@@ -180,7 +181,8 @@ def designer_works(request):
     return render(request, website.works_execute, conf)
 
 def unexecute_delete(request):
-    '''#在未审核页面直接删除作品
+    '''
+        #在未审核页面直接删除作品
     '''
     ids = request.POST['id']
     Goods_Upload.objects.filter(id = ids).delete()
