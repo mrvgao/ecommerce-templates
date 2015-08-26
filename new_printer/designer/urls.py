@@ -61,4 +61,6 @@ urlpatterns = patterns('',
 	#publish_eardrop_list
 	url(r'^publish_eardrop_list$',views.publish_eardrop_list,name = 'publish_eardrop_list'),
 	url(r'^setup$',views.setup,name = 'setup'),
+	#show_3d
+	url(r'^show_3d$',views.show_3d,name = 'show_3d'),
 )

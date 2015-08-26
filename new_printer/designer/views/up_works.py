@@ -69,7 +69,7 @@ def stls_save(stls):
         stl_url = str(jwary_md5[md5])+'.stl'
         new_jwary = Goods_Upload.objects.create(goods_name = str(md5),
                                          designer_id = 1,
-                                         stl_path = str(jwary_md5[md5]) + '/' + str(stl_url),
+                                         stl_path = str(jwary_md5[md5]) + '/' + str(md5) +'.stl',
                                          file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
                                          good_state = 0,
                                          not_passed = 'null',
