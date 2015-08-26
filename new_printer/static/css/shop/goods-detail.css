@@ -95,20 +95,24 @@ button.addcart {
 .list-title a {
 	color:#79d0d8;
 }
-em.download-num-ico, em.mark-num-ico, em.list-mark-btn-ico {
+em.list-mark-btn-ico {
 	display:inline-block;
-	width:14px;
-	height:14px;
+	width:15px;
+	height:15px;
 	background-repeat:no-repeat;
 	background-image:url('/static/images/common/site-icons.png');
 	background-position-y:-11px;
 	vertical-align:bottom;
 }
-em.download-num-ico {
-	background-position-x:-10px;
-}
 em.mark-num-ico {
 	background-position-x:-192px;
+	-vertical-align:bottom;
+}
+a.goods-tomark:hover, a.goods-tomark.active {
+	color:#f25149;
+}
+a.goods-tomark:hover em.list-mark-btn-ico, a.goods-tomark.active em.list-mark-btn-ico {
+	background-position-y:-35px;
 }
 
 a.alipay, a.tencenpay {
@@ -179,6 +183,11 @@ i.covera {
     line-height:0px;
     margin:0 auto;
 }
-
-
-
+.goods-tomark {
+	font-size:13px;
+	right:5px;
+	top:5px;
+	padding:5px 12px;
+	border-radius:3px;
+	background:#ddd;
+}
