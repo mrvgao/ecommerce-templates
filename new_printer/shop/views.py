@@ -42,7 +42,7 @@ def test(request):
         'type_list': type_list,
     }
 
-    return render(request, website.list, context)
+    return render(request, website.test, context)
 
 
 def list(request):
