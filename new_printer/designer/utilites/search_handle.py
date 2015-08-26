@@ -22,7 +22,7 @@ import httplib, urllib
 import urllib2,os
 from datetime import date ,datetime
 import time
-import json,pdb,jieba
+import json,pdb#,jieba
 
 def unexecuteed_search(describe,id,good_state):
 	print describe,id,good_state

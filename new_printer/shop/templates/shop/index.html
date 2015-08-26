@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/goods-detail.css' %}" />
+	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/shop/goods-detail.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+	<div class="ind-page w">
+		<div class="container clearfix">
+			<div class="ind-cont fl">
+				<div class="banner-word"></div>
+				<a class="contact-btn" href="javascript:void(0)">联系我们获得内测邀请码</a>
+				<div class="ind-contact-wrap"></div>
+			</div>
+			<div class="ind-login fr">
+				<div class="ind-login-guide">
+					
+				</div>
+				<div class="ind-signUp"></div>
+				<div class="ind-signIn"></div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

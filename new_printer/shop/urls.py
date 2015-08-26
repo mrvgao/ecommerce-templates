@@ -7,8 +7,11 @@ urlpatterns = patterns('',
         # test
         url('^test$', views.test, name="test"),
 
-        # 首页
-        url('^$', views.list, name="index"),
+        # 展示型首页
+        url('^$', views.test, name="index"),
+
+        # 网站内首页
+        url('^home$', views.test, name="home"),
 
         # 商品列表(戒指)
         url('^ring$', views.ring, name="ring"),
