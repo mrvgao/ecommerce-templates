@@ -154,11 +154,12 @@
 
 function deisgnerWorkPicEvent(){
 	$('.designer-works-list-bigpic').click(function(){
-		var picId = $(this).parent('.designer-works-list-box').attr('data-id'); 
-		$.post('',{
-			'pic_id': picId
-		},function (e){
-			console.log('stl_url:'+e);
+		/*console.log($(this).html());*/
+		/*var picId = $(this).parent*/
+		var picId = $(this).parent('.designer-works-list-box').attr('data-id');
+		$.post('/designer/show_3d',{'pic_id': picId},function (e){
+			var url_path = JSON.parse(e).url_path ;
+			console.log(url_path);
 		});
 	});
 }
