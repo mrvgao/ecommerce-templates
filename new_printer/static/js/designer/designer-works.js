@@ -30,11 +30,23 @@ $(function(){
 	works_not_btn.on('click',function(){	//未通过按钮点击
 		not_passed(1);
 		addWorkBtnCurrent($(this));
-		
 	});
 
 	toSearch();
 
+
+	window.onkeyup = function (e) {
+		e = e || window.event;
+		var keycode = parseInt(e.keyCode);
+
+		if (keycode === 13) {// 回车键
+			console.log('13');
+			$('.designer-works-list-bigpic').each(function(){
+				console.log($(this).html());
+				/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
+			});
+		}   
+	}; 
 });
 
 // 搜索模块
@@ -127,6 +139,7 @@ function workd_unexecute(page){		//加载未审核的数据
 			// waitStr = '<tbody>' + waitStr +'</tbody>';
 			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
 			getPage(totalPage,page);
+
 		}else{
 			waitStr ='数据加载失败...';
 		}
@@ -154,8 +167,14 @@ function workd_unexecute(page){		//加载未审核的数据
 		// 	});
 		// });
 
-		
 
+		$('.designer-works-list-bigpic fl').each(function(){
+			console.log($(this).html());
+			/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
+		});
+
+		// added by white
+		deisgnerWorkPicEvent();
 
 	});
 }
@@ -182,6 +201,9 @@ function auditing(page){	//加载审核中的数据
 			onStr = '信息加载失败..';
 		}
 		designer_works_lists.append(onStr);
+
+		// added by white
+		deisgnerWorkPicEvent();
 	});
 }
 
@@ -255,10 +277,13 @@ function published(page){	//获取已发布数据
 					}else {
 						_parent.parent().remove();
 					}
-					
+
 				});
 			}
 		});
+
+		// added by white
+		deisgnerWorkPicEvent();
 	});
 }
 
@@ -273,7 +298,7 @@ function not_passed(page){		//获取未通过数据
 			var notList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=notList.length;i<len;i++){
-			notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+				notStr+='</div><div class="designer-works-list-box clearfix" data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				var picList=notList[i].pic;
 
 				for(var j=0,jlen=picList.length;j<jlen;j++){
@@ -290,6 +315,9 @@ function not_passed(page){		//获取未通过数据
 		designer_works_lists.append(notStr);
 		edit();
 		cancelSigle();
+
+		// added by white
+		deisgnerWorkPicEvent();
 	});
 }
 
@@ -330,11 +358,11 @@ function deleteAll(){	//批量删除函数
 }
 
 function deleteSigle(){		//单个删除
-	
+
 	$('.wait-delete-single').on('click',function(){
 		var _this =$(this),
 			deleteObj = _this.parents('tr');
-			_id = deleteObj.attr('data-id');
+		_id = deleteObj.attr('data-id');
 		$.post('/designer/unexecute_delete', {"id":_id}, function(e){
 			if(e){
 				alert(e);
@@ -356,7 +384,7 @@ function cancelAll(){	//批量取消发布
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('.designer-works-list-box').attr('data-id');
-		
+
 		$.post('/designer/unexecute_delete', { "id": _id }, function(e){
 			if(e){
 
@@ -433,7 +461,7 @@ function creatPages(){		//生成页码
 		var toPage = _this.text(),
 			thisType = $('.works-current').text().substr(0,3),
 			curPage = $('.page-current').text();
-			totalPage = $('.designer-works-page').attr('data-total');
+		totalPage = $('.designer-works-page').attr('data-total');
 
 		toPage = judgePage(toPage, curPage, totalPage);
 		if(toPage){
