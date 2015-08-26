@@ -38,30 +38,13 @@
 	/*show_download.text('');*/
 	/*show_download.removeClass('show-download-hover');*/
 	/*});*/
-	console.log('ready');
+
 	var toyLists = $('.designer-works-list-box'),
 		toyListsBigPic = $('.designer-works-list-bigpic');
 
-	function showpic(index,src,url,name,describe){	//点击图片查看详情以及切换图片
-		show_prev.show();
-		show_next.show();
-		if(index === 0){
-			show_prev.hide();
-		}else if(index == toylists.length-1){
-			show_next.hide();
-		}
-		show_img.attr('src',src);
-		show_name.text(name);
-		show_describe.text(describe);
-		Describe3d(url);
-	}
 
 
 
-	console.log('ccc');
-	toyLists.each(function(index, el){
-		console.log(';');	
-	});
 	/*toylists.each(function(index, el) {*/
 	/*var _this = $(this);*/
 	/*var thisIndex = index;*/
@@ -152,6 +135,22 @@
 
 
 
+function showpic(index,src,url,name,describe){	//点击图片查看详情以及切换图片
+	/*show_prev.show();*/
+	/*show_next.show();*/
+	/*if(index === 0){*/
+	/*show_prev.hide();*/
+	/*}else if(index == toylists.length-1){*/
+	/*show_next.hide();*/
+	/*}*/
+	/*show_img.attr('src',src);*/
+	/*show_name.text(name);*/
+	/*show_describe.text(describe);*/
+	/*Describe3d(url);*/
+	initializeObj(url);
+}
+
+
 function deisgnerWorkPicEvent(){
 	$('.designer-works-list-bigpic').click(function(){
 		/*console.log($(this).html());*/
@@ -159,7 +158,7 @@ function deisgnerWorkPicEvent(){
 		var picId = $(this).parent('.designer-works-list-box').attr('data-id');
 		$.post('/designer/show_3d',{'pic_id': picId},function (e){
 			var url_path = JSON.parse(e).url_path ;
-			console.log(url_path);
+			showpic('','',url_path,'','');
 		});
 	});
 }
