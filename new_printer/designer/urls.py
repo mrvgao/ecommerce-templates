@@ -59,4 +59,7 @@ urlpatterns = patterns('',
 	#publish_eardrop_list
 	url(r'^publish_eardrop_list$',views.publish_eardrop_list,name = 'publish_eardrop_list'),
 	url(r'^setup$',views.setup,name = 'setup'),
+    
+    #下载
+    url(r'^file_download$', up_works.file_download, name = 'file_download'),
 )
