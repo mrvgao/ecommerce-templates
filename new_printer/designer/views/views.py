@@ -134,31 +134,60 @@ def new_list(request):
     return HttpResponse(json.dumps(conf))
 #搜索未发布商品的方法
 def unpublished_good_search(request):
-    describe = 'c'#request.POST['describe']
+    describe = request.POST['search_val']
     designer = 1
-    good_state = 0
-    result_goods = search_handle.unexecuteed_search(describe,designer,good_state)
-    goods_find = []
-    for good_id in result_goods:
-        good = Goods_Upload.objects.get(id = good_id)
-        temp = {'id':good.id,
-                'designer_id':good.designer_id,
-                'good_price':good.goods_price,
-                'description':good.description,
-                'tags':good.tags,
-                'style':good.style,
-                'stl_path':good.stl_path,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
-                'upload_time':good.upload_time.strftime("%Y-%m-%d"),
-                'modify_time':good.modify_time.strftime("%Y-%m-%d"),
-                'file_size':good.file_size,
-                'good_state':good.good_state,
-                'not_passed':good.not_passed
-        }
-        goods_find.append(temp)
-    conf = {'goods_find':goods_find}
+    good_state = int(request.POST['search_type'])
+    if good_state<3:
+        result_goods = search_handle.unexecuteed_search(describe,designer,good_state)
+        print "制造者",result_goods
+        goods_find = []
+        for good_id in result_goods:
+            good = Goods_Upload.objects.get(id = good_id)
+            temp = {'id':good.id,
+                    'designer_id':good.designer_id,
+                    'good_price':good.goods_price,
+                    'name':good.goods_name,
+                    'description':good.description,
+                    'tags':good.tags,
+                    'style':good.style,
+                    'type':'stl',
+                    'stl_path':good.stl_path,
+                    'preview_1':str(website.file_server_path)+str(good.preview_1),
+                    'preview_2':str(website.file_server_path)+str(good.preview_2),
+                    'preview_3':str(website.file_server_path)+str(good.preview_3),
+                    'upload_time':good.upload_time.strftime("%Y-%m-%d"),
+                    'modify_time':good.modify_time.strftime("%Y-%m-%d"),
+                    'file_size':good.file_size,
+                    'good_state':good.good_state,
+                    'not_passed':good.not_passed
+            }
+            goods_find.append(temp)
+        conf = {'all_list':goods_find}
+    else:
+        result_goods = search_handle.published_search(describe,designer)
+    #pdb.set_trace()
+        goods_find = []
+        for good_id in result_goods:
+            good = Goods.objects.get(id = good_id)
+            temp = {'id':good.id,
+                    'designer_id':good.designer_id,
+                    'good_price':good.goods_price,
+                    'description':good.description,
+                    'tags':good.tags,
+                    'style':good.style,
+                    'stl_path':str(good.stl_path),
+                    'preview_1':str(website.file_server_path)+str(good.preview_1),
+                    'preview_2':str(website.file_server_path)+str(good.preview_2),
+                    'preview_3':str(website.file_server_path)+str(good.preview_3),
+                    'approval_time':good.approval_time.strftime("%Y-%m-%d"),
+                    'file_size':good.file_size,
+                    'collected_count':good.collected_count,
+                    'download_count':good.download_count
+            }
+            goods_find.append(temp)
+    total_pages = len(goods_find)/2+1
+    print len(goods_find)
+    conf = {'all_list':goods_find,'total_pages':total_pages}
     return HttpResponse(json.dumps(conf))
 
 #搜索已发布商品的方法  published_good_search
@@ -381,8 +410,11 @@ def setup(request):
     conf = {'name':designer.designername,'img':str(website.file_server_path)+str(designer.img) }
     return render(request, website.setup, conf)
 
+def change_icon(request):
+    print '11111'
+    return render(request,website.change_icon)
+
 def show_3d(request):
-   
     id = request.POST['pic_id']
     print id
     _url = str(website.file_server_path) + Goods_Upload.objects.get(id=id).stl_path

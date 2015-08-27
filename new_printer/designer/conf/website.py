@@ -42,6 +42,7 @@ upfile = '%s/designer-upfile.html'%base_site
 index = '%s/demo.html'%base_site
 works_execute = '%s/designer-works.html'%base_site
 setup = '%s/designer-setinfo.html'%base_site
+change_icon = '%s/change_icon.html'%base_site
 #logout_success = '%s/logout.html'%base_site
 
 
@@ -52,3 +53,8 @@ good_tags = ['戒指',
 			'吊坠','耳坠','手链','项链','胸针']
 
 good_style = ['自然','富丽','典雅','青春','时尚']
+
+unexec_one = 2 #
+auditing_one = 2#
+unpassed_one = 2#
+publish_one = 2#

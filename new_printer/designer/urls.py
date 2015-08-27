@@ -5,7 +5,6 @@ from django.conf.urls import patterns, url
 from designer.views import up_works,views
 
 urlpatterns = patterns('',
-    url(r'^$', up_works.index, name='login'),
     url(r'^works_upload$',up_works.works_upload,name = 'works_upload'),
 	url(r'^works_save$',up_works.works_save,name = 'works_save'),
 	#未处理页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
@@ -15,7 +14,7 @@ urlpatterns = patterns('',
 	#未处理页面的删除cao zuo
 	url(r'^unexecute_delete$',up_works.unexecute_delete,name = 'unexecute_delete'),
 	#未通过 页面，点击重新申请发布
-	url(r'^photo_not_passed$',up_works.photo_not_passed,name = 'photo_not_passed'),
+	#url(r'^photo_not_passed$',up_works.photo_not_passed,name = 'photo_not_passed'),
 	#未通过 页面
 	url(r'^not_passed$',up_works.not_passed,name = 'not_passed'),
 	#审核中,显示未审核的页面
@@ -30,8 +29,7 @@ urlpatterns = patterns('',
 	url(r'^deletePic$',up_works.deletePic,name = 'deletePic'),
 	#在已发布页面点击编辑后，修改后提交的值
 	url(r'^published_submit$',up_works.published_submit,name = 'published_submit'),
-	#在已发布页面点击编辑后，点击删除
-	url(r'^published_delete$',up_works.published_delete,name = 'published_delete'),
+
 	#设计师个人中心，设计师本人看到的
 	url(r'^design_list$',views.design_list,name = 'design_list'),
 	##作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现 按照下载次数排序 downed_list
@@ -63,4 +61,6 @@ urlpatterns = patterns('',
 	url(r'^setup$',views.setup,name = 'setup'),
 	#show_3d
 	url(r'^show_3d$',views.show_3d,name = 'show_3d'),
+	#chang_icon
+	url(r'^change_icon$',views.change_icon,name = 'change_icon'),
 )
