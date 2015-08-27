@@ -147,18 +147,24 @@ function showpic(index,src,url,name,describe){	//点击图片查看详情以及�
 	/*show_name.text(name);*/
 	/*show_describe.text(describe);*/
 	/*Describe3d(url);*/
-	initializeObj(url);
 }
 
 
-function deisgnerWorkPicEvent(){
-	$('.designer-works-list-bigpic').click(function(){
-		/*console.log($(this).html());*/
-		/*var picId = $(this).parent*/
-		var picId = $(this).parent('.designer-works-list-box').attr('data-id');
-		$.post('/designer/show_3d',{'pic_id': picId},function (e){
-			var url_path = JSON.parse(e).url_path ;
-			showpic('','',url_path,'','');
-		});
+function showStlFileInRemoteServer(stlId, canvasW, canvasH, containerId){
+	$.post('/designer/show_3d',{'pic_id': stlId},function (e){
+		var url_path = JSON.parse(e).url_path ;
+		initializeObj(url_path, canvasW, canvasH, containerId);
+		$('#show-3d-cont').show();
+
+		// added by white
+		$('#show-3d-tool-fullscreen').unbind("click");
+		$('#show-3d-tool-fullscreen').on('click', function(){
+			var win_height = $(window).height();
+			var win_width = $(window).width();
+			$('#show-3d-fullscreen-cont').empty();
+			initializeObj(url_path, win_width, win_height, 'show-3d-fullscreen-cont');
+			/*$('#show-3d-fullscreen').css('display','');*/
+			/*$('body').css("overflow-y","hidden");   */
+		}); 
 	});
 }
