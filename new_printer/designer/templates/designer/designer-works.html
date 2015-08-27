@@ -39,6 +39,16 @@
 					<div class="modify-stl">
 						<img src="" class="modify-stl-preview">
 						<p class="modify-stl-show">点击可新打开页面查看三维效果<br/>截屏生成预览图</p>
+						<div id='show-3d-cont' style='position: fixed;top: 282px;left: 513px;width: 70px;height: 260px;z-index: 51; display:none;'>
+							<div id='show-3d' style='position: fixed;top: 282px;left: 323px;z-index: 50;'></div>
+							<div id='show-3d-tool-fullscreen' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 6px;margin-left: auto;margin-right: auto;'>全屏</div>
+							<div id='show-3d-tool-screenshot' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 220px;margin-left: auto;margin-right: auto;'>截图</div>
+						</div>
+						<div id='show-3d-fullscreen-cont' style='position: fixed;top: 0px;left: 0px;z-index: 51;'>
+						<div id='show-3d-fullscreen' style='position: fixed;top: 0px;left: 0px;z-index: 51;'>
+							<div id='show-3d-tool-fullscreen' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 6px;margin-left: auto;margin-right: auto;'>退出全屏</div>
+							<!--<div id='show-3d-tool-screenshot' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 220px;margin-left: auto;margin-right: auto;'>截图</div>-->
+						</div>
 					</div>
 					<div class="modify-show-info">
 						<div class="modify-info-box">
@@ -101,14 +111,13 @@
 	</div>
 
 	<!--  added by white  -->
-	
+
 	<script src="{% static 'js/designer/three-69.min.js' %} "></script>
 	<script src="{% static 'js/designer/STLLoader.js' %}"></script>
 	<script src="{% static 'js/designer/OrbitControls.js' %}"></script>
 	<script src="{% static 'js/designer/3dDemo.js' %}"></script>
 	<script src="{% static 'js/designer/uplist.js' %}"></script>
 
-	<div id='show-3d' style='position: absolute;top: 0px;left: 800px;'></div>
 
 	<!--  added by white over  -->
 	{% endblock %}

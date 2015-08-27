@@ -7,6 +7,8 @@ urlpatterns = patterns('',
         # test
         url('^test$', views.test, name="test"),
 
+        url('^new_chat$', views.new_chat, name="new_chat"),
+
         # 展示型首页
         url('^$', views.test, name="index"),
 

@@ -33,6 +33,7 @@ $(function(){
 	});
 
 	toSearch();
+
 });
 
 // 搜索模块
@@ -153,10 +154,6 @@ function workd_unexecute(page){		//加载未审核的数据
 		// 		});
 		// 	});
 		// });
-
-		// added by white
-		deisgnerWorkPicEvent();
-
 
 	});
 }
@@ -282,7 +279,7 @@ function not_passed(page){		//获取未通过数据
 			var notList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=notList.length;i<len;i++){
-			notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+				notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				var picList=notList[i].pic;
 				for(var j=0,jlen=picList.length;j<jlen;j++){
 					notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
@@ -299,8 +296,6 @@ function not_passed(page){		//获取未通过数据
 		edit();
 		cancelSigle();
 
-		// added by white
-		deisgnerWorkPicEvent();
 	});
 }
 
@@ -346,7 +341,7 @@ function deleteSigle(){		//单个删除
 		var _this =$(this),
 			deleteObj = _this.parents('tr');
 
-			_id = deleteObj.attr('data-id');
+		_id = deleteObj.attr('data-id');
 		var _this = $(this),
 			deleteObj = _this.parents('tr'),
 			state = deleteObj.attr('data-state');
@@ -499,6 +494,7 @@ function judgePage(toPage, curPage, totalPage){		//判断点击的页码
 
 function edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
+
 		var _this = $(this),
 			_parent = _this.parents('.designer-works-list-box'),
 			id = _parent.attr('data-id'),
@@ -557,6 +553,13 @@ function edit(){	//编辑弹窗函数
 			$(this).prev().find('input').click();
 		});
 
+		// added by white	
+		$('#show-3d-cont').hide();
+		$('#show-3d').html(null);
+		$('.modify-stl-preview').unbind("click");
+		$('.modify-stl-preview').click(function(){
+			showStlFileInRemoteServer(id , 260, 260, 'show-3d');
+		});
 	});
 
 	closeEdit();
@@ -571,6 +574,8 @@ function closeEdit(){
 	$('.modify-container-close').on('click',function(){
 		$('.designer-zoom').css('display','none');
 		$('.modify-content').css('display','none');
+		$('#show-3d').html(null);
+		$('#show-3d-cont').hide();
 	});
 }
 
@@ -645,13 +650,13 @@ function publish_edit(){	//编辑弹窗函数
 	});
 }
 
-// 关闭弹窗
-function closeEdit(){
-	$('.modify-container-close').on('click',function(){
-		$('.designer-zoom').css('display','none');
-		$('.modify-content').css('display','none');
-	});
-}
+/*// 关闭弹窗*/
+/*function closeEdit(){*/
+/*$('.modify-container-close').on('click',function(){*/
+/*$('.designer-zoom').css('display','none');*/
+/*$('.modify-content').css('display','none');*/
+/*});*/
+/*}*/
 
 
 
