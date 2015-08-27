@@ -23,14 +23,6 @@ def in_test_server():
             result = True
             break
 
-<<<<<<< HEAD
-    if result:
-      print('in test server')
-    else:
-      print('in deploy server')
-=======
-    print 'is test server: %s' % result
->>>>>>> c4686e8bde2bf245bc9724b4f42a5cff3b06e0c3
     return result
 
 
