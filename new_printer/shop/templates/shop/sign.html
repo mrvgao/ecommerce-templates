@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/sign.css' %}" />
+	<script type="text/javascript" src="{% static 'js/shop/sign.js' %}"></script>
+{% endblock %}
+
+{% block bodyColor %}
+<body class="sign">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+
+	<div class="sign-page w">
+		<div class="container clearfix">
+			<div class="sign-cont fl">
+				<div class="banner-word mb50">
+					<img src="{% static 'images/shop/banner-word.png' %}" alt="" />
+					<p class="mt10">在这里，获得任何你想要的首饰</p>
+				</div>
+				<a class="contact-btn tc inl-b" href="javascript:void(0)">联系我们获得内测邀请码</a>
+				<div class="sign-contact-wrap"></div>
+			</div>
+			<div class="sign-login fr">
+				<div class="sign-login-guide mb20 clearfix">
+					<p class="signup-btn-box fl">
+						<a class="signUp f20" href="javascript:void(0)">注册<span class="f12 ml5">(已有注册码)</span></a>
+					</p>
+					<p class="signin-btn-box fr">
+						<a class="signIn f16" href="javascript:void(0)">登陆</a>
+					</p>
+				</div>
+				<div class="input-play-wrap pr">
+					<div class="input-play-box pa clearfix">
+						<div data-p="bindphone" class="sign-bindphoto fl">
+							<div class="sign-empty-box signup-username">
+								<input valid-type="signUp-phone" class="sign-input" type="text" placeholder="手机号" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>手机号格式不正确</span>
+								</p>
+							</div>
+							<div class="sign-empty-box invite-code mt15">
+								<input valid-type="signUp-invitecode" class="sign-input" type="text" placeholder="邀请码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>邀请码</span>
+								</p>
+							</div>
+							<button class="register-next f18 mt30">下一步</button>
+							<a class="no-invite mt15 fr" href="javascript:void(0)">没有邀请码？</a>
+						</div>
+						<div data-p="signUp" class="sign-signUp fl">
+							<div class="sign-empty-box signup-username">
+								<input valid-type="signUp-name" class="sign-input" type="text" placeholder="用户名" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>该用户名已经被注册</span>
+								</p>
+							</div>
+							<div class="sign-empty-box mt15">
+								<input valid-type="signUp-pw" class="sign-input" type="password" placeholder="密码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>密码格式不正确</span>
+								</p>
+							</div>
+							<div class="sign-empty-box mt15">
+								<input valid-type="signUp-pwagin" class="sign-input" type="password" placeholder="确认密码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>密码不一致</span>
+								</p>
+							</div>
+							<button class="register-btn f18 mt30">注册</button>
+							<a class="back-prev mt15 fr" href="javascript:void(0)"><< 返回上一步</a>
+						</div>
+						<div data-p="signIn" class="sign-signIn fl">
+							<div class="sign-empty-box signup-username">
+								<input valid-type="signUp-phone" class="sign-input is_registered" type="text" placeholder="手机号" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>该手机号未注册</span>
+								</p>
+							</div>
+							<div class="sign-empty-box invite-code mt15">
+								<input valid-type="signUp-pw" class="sign-input" type="password" placeholder="密码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>密码不正确</span>
+								</p>
+							</div>
+							<button class="login-btn f18 mt30">登陆</button>
+							<div class="sign-remeber">
+								<div class="sign-remeber-in mt15 fl">
+									<input class="signIn-remeber" type="checkbox" />
+									<span>记住密码</span>
+								</div>
+								<a class="forget-pw mt15 fr" href="/shop/password_find">忘记密码？</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="contact-info-wrap hide">
+				<div class="contact-info-box pr">
+					<div class="contact-info-logo pb10">
+						<img class="ml10" src="{% static 'images/shop/contact-logo.png' %}" alt="" />
+					</div>
+					<div class="info-body bc">
+						<div class="contact-info clearfix">
+							<div class="info-cont fl">
+								<p class="f18 fb mb15">联系我们</p>
+								<p class="mb10">官方微博：<a href="#">3Dilove</a></p>
+								<p class="mb10">官方微信：JKbrother3d(3Dilove)</p>
+								<p class="mb10">官方邮箱：3dilove@jkbrother3d.com</p>
+								<p>公司地址：杭州市拱墅区登云路617号矩阵国际4号楼408室</p>
+							</div>
+							<div class="info-img fr"></div>
+						</div>
+						<div class="contact-service mt50">
+							<button class="contact-service-btn">联系客服 >></button>
+							<p class="ml20 fr">
+								<em class="contact-phone"></em>
+								<span class="ml5 f16 fb">联系电话：18868103391</span>
+							</p>
+						</div>
+					</div>
+					<a class="contact-close pa" href="javascript:void(0)"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block customerTool %}
+
+	<div class="contact-wrap hide">
+		<div class="contact-box pr">
+			<img class="custom-s-img pa" src="" alt="" />
+			<div class="contact-head pl10 pr10">
+				<p class="f18">【3DiLove客服】达芬奇</p>
+			</div>
+			<div class="contact-cont pt20 pb10 clearfix">
+				<div class="chat-hub fl ml10">
+					<div class="chated-txt pl20 pr20 pt15 pb15">
+						<div class="chat-word-customer">
+							<p class="chat-word-title mb5">达芬奇【3DiLove客服】</p>
+							<div class="chat-word-cont">对不起，我是个卧底</div>
+						</div>
+						<div class="chat-word-us">
+							<p style="color:#6393d6" class="chat-word-title mb5">达芬奇</p>
+							<div class="chat-word-cont">对不起，我是个警察</div>
+						</div>
+						<div class="chat-word-customer">
+							<p class="chat-word-title mb5">达芬奇【3DiLove客服】</p>
+							<div class="chat-word-cont">对不起，我是个卧底</div>
+						</div>
+						<div class="chat-word-us">
+							<p style="color:#6393d6" class="chat-word-title mb5">达芬奇</p>
+							<div class="chat-word-cont">对不起，我是个警察</div>
+						</div>
+						<div class="chat-word-customer">
+							<p class="chat-word-title mb5">达芬奇【3DiLove客服】</p>
+							<div class="chat-word-cont">对不起，我是个卧底</div>
+						</div>
+						<div class="chat-word-us">
+							<p style="color:#6393d6" class="chat-word-title mb5">达芬奇</p>
+							<div class="chat-word-cont">对不起，我是个警察</div>
+						</div>
+						<div class="chat-word-customer">
+							<p class="chat-word-title mb5">达芬奇【3DiLove客服】</p>
+							<div class="chat-word-cont">对不起，我是个卧底</div>
+						</div>
+						<div class="chat-word-us">
+							<p style="color:#6393d6" class="chat-word-title mb5">达芬奇</p>
+							<div class="chat-word-cont">对不起，我是个警察</div>
+						</div>
+					</div>
+					<div class="chatting-tool clearfix">
+						<div class="tool-list">
+							<em class="select-photo-ico"></em>
+							照片
+						</div>
+						<div class="tool-list">
+							<em class="select-emoji-ico"></em>
+							表情
+						</div>
+						<div class="tool-list">
+							<em class="select-history-ico"></em>
+							记录
+						</div>
+					</div>
+					<div class="chatting-in">
+						<textarea class="chat-entry"></textarea>
+					</div>
+					<div class="chatting-submit clearfix">
+						<button class="chatting-btn fr">发送</button>
+					</div>
+				</div>
+				<div class="chat-costomer-tool fl ml10">
+					<div class="chat-problem">
+						<p class="chat-problem-head pl5 f16">常见问题</p>
+						<div class="chat-problem-cont">
+							<ol>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+								<li><a href="#">这是一个简单的小情歌</a></li>
+							</ol>
+						</div>
+					</div>
+					<div class="user-tool">
+						<p class="user-tool-head pl5 f16">快捷工具</p>
+						<div class="user-tool-box">
+							<div class="user-tool-list">
+								<a href="javascript:void(0)">
+									<span class="user-tool-download"></span>
+									<p class="tc mt5 f12">我的下载</p>
+								</a>
+							</div>
+							<div class="user-tool-list">
+								<a href="javascript:void(0)">
+									<span class="user-tool-mark"></span>
+									<p class="tc mt5 f12">收藏夹</p>
+								</a>
+							</div>
+							<div class="user-tool-list">
+								<a href="javascript:void(0)">
+									<span class="user-tool-help"></span>
+									<p class="tc mt5 f12">帮助中心</p>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="contact-ctrl-btn pa">
+				<span id="minimize"></span>
+				<span id="maximum"></span>
+				<span id="closeContact"></span>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
