@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+#-*- coding: UTF-8 -*-
 
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -20,17 +20,10 @@ class Verification():
         '''
         description:手机号是否存在
         params: phone
-        return: A可申请内测 B已申请内测未注册 C已注册
+        return: 
         '''
         user = User.objects.filter(username=phone).exists()
-        beta = BetaApply.objects.filter(phone=phone).exists()
-        if beta == False and user == False:
-            return 'A'
-        elif beta == True and user == False:
-            return 'B'
-        elif user == True:
-            return 'C'
-
+        return user
     
     def ramdon_dig(self, phone):
         '''
@@ -49,18 +42,19 @@ class Verification():
         return (n*2 + 4) % 10
 
 
-    def isright_InvitationCode(self, phone, code):
+    def isright_InvitationCode(self, code):
         '''
         description:邀请码是否正确
         params: phone code
         return: True or False
         '''
         try:
-            beta = BetaApply.objects.get(phone = phone)
-            if beta.InvitationCode == code:
-                return True
-            else:
-                return False
+            c = int(code)
+            icode = c/1000 + c/100*2 + c%100/10*3 - c%10*4
+            if 8 == icode:
+                return 'V'
+            elif 7 == icode:
+                return 'D'
         except Exception as e:
             return False
 

@@ -24,6 +24,13 @@ vender_goods_handler = VenderGoodsHandler()
 recommend_goods_handler = RecommendGoodsHandler()
 
 
+def login_register(request):
+    '''
+    dsecription:登录注册页
+    '''
+    return render(request, website.login_register, None)
+
+
 def test(request):
 
     type_name = [u'戒指', u'吊坠', u'耳坠', u'手链', u'项链', u'胸针']

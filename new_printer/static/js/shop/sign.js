@@ -15,6 +15,7 @@ $(function (){
 		signIn = $('.signIn'),
 		signUp = $('.signUp');
 
+
 	// 显示弹出框
 	contact_btn.on('click',function (){
 		contact_wrap.show();
@@ -126,12 +127,13 @@ $(function (){
 					break;
 			}
 
-			// 查找该手机号是否存在于数据库中
+			// 登录， 查找该手机号是否存在于数据库中
 			if(_this.hasClass('is_registered')){
-				$.post('',{},function (e){
-
+				
+				$.post('/account/check_phone',{'phone':_txt},function (e){
+					result = JSON.parse(e);
 					// 如果存在就返回 true , 否则就返回 false
-					if(e){
+					if(result['status']=='TRUE'){
 						_next.slideUp();
 						_this.removeClass('active');
 						signInResult[0] = true;
@@ -143,7 +145,25 @@ $(function (){
 					
 				});
 			}
-
+			
+			if(_this.hasClass('is_registered_r')){
+				
+				$.post('/account/check_phone',{'phone':_txt},function (e){
+					result = JSON.parse(e);
+					// 如果存在就返回 true , 否则就返回 false
+					if(result['status']=='TRUE'){
+						_next.slideUp();
+						_this.removeClass('active');
+						signInResult[0] = true;
+					}else {
+						_next.slideDown();
+						_this.addClass('active');
+						signInResult[0] = false;
+					}
+					
+				});
+			}
+			
 		});
 
 		// 点击下一步
@@ -177,8 +197,12 @@ $(function (){
 		// 登陆
 		login_btn.on('click',function (){
 			
-			testNoBlur($(this));
-
+			var _this = $(this);
+			testNoBlur(_this);
+			var phone = _this.parents('.sign-signIn').find('.sign-input').eq(0).val();
+			var pwd = _this.parents('.sign-signIn').find('.sign-input').eq(1).val();
+			
+			
 			// 记住密码 isRemeber: true 为记住, false 为不记住
 			if(signIn_remeber.checked){
 				isRemeber = true;
@@ -186,9 +210,8 @@ $(function (){
 
 			if(signInResult[0] && signInResult[1]){
 				
-				$.post('',{},function (e){
-					// do something
-					
+				$.post('/account/u_login',{'phone':phone,'password':pwd},function (e){
+	
 				});
 			}
 		});
