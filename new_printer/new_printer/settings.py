@@ -12,20 +12,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import ip_address
 # from easy_thumbnails.conf import Settings as thumbnail_settings
-ip = os.popen("cat /etc/network/interfaces | grep address")
-l = []
-in_test_server = True
-
-
-for i in ip.readlines():
-    l.append(i)
-    print i
-for i in l:
-    if '121.43.234.208' in i:
-
-        in_test_server = False
-
+in_test_server = ip_address.in_test_server()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -146,7 +135,7 @@ STATICFILES_DIRS = (
 
 
 STATIC_URL = '/static/'
-New_s = '/Users/renjie/Desktop'
+New_s = '/Users/laola/Desktop'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

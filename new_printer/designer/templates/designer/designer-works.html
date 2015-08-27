@@ -32,7 +32,7 @@
 			</ul>
 		</div>
 	</div>
-	<form action="#" method="post" class="changeInfo">
+	<form type="file" action="/designer/edit_submit" method="post" class="changeInfo" enctype="multipart/form-data"  multiple="" >
 		<div class="modify-content ">
 			<div class="clearfix">
 				<div class="modify-left fl">
@@ -88,9 +88,9 @@
 							</div>
 						</div>
 					</div>
-					<input type="text" class="modify-name"/>
-					<input type="text" class="modify-price"/>
-					<textarea class="modify-describe"></textarea>
+					<input type="text" class="modify-name" name="stl_name" />
+					<input type="text" class="modify-price" name="stl_price" />
+					<textarea class="modify-describe" name="stl_describe"></textarea>
 				</div>
 			</div>
 			<div class="modify-btn-container">
@@ -99,4 +99,16 @@
 		</form>
 		<span class="modify-container-close"></span>
 	</div>
+
+	<!--  added by white  -->
+	
+	<script src="{% static 'js/designer/three-69.min.js' %} "></script>
+	<script src="{% static 'js/designer/STLLoader.js' %}"></script>
+	<script src="{% static 'js/designer/OrbitControls.js' %}"></script>
+	<script src="{% static 'js/designer/3dDemo.js' %}"></script>
+	<script src="{% static 'js/designer/uplist.js' %}"></script>
+
+	<div id='show-3d' style='position: absolute;top: 0px;left: 800px;'></div>
+
+	<!--  added by white over  -->
 	{% endblock %}
