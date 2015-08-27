@@ -531,7 +531,7 @@ function edit(){	//编辑弹窗函数
 		$('.modify-type').text(type);
 		$('.modify-size').text(size);
 		$('.modify-update').text(up_time);
-		$('.modify-price').val("￥"+price);
+		$('.modify-price').val(price);
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
 		$('.modify-id').val(id);
@@ -620,7 +620,7 @@ function publish_edit(){	//编辑弹窗函数
 		$('.modify-type').text(type);
 		$('.modify-size').text(size);
 		$('.modify-update').text(up_time);
-		$('.modify-price').val("￥"+price);
+		$('.modify-price').val(price);
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
 		//for(var i=0;i<imgs.length;i++){
