@@ -103,6 +103,26 @@ def beta_apply(request):
     else:
         raise Http404
 
+def check_username(request):
+    '''
+    description:验证用户名是否存在
+    params:
+    return:
+    '''
+    if request.method == 'GET':
+        username = 'test'
+        conf = {}
+        vu = Vender_User.objects.filter(vendername = username).exists()
+        if (vu):
+            conf = {'status':'TRUE'}
+        else:
+            du = Desinger_User.objects.filter(designername = username).exists()
+            if(du):
+                conf = {'status':'TRUE'}
+            else:
+                conf = {'status':'FALSE'}
+        return HttpResponse(json.dumps(conf))
+
 
 def check_code(request):
     '''

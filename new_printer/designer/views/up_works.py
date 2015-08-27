@@ -69,7 +69,7 @@ def stls_save(stls):
         stl_url = str(jwary_md5[md5])+'.stl'
         new_jwary = Goods_Upload.objects.create(goods_name = str(md5),
                                          designer_id = 1,
-                                         stl_path = str(jwary_md5[md5]) + '/' + str(stl_url),
+                                         stl_path = str(jwary_md5[md5]) + '/' + str(md5) +'.stl',
                                          file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
                                          good_state = 0,
                                          not_passed = 'null',
@@ -399,3 +399,23 @@ def dwon_stl(request):
     context = {'stl_path':stl_path}
     return HttpResponse(json.dumps(context))
 
+
+def file_download(request):
+    '''
+    description: 文件下载
+    params:
+    return:
+    '''
+    if request.method == 'POST':
+        goods_list = request.POST.getlist('goods_list[]')
+        glist = []
+        conf = {}
+        for goods_id in goods_list:
+            goods = Goods.objects.get(id=goods_id)
+            md5 = str(goods.stl_path).split(r'/')[0]
+            zip_name = goods.goods_name + '.zip'
+            file_ = {}
+            file_ = {'md5':md5,'zip_name':zip_name}
+            glist.append(file_)
+        conf = {'glist':glist}
+        return HttpResponse(json.dumps(conf))
