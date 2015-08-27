@@ -312,8 +312,10 @@ def auditing(request):
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
     return_list = good_filter.unpublish_exec(unexecute_list)
     all_len = len(unexecute_list)
-    total_pages = all_len/(website.auditing_one)+1
+    total_pages = all_len/(website.auditing_one)
     last_page = all_len%(website.auditing_one)
+    if last_page != 0:
+        total_pages += 1
     return_list = return_list[now_page*(website.auditing_one):(now_page+1)*(website.auditing_one)]
     conf = {'all_list':return_list,
             'icon' : designer.icon,
