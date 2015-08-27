@@ -666,13 +666,7 @@ function publish_edit(){	//编辑弹窗函数
 	});
 }
 
-/*// 关闭弹窗*/
-/*function closeEdit(){*/
-/*$('.modify-container-close').on('click',function(){*/
-/*$('.designer-zoom').css('display','none');*/
-/*$('.modify-content').css('display','none');*/
-/*});*/
-/*}*/
+
 
 
 

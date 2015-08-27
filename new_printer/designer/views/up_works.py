@@ -12,7 +12,6 @@ from django.shortcuts import get_object_or_404
 import json, os, uuid, base64, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
-from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
 from designer.conf import website 
