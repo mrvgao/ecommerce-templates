@@ -11,11 +11,13 @@ $(function(){
 
 	// 点击选择图表显示日期类型
 	chart_btn.on('click',function (){
-		var _index = $(this).index();
-		var isHome = $(this).parent().hasClass('isHome');
+		var _this = $(this),
+			_index = _this.index(),
+			isHome = _this.parent().hasClass('isHome');
+
 		labels=arrLabels[_index];
-		$(this).parent().find('a').removeClass('active');
-		$(this).addClass('active');
+		_this.parent().find('a').removeClass('active');
+		_this.addClass('active');
 		if(isHome){
 			setHomeVisitChart();
 		}else {
@@ -25,9 +27,9 @@ $(function(){
     
 	var arrLabels = [
 		["MON","TUE","WED","THUR","FRI","SAT","SUN"],
-		["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
-		
+		["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]	
 	];
+
 	labels = arrLabels[0];
 	
 	// 作品访问量函数

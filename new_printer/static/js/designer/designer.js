@@ -1,33 +1,13 @@
-$(document).ready(function(){
-	var works_wait_btn = $('#works_wait_btn'),//未审核
-		works_on_btn = $('#works_on_btn'),//审核中
-		works_not_btn = $('#works_not_btn'),//未通过
-		works_Suc_btn = $('#works_Suc_btn');//已发布
+$(function(){
+	var works_wait_btn = $('#works_wait_btn'),
+		works_on_btn = $('#works_on_btn'),
+		works_not_btn = $('#works_not_btn'),
+		works_Suc_btn = $('#works_Suc_btn');
 		designer_works_lists = $('.designer-works-lists'),
 		designer_sidebar_menulist = $('.designer-sidebar-menulist');
-
-
-	// works_wait_btn.on('click',function(){//未审核页面
-	// 	designer_works_lists.empty();
-
-	// 	var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr>';
-	// 	$.post('/designer/workd_unexecute', {"page":1	}, function(e) {
-	// 		if(e){
-	// 			var waitList = JSON.parse(e).all_list;
-	// 			for(var i=0,len=waitList.length;i<len;i++){
-	// 				waitStr+='<tr><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="go-setprice">去定价</button></span></td><td></span>删除<input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
-	// 			}
-	// 			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall"/></div></table>';
-	// 		}else{
-	// 			waitStr ='数据加载失败...';
-	// 		}
-	// 		designer_works_lists.append(waitStr);
-	// 	});
-	// 	addWorkBtnCurrent($(this));
-
-	// });
-
-	works_on_btn.on('click',function(){//审核中页面
+	
+	//审核中页面
+	works_on_btn.on('click',function(){
 		designer_works_lists.empty();
 		var onStr='';
 		$.post('/designer/auditing',{"page":1}, function(e) {

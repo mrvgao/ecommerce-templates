@@ -25,13 +25,7 @@ from datetime import date ,datetime
 import time
 import json,pdb,hashlib
 
-unexec_one = 2 #
-auditing_one = 2#
-unpassed_one = 2#
-publish_one = 2#
-
-def index(request):
-    return render(request, website.index)
+#(website.unexec_one)=2
 
 def works_upload(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
@@ -81,7 +75,6 @@ def stls_save(stls):
 
 #@login_required
 def works_save(request):
-    #pdb.set_trace()
     if request.method == 'POST':
         a_have = True
         stls = request.FILES.getlist('upfile-img')
@@ -97,6 +90,7 @@ def works_save(request):
         #return HttpResponse(json.dumps(file_hased))
     else:
         return HttpResponse(json.dumps("Error"))
+
 
 def file_save(model,name,stl_type):
     chunks = ""
@@ -119,28 +113,26 @@ def file_save(model,name,stl_type):
     req.add_header('User-Agent','Mozilla/5.0')
     req.add_header('Referer','%s'%website.file_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=10)
-    '''while not resp:
-        if count > 100:
-            status = 'upload_time_out!'
-        else:
-            time.sleep(1)
-            count = count + 1'''
-    #print "resp",resp
     qrcont=resp.read()
     md = json.loads(qrcont)
     md5 = md['status']
     return md5
 
-#上传STL文件处的删除操作
-def stl_delete(request):
+
+'''def stl_delete(request):
+
+    #上传STL文件处的删除操作
+
     del_id = request.POST['id']
     Goods_Upload.objects.filter(id = del_id).delete()
     conf = {'status':'success'}
-    return HttpResponse(json.dumps(conf)) 
+    return HttpResponse(json.dumps(conf)) '''
 
-#设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
+
 def workd_unexecute(request):
-    #pdb.set_trace()
+    '''
+    #设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
+    '''
     user = 1#request.user
     now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
@@ -152,15 +144,16 @@ def workd_unexecute(request):
     worksNot = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2).count()
     worksSuc = Goods.objects.filter(designer_id=designer.id).count()
     all_len = len(unexecute_list)
-    total_pages = all_len/unexec_one+1
-    last_page = all_len%unexec_one
-    return_list = return_list[now_page*unexec_one:(now_page+1)*unexec_one]
+    total_pages = all_len/(website.unexec_one)
+    if all_len%(website.unexec_one)!=0:
+        total_pages += 1
+    last_page = all_len%(website.unexec_one)
+    return_list = return_list[now_page*(website.unexec_one):(now_page+1)*(website.unexec_one)]
     conf = {'all_list':return_list,
             'icon' : designer.icon,
             'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'now_page':now_page,
             'worksWait':worksWait,'designer.worksOn':worksOn,'designer.worksNot':worksNot,'designer.worksSuc':worksSuc
               }
-    #return render(request, website.works_execute, conf)
     return HttpResponse(json.dumps(conf))
 
 
@@ -181,7 +174,7 @@ def designer_works(request):
 
 def unexecute_delete(request):
     '''
-        #在未审核页面直接删除作品
+        #在未审核页面直接删除作品 ;在已发布页面点击编辑后，点击取消发布；
     '''
     ids = request.POST['id']
     state = int(request.POST['state'])
@@ -192,8 +185,11 @@ def unexecute_delete(request):
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
-#在未审核页面 点击处理并提交 后往JS传得值
-def unexecute_edit(request):
+
+'''def unexecute_edit(request):
+    
+    #在未审核页面 点击处理并提交 后往JS传得值
+    
     id = 40#request.POST['id'] 
     goods_list = Goods_Upload.objects.filter(id = id)
     return_good = []
@@ -206,19 +202,20 @@ def unexecute_edit(request):
                   }
         return_good.append(temp)
     conf = {'good':return_good}  
-    return HttpResponse(json.dumps(conf))  
+    return HttpResponse(json.dumps(conf))  '''
 
-#未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
+
 def edit_submit(request):
-    #file_id = request.POST['id']
-    file_id = 80
+    '''
+    #未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
+    '''
+    file_id = request.POST['modify_id']
     count = 1
     p_url = []
-    #pdb.set_trace()
     good = Goods_Upload.objects.get(id=file_id)
-    stl_md5 = good.stl_path
+    stl_md5 = good.stl_path.encode('utf-8')
     print stl_md5
-    stl_md5 = str(stl_md5).split('.')
+    stl_md5 = stl_md5.split('.')
     stl_md5 = stl_md5[0]
     stl_md5 = stl_md5.split('/')[0]
     price = request.POST['stl_price']
@@ -303,8 +300,10 @@ def photo_save(model,name,stl_type,stl_md5):
     return md5
 
 
-#显示 审核中 页面
 def auditing(request):
+    '''
+    #显示 审核中 页面
+    '''
     #user = request.user
     user = 1#request.user
     now_page = int(request.POST['page']) - 1    
@@ -313,57 +312,78 @@ def auditing(request):
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
     return_list = good_filter.unpublish_exec(unexecute_list)
     all_len = len(unexecute_list)
-    total_pages = all_len/unexec_one+1
-    last_page = all_len%unexec_one
-    return_list = return_list[now_page*unexec_one:(now_page+1)*unexec_one]
+    total_pages = all_len/(website.auditing_one)+1
+    last_page = all_len%(website.auditing_one)
+    return_list = return_list[now_page*(website.auditing_one):(now_page+1)*(website.auditing_one)]
     conf = {'all_list':return_list,
             'icon' : designer.icon,
             'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'now_page':now_page,
               }
     return HttpResponse(json.dumps(conf))
-    #return render(request, website.works_execute, conf)
 
-#显示 未通过 页面
+
 def not_passed(request):
+    '''
+    #显示 未通过 页面
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
+    now_page = int(request.POST['page']) - 1
     design_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2)
     return_list = good_filter.unpublish_exec(design_list)
-    conf = {'all_list':return_list
+    all_len = len(return_list)
+    total_pages = all_len/(website.unpassed_one)
+    if all_len%(website.unpassed_one) !=0:
+        total_pages += 1
+    return_list = return_list[now_page*(website.unpassed_one):(now_page+1)*(website.unpassed_one)]
+    conf = {'all_list':return_list,'total_pages':total_pages,'now_page':now_page,
               }
     return HttpResponse(json.dumps(conf))
 
 
-#未通过页面，点击 重新申请发布 后的反馈操作
+'''#未通过页面，点击 重新申请发布 后的反馈操作
 def photo_not_passed(request):#未通过页面，点击重新申请发布
     id = 56#request.POST['id']
     design_list = Goods_Upload.objects.filter(id=id)
     return_list = good_filter.unpublish_exec(design_list)
     conf = {'return_list':return_list}
-    return HttpResponse(json.dumps(conf))
+    return HttpResponse(json.dumps(conf))'''
 
 
-#显示已发布页面
 def has_published(request):
+    '''
+    #显示已发布页面
+    '''
     #user = request.user
-    #pdb.set_trace()
     designer = Designer_User.objects.get(user_id=1)#user.id)
+    now_page = int(request.POST['page']) - 1
     design_list = Goods.objects.filter(designer_id=designer.id,is_active=1)
     return_list = good_filter.publish_exec(design_list)
-    conf = {'all_list':return_list
+    all_len = len(return_list)
+    total_pages = all_len/(website.publish_one)
+    if all_len%(website.publish_one) !=0:
+        total_pages += 1
+    return_list = return_list[now_page*(website.publish_one):(now_page+1)*(website.publish_one)]
+    conf = {'all_list':return_list,'total_pages':total_pages
             }
     return HttpResponse(json.dumps(conf))
 
-#在已发布页面点击编辑后，传的值
+
 def published_edit(request):
+    '''
+    #在已发布页面点击编辑后，传的值
+    '''
     id = request.POST['id']
     design_list = Goods.objects.filter(id=id)
     return_list = good_filter.publish_exec(design_list)
     conf = {'photo':return_list}
     return HttpResponse(json.dumps(conf))
 
-#在已发布页面点击编辑后，修改后提交的值
+
 def published_submit(request):
+    '''
+    #在已发布页面点击编辑后，修改后提交的值
+    '''
     file_id = request.POST['id']
     photo = Goods.objects.filter(id=file_id)
     price = request.POST['price']
@@ -382,20 +402,33 @@ def published_submit(request):
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
-def published_delete(request):#在已发布页面点击编辑后，点击删除
-    del_id = request.POST['id']
-    for id in ids:
-        Goods.objects.filter(id = id).update(is_active=0)
-    if delete:
-        conf = {'status':"success"}
-    else:
-        conf = {'status':'eror'}
-    return HttpResponse(json.dumps(conf))
 
-#预览STL文件 进行下载步骤
 def dwon_stl(request):
+    '''
+    #预览STL文件 进行下载步骤
+    '''
     _url = request.POST['_url']
     stl_path = good_filter.down_stl(_url)
     context = {'stl_path':stl_path}
     return HttpResponse(json.dumps(context))
 
+
+def file_download(request):
+    '''
+    description: 文件下载
+    params:
+    return:
+    '''
+    if request.method == 'POST':
+        goods_list = request.POST.getlist('goods_list[]')
+        glist = []
+        conf = {}
+        for goods_id in goods_list:
+            goods = Goods.objects.get(id=goods_id)
+            md5 = str(goods.stl_path).split(r'/')[0]
+            zip_name = goods.goods_name + '.zip'
+            file_ = {}
+            file_ = {'md5':md5,'zip_name':zip_name}
+            glist.append(file_)
+        conf = {'glist':glist}
+        return HttpResponse(json.dumps(conf))

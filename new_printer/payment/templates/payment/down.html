@@ -12,7 +12,7 @@
 	
 	<div class="container">
 		<div class="cart-wrap">
-			<p class="f20 fb mb20 mt30"> 3DiLove 购物车</p>
+			<p class="f20 fb mb20 mt30"> 3DiLove 下载</p>
 
 			{% if vender_goods %}
 
@@ -54,8 +54,8 @@
 							</div>
 							<p class="layout-b tc lh90">价格：<span class="cart-price">{{ cart.goods.goods_price }}</span> RMB</p>
 							<p class="layout-b mt30 cart-play">
-								<a class="mb10 mark-btn" href="javascript:void(0)">移入收藏夹</a>
-								<a class="del-btn" href="javascript:void(0)">删 除</a>
+								<button class="cart-down-btn btn ml50">下载</button>
+								<iframe id="download" name="download" height="0px" width="0px"></iframe> 
 							</p>
 						</div>
 					</div>
@@ -69,10 +69,19 @@
 					</p>
 					<div class="pay-count fr">
 						<div class="pay-count-box mr30 fl">
-							已选作品 <span class="cart-pay-num f16">0</span> 件
-							<span class="ml20">合计<b class="f16 cart-total" style="color:#f00">￥0.00</b></span>
+							已选作品<span class="cart-download-num f16"> 0 </span>件
 						</div>
-						<button class="toPay">去支付</button>
+						<button class="toDownload">打包下载</button>
+						<iframe id="download0" name="download" height="0px" width="0px"></iframe> 
+						<iframe id="download1" name="download" height="0px" width="0px"></iframe> 
+						<iframe id="download2" name="download" height="0px" width="0px"></iframe>
+						<iframe id="download3" name="download" height="0px" width="0px"></iframe>
+						<iframe id="download4" name="download" height="0px" width="0px"></iframe>
+						<iframe id="download5" name="download" height="0px" width="0px"></iframe>
+						<iframe id="download6" name="download" height="0px" width="0px"></iframe>
+						<iframe id="download7" name="download" height="0px" width="0px"></iframe>
+						<iframe id="download8" name="download" height="0px" width="0px"></iframe>
+						<iframe id="download9" name="download" height="0px" width="0px"></iframe>						 
 					</div>
 				</div>
 			</div>

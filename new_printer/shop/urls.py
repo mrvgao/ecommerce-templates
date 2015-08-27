@@ -15,6 +15,9 @@ urlpatterns = patterns('',
         # 网站内首页
         url('^home$', views.test, name="home"),
 
+        # 修改密码页
+        url('^password_find$', views.test, name="change_pw"),
+
         # 商品列表(戒指)
         url('^ring$', views.ring, name="ring"),
 

@@ -101,18 +101,17 @@ em.list-mark-btn-ico {
 	height:15px;
 	background-repeat:no-repeat;
 	background-image:url('/static/images/common/site-icons.png');
-	background-position-y:-11px;
+	background-position:0 -11px;
 	vertical-align:bottom;
 }
 em.mark-num-ico {
-	background-position-x:-192px;
-	-vertical-align:bottom;
+	background-position:-192px -11px;
 }
 a.goods-tomark:hover, a.goods-tomark.active {
 	color:#f25149;
 }
 a.goods-tomark:hover em.list-mark-btn-ico, a.goods-tomark.active em.list-mark-btn-ico {
-	background-position-y:-35px;
+	background-position:-192px -35px;
 }
 
 a.alipay, a.tencenpay {
@@ -163,9 +162,9 @@ i.coverb {
 	top:0;
 	width:0px;
     height:0px;
-    border-left:30px solid transparent;  /* left arrow slant */
-    border-right:20px solid transparent; /* right arrow slant */
-    border-bottom:30px solid #fff; /* bottom, add background color here */
+    border-left:30px solid transparent;
+    border-right:20px solid transparent;
+    border-bottom:30px solid #fff;
     font-size:0px;
     line-height:0px;
     margin:0 auto;
@@ -176,9 +175,9 @@ i.covera {
 	top:0;
 	width:0px;
     height:0px;
-    border-left:20px solid transparent;  /* left arrow slant */
-    border-right:30px solid transparent; /* right arrow slant */
-    border-top:30px solid #fff; /* bottom, add background color here */
+    border-left:20px solid transparent;
+    border-right:30px solid transparent;
+    border-top:30px solid #fff;
     font-size:0px;
     line-height:0px;
     margin:0 auto;
