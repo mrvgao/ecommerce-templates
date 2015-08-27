@@ -75,14 +75,13 @@ em.download-num-ico, em.mark-num-ico, em.list-mark-btn-ico {
 	height:14px;
 	background-repeat:no-repeat;
 	background-image:url('/static/images/common/site-icons.png');
-	background-position-y:-11px;
 	vertical-align:bottom;
 }
 em.download-num-ico {
-	background-position-x:-10px;
+	background-position:-10px -11px;
 }
 em.mark-num-ico {
-	background-position-x:-192px;
+	background-position:-192px -11px;
 }
 a.list-mark-btn {
 	right:5px;
@@ -93,14 +92,13 @@ a.list-mark-btn {
 	display:none;
 }
 em.list-mark-btn-ico {
-	background-position-y:-12px;
-	background-position-x:-192px;
+	background-position:-192px -12px;
 }
 a.list-mark-btn:hover, a.list-mark-btn.active {
 	color:#f25149;
 }
 a.list-mark-btn:hover em.list-mark-btn-ico, a.list-mark-btn.active em.list-mark-btn-ico {
-	background-position-y:-36px;
+	background-position:-192px -36px;
 }
 
 

@@ -255,16 +255,9 @@ function render() {
 }
 
 // 在页面加载时初始化 _obj 对象
-function initializeObj(url) {
-
-	/*if(!T_DInited){*/
-	/*_obj.init(url,574,735,'show-3d');*/
-	/*T_DInited=true;*/
-	/*}else{*/
+function initializeObj(url, width, height, contId) {
 	$('#show-3d').html(null);
-	_obj.init(url,574,735,'show-3d');
-	/*loader.load(url);*/
-	/*}*/
+	_obj.init(url,width,height,contId);
 	animate();
 	$('canvas').hover(function(){
 		$('body').css('overflow','hidden');	   

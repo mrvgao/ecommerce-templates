@@ -30,6 +30,8 @@ def login_register(request):
     '''
     return render(request, website.login_register, None)
 
+def new_chat(request):
+	return render(request,website.index)
 
 def test(request):
 

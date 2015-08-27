@@ -33,6 +33,7 @@ $(function(){
 	});
 
 	toSearch();
+
 });
 
 // 搜索模块
@@ -60,8 +61,11 @@ function toSearch(){
 		var _val = $('.search-box').val(),
 			_txt = $('.designer-works-nav-current').text(),
 			_title = $('.works-current').text().substr(0,3);
+		//alert(_val)
+		var _title = 0
+
 		if(_val != '' || _val != null){
-			$.post('',{
+			$.post('/designer/unpublished_good_search',{
 				'search_val': _val,
 				'search_txt': _txt,
 				'search_type': _title
@@ -75,8 +79,9 @@ function toSearch(){
 		$('.designer-works-wait tbody').html('');
 		var waitList = JSON.parse(e).all_list;
 		var totalPage = JSON.parse(e).total_pages;
+		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
 		for(var i=0,len=waitList.length;i<len;i++){
-			waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+			 waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 		}
 		getPage(totalPage,page);
 		designer_works_lists.append(waitStr);
@@ -120,7 +125,8 @@ function workd_unexecute(page){		//加载未审核的数据
 			var waitList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=waitList.length;i<len;i++){
-				waitStr+='<tr data-state=1 data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+				//waitStr+='<tr data-state=1 data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+				waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 			}
 			// waitStr = '<tbody>' + waitStr +'</tbody>';
 			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
@@ -133,6 +139,12 @@ function workd_unexecute(page){		//加载未审核的数据
 		designer_works_lists.append(waitStr);
 		edit();
 		deleteSigle();
+
+
+		$('.designer-works-list-bigpic fl').each(function(){
+			console.log($(this).html());
+			/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
+		});
 
 
 		// 未审核弹窗,用于编辑
@@ -153,9 +165,6 @@ function workd_unexecute(page){		//加载未审核的数据
 		// 		});
 		// 	});
 		// });
-
-		// added by white
-		deisgnerWorkPicEvent();
 
 
 	});
@@ -282,7 +291,7 @@ function not_passed(page){		//获取未通过数据
 			var notList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=notList.length;i<len;i++){
-			notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+				notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				var picList=notList[i].pic;
 				for(var j=0,jlen=picList.length;j<jlen;j++){
 					notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
@@ -299,8 +308,6 @@ function not_passed(page){		//获取未通过数据
 		edit();
 		cancelSigle();
 
-		// added by white
-		deisgnerWorkPicEvent();
 	});
 }
 
@@ -327,7 +334,10 @@ function deleteAll(){	//批量删除函数
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('tr').attr('data-id');
-		$.post('/designer/unexecute_delete', {"id":_id}, function(e){
+		var _this = $(this),
+			deleteObj = _this.parents('tr'),
+			state = deleteObj.attr('data-state');
+		$.post('/designer/unexecute_delete', {"id":_id, 'state':state}, function(e){
 
 			if(e){
 			}
@@ -344,8 +354,7 @@ function deleteSigle(){		//单个删除
 
 	$('.wait-delete-single').on('click',function(){
 		var _this =$(this),
-			deleteObj = _this.parents('tr');
-
+			deleteObj = _this.parents('tr'),
 			_id = deleteObj.attr('data-id');
 		var _this = $(this),
 			deleteObj = _this.parents('tr'),
@@ -372,6 +381,7 @@ function cancelAll(){	//批量取消发布
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('.designer-works-list-box').attr('data-id');
+
 		$.post('/designer/unexecute_delete', { "id": _id ,'state':state }, function(e){
 
 			if(e){
@@ -499,6 +509,7 @@ function judgePage(toPage, curPage, totalPage){		//判断点击的页码
 
 function edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
+
 		var _this = $(this),
 			_parent = _this.parents('.designer-works-list-box'),
 			id = _parent.attr('data-id'),
@@ -520,9 +531,10 @@ function edit(){	//编辑弹窗函数
 		$('.modify-type').text(type);
 		$('.modify-size').text(size);
 		$('.modify-update').text(up_time);
-		$('.modify-price').val("￥"+price);
+		$('.modify-price').val(price);
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
+		$('.modify-id').val(id);
 		//for(var i=0;i<imgs.length;i++){
 		//	var imgsrc = imgs.eq(i).attr('src');
 		//	imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="photo_file" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
@@ -557,6 +569,13 @@ function edit(){	//编辑弹窗函数
 			$(this).prev().find('input').click();
 		});
 
+		// added by white	
+		$('#show-3d-cont').hide();
+		$('#show-3d').html(null);
+		$('.modify-stl-preview').unbind("click");
+		$('.modify-stl-preview').click(function(){
+			showStlFileInRemoteServer(id , 260, 260, 'show-3d');
+		});
 	});
 
 	closeEdit();
@@ -571,6 +590,8 @@ function closeEdit(){
 	$('.modify-container-close').on('click',function(){
 		$('.designer-zoom').css('display','none');
 		$('.modify-content').css('display','none');
+		$('#show-3d').html(null);
+		$('#show-3d-cont').hide();
 	});
 }
 
@@ -599,7 +620,7 @@ function publish_edit(){	//编辑弹窗函数
 		$('.modify-type').text(type);
 		$('.modify-size').text(size);
 		$('.modify-update').text(up_time);
-		$('.modify-price').val("￥"+price);
+		$('.modify-price').val(price);
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
 		//for(var i=0;i<imgs.length;i++){
@@ -645,13 +666,13 @@ function publish_edit(){	//编辑弹窗函数
 	});
 }
 
-// 关闭弹窗
-function closeEdit(){
-	$('.modify-container-close').on('click',function(){
-		$('.designer-zoom').css('display','none');
-		$('.modify-content').css('display','none');
-	});
-}
+/*// 关闭弹窗*/
+/*function closeEdit(){*/
+/*$('.modify-container-close').on('click',function(){*/
+/*$('.designer-zoom').css('display','none');*/
+/*$('.modify-content').css('display','none');*/
+/*});*/
+/*}*/
 
 
 
