@@ -71,7 +71,7 @@ def list_bills(request):
                 conf = {'goods_bills':goods_bills}
         except Exception as e:
             conf = {'status':'FAILURE'} 
-        return HttpResponse(json.dumps(conf))#render(request, website.index, conf)
+        return HttpResponse(json.dumps(conf))
     else:
         raise Http404
 
@@ -197,20 +197,20 @@ def pay_detail_return(bills):
     goods_bills = Goods_Bills.objects.filter(bills=bills)
     for gb in goods_bills:
         goods = gb.goods
-    vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
-    if(vg):
-        v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_buy=True,buy_time=bm.now_time())
-    else:
-        vender_goods = Vender_Goods(goods=goods,
-            vender=vender_user,
-            is_buy=True,
-            buy_time=bm.now_time())
-        vender_goods.save()        
+        vg = Vender_Goods.objects.filter(goods=goods,vender=vender_user).exists()
+        if(vg):
+            v_g = Vender_Goods.objects.filter(goods=goods,vender=vender_user).update(is_buy=True,buy_time=bm.now_time())
+        else:
+            vender_goods = Vender_Goods(goods=goods,
+                vender=vender_user,
+                is_buy=True,
+                buy_time=bm.now_time())
+            vender_goods.save()        
     return goods
 
 def pay_cart_return(bills):
     '''
-    description:返回购物车页面
+    description:返回下载页面
     params:
     return:
     '''
@@ -218,8 +218,8 @@ def pay_cart_return(bills):
     vender_user = bills.vender
     conf = {}
     goods_list = []
-    vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
-    conf = {'vender_goods':vender_goods,'is_paied':True}
+    vender_goods = Vender_Goods.objects.filter(is_cart=True, is_buy=True, vender=vender_user)
+    conf = {'vender_goods':vender_goods}
     for cart in vender_goods:
         goods_list.append(cart.goods.id)
     delc = bm.delcart(vender_user, goods_list)
@@ -244,8 +244,9 @@ def ali_return_url(request):
             bills.save()
             where = bills.where
             if where == 'cart':
+                pay_detail_return(bills)
                 conf = pay_cart_return(bills)
-                return render(request, 'payment/cart.html', conf)
+                return render(request, 'payment/down.html', conf)
             elif where == 'detail':
                 goods = pay_detail_return(bills)
                 return HttpResponseRedirect('/shop/goods-detail?goods_id=%s'%goods.id)

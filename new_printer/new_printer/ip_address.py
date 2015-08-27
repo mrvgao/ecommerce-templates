@@ -15,7 +15,6 @@ def in_test_server():
     '''
     ip_address = socket.gethostbyname(socket.gethostname())
     print(ip_address)
-
     key_words = ['127', '192']
 
     result = False
