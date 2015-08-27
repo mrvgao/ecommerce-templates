@@ -34,7 +34,6 @@ $(function(){
 
 	toSearch();
 
-
 	window.onkeyup = function (e) {
 		e = e || window.event;
 		var keycode = parseInt(e.keyCode);
@@ -47,6 +46,7 @@ $(function(){
 			});
 		}   
 	}; 
+
 });
 
 // 搜索模块
@@ -153,10 +153,32 @@ function workd_unexecute(page){		//加载未审核的数据
 		edit();
 		deleteSigle();
 
+
 		$('.designer-works-list-bigpic fl').each(function(){
 			console.log($(this).html());
 			/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
 		});
+
+
+		// 未审核弹窗,用于编辑
+		// var _btn = $('.works-modify-btn ');
+		// _btn.on('click',function (){
+		// 	$('.modify-content').show();
+		// 	closeEdit();
+
+		// 	$.post('',{},function (e){
+		// 		// do something
+
+		// 	});
+
+		// 	$('.modify-btn-submit').on('click',function (){
+		// 		$.post('',{},function (){
+		// 			// do something
+
+		// 		});
+		// 	});
+		// });
+
 
 		// added by white
 		deisgnerWorkPicEvent();

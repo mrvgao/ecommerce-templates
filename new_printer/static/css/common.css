@@ -45,19 +45,24 @@ body {
 	height:15px;
 	background-repeat:no-repeat;
 	background-image:url('/static/images/common/site-icons.png');
-	background-position-y:-10px;
 }
-.site-utool a:hover .site-ico {
-	background-position-y:-34px;
+.site-utool a:hover .site-download-ico {
+	background-position:-10px -34px;
+}
+.site-utool a:hover .site-cart-ico {
+	background-position:-32px -34px;
+}
+.site-utool a:hover .site-favorite-ico {
+	background-position:-56px -34px;
 }
 .site-download-ico {
-	background-position-x:-10px;
+	background-position:-10px -10px;
 }
 .site-cart-ico {
-	background-position-x:-32px;
+	background-position:-32px -10px;
 }
 .site-favorite-ico {
-	background-position-x:-56px;
+	background-position:-56px -10px;
 }
 
 /* header */
@@ -142,14 +147,13 @@ body {
 	height:36px;
 	background:url('/static/images/common/site-icons.png');
 	background-repeat:no-repeat;
-	background-position-y:-50px;
-	background-position-x:-2px;
+	background-position:-2px -50px;
 }
 #followus a {
-	background-position-x:-35px;
+	background-position:-35px -50px;
 }
 #contactonline a {
-	background-position-x:-64px;
+	background-position:-64px -50px;
 }
 .followus-qrcode {
 	width:114px;
@@ -256,14 +260,13 @@ em.select-photo-ico, em.select-emoji-ico, em.select-history-ico {
 	margin-bottom:-4px;
 	background-image:url('/static/images/common/site-icons.png');
 	background-repeat:no-repeat;
-	background-position-y:-60px;
-	background-position-x:-123px;
+	background-position:-123px -60px;
 }
 em.select-emoji-ico {
-	background-position-x:-151px;
+	background-position:-151px -60px;
 }
 em.select-history-ico {
-	background-position-x:-179px;
+	background-position:-179px -60px;
 }
 .chatting-in {
 	border-top:1px solid #ddd;
@@ -327,22 +330,19 @@ em.select-history-ico {
 	height:50px;
 	background:#f57322 url('/static/images/common/site-icons.png');
 	background-repeat:no-repeat;
-	background-position-y:-45px;
 	border-radius:50%;
 }
 .user-tool-list a:hover {
 	color:#f00;
 }
 span.user-tool-download {
-	background-position-x:-199px;
+	background-position:-199px -45px;
 }
 span.user-tool-mark {
-	background-position-y:-47px;
-	background-position-x:-238px;
+	background-position:-47px -238px;
 }
 span.user-tool-help {
-	background-position-y:-47px;
-	background-position-x:-275px;
+	background-position:-47px -275px;
 }
 
 
