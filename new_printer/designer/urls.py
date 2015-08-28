@@ -3,8 +3,13 @@
 
 from django.conf.urls import patterns, url
 from designer.views import up_works,views
+from designer import test_view
 
 urlpatterns = patterns('',
+
+	# 设计师个人中心
+	url(r'^designer-show$',test_view.test,name = 'designer_show'),
+
     url(r'^works_upload$',up_works.works_upload,name = 'works_upload'),
 	url(r'^works_save$',up_works.works_save,name = 'works_save'),
 	#未处理页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
