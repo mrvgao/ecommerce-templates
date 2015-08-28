@@ -14,7 +14,8 @@ $(function (){
 		input_play_box = $('.input-play-box'),
 		signIn = $('.signIn'),
 		signUp = $('.signUp');
-
+	var register_phone;
+	var register_code;
 
 	// 显示弹出框
 	contact_btn.on('click',function (){
@@ -145,13 +146,14 @@ $(function (){
 					
 				});
 			}
-			
+					
+			//注册， 手机号
 			if(_this.hasClass('is_registered_r')){
 				
 				$.post('/account/check_phone',{'phone':_txt},function (e){
 					result = JSON.parse(e);
 					// 如果存在就返回 true , 否则就返回 false
-					if(result['status']=='TRUE'){
+					if(result['status']=='FALSE'){
 						_next.slideUp();
 						_this.removeClass('active');
 						signInResult[0] = true;
@@ -164,6 +166,52 @@ $(function (){
 				});
 			}
 			
+			
+			// 注册， 邀请码
+			if(_this.hasClass('invitecode')){
+				register_phone = _this.parents('.sign-bindphoto').find('.sign-input').eq(0).val();
+				register_code = _this.parents('.sign-bindphoto').find('.sign-input').eq(1).val();
+				
+				$.post('/account/check_code',{'code':register_code},function (e){
+					result = JSON.parse(e);
+					// 如果存在就返回 true , 否则就返回 false
+					if(result['status']=='TRUE'){
+						bindphoneResult[1] = true;
+						_next.slideUp();
+						_this.removeClass('active');
+						signInResult[0] = true;
+					}else {
+						bindphoneResult[1] = false;
+						_next.slideDown();
+						_this.addClass('active');
+						signInResult[0] = false;
+					}
+					
+				});
+			}
+			
+			
+			//注册， 用户名
+			if(_this.hasClass('is_username')){
+				var _this = $(this);
+				var username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+				
+				$.post('/account/check_username',{'username':username},function (e){
+					result = JSON.parse(e);
+					// 如果存在就返回 true , 否则就返回 false
+					if(result['status']=='FALSE'){
+						_next.slideUp();
+						_this.removeClass('active');
+						signInResult[0] = true;
+					}else {
+						_next.slideDown();
+						_this.addClass('active');
+						signInResult[0] = false;
+					}
+					
+				});
+			}
+
 		});
 
 		// 点击下一步
@@ -178,13 +226,21 @@ $(function (){
 
 		// 点击注册
 		register_btn.on('click',function (){
-			
-			testNoBlur($(this));
+			var _this = $(this);
+			testNoBlur(_this);
+			var username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+			var pwd = _this.parents('.sign-signUp').find('.sign-input').eq(1).val();
 
 			if(signUpResult[0] && signUpResult[1] && signUpResult[2]){
-				$.post('',{},function (){
+				$.post('/account/u_register',{'phone':register_phone,'code':register_code,'username':username,'password':pwd},function (e){
 					// do something
-
+					result = JSON.parse(e);
+					if(result['status'] == 'SUCCESS'){
+						$.msgBox.mini('注册成功，请重新登录');
+					}else{
+						$.msgBox.mini('注册失败，请重新操作');
+					}
+					
 				});
 			}
 		});
@@ -211,7 +267,7 @@ $(function (){
 			if(signInResult[0] && signInResult[1]){
 				
 				$.post('/account/u_login',{'phone':phone,'password':pwd},function (e){
-	
+		
 				});
 			}
 		});

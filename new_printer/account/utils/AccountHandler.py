@@ -55,8 +55,10 @@ class Verification():
                 return 'V'
             elif 7 == icode:
                 return 'D'
+            else:
+                return 'FALSE'
         except Exception as e:
-            return False
+            return 'FALSE'
 
 
 
