@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.shortcuts import render
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
@@ -9,7 +9,7 @@ from configuration.models import BetaApply, Designer_User, Vender_User
 from utils.AccountHandler import Verification, UserManager
 from conf import config 
 
-import json
+import json,pdb
 import urllib, urllib2
 import re
 import time
@@ -23,16 +23,13 @@ def check_phone(request):
     params:phone
     return:SUCCESS
     '''
-    if request.method == 'GET':
-        #phone = request.GET.get('phone')
-        phone = '15957440169'
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
         result = Verification().is_phone_exist(phone)
-        if result == 'C':
-            conf = {'status':'USER EXISTED'}
-        elif result == 'B':
-            conf = {'status':'BETA EXISTED'}
+        if(result):
+            conf = {'status':'TRUE'}
         else:
-            conf = {'status':'SUCCESS'} 
+            conf = {'status':'FALSE'} 
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
@@ -44,10 +41,10 @@ def send_verify_message(request):
     params:phone
     return:SUCCESS
     '''
-    if request.method == 'GET':
-        phone = '15957440169'
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
         verification_code = Verification().ramdon_dig(phone)
-        request.session['phone_verify'] = '224662'#verification_code
+        request.session['phone_verify'] = verification_code
         request.session['phone_number'] = phone
         
         verification_string = u'您的验证码是【%s】。请不要把验证码泄露给其他人。如非本人操作，可不用理会！' % verification_code
@@ -67,20 +64,18 @@ def send_verify_message(request):
             if rer.group(0) == '2': 
                 conf = {'status': 'SUCCESS'}
             else:
-                conf = {'status': 'SEND AGAIN'}
+                conf = {'status': 'FAILURE'}
         except Exception as e:
             conf = {'status': 'FAILURE'}
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
 
-
+'''
 def beta_apply(request):
-    '''
     description:内测申请
     params: phone,verification_code,identity,
     return: SUCCESS
-    '''
     if request.method == 'GET':
         phone = '15957440169'
         verification_code = '224662'
@@ -102,6 +97,7 @@ def beta_apply(request):
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
+'''
 
 def check_username(request):
     '''
@@ -109,14 +105,14 @@ def check_username(request):
     params:
     return:
     '''
-    if request.method == 'GET':
-        username = 'test'
+    if request.method == 'POST':
+        username = request.POST.get('username')
         conf = {}
         vu = Vender_User.objects.filter(vendername = username).exists()
         if (vu):
             conf = {'status':'TRUE'}
         else:
-            du = Desinger_User.objects.filter(designername = username).exists()
+            du = Designer_User.objects.filter(designername = username).exists()
             if(du):
                 conf = {'status':'TRUE'}
             else:
@@ -130,16 +126,15 @@ def check_code(request):
     params:phone,code
     return: SUCCESS
     '''
-    if request.method == 'GET':
-        phone = '15957440169'
-        code = '0811'
-        request.session['phone_register'] = phone
-        result = Verification().isright_InvitationCode(phone,code)
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        #request.session['phone_register'] = phone
+        result = Verification().isright_InvitationCode(code)
         conf = {}
-        if (result):
-            conf = {'status':'SUCCESS'}
+        if (result == 'FALSE'):
+            conf = {'status':'FALSE'}
         else:
-            conf = {'status':'FAILURE'}
+            conf = {'status':'TRUE'}
         return HttpResponse(json.dumps(conf))
 
 
@@ -148,16 +143,18 @@ def u_register(request):
     description:用户注册
     params:username,password,   phone
     '''
-    if request.method == 'GET':
-        username = 'www'
-        password = '111'
-        phone = request.session['phone_register']
-        beta = BetaApply.objects.get(phone=phone)
-        identity = beta.identity
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        phone = request.POST.get('phone')
+        code = request.POST.get('code')
+        identity = Verification().isright_InvitationCode(code)
         conf = {}
-        result = UserManager().user_register(phone, password, username, identity)
+        if identity == 'FALSE':
+            result = 'FAILURE'
+        else:
+            result = UserManager().user_register(phone, password, username, identity)
         conf = {'status':result}
-        del request.session['phone_register']
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
@@ -169,9 +166,9 @@ def u_login(request):
     params: phone or username, password
     return:
     '''
-    if request.method == 'GET':
-        username = '15957440169'
-        password = '111'
+    if request.method == 'POST':
+        username = request.POST.get('phone')
+        password = request.POST.get('password')
         conf = {}
         try:
             u = authenticate(username=username, password=password)
@@ -184,6 +181,7 @@ def u_login(request):
                     conf = {'status':'V'}
                 else:
                     conf = {'status':'None'}
+                print username
         except Exception as e:
             conf = {'status':'FAILURE'}
         return HttpResponse(json.dumps(conf))
@@ -191,22 +189,22 @@ def u_login(request):
         raise Http404
 
 
-def u_forgetpwd(request):
+def pwd_checkcode(request):
     '''
-    desctiption:忘记密码,验证身份
+    desctiption:忘记密码，验证
     params: phone, verification_code
     return: SUCCESS
     '''
-    if request.method == 'GET':
-        phone = '' 
-        verification_code = ''
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
+        code = request.POST.get('code')
+        session_phone = request.session['phone_number']
         session_verification_code = request.session['phone_verify']
         conf = {}
-        if verification_code == session_verification_code:
-            conf = {'status':'SUCCESS'}
+        if phone == session_phone and code == session_verification_code:
+            conf = {'status':'TRUE'}
         else:
-            conf = {'status':'FAILURE'}
-        del request.session['phone_verify']
+            conf = {'status':'FALSE'}
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
@@ -218,12 +216,13 @@ def u_resetpwd(request):
     params: phone
     return:
     '''
-    if request.method == 'GET':
-        password = '11'
+    if request.method == 'POST':
+        password = request.POST.get('password')
         session_phone = request.session['phone_number']
         conf = {} 
         result = UserManager().user_reset_pwd(session_phone,password)
         #重置密码成功
+        '''
         if result == 'SUCCESS':
             #登录
             u = authenticate(username=session_phone, password=password)
@@ -237,9 +236,11 @@ def u_resetpwd(request):
                 else:
                     conf = {'status':'None'}
             else:
-                conf = {'status':'login error'}
+                conf = {'status':'FAILURE'}
         else:
-            conf = {'status':'reset password error'}
+            conf = {'status':'FAILURE'}
+        '''
+        conf = {'status':result}
         return HttpResponse(json.dumps(conf))
 
     else:

@@ -5,6 +5,7 @@
 {% block selfFiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/sign.css' %}" />
 	<script type="text/javascript" src="{% static 'js/shop/sign.js' %}"></script>
+	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
 {% endblock %}
 
 {% block bodyColor %}
@@ -39,14 +40,14 @@
 					<div class="input-play-box pa clearfix">
 						<div data-p="bindphone" class="sign-bindphoto fl">
 							<div class="sign-empty-box signup-username">
-								<input valid-type="signUp-phone" class="sign-input" type="text" placeholder="手机号" />
+								<input valid-type="signUp-phone" class="sign-input is_registered_r" type="text" placeholder="手机号" />
 								<p class="hide sign-warning">
 									<em class="test-ts"></em>
 									<span>手机号格式不正确</span>
 								</p>
 							</div>
 							<div class="sign-empty-box invite-code mt15">
-								<input valid-type="signUp-invitecode" class="sign-input" type="text" placeholder="邀请码" />
+								<input valid-type="signUp-invitecode" class="sign-input invitecode" type="text" placeholder="邀请码" />
 								<p class="hide sign-warning">
 									<em class="test-ts"></em>
 									<span>邀请码</span>
@@ -57,7 +58,7 @@
 						</div>
 						<div data-p="signUp" class="sign-signUp fl">
 							<div class="sign-empty-box signup-username">
-								<input valid-type="signUp-name" class="sign-input" type="text" placeholder="用户名" />
+								<input valid-type="signUp-name" class="sign-input is_username" type="text" placeholder="用户名" />
 								<p class="hide sign-warning">
 									<em class="test-ts"></em>
 									<span>该用户名已经被注册</span>

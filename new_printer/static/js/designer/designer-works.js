@@ -1,3 +1,4 @@
+var ShowStl = {};
 
 $(function(){
 	var works_wait_btn = $('#works_wait_btn'),	//未审核
@@ -34,7 +35,73 @@ $(function(){
 
 	toSearch();
 
+
+	// added by white
+	$('#show-3d-tool-cancel-fullscreen').click(function(){
+		$('#show-3d-fullscreen').empty();									  
+		$('#show-3d-cont').hide();
+	});
+
+	$('#show-3d-tool-screenshot').click(function(){
+		console.log('shot');
+		ShowStl.screenShotByElement('show-3d-tool-fullscreen');
+
+	});
 });
+
+
+ShowStl.screenShotByElement = function(elementId){
+	/*html2canvas(document.getElementById(elementId), {*/
+	html2canvas($('.designer-sidebar-pic'), {
+
+		allowTaint: true,
+
+		taintTest: false,
+
+		onrendered: function(canvas) {
+
+			canvas.id = "mycanvas";
+
+			document.body.appendChild(canvas); 
+
+			//生成base64图片数据 
+
+			var dataUrl = canvas.toDataURL();
+
+			var newImg = document.createElement("img");
+
+			newImg.src = dataUrl;
+
+			$('.modify-imgs-box').eq(0).find('img').attr('src',dataUrl);
+
+			console.log('url:'+dataUrl);
+			console.log('imgsrc:'+$('.modify-imgs-box').eq(0).find('img').attr('src'));
+			//document.getElementById('designer_order_preview').appendChild(newImg); 
+
+
+
+
+
+			/*DesignerOrder.designer_introduction = $('.designer_order_choice textarea').eq(1).val();*/
+
+			/*if(DesignerOrder.order_state === "appointment_received"){*/
+
+			/*socket.emit('designer_first_draft_done',myUserName,nowTargUser,dataUrl,DesignerOrder.designer_introduction,DesignerOrder.finger,DesignerOrder.size,DesignerOrder.with_stone,DesignerOrder.material,DesignerOrder.price,DesignerOrder.canvas);*/
+
+			/*alert('已生成初稿订单');*/
+
+			/*}else if(DesignerOrder.order_state === "first_draft_done"){*/
+
+			/*socket.emit('designer_final_draft_done',myUserName,nowTargUser,dataUrl,DesignerOrder.designer_introduction,DesignerOrder.canvas);*/
+
+			/*alert('已生成终稿订单');*/
+
+			/*}*/
+
+		}
+
+	});
+}
 
 // 搜索模块
 function toSearch(){
@@ -81,7 +148,7 @@ function toSearch(){
 		var totalPage = JSON.parse(e).total_pages;
 		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
 		for(var i=0,len=waitList.length;i<len;i++){
-			 waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+			waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 		}
 		getPage(totalPage,page);
 		designer_works_lists.append(waitStr);
@@ -666,13 +733,7 @@ function publish_edit(){	//编辑弹窗函数
 	});
 }
 
-/*// 关闭弹窗*/
-/*function closeEdit(){*/
-/*$('.modify-container-close').on('click',function(){*/
-/*$('.designer-zoom').css('display','none');*/
-/*$('.modify-content').css('display','none');*/
-/*});*/
-/*}*/
+
 
 
 

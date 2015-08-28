@@ -24,6 +24,18 @@ vender_goods_handler = VenderGoodsHandler()
 recommend_goods_handler = RecommendGoodsHandler()
 
 
+def login_register(request):
+    '''
+    dsecription:登录注册页
+    '''
+    return render(request, website.login_register, None)
+
+def password_find(request):
+    '''
+    description:密码查找
+    '''
+    return render(request, website.password_find, None)
+
 def new_chat(request):
 	return render(request,website.index)
 
