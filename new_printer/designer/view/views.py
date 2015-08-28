@@ -20,28 +20,56 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
 from django.contrib.auth.models import User
-from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods,Vender_User,Design_record,Good_record
+from configuration.models import Goods_Upload
+from configuration.models import Designer_User
+from configuration.models import Vender_Goods
+from configuration.models import Goods
+from configuration.models import Vender_User
+from configuration.models import Design_record
+from configuration.models import Good_record
+from configuration.models import Vender_Designer
 import httplib, urllib
 import urllib2,os
 from datetime import date ,datetime,timedelta
-import time
-import json,pdb
+import time,pdb
 
 
 @login_required
-def design_list(request):
+def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
-    designer.icon = str(adminer_website.file_server_path) + designer.img
-    design_list = Goods.objects.filter(designer_id=designer.id)
-    designer_marked = Vender_User.objects.filter(designer_id = designer.id).count()
-    conf = {'all_list': all_list,
-            'marked': designer_marked
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
+    is_focus = False
+    designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
+    designer.img = str(server_website.file_server_path) + str(designer.img)
+    d_user = Designer_User.objects.filter(user_id = 2).exists()
+    if (d_user):
+        now_user = 'D'
+    else:
+        now_user = 'V'
+        if Vender_Designer.objects.filter(designer_id = designer.id, vender_id = 2):
+            is_focus = True
+    design_list = Goods.objects.filter(designer_id = designer.id)
+    return_list = []
+    for good in design_list:
+        is_collect = False
+        _good = {}
+        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = 2):
+            is_collect = True
+        print is_collect
+        print good.id
+        _good = {'goods_name': good.goods_name, 'id': good.id, 'download_count': good.download_count,
+         'collected_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
+         'preview_1': server_website.file_server_path + good.preview_1 }
+        return_list.append(_good)
+    
+    conf = {'other_goods_list': return_list, 'designer_img': designer.img, 'designer_name': designer.designername,
+            'marked': designer_marked, 'now_user': now_user, 
+            'is_focus': is_focus
     		  }
-    return render(request, website.all_list, conf)
+    return render(request, website.my_personal, conf)
 
 
 def downed_list(request):
@@ -49,18 +77,20 @@ def downed_list(request):
     展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
     '''
     state = 1
+    #pdb.set_trace()
     user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     design_list = Goods.objects.filter(designer_id=designer.id)
-    click_count = 0#request.POST['click_count']
+    click_count = int(request.POST['click_count'])
     state = click_count + state
     if state % 2 == 1:
         design_list = design_list.order_by('download_count')
     else:
         design_list = design_list.order_by('download_count').reverse()
     return_list = good_filter.publish_exec(design_list)
-    conf = {'all_list':return_list
-    		  }
+    designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
+    conf = {'all_list': return_list
+            }
     return HttpResponse(json.dumps(conf))
 
 
@@ -382,3 +412,34 @@ def show_3d(request):
     url_path = good_filter.down_stl(_url)
     conf = { 'url_path':url_path}
     return HttpResponse(json.dumps(conf)) 
+
+def add_focus(request):
+    d_id = request.POST['d_id']
+    v_id = request.POST['v_id']
+    new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
+    return HttpResponse(json.dumps("success"))
+
+
+def cancel_focus(request):
+    d_id = request.POST['d_id']
+    v_id = request.POST['v_id']
+    new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
+    return HttpResponse(json.dumps("success"))
+
+def add_collect(request):
+    #pdb.set_trace()
+    g_id = request.POST['g_id']
+    v_id = request.POST['v_id']
+    this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
+    if  this_good:
+        now_collect = this_good.update(is_collected = True)
+    else:
+        new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
+            collected_time = datetime.now())
+    return HttpResponse(json.dumps("success"))
+
+def cancel_collect(request):
+    g_id = request.POST['g_id']
+    v_id = request.POST['v_id']
+    cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
+    return HttpResponse(json.dumps("success"))

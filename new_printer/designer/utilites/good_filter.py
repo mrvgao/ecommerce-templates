@@ -138,7 +138,7 @@ def publish_exec(good_list):
                 'collected_count':good.collected_count,
                 'download_count':good.download_count,
                 'good_price':good.goods_price,
-                #'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
                 #'preview_2':str(server_website.file_server_path)+str(good.preview_2),
                 #'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                 #'stl_file_url':str(server_website.toy_server_imgupload)+str(photo.stl_file_url),
