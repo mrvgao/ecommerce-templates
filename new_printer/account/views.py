@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django import forms
 
 from configuration.models import BetaApply, Designer_User, Vender_User 
 from utils.AccountHandler import Verification, UserManager
@@ -13,7 +14,6 @@ import json,pdb
 import urllib, urllib2
 import re
 import time
-from django import forms
 
 # Create your views here.
 
