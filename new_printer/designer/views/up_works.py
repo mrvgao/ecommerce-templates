@@ -8,13 +8,13 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-import json, os, uuid, base64, platform, requests
+import os, uuid, base64, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.template import RequestContext
 from django import forms
 from designer.conf import website 
+from configuration import website as server_website
 from designer.utilites import search_handle,good_filter
 from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
 from django.contrib.auth.models import User
@@ -28,7 +28,7 @@ import json,pdb,hashlib
 
 def works_upload(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name':designer.designername,'img':str(website.file_server_path)+str(designer.img) }
+    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img) }
     return render(request, website.upfile,conf)
 
 def stls_save(stls):
@@ -105,12 +105,12 @@ def file_save(model,name,stl_type):
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(chunks)
     data.append('--%s--\r\n' % boundary)
-    http_url = website.file_server_upload#'http://192.168.1.104:8888/file/upload'
+    http_url = server_website.file_server_upload
     http_body = '\r\n'.join(data)
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%website.file_server_ip)#'http://192.168.1.101:8888/')
+    req.add_header('Referer','%s'%server_website.file_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=10)
     qrcont=resp.read()
     md = json.loads(qrcont)
@@ -135,7 +135,7 @@ def workd_unexecute(request):
     user = 1#request.user
     now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    designer.icon = str(website.file_server_imgupload) + str(designer.img)
+    designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
     return_list = good_filter.unpublish_exec(unexecute_list)
     worksWait = unexecute_list.count()
@@ -167,8 +167,9 @@ def designer_works(request):
     worksSuc = Goods.objects.filter(designer_id=designer.id,is_active=1).count()
     conf = {
             'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc,
-            'name':designer.designername,'img':str(website.file_server_path)+str(designer.img)
+            'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img)
               }
+    print 'designer!'
     return render(request, website.works_execute, conf)
 
 def unexecute_delete(request):
@@ -284,12 +285,12 @@ def photo_save(model,name,stl_type,stl_md5):
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(chunks)
     data.append('--%s--\r\n' % boundary)
-    http_url = website.file_server_imgupload#'http://192.168.1.101:8888/file/imgupload'
+    http_url = server_website.file_server_imgupload#'http://192.168.1.101:8888/file/imgupload'
     http_body = '\r\n'.join(data)
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%website.file_server_ip)#'http://192.168.1.101:8888/')
+    req.add_header('Referer','%s'%server_website.file_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
     md = json.loads(qrcont)
@@ -307,7 +308,7 @@ def auditing(request):
     user = 1#request.user
     now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    designer.icon = str(website.file_server_imgupload) + str(designer.img)
+    designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
     return_list = good_filter.unpublish_exec(unexecute_list)
     all_len = len(unexecute_list)

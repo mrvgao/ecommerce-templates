@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from designer.conf import website
+from configuration import website as server_website
 import json, os, uuid, base64, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
@@ -40,9 +41,9 @@ def unpublish_good_filter(good_state,tags,designer):
                 'name':good.goods_name,
                 'description':good.description,
                 'good_price':good.goods_price,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
+                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
                 'stl_path':good.stl_path,
@@ -65,10 +66,10 @@ def publish_good_filter(tags,designer):
                 'collected_count':good.collected_count,
                 'download_count':good.download_count,
                 'good_price':good.goods_price,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
-                #'stl_file_url':str(website.toy_server_imgupload)+str(photo.stl_file_url),
+                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                'preview_3':str(server_website.file_server_path)+str(good.preview_3),
+                #'stl_file_url':str(server_website.toy_server_imgupload)+str(photo.stl_file_url),
                 'file_size':good.file_size,
                 'style':good.style,
                 'stl_path':str(good.stl_path),
@@ -89,23 +90,23 @@ def unpublish_exec(good_list):
         photo = []
         temp = {}
         if good.preview_1:
-            photo.append(str(website.file_server_path)+str(good.preview_1))
+            photo.append(str(server_website.file_server_path)+str(good.preview_1))
         if good.preview_2:
-            photo.append(str(website.file_server_path)+str(good.preview_2))
+            photo.append(str(server_website.file_server_path)+str(good.preview_2))
         if good.preview_3:
-            photo.append(str(website.file_server_path)+str(good.preview_3))
+            photo.append(str(server_website.file_server_path)+str(good.preview_3))
         #temp{'pic']=photo
         modify = good.modify_time
         temp={'id':good.id,
                 'name':good.goods_name,
                 'description':good.description,
                 'good_price':good.goods_price,
-                #'preview_1':str(website.file_server_path)+str(good.preview_1),
-                #'preview_2':str(website.file_server_path)+str(good.preview_2),
-                #'preview_3':str(website.file_server_path)+str(good.preview_3),
+                #'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                #'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                #'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
-                'stl_path':str(website.file_server_path)+good.stl_path,
+                'stl_path':str(server_website.file_server_path)+good.stl_path,
                 'style':good.style,
                 'tags':good.tags,
                 'upload_time':good.upload_time.strftime("%Y-%m-%d"),
@@ -126,21 +127,21 @@ def publish_exec(good_list):
         photo = []
         temp = {}
         if good.preview_1:
-            photo.append(str(website.file_server_path)+str(good.preview_1))
+            photo.append(str(server_website.file_server_path)+str(good.preview_1))
         if good.preview_2:
-            photo.append(str(website.file_server_path)+str(good.preview_2))
+            photo.append(str(server_website.file_server_path)+str(good.preview_2))
         if good.preview_3:
-            photo.append(str(website.file_server_path)+str(good.preview_3))
+            photo.append(str(server_website.file_server_path)+str(good.preview_3))
         temp = {'id':good.id,
                 'name':good.goods_name,
                 'description':good.description,
                 'collected_count':good.collected_count,
                 'download_count':good.download_count,
                 'good_price':good.goods_price,
-                #'preview_1':str(website.file_server_path)+str(good.preview_1),
-                #'preview_2':str(website.file_server_path)+str(good.preview_2),
-                #'preview_3':str(website.file_server_path)+str(good.preview_3),
-                #'stl_file_url':str(website.toy_server_imgupload)+str(photo.stl_file_url),
+                #'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                #'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                #'preview_3':str(server_website.file_server_path)+str(good.preview_3),
+                #'stl_file_url':str(server_website.toy_server_imgupload)+str(photo.stl_file_url),
                 'file_size':good.file_size,
                 'style':good.style,
                 'stl_path':str(good.stl_path),

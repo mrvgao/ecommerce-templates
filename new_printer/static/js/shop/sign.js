@@ -207,11 +207,11 @@ $(function (){
 			if(signIn_remeber.checked){
 				isRemeber = true;
 			}
-
+			console.log(phone)
 			if(signInResult[0] && signInResult[1]){
 				
 				$.post('/account/u_login',{'phone':phone,'password':pwd},function (e){
-	
+					
 				});
 			}
 		});
