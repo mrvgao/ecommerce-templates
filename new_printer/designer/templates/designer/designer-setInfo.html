@@ -1,4 +1,5 @@
 {% extends 'designer/designer-base.html' %}
+
 	{% block rightContent %}
 		<div class="designer-baseInfo fl">
 			<div class="designer-baseInfo-container  clearfix ">
@@ -8,18 +9,18 @@
 					<span  class="modify-photo-btn"><a href= "/designer/change_icon">头像编辑</a></span>
 				</div>
 				<div class="designer-personInfo fl">
-					<div>
+					<p>
 						<label>昵称：</label><span>{{ name }}</span>
-					</div>
-					<div>
+					</p>
+					<p>
 						<label>性别：</label><span>男{{ designer.sex }}</span>
-					</div>
-					<div>
+					</p>
+					<p>
 						<label>出生日期：</label><span>1991-10-01{{ designer.brithday }}</span>
-					</div>
-					<div>
+					</p>
+					<p>
 						<label>身份：</label><span>设计师{{ designer.identity }}</span>
-					</div>
+					</p>
 				</div>
 			</div>
 		</div>

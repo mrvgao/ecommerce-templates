@@ -148,7 +148,7 @@ function toSearch(){
 		var totalPage = JSON.parse(e).total_pages;
 		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
 		for(var i=0,len=waitList.length;i<len;i++){
-			waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+			waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 		}
 		getPage(totalPage,page);
 		designer_works_lists.append(waitStr);
@@ -193,7 +193,7 @@ function workd_unexecute(page){		//加载未审核的数据
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=waitList.length;i<len;i++){
 				//waitStr+='<tr data-state=1 data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
-				waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+				waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 			}
 			// waitStr = '<tbody>' + waitStr +'</tbody>';
 			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
@@ -576,9 +576,19 @@ function judgePage(toPage, curPage, totalPage){		//判断点击的页码
 
 function edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
+		var _this = $(this);
+		p_editInfo (_this);
 
-		var _this = $(this),
-			_parent = _this.parents('.designer-works-list-box'),
+	});
+
+	$('.w-modify-btn').on('click',function(){
+		var _this = $(this);
+		p_editInfo (_this);
+
+	});
+
+	function p_editInfo (_this){
+		var _parent = _this.parents('.designer-works-list-box'),
 			id = _parent.attr('data-id'),
 			pic = _parent.find('.works-list-bigpic').attr('src'),
 			type = _parent.attr('data-type'),
@@ -643,7 +653,7 @@ function edit(){	//编辑弹窗函数
 		$('.modify-stl-preview').click(function(){
 			showStlFileInRemoteServer(id , 260, 260, 'show-3d');
 		});
-	});
+	}
 
 	closeEdit();
 
@@ -731,6 +741,7 @@ function publish_edit(){	//编辑弹窗函数
 	$('.modify-btn-submit').on('click',function (){
 		$('.changeInfo').submit();
 	});
+
 }
 
 
