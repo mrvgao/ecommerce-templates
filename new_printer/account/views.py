@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
 
 from django.shortcuts import render
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
@@ -23,16 +23,13 @@ def check_phone(request):
     params:phone
     return:SUCCESS
     '''
-    if request.method == 'GET':
-        #phone = request.GET.get('phone')
-        phone = '15957440169'
+    if request.method == 'POST':
+        phone = request.POST.get('phone')
         result = Verification().is_phone_exist(phone)
-        if result == 'C':
-            conf = {'status':'USER EXISTED'}
-        elif result == 'B':
-            conf = {'status':'BETA EXISTED'}
+        if(result):
+            conf = {'status':'TRUE'}
         else:
-            conf = {'status':'SUCCESS'} 
+            conf = {'status':'FALSE'} 
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
@@ -109,14 +106,14 @@ def check_username(request):
     params:
     return:
     '''
-    if request.method == 'GET':
-        username = 'test'
+    if request.method == 'POST':
+        username = request.POST.get('username')
         conf = {}
         vu = Vender_User.objects.filter(vendername = username).exists()
         if (vu):
             conf = {'status':'TRUE'}
         else:
-            du = Desinger_User.objects.filter(designername = username).exists()
+            du = Designer_User.objects.filter(designername = username).exists()
             if(du):
                 conf = {'status':'TRUE'}
             else:
@@ -130,16 +127,15 @@ def check_code(request):
     params:phone,code
     return: SUCCESS
     '''
-    if request.method == 'GET':
-        phone = '15957440169'
-        code = '0811'
-        request.session['phone_register'] = phone
-        result = Verification().isright_InvitationCode(phone,code)
+    if request.method == 'POST':
+        code = request.POST.get('code')
+        #request.session['phone_register'] = phone
+        result = Verification().isright_InvitationCode(code)
         conf = {}
-        if (result):
-            conf = {'status':'SUCCESS'}
+        if (result == 'FALSE'):
+            conf = {'status':'FALSE'}
         else:
-            conf = {'status':'FAILURE'}
+            conf = {'status':'TRUE'}
         return HttpResponse(json.dumps(conf))
 
 
@@ -148,16 +144,18 @@ def u_register(request):
     description:用户注册
     params:username,password,   phone
     '''
-    if request.method == 'GET':
-        username = 'www'
-        password = '111'
-        phone = request.session['phone_register']
-        beta = BetaApply.objects.get(phone=phone)
-        identity = beta.identity
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        phone = request.POST.get('phone')
+        code = request.POST.get('code')
+        identity = Verification().isright_InvitationCode(code)
         conf = {}
-        result = UserManager().user_register(phone, password, username, identity)
+        if identity == 'FALSE':
+            result = 'FAILURE'
+        else:
+            result = UserManager().user_register(phone, password, username, identity)
         conf = {'status':result}
-        del request.session['phone_register']
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
@@ -169,9 +167,9 @@ def u_login(request):
     params: phone or username, password
     return:
     '''
-    if request.method == 'GET':
-        username = '15957440169'
-        password = '111'
+    if request.method == 'POST':
+        username = request.POST.get('phone')
+        password = request.POST.get('password')
         conf = {}
         try:
             u = authenticate(username=username, password=password)
@@ -186,7 +184,7 @@ def u_login(request):
                     conf = {'status':'None'}
         except Exception as e:
             conf = {'status':'FAILURE'}
-        return HttpResponse(json.dumps(conf))
+        return HttpResponseRedirect('/shop/home')
     else:
         raise Http404
 
@@ -219,8 +217,8 @@ def u_resetpwd(request):
     return:
     '''
     if request.method == 'GET':
-        password = '11'
-        session_phone = request.session['phone_number']
+        password = '111111'
+        session_phone = '15957440169'#request.session['phone_number']
         conf = {} 
         result = UserManager().user_reset_pwd(session_phone,password)
         #重置密码成功

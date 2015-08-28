@@ -7,13 +7,14 @@ urlpatterns = patterns('',
         # test
         url('^test$', views.test, name="test"),
 
-        url('^new_chat$', views.new_chat, name="new_chat"),
-
         # 展示型首页
         url('^$', views.test, name="index"),
 
         # 网站内首页
         url('^home$', views.test, name="home"),
+        
+        # 登录注册页
+        url('^login_register', views.login_register, name='login_register'),
 
         # 修改密码页
         url('^password_find$', views.test, name="change_pw"),
