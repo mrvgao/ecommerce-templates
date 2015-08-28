@@ -33,13 +33,13 @@ def design_list(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
-    user = request.user
-    designer = Designer_User.objects.get(user_id=user.id)
-    designer.icon = str(adminer_website.icon_server_path) + designer.icon
+    #user = request.user
+    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer.icon = str(adminer_website.file_server_path) + designer.img
     design_list = Goods.objects.filter(designer_id=designer.id)
     designer_marked = Vender_User.objects.filter(designer_id = designer.id).count()
-    conf = {'all_list':all_list,
-            'marked':designer_marked
+    conf = {'all_list': all_list,
+            'marked': designer_marked
     		  }
     return render(request, website.all_list, conf)
 
@@ -106,7 +106,7 @@ def new_list(request):
 
 def unpublished_good_search(request):
     '''
-    #搜索未发布商品的方法
+    #搜索商品的方法
     '''
     describe = request.POST['search_val']
     designer = 1
@@ -138,7 +138,6 @@ def unpublished_good_search(request):
         conf = {'all_list':goods_find}
     else:
         result_goods = search_handle.published_search(describe,designer)
-    #pdb.set_trace()
         goods_find = []
         for good_id in result_goods:
             good = Goods.objects.get(id = good_id)
@@ -216,40 +215,6 @@ def publish_eardrop_list(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
     tags = '戒指'
     return_list = good_filter.publish_good_filter(tags,designer.id)
-    conf = {'all_list':return_list
-              }
-    return HttpResponse(json.dumps(conf))
-
-
-def show_more(request):
-    '''
-    #在设计师个人中心 显示更多
-    '''
-    count = int(request.POST['count'])
-    photo_lists = Goods.objects.all()
-    length = len(photo_lists)
-    if (length-count*show_num)>0:
-        photo_lists = photo_lists[((count)*show_num):((count+1)*show_num)]
-    elif (length-count*show_num)<show_num:
-        photo_lists = photo_lists[(count*show_num):]
-    else:
-        photo_lists = []
-    return_list = []
-    for good in photo_lists:
-        temp = {'id':good.id,
-                'name':good.goods_name,
-                'describe':good.description,
-                'collected_count':good.collected_count,
-                'download_count':good.download_count,
-                'good_price':good.goods_price,
-                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
-                'preview_2':str(server_website.file_server_path)+str(good.preview_2),
-                'preview_3':str(server_website.file_server_path)+str(good.preview_3),
-                #'stl_file_url':str(server_website.toy_server_imgupload)+str(photo.stl_file_url),
-                'file_size':good.file_size
-                }
-        return_list.append(temp)
-
     conf = {'all_list':return_list
               }
     return HttpResponse(json.dumps(conf))

@@ -91,11 +91,12 @@ def has_passed(request):
 
 #点击审核通过按键
 def work_passing(request):
-	id = 40#request.POST['id']
-	pass_state = [1,2]#request.POST['state']
+	id = 150#request.POST['id']
+	pass_state = [1]#request.POST['state']
 	style = ''
 	count = 1
-	
+	tags = u'项链'
+	print type(tags)
 	for state in pass_state:
 		if count == len(pass_state):
 			style = style + str(website.good_style[state]) 
@@ -116,7 +117,7 @@ def work_passing(request):
 						designer = photo.designer,
 						goods_price = photo.goods_price,
 						description = photo.description,
-						tags = photo.tags,
+						tags = tags,
 						style = style,
 						stl_path = photo.stl_path,
 						preview_1 = photo.preview_1,
