@@ -22,16 +22,13 @@
 						<p class="inl-b f20 mr20">{{ designer_name }}</p>
 						{% if now_user == 'V' %}
 							{% if is_focus %}
-								<a class="show-mark-btn f16 active" href="javascript:void(0)">
+								<a class="show-mark-btn f16 active" href="javascript:void(0)"><em class="designer-show-mark"></em>{{ marked }}</a>
 							{% else %}
-								<a class="show-mark-btn f16" href="javascript:void(0)">
+								<a class="show-mark-btn f16" href="javascript:void(0)"><em class="designer-show-mark"></em>{{ marked }}</a>
 							{% endif %}
 						{% else %}
-							<a class="show-mark-btn f16 active">
+							<a class="no-show-mark-btn f16 active"><em class="designer-show-mark"></em>{{ marked }}</a>
 						{% endif %}
-							<em class="designer-show-mark"></em>
-							{{ marked }}
-						</a>
 					</div>
 				</div>
 			</div>

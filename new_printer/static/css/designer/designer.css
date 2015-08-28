@@ -842,7 +842,7 @@ em.upfile-success {
 .designer-show-info p {
 	color:#fff;
 }
-.show-mark-btn {
+.show-mark-btn, .no-show-mark-btn {
 	color:#fff;
 }
 .show-mark-btn:hover {
@@ -855,15 +855,16 @@ em.designer-show-mark {
 	background-image:url('/static/images/designer/designerIcon.png');
 	background-repeat:no-repeat;
 	background-position:-132px -154px;
-	margin-bottom:-4px;
+	margin-bottom:-5px;
+	margin-right:7px;
 }
 .show-mark-btn:hover em.designer-show-mark {
 	background-position:-161px -154px;
 }
-.show-mark-btn.active {
+.show-mark-btn.active, .no-show-mark-btn.active {
 	color:#f00;
 }
-.show-mark-btn.active em.designer-show-mark {
+.show-mark-btn.active em.designer-show-mark, .no-show-mark-btn.active em.designer-show-mark {
 	background-position:-161px -154px;
 }
 .ds-classify-box {
