@@ -12,9 +12,6 @@ class Verification():
     '''
     验证
     '''
-    def __init__(self):
-        pass
-
 
     def is_phone_exist(self, phone):
         '''
