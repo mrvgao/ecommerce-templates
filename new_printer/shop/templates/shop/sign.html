@@ -5,6 +5,7 @@
 {% block selfFiles %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/sign.css' %}" />
 	<script type="text/javascript" src="{% static 'js/shop/sign.js' %}"></script>
+	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
 {% endblock %}
 
 {% block bodyColor %}
@@ -46,7 +47,7 @@
 								</p>
 							</div>
 							<div class="sign-empty-box invite-code mt15">
-								<input valid-type="signUp-invitecode" class="sign-input" type="text" placeholder="邀请码" />
+								<input valid-type="signUp-invitecode" class="sign-input invitecode" type="text" placeholder="邀请码" />
 								<p class="hide sign-warning">
 									<em class="test-ts"></em>
 									<span>邀请码</span>

@@ -1,124 +1,125 @@
 {% extends 'designer/designer-base.html' %}
 {% load staticfiles %}
-	{% block selfJs %}
-	<script type="text/javascript" src="{% static 'js/designer/designer-works.js' %}"></script>
-	{% endblock %}
-	{% block mainContent %}
-	<div class="designer-works-container">
-		<div class="designer-works-btn">
-			<button class="works-current" id="works_wait_btn">未审核 ({{ worksWait }})</button>
-			<button id="works_on_btn">审核中({{ worksOn }})</button>
-			<button id="works_not_btn">未通过({{ worksNot }})</button>
-			<button id="works_Suc_btn">已发布({{ worksSuc }})</button>
-		</div>
-		<ul class="designer-works-nav fl">
-			<li class="designer-works-nav-current">全部</li>
-			<li>戒指</li>
-			<li>吊坠</li>
-			<li>耳坠</li>
-			<li>手链</li>
-			<li>项链</li>
-			<li>胸针</li>
+{% block selfJs %}
+<script type="text/javascript" src="{% static 'js/designer/designer-works.js' %}"></script>
+{% endblock %}
+{% block mainContent %}
+<div class="designer-works-container">
+	<div class="designer-works-btn">
+		<button class="works-current" id="works_wait_btn">未审核 ({{ worksWait }})</button>
+		<button id="works_on_btn">审核中({{ worksOn }})</button>
+		<button id="works_not_btn">未通过({{ worksNot }})</button>
+		<button id="works_Suc_btn">已发布({{ worksSuc }})</button>
+	</div>
+	<ul class="designer-works-nav fl">
+		<li class="designer-works-nav-current">全部</li>
+		<li>戒指</li>
+		<li>吊坠</li>
+		<li>耳坠</li>
+		<li>手链</li>
+		<li>项链</li>
+		<li>胸针</li>
+	</ul>
+	<div class="designer-works-search fr">
+		<input type="text" class="search-box fl"/>
+		<span class="designer-works-search-icon fl"></span>
+	</div>
+	<div class="designer-works-lists">
+		<ul class="designer-works-sort">
+			<li class="works-sort-download sort-current"><span>下载量</span></li>
+			<li class="works-sort-collection"><span>收藏量</span></li>
+			<li class="works-sort-time"><span>时间</span></li>
 		</ul>
-		<div class="designer-works-search fr">
-			<input type="text" class="search-box fl"/>
-			<span class="designer-works-search-icon fl"></span>
-		</div>
-		<div class="designer-works-lists">
-			<ul class="designer-works-sort">
-				<li class="works-sort-download sort-current"><span>下载量</span></li>
-				<li class="works-sort-collection"><span>收藏量</span></li>
-				<li class="works-sort-time"><span>时间</span></li>
-			</ul>
-		</div>
 	</div>
-	<form type="file" action="/designer/edit_submit" method="post" class="changeInfo" enctype="multipart/form-data"  multiple="" >
-		<div class="modify-content ">
-			<div class="clearfix">
-				<div class="modify-left fl">
-					<div class="modify-stl">
-						<img src="" class="modify-stl-preview">
-						<p class="modify-stl-show">点击可新打开页面查看三维效果<br/>截屏生成预览图</p>
-						<div id='show-3d-cont' style='position: fixed;top: 282px;left: 513px;width: 70px;height: 260px;z-index: 51; display:none;'>
-							<div id='show-3d' style='position: fixed;top: 282px;left: 323px;z-index: 50;'></div>
-							<div id='show-3d-tool-fullscreen' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 6px;margin-left: auto;margin-right: auto;'>全屏</div>
-							<div id='show-3d-tool-screenshot' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 220px;margin-left: auto;margin-right: auto;'>截图</div>
-						</div>
-						<div id='show-3d-fullscreen-cont' style='position: fixed;top: 0px;left: 0px;z-index: 51;'>
-						<div id='show-3d-fullscreen' style='position: fixed;top: 0px;left: 0px;z-index: 51;'>
-							<div id='show-3d-tool-fullscreen' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 6px;margin-left: auto;margin-right: auto;'>退出全屏</div>
+</div>
+<form type="file" action="/designer/edit_submit" method="post" class="changeInfo" enctype="multipart/form-data"  multiple="" >
+	<div class="modify-content ">
+		<div class="clearfix">
+			<div class="modify-left fl">
+				<div class="modify-stl" style='overflow: visible;position:relative;'>
+					<img src="" class="modify-stl-preview">
+					<p class="modify-stl-show">点击可新打开页面查看三维效果<br/>截屏生成预览图</p>
+					<div id='show-3d-cont' style='position: absolute;top: 0px;left: 0px;z-index: 51; display:none;'>
+						<div id='show-3d' style=''></div>
+						<div id='show-3d-tool-fullscreen' style='position:absolute;;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px; top:5px; right:5px;'>全屏</div>
+						<div id='show-3d-tool-screenshot' style='position:absolute;;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px; bottom:5px; right:5px;'>截图</div>
+					</div>
+					<div id='show-3d-fullscreen-cont' style='position: fixed;top: 0px;left: 0px;z-index: 51;'>
+						<div id='show-3d-fullscreen'></div>
+							<div id='show-3d-tool-cancel-fullscreen' style='position:absolute;z-index:51;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;top: 10px;right: 10px;'>退出全屏</div>
 							<!--<div id='show-3d-tool-screenshot' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 220px;margin-left: auto;margin-right: auto;'>截图</div>-->
+					</div>
+				</div>
+				<div class="modify-show-info">
+					<div class="modify-info-box">
+						<label>格式：
+							<span class="modify-type"></span>
+						</label>
+						<label>大小：
+							<span class="modify-size"></span>
+						</label>
+					</div>
+					<div class="modify-info-box">
+						<label>上传时间：</label>
+						<span class="modify-update"></span>
+					</div>
+				</div>
+			</div>
+			<div class="modify-right fl">
+				<div class="modify-imgs-container clearfix">
+					<div class="modify-imgs-box fl">
+						<img src="" class="modify-imgs"/>
+						<div class="modify-imgs-modify">
+							<div class="modify-imgs-modify-hidden">
+								<input type="file" name="photo_file" />
+							</div>
+							<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
+							<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
 						</div>
 					</div>
-					<div class="modify-show-info">
-						<div class="modify-info-box">
-							<label>格式：
-								<span class="modify-type"></span>
-							</label>
-							<label>大小：
-								<span class="modify-size"></span>
-							</label>
+					<div class="modify-imgs-box fl">
+						<img src="" class="modify-imgs"/>
+						<div class="modify-imgs-modify">
+							<div class="modify-imgs-modify-hidden">
+								<input type="file" name="photo_file" />
+							</div>
+							<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
+							<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
 						</div>
-						<div class="modify-info-box">
-							<label>上传时间：</label>
-							<span class="modify-update"></span>
+					</div>
+					<div class="modify-imgs-box fl">
+						<img src="" class="modify-imgs"/>
+						<div class="modify-imgs-modify">
+							<div class="modify-imgs-modify-hidden">
+								<input type="file" name="photo_file" />
+							</div>
+							<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
+							<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
 						</div>
 					</div>
 				</div>
-				<div class="modify-right fl">
-					<div class="modify-imgs-container clearfix">
-						<div class="modify-imgs-box fl">
-							<img src="" class="modify-imgs"/>
-							<div class="modify-imgs-modify">
-								<div class="modify-imgs-modify-hidden">
-									<input type="file" name="photo_file" />
-								</div>
-								<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
-								<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
-							</div>
-						</div>
-						<div class="modify-imgs-box fl">
-							<img src="" class="modify-imgs"/>
-							<div class="modify-imgs-modify">
-								<div class="modify-imgs-modify-hidden">
-									<input type="file" name="photo_file" />
-								</div>
-								<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
-								<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
-							</div>
-						</div>
-						<div class="modify-imgs-box fl">
-							<img src="" class="modify-imgs"/>
-							<div class="modify-imgs-modify">
-								<div class="modify-imgs-modify-hidden">
-									<input type="file" name="photo_file" />
-								</div>
-								<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
-								<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
-							</div>
-						</div>
-					</div>
-					<input type="text" class="modify-name" name="stl_name" />
-					<input type="hidden" class="modify-id" name="modify_id" />
-					<input type="text" class="modify-price" name="stl_price" />
-					<textarea class="modify-describe" name="stl_describe"></textarea>
-				</div>
+				<input type="text" class="modify-name" name="stl_name" />
+				<input type="hidden" class="modify-id" name="modify_id" />
+				<input type="text" class="modify-price" name="stl_price" />
+				<textarea class="modify-describe" name="stl_describe"></textarea>
 			</div>
-			<div class="modify-btn-container">
-				<button class="modify-btn-submit">重新发布</button>
-			</div>
-		</form>
-		<span class="modify-container-close"></span>
-	</div>
+		</div>
+		<div class="modify-btn-container">
+			<button class="modify-btn-submit">重新发布</button>
+		</div>
+	</form>
+	<span class="modify-container-close"></span>
+</div>
 
-	<!--  added by white  -->
+<!--  added by white  -->
 
-	<script src="{% static 'js/designer/three-69.min.js' %} "></script>
-	<script src="{% static 'js/designer/STLLoader.js' %}"></script>
-	<script src="{% static 'js/designer/OrbitControls.js' %}"></script>
-	<script src="{% static 'js/designer/3dDemo.js' %}"></script>
-	<script src="{% static 'js/designer/uplist.js' %}"></script>
+<script src="{% static 'js/designer/html2canvas.js' %}"></script>
+<script src="{% static 'js/designer/three-69.min.js' %} "></script>
+<script src="{% static 'js/designer/STLLoader.js' %}"></script>
+<script src="{% static 'js/designer/OrbitControls.js' %}"></script>
+<script src="{% static 'js/designer/3dDemo.js' %}"></script>
+<script src="{% static 'js/designer/uplist.js' %}"></script>
 
 
-	<!--  added by white over  -->
-	{% endblock %}
+<!--  added by white over  -->
+{% endblock %}

@@ -106,14 +106,14 @@ def check_username(request):
     params:
     return:
     '''
-    if request.method == 'GET':
-        username = 'test'
+    if request.method == 'POST':
+        username = request.POST.get('username')
         conf = {}
         vu = Vender_User.objects.filter(vendername = username).exists()
         if (vu):
             conf = {'status':'TRUE'}
         else:
-            du = Desinger_User.objects.filter(designername = username).exists()
+            du = Designer_User.objects.filter(designername = username).exists()
             if(du):
                 conf = {'status':'TRUE'}
             else:
@@ -127,14 +127,13 @@ def check_code(request):
     params:phone,code
     return: SUCCESS
     '''
-    if request.method == 'GET':
-        #phone = '15957440169'
-        code = '0321'
+    if request.method == 'POST':
+        code = request.POST.get('code')
         #request.session['phone_register'] = phone
         result = Verification().isright_InvitationCode(code)
         conf = {}
         if (result == 'FALSE'):
-            conf = {'status':'FAILURE'}
+            conf = {'status':'FALSE'}
         else:
             conf = {'status':'TRUE'}
         return HttpResponse(json.dumps(conf))
@@ -145,16 +144,18 @@ def u_register(request):
     description:用户注册
     params:username,password,   phone
     '''
-    if request.method == 'GET':
-        username = 'www'
-        password = '111'
-        phone = request.session['phone_register']
-        code = '0321'
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        phone = request.POST.get('phone')
+        code = request.POST.get('code')
         identity = Verification().isright_InvitationCode(code)
         conf = {}
-        result = UserManager().user_register(phone, password, username, identity)
+        if identity == 'FALSE':
+            result = 'FAILURE'
+        else:
+            result = UserManager().user_register(phone, password, username, identity)
         conf = {'status':result}
-        del request.session['phone_register']
         return HttpResponse(json.dumps(conf))
     else:
         raise Http404
