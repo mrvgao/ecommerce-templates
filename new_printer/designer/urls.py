@@ -3,8 +3,14 @@
 
 from django.conf.urls import patterns, url
 from designer.view import up_works,views
+from designer import test_view
+
 
 urlpatterns = patterns('',
+
+	# 设计师个人中心
+	url(r'^designer-show$',test_view.test,name = 'designer_show'),
+
     url(r'^works_upload$',up_works.works_upload,name = 'works_upload'),
 
 	url(r'^works_save$',up_works.works_save,name = 'works_save'),

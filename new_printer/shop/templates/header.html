@@ -1,4 +1,3 @@
-{% load staticfiles %}
 <div id="site-nav">
 	<div class="container clearfix">
 		<div class="site-login fl">
@@ -13,29 +12,35 @@
 				<a class="ml30" href="/vender/seller">进入个人中心</a>
 			{% endif %}
 		</div>
+		{% if user.status %}
 		<div class="site-utool fr">
 			<a href="/">3DiLove首页</a>
 			<a href="/vender/seller/download"><em class="site-ico site-download-ico"></em>我的下载</a>
 			<a href="/payment/list_cart"><em class="site-ico site-cart-ico"></em>购物车</a>
 			<a href="javascript:void(0)"><em class="site-ico site-favorite-ico"></em>收藏夹</a>
 		</div>
-	</div>
-</div>
-<div id="header">
-	<a href="/">
-		<img src="{% static './images/common/logo.png'%}" alt="logo" />
-	</a>
-</div>
-<div id="classify-nav">
-	<div class="classify-box bc">
-		<ul>
-			<li><a href="/">首页</a></li>
-			<li><a href="/shop/ring">戒指</a></li>
-			<li><a href="/shop/pendant">吊坠</a></li>
-			<li><a href="/shop/earbob">耳坠</a></li>
-			<li><a href="/shop/bracelet">手链</a></li>
-			<li><a href="/shop/torque">项链</a></li>
-			<li><a href="/shop/brooch">胸针</a></li>
+		{% else %}
+		<ul class="designer-head-nav fr">
+			<li ><a href="/">3Dilove首页</a></li>
+			<li >
+				<span class="designer-head-nav-show"></span>
+				<a href="/designer/setup">个人主页</a>
+			</li>
+			<li >
+				<span class="designer-head-nav-upfile"></span>
+				<a href="/designer/works_upload">作品上传</a>
+			</li>
+			<li>
+				<span class="designer-head-nav-work"></span>
+				<a href="/designer/designer_works">作品管理</a>
+			</li>
 		</ul>
+		{% endif %}
 	</div>
 </div>
+
+
+
+
+
+

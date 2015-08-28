@@ -1,1 +1,101 @@
-designer-setInfo.html
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/designer/designer.css' %}" />
+	<script type="text/javascript" src="{% static 'js/designer/designer-show.js' %}"></script>
+{% endblock %}
+
+{% block logo %}
+{% endblock %}
+
+{% block content %}
+
+		<div class="designer-show-page">
+			<div class="designer-show-head w">
+				<div class="d-showhead-box mt50 bc">
+					<div class="designer-show-img">
+						<img src="" alt="" />
+					</div>
+					<div class="designer-show-info mt30 tc">
+						<p class="inl-b f20 mr20">阿三</p>
+						<a class="show-mark-btn f16" href="javascript:void(0)">
+							<em class="designer-show-mark"></em>
+							100
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="designer-show-cont">
+				<div id="ds-classify-nav">
+					<div class="ds-classify-box mt10 bc">
+						<ul>
+							<li><a class="active" href="/">全部</a></li>
+							<li><a href="/shop/ring">戒指</a></li>
+							<li><a href="/shop/pendant">吊坠</a></li>
+							<li><a href="/shop/earbob">耳坠</a></li>
+							<li><a href="/shop/bracelet">手链</a></li>
+							<li><a href="/shop/torque">项链</a></li>
+							<li><a href="/shop/brooch">胸针</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="container">
+					<div class="ds-list-wrap mt30 clearfix">
+						<div class="filter-bynum mt10 fl">
+							<a data-tag="filter_all" class="filter-btn chover active" href="javascript:void(0)">综合</a>
+							<a data-tag="filter_download_num" class="filter-btn chover" href="javascript:void(0)">下载量</a>
+							<a data-tag="filter_mark_num" class="filter-btn chover" href="javascript:void(0)">收藏量</a>
+							<a data-tag="filter_time" class="filter-btn chover" href="javascript:void(0)">最新作品</a>
+						</div>
+					</div>
+					<div class="ds-list-box mt20">
+						<ul class="clearfix">
+
+							{# {% for other_goods in other_goods_list %} #}
+
+							<li>
+								<div class="list-box pr">
+									<div class="list-img mb10">
+					                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+											<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+										</a>
+									</div>
+									<div class="num-box tc mb10">
+										<p class="mr15 inl-b">
+											<em class="download-num-ico"></em>
+											<span class="goods_downloadNum">{{ other_goods.goods_download_num }}</span>
+										</p>
+										<p class="inl-b">
+											<em class="mark-num-ico"></em>
+											<span class="goods_markNum">{{ other_goods.goods_mark_num }}</span>
+										</p>
+									</div>
+									<div class="list-title tc mb10">
+					                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+										{{ other_goods.goods_name }}
+										</a>
+									</div>
+									<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+									<a class="pa goods-tomark" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+								</div>
+							</li>
+
+							{# {% endfor %} #}
+
+						</ul>
+						<div class="loadmore-btn mt30 bc">
+							{% if more %}
+							<a class="chover tc f16" href="javascript:void(0)">加载更多</a>
+							{% else %}
+							<a class="chover tc f16" href="javascript:void(0)">没有更多了 >_<</a>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+
+{% endblock %}

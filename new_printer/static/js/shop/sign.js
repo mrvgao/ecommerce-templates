@@ -211,8 +211,14 @@ $(function (){
 			if(signInResult[0] && signInResult[1]){
 				
 				$.post('/account/u_login',{'phone':phone,'password':pwd},function (e){
-					
+					result = JSON.parse(e);
+					if (result['status'] == 'FAILURE'){
+						$.msgBox.mini('登录失败，请重新输入');
+					}else{
+						window.location.assign('/shop/home');
+					}
 				});
+				
 			}
 		});
 

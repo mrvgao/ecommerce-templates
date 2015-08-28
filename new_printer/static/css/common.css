@@ -65,6 +65,48 @@ body {
 	background-position:-56px -10px;
 }
 
+.designer-head-nav{
+	height:16px;
+	line-height:16px;
+	margin:6px 0;
+	display:table;
+}
+.designer-head-nav li{
+	display: inline-block;	
+	vertical-align: middle;
+	padding-left:10px;
+	margin-left:15px;
+	border-left: 1px solid #8b8888;
+}
+.designer-head-nav li:first-child {
+	padding-left:0;
+	margin-left:0;
+	border-left:0;
+}
+.designer-head-nav span{
+	display: inline-block;
+	background-image: url('/static/images/designer/designerIcon.png');
+	background-repeat:no-repeat;
+}
+.designer-head-nav-show {
+	height: 17px;
+	width: 11px;
+	background-position:-10px -153px;
+	margin-bottom:-2px;
+}
+.designer-head-nav li:hover .designer-head-nav-show {
+	background-position:-10px -126px;
+}
+.designer-head-nav-upfile {
+	width: 21px;
+	height: 15px;
+	background-position: -25px -153px;
+}
+.designer-head-nav li:hover .designer-head-nav-upfile {
+	background-position:-25px -126px;
+}
+
+
 /* header */
 #header {
 	width:100%;
