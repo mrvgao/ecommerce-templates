@@ -142,4 +142,4 @@ STATICFILES_DIRS = (
     os.path.join(New_s, 'static'),
 )
 
-LOGIN_URL = '/account/'
+LOGIN_URL = '/shop/login_register'

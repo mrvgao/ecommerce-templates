@@ -15,11 +15,14 @@ $(function (){
 			reg = /^1[3-8]+\d{9}$/;
 		if(_txt && reg.test(_txt)){
 			// do something
-
 			$('.get-code').find('.sign-warning').hide();
-			$.msgBox.mini('验证码发送成功，请注意查收!',function (){
-				empty_inputs.eq(0).focus();
+			$.post('/account/send_verify_message',{'phone':_txt},function (e){
+				$.msgBox.mini('验证码发送成功，请注意查收!',function (){
+					empty_inputs.eq(0).focus();
+				});
 			});
+			
+
 		}else {
 			$('.get-code').find('.sign-warning').fadeIn();
 		}
@@ -39,13 +42,15 @@ $(function (){
 
 	// 进入下一步
 	pwf_next.on('click',function (){
-		var codeNum;
+		var codeNum = '';
+		var phone = empty_phone.val()
 		for(var i=0;i<empty_inputs.length;i++){
 			codeNum += empty_inputs.eq(i).val();
 		}
 
-		$.post('',{},function (e){
-			if(codeNum == '111111'){
+		$.post('/account/pwd_checkcode',{'phone':phone,'code':codeNum},function (e){
+			result = JSON.parse(e);
+			if(result['status'] == 'TRUE'){
 				$('.pwf-setnew ').show();
 				$('.pwf-underline').animate({'left': 330});
 				$('.find-cont').animate({'left': -280});
@@ -101,13 +106,19 @@ $(function (){
 	});
 
 	// 确认修改
-	pwf_btn.on('click',function (){console.log(validpw);
+	pwf_btn.on('click',function (){
+		console.log(validpw);
 		if(validpw){
 			var new_password = empty_pwagin.val();
 
-			$.post('',{},function (e){
+			$.post('/account/u_resetpwd',{'password':new_password},function (e){
 				// do something
-
+				result = JSON.parse(e);
+				if (result['status'] == 'FAILURE'){
+						$.msgBox.mini('重置密码出错');
+					}else{
+						window.location.assign('/shop/login_register');
+					}
 			});
 		}
 	});
