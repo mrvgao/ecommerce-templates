@@ -1,4 +1,5 @@
 <div id="footer" class="tc">
+	{% load staticfiles %}
 	<div class="container">
 		<div class="footer-info pb50 clearfix">
 			<div class="site-about fl mr100">
@@ -32,7 +33,7 @@
 				</ul>
 			</div>
 			<div class="footer-qrcode fr">
-				<img src="static/common/qrcode.jpg" alt="扫描二维码关注我们" />
+				<img src="{% static 'images/common/qrcode.jpg' %}" alt="扫描二维码关注我们" />
 			</div>
 		</div>
 	</div>

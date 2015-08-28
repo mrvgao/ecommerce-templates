@@ -2,8 +2,9 @@
 # encoding: utf-8
 
 from django.conf.urls import patterns, url
-from designer.views import up_works,views
+from designer.view import up_works,views
 from designer import test_view
+
 
 urlpatterns = patterns('',
 
@@ -11,23 +12,30 @@ urlpatterns = patterns('',
 	url(r'^designer-show$',test_view.test,name = 'designer_show'),
 
     url(r'^works_upload$',up_works.works_upload,name = 'works_upload'),
+
 	url(r'^works_save$',up_works.works_save,name = 'works_save'),
+
 	#未处理页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
 	url(r'^edit_submit$',up_works.edit_submit,name = 'edit_submit'),
+
 	#设计师作品管理，显示 未处理 页面
 	url(r'^workd_unexecute$',up_works.workd_unexecute,name = 'workd_unexecute'),
+
 	#未处理页面的删除cao zuo
 	url(r'^unexecute_delete$',up_works.unexecute_delete,name = 'unexecute_delete'),
-	#未通过 页面，点击重新申请发布
-	#url(r'^photo_not_passed$',up_works.photo_not_passed,name = 'photo_not_passed'),
+
 	#未通过 页面
 	url(r'^not_passed$',up_works.not_passed,name = 'not_passed'),
+
 	#审核中,显示未审核的页面
 	url(r'^auditing$',up_works.auditing,name = 'auditing'),
+
 	#显示已发布页面
 	#designer_works
 	url(r'^designer_works$',up_works.designer_works,name = 'designer_works'),
+
 	url(r'^has_published$',up_works.has_published,name = 'has_published'),
+
 	#在已发布页面点击编辑后，传的值
 	url(r'^published_edit$',up_works.published_edit,name = 'published_edit'),
 	#deletePic  删除图片
