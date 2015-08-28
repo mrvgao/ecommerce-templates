@@ -57,17 +57,11 @@ urlpatterns = patterns('',
 	url(r'^published_good_search$',views.published_good_search,name = 'published_good_search'),
 	#显示我的动态的页面 my_state
 	url(r'^my_state$',views.my_state,name = 'my_state'),
-	#download_work
-	#url(r'^download_work$',views.download_work,name = 'download_work'),
-	#design_week_visit
+	
 	url(r'^center_visit$',views.center_visit,name = 'center_visit'),
-	#design_month_visit
-	#url(r'^design_month_visit$',views.design_month_visit,name = 'design_month_visit'),
-	#good_week_visit
+
 	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
-	#good_month_visit
-	#url(r'^good_month_visit$',views.good_month_visit,name = 'good_month_visit'),
-	#unpublish_eardrop_list
+
 	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
 	#publish_eardrop_list
 	url(r'^publish_eardrop_list$',views.publish_eardrop_list,name = 'publish_eardrop_list'),
@@ -78,4 +72,9 @@ urlpatterns = patterns('',
 	url(r'^show_3d$',views.show_3d,name = 'show_3d'),
 	#chang_icon
 	url(r'^change_icon$',views.change_icon,name = 'change_icon'),
+
+	url(r'^add_focus$',views.add_focus,name = 'add_focus'),
+	url(r'^cancel_focus$',views.cancel_focus,name = 'cancel_focus'),
+	url(r'^add_collect$',views.add_collect,name = 'add_collect'),
+	url(r'^cancel_collect$',views.cancel_collect,name = 'cancel_collect'),
 )

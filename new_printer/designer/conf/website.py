@@ -6,6 +6,8 @@ upfile = '%s/designer-upfile.html'%base_site
 works_execute = '%s/designer-works.html'%base_site
 setup = '%s/designer-setinfo.html'%base_site
 change_icon = '%s/change_icon.html'%base_site
+my_personal = '%s/designer-show.html'%base_site
+
 
 reason_failed = [u'模型文件大',
 				 u'错了，不是模型文件',
