@@ -15,7 +15,6 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
-from designer.conf import website 
 from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
 from django.contrib.auth.models import User
 import httplib, urllib

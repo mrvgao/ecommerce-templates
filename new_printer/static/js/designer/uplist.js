@@ -161,8 +161,8 @@ function showStlFileInRemoteServer(stlId, canvasW, canvasH, containerId){
 		$('#show-3d-tool-fullscreen').on('click', function(){
 			var win_height = $(window).height();
 			var win_width = $(window).width();
-			$('#show-3d-fullscreen-cont').empty();
-			initializeObj(url_path, win_width, win_height, 'show-3d-fullscreen-cont');
+			$('#show-3d-fullscreen').empty();
+			initializeObj(url_path, win_width, win_height, 'show-3d-fullscreen');
 			/*$('#show-3d-fullscreen').css('display','');*/
 			/*$('body').css("overflow-y","hidden");   */
 		}); 

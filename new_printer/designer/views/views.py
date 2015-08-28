@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from designer.conf import website
+from configuration import website as server_website
 from designer.utilites import search_handle,good_filter
 import json, os, uuid, base64, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
@@ -27,40 +28,10 @@ import time
 import json,pdb
 
 
-'''def download_work(request):
-    ids = [38]#request.POST['id']
-    for id in ids:
-        this_work = Goods_Upload.objects.get(id=id)
-        name = this_work.goods_name + '.zip'
-        stl_md5 = this_work.stl_path
-        stl_md5 = stl_md5.split('.')
-        stl_md5 = stl_md5[0]
-    #file_server_download
-    #pdb.set_trace()
-    #new = open("test.zip",'w')
-    r=urllib2.urlopen("%s/%s/%s"%(website.file_server_download,stl_md5,name))
-    print len(f.read())
-    with open("test.zip",'w') as f:
-
-        for chunk in r.iter_content(chunk_size=1024):
-
-            if chunk:  # filter out keep-alive new chunks
-
-                f.write(chunk)
-
-                f.flush()
-
-                return local_filename
-    #new.close()
-    #print a
-    conf = {'all_list':'success'
-              }
-    return HttpResponse(json.dumps(conf))'''
-#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
 @login_required
 def design_list(request):
     '''
-	个人中心首页，按时间列出全部作品
+	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
     user = request.user
     designer = Designer_User.objects.get(user_id=user.id)
@@ -72,10 +43,10 @@ def design_list(request):
     		  }
     return render(request, website.all_list, conf)
 
-#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
+
 def downed_list(request):
     '''
-    展示按照下载次数排序结果
+    展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
     '''
     state = 1
     user = request.user
@@ -87,13 +58,12 @@ def downed_list(request):
         design_list = design_list.order_by('download_count')
     else:
         design_list = design_list.order_by('download_count').reverse()
-    print len(design_list)
     return_list = good_filter.publish_exec(design_list)
     conf = {'all_list':return_list
     		  }
     return HttpResponse(json.dumps(conf))
 
-#按照被收藏的个数排序 collect_list
+
 def collect_list(request):
     '''
     按照被收藏的个数排序
@@ -113,7 +83,7 @@ def collect_list(request):
               }
     return HttpResponse(json.dumps(conf))
 
-#最新上传的作品排序 new_list
+
 def new_list(request):
     '''
     最新上传的作品排序
@@ -132,14 +102,17 @@ def new_list(request):
     conf = {'all_list':return_list
               }
     return HttpResponse(json.dumps(conf))
-#搜索未发布商品的方法
+
+
 def unpublished_good_search(request):
+    '''
+    #搜索未发布商品的方法
+    '''
     describe = request.POST['search_val']
     designer = 1
     good_state = int(request.POST['search_type'])
     if good_state<3:
         result_goods = search_handle.unexecuteed_search(describe,designer,good_state)
-        print "制造者",result_goods
         goods_find = []
         for good_id in result_goods:
             good = Goods_Upload.objects.get(id = good_id)
@@ -152,9 +125,9 @@ def unpublished_good_search(request):
                     'style':good.style,
                     'type':'stl',
                     'stl_path':good.stl_path,
-                    'preview_1':str(website.file_server_path)+str(good.preview_1),
-                    'preview_2':str(website.file_server_path)+str(good.preview_2),
-                    'preview_3':str(website.file_server_path)+str(good.preview_3),
+                    'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                    'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                    'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                     'upload_time':good.upload_time.strftime("%Y-%m-%d"),
                     'modify_time':good.modify_time.strftime("%Y-%m-%d"),
                     'file_size':good.file_size,
@@ -176,9 +149,9 @@ def unpublished_good_search(request):
                     'tags':good.tags,
                     'style':good.style,
                     'stl_path':str(good.stl_path),
-                    'preview_1':str(website.file_server_path)+str(good.preview_1),
-                    'preview_2':str(website.file_server_path)+str(good.preview_2),
-                    'preview_3':str(website.file_server_path)+str(good.preview_3),
+                    'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                    'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                    'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                     'approval_time':good.approval_time.strftime("%Y-%m-%d"),
                     'file_size':good.file_size,
                     'collected_count':good.collected_count,
@@ -186,12 +159,14 @@ def unpublished_good_search(request):
             }
             goods_find.append(temp)
     total_pages = len(goods_find)/2+1
-    print len(goods_find)
     conf = {'all_list':goods_find,'total_pages':total_pages}
     return HttpResponse(json.dumps(conf))
 
-#搜索已发布商品的方法  published_good_search
+
 def published_good_search(request):
+    '''
+    #搜索已发布商品的方法  published_good_search
+    '''
     describe = 'a'#request.POST['describe']
     designer = 1
     result_goods = search_handle.published_search(describe,designer)
@@ -206,9 +181,9 @@ def published_good_search(request):
                 'tags':good.tags,
                 'style':good.style,
                 'stl_path':str(good.stl_path),
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
+                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                 'approval_time':good.approval_time.strftime("%Y-%m-%d"),
                 'file_size':good.file_size,
                 'collected_count':good.collected_count,
@@ -218,8 +193,11 @@ def published_good_search(request):
     conf = {'goods_find':goods_find}
     return HttpResponse(json.dumps(conf))
 
-#未发布的商品过滤 耳坠
+
 def unpublish_eardrop_list(request):
+    '''
+    #未发布的商品过滤 耳坠
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     good_state = 0#request.POST['good_state']
@@ -229,8 +207,11 @@ def unpublish_eardrop_list(request):
               }
     return HttpResponse(json.dumps(conf))
 
-#已发的商品过滤 ，耳坠
+
 def publish_eardrop_list(request):
+    '''
+    #已发的商品过滤 ，耳坠
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     tags = '戒指'
@@ -238,22 +219,21 @@ def publish_eardrop_list(request):
     conf = {'all_list':return_list
               }
     return HttpResponse(json.dumps(conf))
-#在设计师个人中心 显示更多
+
+
 def show_more(request):
+    '''
+    #在设计师个人中心 显示更多
+    '''
     count = int(request.POST['count'])
     photo_lists = Goods.objects.all()
-    print "count",count
     length = len(photo_lists)
-    #status = True
-    print "length:",length
     if (length-count*show_num)>0:
         photo_lists = photo_lists[((count)*show_num):((count+1)*show_num)]
     elif (length-count*show_num)<show_num:
         photo_lists = photo_lists[(count*show_num):]
     else:
         photo_lists = []
-    #    status = False
-    print "photo_lists:",len(photo_lists)
     return_list = []
     for good in photo_lists:
         temp = {'id':good.id,
@@ -262,10 +242,10 @@ def show_more(request):
                 'collected_count':good.collected_count,
                 'download_count':good.download_count,
                 'good_price':good.goods_price,
-                'preview_1':str(website.file_server_path)+str(good.preview_1),
-                'preview_2':str(website.file_server_path)+str(good.preview_2),
-                'preview_3':str(website.file_server_path)+str(good.preview_3),
-                #'stl_file_url':str(website.toy_server_imgupload)+str(photo.stl_file_url),
+                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                'preview_2':str(server_website.file_server_path)+str(good.preview_2),
+                'preview_3':str(server_website.file_server_path)+str(good.preview_3),
+                #'stl_file_url':str(server_website.toy_server_imgupload)+str(photo.stl_file_url),
                 'file_size':good.file_size
                 }
         return_list.append(temp)
@@ -274,8 +254,11 @@ def show_more(request):
               }
     return HttpResponse(json.dumps(conf))
 
-#显示我的动态的页面 my_state
+
 def my_state(request):
+    '''
+    #显示我的动态的页面 my_state
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     unpublished_list = Goods_Upload.objects.filter(designer_id=designer.id)
@@ -315,12 +298,15 @@ def my_state(request):
             'p_weekNum':design_week,
             'weekNum':good_week,
             'name':designer.designername,
-            'img':str(website.file_server_path)+str(designer.img)
+            'img':str(server_website.file_server_path)+str(designer.img)
             }
-    return render(request, website.edit, conf)
+    return render(request, website.my_state, conf)
 
-#设计师的 day 访问量
+
 def center_visit(request):
+    '''
+    #设计师的 day 访问量
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     now = datetime.now()
@@ -340,8 +326,11 @@ def center_visit(request):
     conf = { 'weekNum':weekNum,'monthNum':monthNum}
     return HttpResponse(json.dumps(conf))
 
-#设计师的  month 访问量
+
 def design_month_visit(request):
+    '''
+    #设计师的  month 访问量
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     now = datetime.now()
@@ -355,8 +344,11 @@ def design_month_visit(request):
     conf = { 'design_month':design_month}
     return HttpResponse(json.dumps(conf))
 
-#设计师作品的 访问量
+
 def works_visit(request):
+    '''
+    #设计师作品的 访问量
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     now = datetime.now()
@@ -384,8 +376,11 @@ def works_visit(request):
     conf = { 'weekNum':weekNum,'monthNum':monthNum}
     return HttpResponse(json.dumps(conf))
 
-#设计师的作品  month 访问量
+
 def good_month_visit(request):
+    '''
+    #设计师的作品  month 访问量
+    '''
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     now = datetime.now()
@@ -404,20 +399,21 @@ def good_month_visit(request):
     conf = { 'good_month':good_month}
     return HttpResponse(json.dumps(conf))
 
+
 def setup(request):
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name':designer.designername,'img':str(website.file_server_path)+str(designer.img) }
+    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img) }
     return render(request, website.setup, conf)
 
+
 def change_icon(request):
-    print '11111'
     return render(request,website.change_icon)
+
 
 def show_3d(request):
     id = request.POST['pic_id']
-    print id
-    _url = str(website.file_server_path) + Goods_Upload.objects.get(id=id).stl_path
+    _url = str(server_website.file_server_path) + Goods_Upload.objects.get(id=id).stl_path
     url_path = good_filter.down_stl(_url)
     conf = { 'url_path':url_path}
     return HttpResponse(json.dumps(conf)) 

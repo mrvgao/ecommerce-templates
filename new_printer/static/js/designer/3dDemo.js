@@ -160,6 +160,7 @@ var _obj = {
 		//var material = new THREE.MeshPhongMaterial({ambient: 0x555555,color: 0xff0000,specular: 0x111111,shininess: 200});
 		//var material = new THREE.MeshPhongMaterial( { bumpScale: 0.5, color: 0x000000, specular: 0xF9FF00, shininess: 50, shading: THREE.SmoothShading } );
 		var material = new THREE.MeshPhongMaterial({color:0x0066CC,specular: 0x0066CC, shading: THREE.SmoothShading, shininess: 6, fog: false, side: THREE.DoubleSide});
+		/*material.metal = true;*/
 
 		var loader = new THREE.STLLoader();
 		loader.addEventListener('load', function(event) {

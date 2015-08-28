@@ -9,7 +9,7 @@ from configuration.models import BetaApply, Designer_User, Vender_User
 from utils.AccountHandler import Verification, UserManager
 from conf import config 
 
-import json
+import json,pdb
 import urllib, urllib2
 import re
 import time
@@ -181,6 +181,7 @@ def u_login(request):
                     conf = {'status':'V'}
                 else:
                     conf = {'status':'None'}
+                print username
         except Exception as e:
             conf = {'status':'FAILURE'}
         return HttpResponse(json.dumps(conf))
