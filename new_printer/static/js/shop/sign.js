@@ -79,6 +79,7 @@ $(function (){
 				_index = _this.parent().index(),
 				_parents = _this.parent().parent().attr('data-p'),
 				_next = _this.next(),
+				_ts = _next.find('span'),
 				_txt = _this.val(),
 				_name = _this.attr('valid-type'),
 				reg;
@@ -98,10 +99,6 @@ $(function (){
 
 			if(_txt && reg.test(_txt)){
 				validResult[_index] = true;
-				if(_next.css('display') == 'block'){
-					_next.slideUp();
-					_this.removeClass('active');
-				}
 
 				// 验证确认密码
 				if(_name == 'signUp-pwagin'){
@@ -111,11 +108,62 @@ $(function (){
 						validResult[_index] = false;
 					}
 				}
+
+				// 登录， 查找该手机号是否存在于数据库中
+				if(_this.hasClass('is_registered')){
+					
+					$.post('/account/check_phone',{'phone':_txt},function (e){
+						result = JSON.parse(e);
+						// 如果存在就返回 true , 否则就返回 false
+						if(result['status']=='TRUE'){
+							_next.slideUp();
+							_this.removeClass('active');
+							signInResult[0] = true;
+						}else {
+							_next.slideDown();
+							_this.addClass('active');
+							_ts.text('手机号未被注册');
+							signInResult[0] = false;
+						}
+						
+					});
+				}
+				
+				if(_this.hasClass('is_registered_r')){
+					
+					$.post('/account/check_phone',{'phone':_txt},function (e){
+						result = JSON.parse(e);
+						// 如果存在就返回 true , 否则就返回 false
+						if(result['status']=='TRUE'){
+							_next.slideDown();
+							_this.addClass('active');
+							_ts.text('手机号已被注册');
+							signInResult[0] = false;
+						}else {
+							_next.slideUp();
+							_this.removeClass('active');
+							signInResult[0] = true;
+						}
+						
+					});
+				}
+				if(!_this.hasClass('is_registered') && !_this.hasClass('is_registered_r')){
+					if(_next.css('display') == 'block'){
+						_next.slideUp();
+						_this.removeClass('active');
+					}
+				}
 				
 			}else {
+				if(_this.hasClass('is_registered')){
+					_ts.text('手机号格式不正确');
+				}else if(_this.hasClass('is_registered_r')){
+					_ts.text('手机号格式不正确');
+				}
 				validResult[_index] = false;
 				_next.slideDown();
 				_this.addClass('active');
+
 			}
 
 			switch(_parents){
@@ -127,42 +175,7 @@ $(function (){
 					break;
 			}
 
-			// 登录， 查找该手机号是否存在于数据库中
-			if(_this.hasClass('is_registered')){
-				
-				$.post('/account/check_phone',{'phone':_txt},function (e){
-					result = JSON.parse(e);
-					// 如果存在就返回 true , 否则就返回 false
-					if(result['status']=='TRUE'){
-						_next.slideUp();
-						_this.removeClass('active');
-						signInResult[0] = true;
-					}else {
-						_next.slideDown();
-						_this.addClass('active');
-						signInResult[0] = false;
-					}
-					
-				});
-			}
 			
-			if(_this.hasClass('is_registered_r')){
-				
-				$.post('/account/check_phone',{'phone':_txt},function (e){
-					result = JSON.parse(e);
-					// 如果存在就返回 true , 否则就返回 false
-					if(result['status']=='TRUE'){
-						_next.slideUp();
-						_this.removeClass('active');
-						signInResult[0] = true;
-					}else {
-						_next.slideDown();
-						_this.addClass('active');
-						signInResult[0] = false;
-					}
-					
-				});
-			}
 			
 		});
 
