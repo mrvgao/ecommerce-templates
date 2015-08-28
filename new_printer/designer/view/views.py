@@ -29,7 +29,7 @@ import json,pdb
 
 
 @login_required
-def design_list(request):
+def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''

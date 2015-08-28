@@ -44,7 +44,7 @@ urlpatterns = patterns('',
 	url(r'^published_submit$',up_works.published_submit,name = 'published_submit'),
 
 	#设计师个人中心，设计师本人看到的
-	url(r'^design_list$',views.design_list,name = 'design_list'),
+	url(r'^my_personal$',views.my_personal,name = 'my_personal'),
 	##作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现 按照下载次数排序 downed_list
 	url(r'^downed_list$',views.downed_list,name = 'downed_list'),
 	#按照被收藏的个数排序 collect_list
