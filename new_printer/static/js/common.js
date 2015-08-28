@@ -14,6 +14,7 @@
 			gotop.fadeOut();
 		}
 	});
+	
 	gotop.on('click',function (){
 		$('body').animate({'scrollTop':0});
 	});
