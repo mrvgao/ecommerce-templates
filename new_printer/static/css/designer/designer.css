@@ -924,18 +924,6 @@ a.goods-tomark:hover, a.goods-tomark.active {
 a.goods-tomark:hover em.list-mark-btn-ico, a.goods-tomark.active em.list-mark-btn-ico {
 	background-position:-192px -35px;
 }
-.loadmore-btn {
-	width:450px;
-}
-.loadmore-btn a {
-	display:block;
-	height:45px;
-	line-height:45px;
-	color:#777;
-	letter-spacing:2px;
-	background:#e9e9e9;
-	border-radius:8px;
-}
 
 
 

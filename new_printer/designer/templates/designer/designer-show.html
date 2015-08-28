@@ -85,13 +85,9 @@
 							{# {% endfor %} #}
 
 						</ul>
-						<div class="loadmore-btn mt30 bc">
-							{% if more %}
-							<a class="chover tc f16" href="javascript:void(0)">加载更多</a>
-							{% else %}
-							<a class="chover tc f16" href="javascript:void(0)">没有更多了 >_<</a>
-							{% endif %}
-						</div>
+						
+						{% include 'paging.html' %}
+
 					</div>
 				</div>
 				
