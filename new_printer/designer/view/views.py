@@ -44,7 +44,7 @@ def my_personal(request):
     is_focus = False
     designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
     designer.img = str(server_website.file_server_path) + str(designer.img)
-    d_user = Designer_User.objects.filter(user_id = 2).exists()
+    d_user = Designer_User.objects.filter(user_id = 1).exists()
     if (d_user):
         now_user = 'D'
     else:
