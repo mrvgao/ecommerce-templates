@@ -16,13 +16,21 @@
 			<div class="designer-show-head w">
 				<div class="d-showhead-box mt50 bc">
 					<div class="designer-show-img">
-						<img src="" alt="" />
+						<img src="{{ designer_img }}" alt="" />
 					</div>
 					<div class="designer-show-info mt30 tc">
-						<p class="inl-b f20 mr20">阿三</p>
-						<a class="show-mark-btn f16" href="javascript:void(0)">
+						<p class="inl-b f20 mr20">{{ designer_name }}</p>
+						{% if now_user == 'V' %}
+							{% if is_focus %}
+								<a class="show-mark-btn f16 active" href="javascript:void(0)">
+							{% else %}
+								<a class="show-mark-btn f16" href="javascript:void(0)">
+							{% endif %}
+						{% else %}
+							<a class="show-mark-btn f16 active">
+						{% endif %}
 							<em class="designer-show-mark"></em>
-							100
+							{{ marked }}
 						</a>
 					</div>
 				</div>
@@ -53,36 +61,44 @@
 					<div class="ds-list-box mt20">
 						<ul class="clearfix">
 
-							{# {% for other_goods in other_goods_list %} #}
+							{% for other_goods in other_goods_list %}
 
 							<li>
 								<div class="list-box pr">
 									<div class="list-img mb10">
-					                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-											<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+					                    <a target="_blank" href="/shop/goods-detail?goods_id={{ other_goods.id }}">
+											<img class="goods_img" src="{{ other_goods.preview_1 }}" alt="" />
 										</a>
 									</div>
 									<div class="num-box tc mb10">
 										<p class="mr15 inl-b">
 											<em class="download-num-ico"></em>
-											<span class="goods_downloadNum">{{ other_goods.goods_download_num }}</span>
+											<img src="{% static 'images/common/downs.jpg' %}"/>
+											<span class="goods_downloadNum">{{ other_goods.download_count }}</span>
 										</p>
 										<p class="inl-b">
 											<em class="mark-num-ico"></em>
-											<span class="goods_markNum">{{ other_goods.goods_mark_num }}</span>
+											<img src="{% static 'images/common/collect.jpg' %}"/>
+											<span class="goods_markNum">{{ other_goods.collected_count }}</span>
 										</p>
 									</div>
 									<div class="list-title tc mb10">
-					                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+					                    <a class="goods_name" target="_blank" href="/shop/goods-detail?goods_id={{ other_goods.id }}">
 										{{ other_goods.goods_name }}
 										</a>
 									</div>
 									<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-									<a class="pa goods-tomark" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+									{% if now_user == 'V' %}
+										{% if other_goods.is_collect %}
+											<a class="pa goods-tomark active" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+										{% else %}
+											<a class="pa goods-tomark " href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+										{% endif %}
+									{% endif %}
 								</div>
 							</li>
 
-							{# {% endfor %} #}
+							{% endfor %} 
 
 						</ul>
 						
