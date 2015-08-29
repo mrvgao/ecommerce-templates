@@ -9,8 +9,10 @@ $(function (){
 		detail_wrap = $('.detail-wrap'),
 		gopay = $('.gopay'),
 		_method = 'alipay',
-		goods_id = detail_wrap.attr('data-id');
-	goods_list = [];
+		goods_id = detail_wrap.attr('data-id'),
+		slider_img = $('.slider-img'),
+		goods_img = $('.goods-img'),
+		goods_list = [];
 	
 	// 立即下单
 	paynow.on('click',function (){
@@ -96,6 +98,15 @@ $(function (){
 		},function (e){
 			window.open(e[0].download_url);
 		});
+	});
+
+	// 切换商品图片
+	slider_img.on('click',function (){
+		var _this = $(this),
+			_src = _this.find('img').attr('src'),
+			g_img = goods_img.find('img');
+
+		g_img.attr('src',_src);
 	});
 
 });
