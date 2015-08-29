@@ -14,6 +14,8 @@ $(function (){
 		input_play_box = $('.input-play-box'),
 		signIn = $('.signIn'),
 		signUp = $('.signUp');
+	var phone_register;
+	var phone_code;
 
 
 	// 显示弹出框
@@ -175,8 +177,52 @@ $(function (){
 					break;
 			}
 
-			
-			
+			//注册，验证邀请码
+			if(_this.hasClass('invitecode')){
+				
+				var _this = $(this);
+				phone_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(0).val();
+				code_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(1).val();
+				
+				$.post('/account/check_code',{'code':code_register},function (e){
+					result = JSON.parse(e);
+					// 如果存在就返回 true , 否则就返回 false
+					if(result['status']=='TRUE'){
+						_next.slideUp();
+						_this.removeClass('active');
+						signInResult[0] = true;
+					}else {
+						_next.slideDown();
+						_this.addClass('active');
+						signInResult[0] = false;
+					}
+					
+				});
+			}
+
+			//注册，验证用户名
+			if(_this.hasClass('is_username')){
+				
+				var _this = $(this);
+				username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+				
+				$.post('/account/check_username',{'username':username},function (e){
+					result = JSON.parse(e);
+					// 如果存在就返回 true , 否则就返回 false
+					if(result['status']=='FALSE'){
+						_next.slideUp();
+						_this.removeClass('active');
+						signInResult[0] = true;
+					}else {
+						_next.slideDown();
+						_this.addClass('active');
+						signInResult[0] = false;
+					}
+					
+				});
+			}
+
+
 		});
 
 		// 点击下一步
@@ -191,12 +237,19 @@ $(function (){
 
 		// 点击注册
 		register_btn.on('click',function (){
+			var _this = $(this);
+			testNoBlur(_this);
+			username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+			pwd = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
 			
-			testNoBlur($(this));
-
 			if(signUpResult[0] && signUpResult[1] && signUpResult[2]){
-				$.post('',{},function (){
-					// do something
+				$.post('/account/u_register',{'phone':phone_register,'code':code_register,'username':username,'password':pwd},function (e){
+					result = JSON.parse(e);
+					if (result['status'] == 'FAILURE'){
+						$.msgBox.mini('注册失败，请重新注册');
+					}else{
+						$.msgBox.mini('注册成功，请登录');
+					}
 
 				});
 			}
