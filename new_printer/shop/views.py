@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 import json
 import pdb
 
@@ -8,6 +9,7 @@ from conf import website
 
 from configuration.models import Goods
 from configuration.models import Designer_User
+from configuration.models import Vender_User
 
 from utils.common_class import IndexGoods
 from utils.common_class import IndexGoodsDesigner
@@ -345,6 +347,7 @@ def common_filter(tags_name, sort_name, style_name):
 
 def all_goods_list(request):
 
+    '''
     type_name = [u'戒指', u'吊坠', u'耳坠', u'手链', u'项链', u'胸针']
     type_class = ['ring', 'pendant', 'earbob', 'bracelet', 'torque', 'brooch']
     nubmer = 6
@@ -363,10 +366,19 @@ def all_goods_list(request):
         goods_list = get_goods_list_by_tags(goods_tags, vender_id)
         goods_list *= 10
 
+    '''
+    user = request.user
+    user.status = True
+    try:
+        customer = Vender_User.objects.get(id=user.id)
+        customer_name = customer.vendername
+    except ObjectDoesNotExist:
+        customer = Designer_User.objects.get(id=user.id)
+        customer_name = customer.designername
+        user.status = False
 
     context = {
-        'type_list': type_list,
-        'goods_list': goods_list,
+        'customer_name': customer_name,
     }
 
     return render(request, website.all_goods_list, context)
