@@ -3,9 +3,9 @@ $(function (){
 	var filter_bynum = $('.filter-bynum a'),
 		goods_tomark = $('.goods-tomark'),
 		list_box = $('.ds-list-box ul'),
-		mark_btn = $('.show-mark-btn');
-	var ds_list_box = $('.ds-list-box ul');
-	var goods_tomark = $('.goods-tomark')
+		mark_btn = $('.show-mark-btn'),
+		ds_list_box = $('.ds-list-box ul'),
+		goods_tomark = $('.goods-tomark');
 
 	filter_bynum.on('click',function (){
 		var _this = $(this),
