@@ -22,9 +22,9 @@ $(function (){
 			});
 				break;
 
-			case 'filter_download_num': $.post('/designer/downed_list',{ 'work_kind': _tag, 'click_count': click_count },function (e){
+			case 'filter_download_num': $.post('/designer/downed_list',{ 'work_kind': _tag },function (e){
 				// do something
-				click_count ++
+				console.log(_tag)
 				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){
 					sucStr += '<li><div class="list-box pr"><div class="list-img mb10"><a target="_blank" href="/shop/goods-detail?goods_id="'+sucList[i].id+'"><img class="goods_img" src="'+sucList[i].pic[0]+'" alt="" /></a></div><div class="num-box tc mb10"><p class="mr15 inl-b"><em class="download-num-ico"></em><span class="goods_downloadNum">'+sucList[i].download_count+'</span></p><p class="inl-b"><em class="mark-num-ico"></em><span class="goods_markNum">'+sucList[i].download_count+'</span></p></div><div class="list-title tc mb10"><a class="goods_name" target="_blank" href="/shop/goods-detail?goods_id="'+sucList[i].id+'">'+sucList[i].name+'</a></div><p class="goods_price f12 tc">￥'+sucList[i].good_price+'</p><a class="pa goods-tomark" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';

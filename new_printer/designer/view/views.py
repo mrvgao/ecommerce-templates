@@ -67,6 +67,10 @@ def my_personal(request):
          'preview_1': server_website.file_server_path + good.preview_1 }
         return_list.append(_good)
     
+    all_len = len(return_list)
+    total_pages = all_len/(website.all_one)
+    if all_len%(website.all_one)!=0:
+        total_pages += 1
     conf = {'other_goods_list': return_list, 'designer_img': designer.img, 'designer_name': designer.designername,
             'marked': designer_marked, 'now_user': now_user, 'designer_id': designer.id,
             'is_focus': is_focus
@@ -78,9 +82,9 @@ def downed_list(request):
     '''
     展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
     '''
-    state = 1
     #pdb.set_trace()
-    user = request.user
+    #user = request.user
+    #vender_id = request.POST['v_id']
     designer = Designer_User.objects.get(user_id=1)#user.id)
     design_list = Goods.objects.filter(designer_id=designer.id)
     design_list = design_list.order_by('download_count')
@@ -90,8 +94,6 @@ def downed_list(request):
         _good = {}
         if Vender_Goods.objects.filter(goods_id = good.id, vender_id = 2):
             is_collect = True
-        print is_collect
-        print good.id
         _good = {'goods_name': good.goods_name, 'id': good.id, 'download_count': good.download_count,
          'collect_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
          'preview_1': server_website.file_server_path + good.preview_1 }
@@ -112,19 +114,29 @@ def collect_list(request):
     '''
     按照被收藏的个数排序
     '''
-    state = 1
-    #user = request.user
+    #vender_id = request.POST['v_id']
     designer = Designer_User.objects.get(user_id=1)#user.id)
     design_list = Goods.objects.filter(designer_id=designer.id)
-    click_count = 1#request.POST['click_count']
+    design_list = design_list.order_by('collected_count')
+    return_list = []
+    for good in design_list:
+        is_collect = False
+        _good = {}
+        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = 2):
+            is_collect = True
+        _good = {'goods_name': good.goods_name, 'id': good.id, 'download_count': good.download_count,
+         'collect_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
+         'preview_1': server_website.file_server_path + good.preview_1 }
+        return_list.append(_good)
+    '''click_count = int(request.POST['click_count'])
     state = click_count + state
     if state % 2 == 1:
-        design_list = design_list.order_by('collected_count')
+        design_list = design_list.order_by('download_count')
     else:
-        design_list = design_list.order_by('collected_count').reverse()
-    return_list = good_filter.publish_exec(design_list)
-    conf = {'all_list':return_list
-              }
+        design_list = design_list.order_by('download_count').reverse()'''
+    #return_list = good_filter.publish_exec(design_list)
+    conf = {'all_list': return_list
+            }
     return HttpResponse(json.dumps(conf))
 
 
@@ -132,19 +144,29 @@ def new_list(request):
     '''
     最新上传的作品排序
     '''
-    state = 1
-    #user = request.user
+    #vender_id = request.POST['v_id']
     designer = Designer_User.objects.get(user_id=1)#user.id)
     design_list = Goods.objects.filter(designer_id=designer.id)
-    click_count = request.POST['click_count']
+    design_list = design_list.order_by('approval_time')
+    return_list = []
+    for good in design_list:
+        is_collect = False
+        _good = {}
+        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = 2):
+            is_collect = True
+        _good = {'goods_name': good.goods_name, 'id': good.id, 'download_count': good.download_count,
+         'collect_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
+         'preview_1': server_website.file_server_path + good.preview_1 }
+        return_list.append(_good)
+    '''click_count = int(request.POST['click_count'])
     state = click_count + state
     if state % 2 == 1:
-        design_list = design_list.order_by('approval_time')
+        design_list = design_list.order_by('download_count')
     else:
-        design_list = design_list.order_by('approval_time').reverse()
-    return_list = good_filter.publish_exec(design_list)
-    conf = {'all_list':return_list
-              }
+        design_list = design_list.order_by('download_count').reverse()'''
+    #return_list = good_filter.publish_exec(design_list)
+    conf = {'all_list': return_list
+            }
     return HttpResponse(json.dumps(conf))
 
 
