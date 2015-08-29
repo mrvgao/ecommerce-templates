@@ -184,7 +184,7 @@ $(function (){
 				phone_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(0).val();
 				code_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(1).val();
 				
-				$.post('/account/check_code',{'code':code_register},function (e){
+				$.post('/account/check_code',{'phone':phone_register,'code':code_register},function (e){
 					result = JSON.parse(e);
 					// 如果存在就返回 true , 否则就返回 false
 					if(result['status']=='TRUE'){
