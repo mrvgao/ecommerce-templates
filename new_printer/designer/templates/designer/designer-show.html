@@ -37,8 +37,8 @@
 					<div class="ds-classify-box mt10 bc">
 						<ul>
 							<li><a class="active" href="/">全部</a></li>
-							<li><a href="/shop/ring">戒指</a></li>
-							<li><a href="/shop/pendant">吊坠</a></li>
+							<li><a href="/designer/designer-id?designer_id={{ designer_id }}">戒指</a></li>
+							<li><a href="/shop/pendant">吊坠</a></link>
 							<li><a href="/shop/earbob">耳坠</a></li>
 							<li><a href="/shop/bracelet">手链</a></li>
 							<li><a href="/shop/torque">项链</a></li>
@@ -70,12 +70,10 @@
 									<div class="num-box tc mb10">
 										<p class="mr15 inl-b">
 											<em class="download-num-ico"></em>
-											<img src="{% static 'images/common/downs.jpg' %}"/>
 											<span class="goods_downloadNum">{{ other_goods.download_count }}</span>
 										</p>
 										<p class="inl-b">
 											<em class="mark-num-ico"></em>
-											<img src="{% static 'images/common/collect.jpg' %}"/>
 											<span class="goods_markNum">{{ other_goods.collected_count }}</span>
 										</p>
 									</div>
