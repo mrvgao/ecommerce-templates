@@ -329,15 +329,15 @@ def not_passed(request):
     #显示 未通过 页面
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now_page = int(request.POST['page']) - 1
-    design_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2)
+    design_list = Goods_Upload.objects.filter(designer_id = designer.id, good_state = 2)
     return_list = good_filter.unpublish_exec(design_list)
     all_len = len(return_list)
     total_pages = all_len/(website.unpassed_one)
-    if all_len%(website.unpassed_one) !=0:
+    if all_len%(website.unpassed_one) != 0:
         total_pages += 1
-    return_list = return_list[now_page*(website.unpassed_one):(now_page+1)*(website.unpassed_one)]
+    return_list = return_list[now_page*(website.unpassed_one):(now_page + 1)*(website.unpassed_one)]
     conf = {'all_list':return_list,'total_pages':total_pages,'now_page':now_page,
               }
     return HttpResponse(json.dumps(conf))
@@ -357,15 +357,15 @@ def has_published(request):
     #显示已发布页面
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now_page = int(request.POST['page']) - 1
-    design_list = Goods.objects.filter(designer_id=designer.id,is_active=1)
+    design_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     return_list = good_filter.publish_exec(design_list)
     all_len = len(return_list)
     total_pages = all_len/(website.publish_one)
-    if all_len%(website.publish_one) !=0:
+    if all_len%(website.publish_one) != 0:
         total_pages += 1
-    return_list = return_list[now_page*(website.publish_one):(now_page+1)*(website.publish_one)]
+    return_list = return_list[now_page*(website.publish_one):(now_page + 1)*(website.publish_one)]
     conf = {'all_list':return_list,'total_pages':total_pages
             }
     return HttpResponse(json.dumps(conf))
@@ -376,7 +376,7 @@ def published_edit(request):
     #在已发布页面点击编辑后，传的值
     '''
     id = request.POST['id']
-    design_list = Goods.objects.filter(id=id)
+    design_list = Goods.objects.filter(id = id)
     return_list = good_filter.publish_exec(design_list)
     conf = {'photo':return_list}
     return HttpResponse(json.dumps(conf))
@@ -387,7 +387,7 @@ def published_submit(request):
     #在已发布页面点击编辑后，修改后提交的值
     '''
     file_id = request.POST['id']
-    photo = Goods.objects.filter(id=file_id)
+    photo = Goods.objects.filter(id = file_id)
     price = request.POST['price']
     describe = request.POST['describe']
     name = request.POST['name']
@@ -397,10 +397,10 @@ def published_submit(request):
         describe = photo.describe
     if not price:
         price = photo.price
-    s=Goods.objects.filter(id = id).update(name=str(name),
-                        price = int(price),
-                        describe = describe
-                      )
+    s=Goods.objects.filter(id = id).update(name = str(name),
+                                            price = int(price),
+                                            describe = describe
+                                            )
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
@@ -411,7 +411,7 @@ def dwon_stl(request):
     '''
     _url = request.POST['_url']
     stl_path = good_filter.down_stl(_url)
-    context = {'stl_path':stl_path}
+    context = {'stl_path': stl_path}
     return HttpResponse(json.dumps(context))
 
 
@@ -426,11 +426,11 @@ def file_download(request):
         glist = []
         conf = {}
         for goods_id in goods_list:
-            goods = Goods.objects.get(id=goods_id)
+            goods = Goods.objects.get(id = goods_id)
             md5 = str(goods.stl_path).split(r'/')[0]
             zip_name = goods.goods_name + '.zip'
             file_ = {}
-            file_ = {'md5':md5,'zip_name':zip_name}
+            file_ = {'md5':md5,'zip_name': zip_name}
             glist.append(file_)
-        conf = {'glist':glist}
+        conf = {'glist': glist}
         return HttpResponse(json.dumps(conf))

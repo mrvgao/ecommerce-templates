@@ -45,16 +45,22 @@ urlpatterns = patterns('',
 
 	#设计师个人中心，设计师本人看到的
 	url(r'^my_personal$',views.my_personal,name = 'my_personal'),
+
 	##作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现 按照下载次数排序 downed_list
 	url(r'^downed_list$',views.downed_list,name = 'downed_list'),
+
 	#按照被收藏的个数排序 collect_list
 	url(r'^collect_list$',views.collect_list,name = 'collect_list'),
+
 	#最新上传的作品排序 new_list
 	url(r'^new_list$',views.new_list,name = 'new_list'),
+
 	#搜索方法
 	url(r'^unpublished_good_search$',views.unpublished_good_search,name = 'unpublished_good_search'),
+
 	#搜索已发布商品的方法  published_good_search
 	url(r'^published_good_search$',views.published_good_search,name = 'published_good_search'),
+
 	#显示我的动态的页面 my_state
 	url(r'^my_state$',views.my_state,name = 'my_state'),
 	
@@ -63,8 +69,10 @@ urlpatterns = patterns('',
 	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
 
 	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
+
 	#publish_eardrop_list
 	url(r'^publish_eardrop_list$',views.publish_eardrop_list,name = 'publish_eardrop_list'),
+
 	url(r'^setup$',views.setup,name = 'setup'),
     #下载
     url(r'^file_download$', up_works.file_download, name = 'file_download'),
@@ -73,6 +81,7 @@ urlpatterns = patterns('',
 	#chang_icon
 	url(r'^change_icon$',views.change_icon,name = 'change_icon'),
 
+	#添加关注和收藏
 	url(r'^add_focus$',views.add_focus,name = 'add_focus'),
 	url(r'^cancel_focus$',views.cancel_focus,name = 'cancel_focus'),
 	url(r'^add_collect$',views.add_collect,name = 'add_collect'),

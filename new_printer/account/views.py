@@ -128,8 +128,9 @@ def check_code(request):
     '''
     if request.method == 'POST':
         code = request.POST.get('code')
+        phone = request.POST.get('phone')
         #request.session['phone_register'] = phone
-        result = Verification().isright_InvitationCode(code)
+        result = Verification().isright_InvitationCode(phone,code)
         conf = {}
         if (result == 'FALSE'):
             conf = {'status':'FALSE'}
@@ -148,7 +149,7 @@ def u_register(request):
         password = request.POST.get('password')
         phone = request.POST.get('phone')
         code = request.POST.get('code')
-        identity = Verification().isright_InvitationCode(code)
+        identity = Verification().isright_InvitationCode(phone,code)
         conf = {}
         if identity == 'FALSE':
             result = 'FAILURE'

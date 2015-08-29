@@ -21,7 +21,6 @@ $(function (){
 
 			});
 				break;
-
 			case 'filter_download_num': $.post('/designer/downed_list',{ 'work_kind': _tag, 'click_count': click_count },function (e){
 
 				var sucList = JSON.parse(e).all_list;
