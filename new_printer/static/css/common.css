@@ -235,6 +235,12 @@ body {
 .other-check a {
 	color:#62cdd7;
 }
+.dl-ts-txt {
+	left:0px;
+	top:5px;
+	font-size:13px;
+	color:#D40C0C;
+}
 
 /* customer-service */
 .customer-service {
