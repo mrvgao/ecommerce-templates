@@ -82,10 +82,11 @@ def sort_list(request):
     '''
     展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
     '''
+    #pdb.set_trace()
     #user = request.user
     #vender_id = request.POST['v_id']
     data_tag = int(request.POST['data_kind'])
-    type_tag = int(request.POST['type_kind'])
+    type_tag = request.POST['type_kind']
     designer = Designer_User.objects.get(user_id=1)#user.id)
     design_list = Goods.objects.filter(designer_id=designer.id)
     Test_user = Designer_User.objects.filter(user_id = 1).exists()
@@ -121,7 +122,8 @@ def type_list(request):
     '''
     #user = request.user
     #vender_id = request.POST['v_id']
-    _tag = (request.POST['work_kind'])
+    #data_tag = int(request.POST['data_kind'])
+    type_tag = (request.POST['type_kind'])
     designer = Designer_User.objects.get(user_id=1)#user.id)
     design_list = Goods.objects.filter(designer_id=designer.id)
     Test_user = Designer_User.objects.filter(user_id = 1).exists()
@@ -131,6 +133,12 @@ def type_list(request):
         now_user = 'V'
     if _tag != u'全部':
         design_list = design_list.filter(tags = _tag)
+    if data_tag == 2:
+        design_list = design_list.order_by('download_count').reverse()
+    if data_tag == 3:
+        design_list = design_list.order_by('collected_count').reverse()
+    if data_tag == 4:
+        design_list = design_list.order_by('approval_time').reverse()
     return_list = []
     for good in design_list:
         is_collect = False
@@ -397,7 +405,11 @@ def good_month_visit(request):
 def setup(request):
     #user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img) }
+    has_alipay = False
+    if designer.alipay : #判断是不是有支付宝账号
+        has_alipay = True
+    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img),
+            'has_alipay': has_alipay }
     return render(request, website.setup, conf)
 
 
@@ -425,6 +437,7 @@ def cancel_focus(request):
     new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
     return HttpResponse(json.dumps("success"))
 
+
 def add_collect(request):
     #pdb.set_trace()
     g_id = request.POST['g_id']
@@ -437,8 +450,20 @@ def add_collect(request):
             collected_time = datetime.now())
     return HttpResponse(json.dumps("success"))
 
+
 def cancel_collect(request):
     g_id = request.POST['g_id']
     v_id = request.POST['v_id']
     cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
+    return HttpResponse(json.dumps("success"))
+
+
+def add_alipay(request):
+    '''
+    添加支付宝账号
+    '''
+    d_id = request.POST['d_id']
+    ali_name = request.POST['ali_name']
+    ali_num = request.POST['ali_num']
+    d = Designer_User.objects.filter(id = d_id).update(alipay = alipay, alipay_name = ali_name)
     return HttpResponse(json.dumps("success"))

@@ -1,24 +1,22 @@
 $(function (){
 
-	var filter_bynum = $('.filter-bynum a'),
+	var filter_bynum = $('.filter-btn'),
 		goods_tomark = $('.goods-tomark'),
 		list_box = $('.ds-list-box ul'),
 		mark_btn = $('.show-mark-btn'),
 		ds_list_box = $('.ds-list-box ul'),
 		goods_tomark = $('.goods-tomark'),
-		type_filter = $('.ds-classify-box a');
+		type_filter = $('.type-filter-btn');
 
 	filter_bynum.on('click',function (){
 		var _this = $(this),
 			data_tag = _this.attr('data-tag'),
 			type_tag = _this.attr('type-tag');
-
+		var type_tag = '全部'
 		clickFocus(_this);
 		ds_list_box.empty();
 		var sucStr = '';
 		var click_count = 0
-		console.log(data_tag);
-		console.log(type_tag);
 		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
 
 				var sucList = JSON.parse(e).all_list;
@@ -46,12 +44,12 @@ $(function (){
 		var _this = $(this),
 			data_tag = _this.attr('data-tag'),
 			type_tag = _this.attr('type-tag');
-
+		data_tag = '1'
 		clickFocus(_this);
 		ds_list_box.empty();
 		var sucStr = '';
 		var click_count = 0
-		$.post('/designer/type_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
+		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
 
 				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){
