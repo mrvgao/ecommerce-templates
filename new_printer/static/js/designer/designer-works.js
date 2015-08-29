@@ -209,7 +209,6 @@ function workd_unexecute(page){		//加载未审核的数据
 
 
 		$('.designer-works-list-bigpic fl').each(function(){
-			console.log($(this).html());
 			/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
 		});
 

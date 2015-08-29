@@ -47,14 +47,9 @@ urlpatterns = patterns('',
 	url(r'^my_personal$',views.my_personal,name = 'my_personal'),
 
 	##作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现 按照下载次数排序 downed_list
-	url(r'^downed_list$',views.downed_list,name = 'downed_list'),
-
-	#按照被收藏的个数排序 collect_list
-	url(r'^collect_list$',views.collect_list,name = 'collect_list'),
-
-	#最新上传的作品排序 new_list
-	url(r'^new_list$',views.new_list,name = 'new_list'),
-
+	url(r'^sort_list$',views.sort_list,name = 'sort_list'),
+	#type_list
+	#url(r'^type_list$',views.type_list,name = 'type_list'),
 	#搜索方法
 	url(r'^unpublished_good_search$',views.unpublished_good_search,name = 'unpublished_good_search'),
 
@@ -69,9 +64,6 @@ urlpatterns = patterns('',
 	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
 
 	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
-
-	#publish_eardrop_list
-	url(r'^publish_eardrop_list$',views.publish_eardrop_list,name = 'publish_eardrop_list'),
 
 	url(r'^setup$',views.setup,name = 'setup'),
     #下载

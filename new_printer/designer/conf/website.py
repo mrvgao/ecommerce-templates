@@ -16,7 +16,8 @@ good_tags = [u'戒指',u'吊坠',u'耳坠',u'手链',u'项链',u'胸针']
 
 good_style = [u'青春洋溢',u'富丽典雅',u'自然亲切',u'时尚潮流']
 
-unexec_one = 4 #
+unexec_one = 2 #
 auditing_one = 4#
 unpassed_one = 5#
 publish_one = 5#
+all_one = 5
