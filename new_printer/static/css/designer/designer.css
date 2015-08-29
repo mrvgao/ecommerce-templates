@@ -954,7 +954,20 @@ a.goods-tomark:hover, a.goods-tomark.active {
 a.goods-tomark:hover em.list-mark-btn-ico, a.goods-tomark.active em.list-mark-btn-ico {
 	background-position:-192px -35px;
 }
-
+em.download-num-ico, em.mark-num-ico, em.list-mark-btn-ico {
+	display:inline-block;
+	width:14px;
+	height:14px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	vertical-align:bottom;
+}
+em.download-num-ico {
+	background-position:-10px -11px;
+}
+em.mark-num-ico {
+	background-position:-192px -11px;
+}
 
 
 

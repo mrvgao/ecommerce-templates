@@ -34,7 +34,7 @@ from datetime import date ,datetime,timedelta
 import time,pdb
 
 
-@login_required
+#@login_required
 def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
