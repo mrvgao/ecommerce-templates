@@ -27,7 +27,7 @@
 								<a class="show-mark-btn f16" href="javascript:void(0)"><em class="designer-show-mark"></em>{{ marked }}</a>
 							{% endif %}
 						{% else %}
-							<a class="no-show-mark-btn f16 active"><em class="designer-show-mark"></em>{{ marked }}</a>
+							<a class="no-show-mark-btn f16 active" ><em class="designer-show-mark"></em>{{ marked }}</a>
 						{% endif %}
 					</div>
 				</div>
@@ -36,23 +36,23 @@
 				<div id="ds-classify-nav">
 					<div class="ds-classify-box mt10 bc">
 						<ul>
-							<li><a class="active" href="/">全部</a></li>
-							<li><a href="/designer/designer-id?designer_id={{ designer_id }}">戒指</a></li>
-							<li><a href="/shop/pendant">吊坠</a></link>
-							<li><a href="/shop/earbob">耳坠</a></li>
-							<li><a href="/shop/bracelet">手链</a></li>
-							<li><a href="/shop/torque">项链</a></li>
-							<li><a href="/shop/brooch">胸针</a></li>
+							<li><a type-tag='全部' class="type-filter-btn chover active" href="javascript:void(0)">全部</a></li>
+							<li><a type-tag='戒指' class="type-filter-btn chover " href="javascript:void(0)">戒指</a></li>
+							<li><a type-tag='吊坠' class="type-filter-btn chover " href="javascript:void(0)">吊坠</a></li>
+							<li><a type-tag='耳坠' class="type-filter-btn chover " href="javascript:void(0)">耳坠</a></li>
+							<li><a type-tag='手链' class="type-filter-btn chover " href="javascript:void(0)">手链</a></li>
+							<li><a type-tag='项链' class="type-filter-btn chover " href="javascript:void(0)">项链</a></li>
+							<li><a type-tag='胸针' class="type-filter-btn chover " href="javascript:void(0)">胸针</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="container">
 					<div class="ds-list-wrap mt30 clearfix">
 						<div class="filter-bynum mt10 fl">
-							<a data-tag="filter_all" class="filter-btn chover active" href="javascript:void(0)">综合</a>
-							<a data-tag="filter_download_num" class="filter-btn chover" href="javascript:void(0)">下载量</a>
-							<a data-tag="filter_mark_num" class="filter-btn chover" href="javascript:void(0)">收藏量</a>
-							<a data-tag="filter_time" class="filter-btn chover" href="javascript:void(0)">最新作品</a>
+							<a data-tag="1" class="filter-btn chover active" href="javascript:void(0)">综合</a>
+							<a data-tag="2" class="filter-btn chover" href="javascript:void(0)">下载量</a>
+							<a data-tag="3" class="filter-btn chover" href="javascript:void(0)">收藏量</a>
+							<a data-tag="4" class="filter-btn chover" href="javascript:void(0)">最新作品</a>
 						</div>
 					</div>
 					<div class="ds-list-box mt20">

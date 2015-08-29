@@ -5,54 +5,76 @@ $(function (){
 		list_box = $('.ds-list-box ul'),
 		mark_btn = $('.show-mark-btn'),
 		ds_list_box = $('.ds-list-box ul'),
-		goods_tomark = $('.goods-tomark');
+		goods_tomark = $('.goods-tomark'),
+		type_filter = $('.ds-classify-box a');
 
 	filter_bynum.on('click',function (){
 		var _this = $(this),
-			_tag = _this.attr('data-tag');
+			data_tag = _this.attr('data-tag'),
+			type_tag = _this.attr('type-tag');
 
 		clickFocus(_this);
 		ds_list_box.empty();
 		var sucStr = '';
 		var click_count = 0
-		switch(_tag){
-			case 'filter_all': $.post('/designer/my_personal',{ 'work_kind': _tag },function (e){
-				// do something
-
-			});
-				break;
-			case 'filter_download_num': $.post('/designer/downed_list',{ 'work_kind': _tag, 'click_count': click_count },function (e){
+		console.log(data_tag);
+		console.log(type_tag);
+		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
 
 				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){
 					sucStr += '<li><div class="list-box pr"><div class="list-img mb10"><a target="_blank" href="/shop/goods-detail?goods_id='+ sucList[i].id +'"><img class="goods_img" src="'+ sucList[i].preview_1 +'" alt="" /></a></div><div class="num-box tc mb10"><p class="mr15 inl-b"><em class="download-num-ico"></em><span class="goods_downloadNum">'+ sucList[i].download_count +'</span></p><p class="inl-b"><em class="mark-num-ico"></em><span class="goods_markNum">'+ sucList[i].collect_count +'</span></p></div><div class="list-title tc mb10"><a class="goods_name" target="_blank" href="/shop/goods-detail?goods_id='+ sucList[i].id +'">'+ sucList[i].goods_name +'</a></div><p class="goods_price f12 tc">￥'+ sucList[i].goods_price +'</p>';
+					if (sucList[i].now_user == 'V'){
 
-					if(sucList[i].is_collect){
-						sucStr += '<a class="pa goods-tomark active" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
-					}else {
-						sucStr += '<a class="pa goods-tomark " href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+						if(sucList[i].is_collect){
+							sucStr += '<a class="pa goods-tomark active" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+						}else {
+							sucStr += '<a class="pa goods-tomark " href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+						}
+					} else {
+						continue
 					}
 
 				}
 				ds_list_box.append(sucStr);
 
 			});
-				break;
-
-			case 'filter_mark_num': $.post('',{ 'work_kind': _tag },function (e){
-				// do something
-
-			});
-				break;
-
-			case 'filter_time': $.post('',{ 'work_kind': _tag },function (e){
-				// do something
-
-			});
-				break;
-		}
 
 	});
+
+	type_filter.on('click',function (){
+		var _this = $(this),
+			data_tag = _this.attr('data-tag'),
+			type_tag = _this.attr('type-tag');
+
+		clickFocus(_this);
+		ds_list_box.empty();
+		var sucStr = '';
+		var click_count = 0
+		$.post('/designer/type_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
+
+				var sucList = JSON.parse(e).all_list;
+				for(var i=0,len=sucList.length;i<len;i++){
+					sucStr += '<li><div class="list-box pr"><div class="list-img mb10"><a target="_blank" href="/shop/goods-detail?goods_id='+ sucList[i].id +'"><img class="goods_img" src="'+ sucList[i].preview_1 +'" alt="" /></a></div><div class="num-box tc mb10"><p class="mr15 inl-b"><em class="download-num-ico"></em><span class="goods_downloadNum">'+ sucList[i].download_count +'</span></p><p class="inl-b"><em class="mark-num-ico"></em><span class="goods_markNum">'+ sucList[i].collect_count +'</span></p></div><div class="list-title tc mb10"><a class="goods_name" target="_blank" href="/shop/goods-detail?goods_id='+ sucList[i].id +'">'+ sucList[i].goods_name +'</a></div><p class="goods_price f12 tc">￥'+ sucList[i].goods_price +'</p>';
+					if (sucList[i].now_user == 'V'){
+
+						if(sucList[i].is_collect){
+							sucStr += '<a class="pa goods-tomark active" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+						}else {
+							sucStr += '<a class="pa goods-tomark " href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+						}
+					} else {
+						continue
+					}
+
+				}
+				ds_list_box.append(sucStr);
+
+			});
+
+	});
+
+
 
 	// 关注 or 取消关注
 	mark_btn.on('click',function (){
