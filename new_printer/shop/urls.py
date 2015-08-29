@@ -8,11 +8,11 @@ urlpatterns = patterns('',
         url('^test$', views.test, name="test"),
 
         # 展示型首页
-        url('^$', views.test, name="index"),
+        url('^$', views.all_goods_list, name="index"),
 
         # 网站内首页
         url('^home$', views.test, name="home"),
-        
+
         # 登录注册页
         url('^login_register', views.login_register, name='login_register'),
 
