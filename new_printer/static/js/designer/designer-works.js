@@ -494,6 +494,7 @@ function getPage(total,cur){	//生成页码
 
 		if(cur>5){		//当前页大于5，前面出现小点
 			pageStr += '<li class="designer-works-page-dots">...</li>';
+			cur = parseInt(cur);
 			for(var p=cur-4;p<cur+2;p++){
 				if((p+1) == cur){
 					pageStr +='<li class="page-current">'+cur+'</li>';

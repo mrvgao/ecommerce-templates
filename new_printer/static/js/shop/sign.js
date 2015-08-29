@@ -190,11 +190,11 @@ $(function (){
 					if(result['status']=='TRUE'){
 						_next.slideUp();
 						_this.removeClass('active');
-						signInResult[0] = true;
+						signInResult[1] = true;
 					}else {
 						_next.slideDown();
 						_this.addClass('active');
-						signInResult[0] = false;
+						signInResult[1] = false;
 					}
 					
 				});

@@ -468,17 +468,26 @@ span.user-tool-help {
 
 
 /* 分页部分 paging */
-.paging-btn, .paging-more {
+.paging-btn, .page-btn, .paging-more {
 	display:inline-block;
 	padding:10px 15px;
 	background:#eee;
 	text-align:center;
 }
-.paging-btn.active {
+.page-btn {
+	margin-left:4px;
+}
+.page-btn:first-child {
+	margin-left:0;
+}
+.paging-more {
+	margin-left:4px;
+}
+.paging-btn.active, .page-btn.active {
 	background:#79d0d8;
 	color:#fff;
 }
-.paging-btn:hover {
+.paging-btn:hover, .page-btn:hover {
 	background:#79d0d8;
 	color:#fff;
 }
