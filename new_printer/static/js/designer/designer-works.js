@@ -380,7 +380,9 @@ function cancelAll(){	//批量取消发布
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
 		_id = _this.parents('.designer-works-list-box').attr('data-id');
-
+		var _this = $(this),
+			deleteObj = _this.parents('.designer-works-list-box'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', { "id": _id ,'state':state }, function(e){
 
 			if(e){
@@ -398,11 +400,11 @@ function cancelAll(){	//批量取消发布
 function cancelSigle(){		//单个取消发布
 	$('.works-cancel-btn').on('click',function(){
 		var _this = $(this),
-		deleteObj = _this.parents('.designer-works-list-box'),
-		_id = deleteObj.attr('data-id');
+			deleteObj = _this.parents('.designer-works-list-box'),
+			_id = deleteObj.attr('data-id');
 		var _this = $(this),
-		deleteObj = _this.parents('.designer-works-list-box'),
-		state = deleteObj.attr('data-state');
+			deleteObj = _this.parents('.designer-works-list-box'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 			if(e){
 				alert(e);
@@ -642,10 +644,13 @@ function publish_edit(){	//编辑弹窗函数
 		var imgsrc = imgs.eq(0).attr('src');
 		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 		var imgsrc = imgs.eq(1).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
+		if (imgsrc) {
+			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
+		}
 		var imgsrc = imgs.eq(2).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
-
+		if (imgsrc) {
+			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
+	 	}
 		$('.modify-imgs-container').append(imgStr);
 
 	});

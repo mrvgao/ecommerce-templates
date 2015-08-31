@@ -59,9 +59,9 @@ urlpatterns = patterns('',
 	#显示我的动态的页面 my_state
 	url(r'^my_state$',views.my_state,name = 'my_state'),
 	
-	url(r'^center_visit$',views.center_visit,name = 'center_visit'),
+	#url(r'^center_visit$',views.center_visit,name = 'center_visit'),
 
-	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
+	#url(r'^works_visit$',views.works_visit,name = 'works_visit'),
 
 	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
 
@@ -75,7 +75,12 @@ urlpatterns = patterns('',
 
 	#添加关注和收藏
 	url(r'^add_focus$',views.add_focus,name = 'add_focus'),
+
 	url(r'^cancel_focus$',views.cancel_focus,name = 'cancel_focus'),
+
 	url(r'^add_collect$',views.add_collect,name = 'add_collect'),
+
 	url(r'^cancel_collect$',views.cancel_collect,name = 'cancel_collect'),
+	
+	url(r'^add_alipay$',views.add_alipay,name = 'add_alipay'),
 )

@@ -28,8 +28,8 @@ import json,pdb,hashlib
 
 def works_upload(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img) }
-    return render(request, website.upfile,conf)
+    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img) }
+    return render(request, website.upfile, conf)
 
 def stls_save(stls):
     jwary_md5 = {}
@@ -176,6 +176,7 @@ def unexecute_delete(request):
     '''
         #在未审核页面直接删除作品 ;在已发布页面点击编辑后，点击取消发布；
     '''
+    #pdb.set_trace()
     ids = request.POST['id']
     state = int(request.POST['state'])
     if state<4:
@@ -184,25 +185,6 @@ def unexecute_delete(request):
         Goods.objects.filter(id = ids).update(is_active=0)
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
-
-
-'''def unexecute_edit(request):
-    
-    #在未审核页面 点击处理并提交 后往JS传得值
-    
-    id = 40#request.POST['id'] 
-    goods_list = Goods_Upload.objects.filter(id = id)
-    return_good = []
-    for good in goods_list:
-        temp = {'id':good.id,
-                'name':good.goods_name,
-                'file_size':good.file_size,
-                'upload_time':good.upload_time.strftime("%Y-%m-%d"),
-                'stl_path':str(good.stl_path)
-                  }
-        return_good.append(temp)
-    conf = {'good':return_good}  
-    return HttpResponse(json.dumps(conf))  '''
 
 
 def edit_submit(request):
@@ -224,7 +206,6 @@ def edit_submit(request):
     name = request.POST['stl_name']
     if not name:
         name = good.goods_name
-    
     for preview in previews:
         count = int(preview)
         preview_type=str(previews[preview])
@@ -255,18 +236,20 @@ def edit_submit(request):
 
 
 def deletePic(request):
+    #pdb.set_trace()
     this_id = request.POST['id']
     picid = int(request.POST['picId'])
     print picid
     good = Goods_Upload.objects.filter(id = this_id)
     if picid == 0:
-        delpic = good.update(preview_1='null')
+        delpic = good.update(preview_1=' ')
     if picid == 1:
-        delpic = good.update(preview_2='null')
+        delpic = good.update(preview_2=' ')
     if picid == 2:
-        delpic = good.update(preview_3='null')
+        delpic = good.update(preview_3=' ')
     conf = {'status':'success'}
     return HttpResponse(json.dumps(conf))
+
 
 def photo_save(model,name,stl_type,stl_md5):
     chunks = ""
@@ -341,15 +324,6 @@ def not_passed(request):
     conf = {'all_list':return_list,'total_pages':total_pages,'now_page':now_page,
               }
     return HttpResponse(json.dumps(conf))
-
-
-'''#未通过页面，点击 重新申请发布 后的反馈操作
-def photo_not_passed(request):#未通过页面，点击重新申请发布
-    id = 56#request.POST['id']
-    design_list = Goods_Upload.objects.filter(id=id)
-    return_list = good_filter.unpublish_exec(design_list)
-    conf = {'return_list':return_list}
-    return HttpResponse(json.dumps(conf))'''
 
 
 def has_published(request):
