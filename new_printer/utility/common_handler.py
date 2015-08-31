@@ -1,7 +1,11 @@
 # coding=utf-8
 import random
+from django.core.exceptions import ObjectDoesNotExist
 
 from configuration import website as admin_website
+
+from configuration.models import Vender_User
+from configuration.models import Designer_User
 
 
 class AlgorithmHandler(object):
