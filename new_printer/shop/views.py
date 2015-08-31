@@ -366,7 +366,6 @@ def all_goods_list(request):
         goods_list = get_goods_list_by_tags(goods_tags, vender_id)
         goods_list *= 10
 
-    '''
     user = request.user
     user.status = True
     try:
@@ -380,5 +379,6 @@ def all_goods_list(request):
     context = {
         'customer_name': customer_name,
     }
+    '''
 
-    return render(request, website.all_goods_list, context)
+    return render(request, website.all_goods_list)
