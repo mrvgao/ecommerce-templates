@@ -571,18 +571,61 @@ body{
 }
 .designer-baseInfo{
 	width: 915px;
-	height: 400px;
-	background: #fff;
 	margin-left: 15px;
 }
 .designer-baseInfo-container{
 	width: 770px;
-	margin: 36px auto;
+	padding:36px 72px;
 	color: #949494;
+	background: #fff;
 }
 .designer-baseInfo-container h2{
 	font-size: 20px;
 	margin-bottom: 65px;
+}
+.ower-alipay-info {
+	height:500px;
+	padding:36px 72px;
+	color: #949494;
+	background: #fff;
+}
+.btn-changepw {
+	display:inline-block;
+	width:74px;
+	height:24px;
+	font-size:14px;
+	color:#fff;
+	background:#79d0d8;
+	cursor:pointer;
+	border-radius:5px;
+}
+.uinfo-box {
+	padding-bottom:20px;
+	margin-bottom:20px;
+	border-bottom:1px solid #ccc;
+}
+.add-alipay-btn {
+	display:inline-block;
+	width:250px;
+	height:160px;
+	background-color:#fff;
+	color:#62cdd7;
+	border:1px solid #62cdd7;
+	border-radius:6px;
+}
+em.add-alipay-ico {
+	display:block;
+	width:50px;
+	height:50px;
+	background-image:url('/static/images/designer/add-alipay-ico.png');
+	background-position:-10px -10px;
+}
+.add-alipay-btn:hover {
+	color:#fff;
+	background-color:#62cdd7;
+}
+.add-alipay-btn:hover em.add-alipay-ico {
+	background-position:-10px -70px;
 }
 .designer-modify-photo{
 	width: 172px;
@@ -969,6 +1012,120 @@ em.mark-num-ico {
 	background-position:-192px -11px;
 }
 
-
-
-
+.set-alipay-wrap, .set-headportrait-wrap, .change-headportrait-wrap {
+	position:fixed;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,.3);
+}
+.set-alipay-box {
+	width:430px;
+	height:320px;
+	position:fixed;
+	left:50%;
+	top:50%;
+	margin-top:-180px;
+	margin-left:-235px;
+	background:#fff;
+	padding:20px;
+}
+.set-alipay-head {
+	border-bottom:1px solid #ccc;
+}
+.set-cont-box {
+	width:250px;
+}
+.set-cont-list {
+	margin-bottom:20px;
+}
+.pay-empty {
+	width:240px;
+	padding-left:8px;
+	height:34px;
+}
+.set-payinfo-btn button {
+	width:118px;
+	height:34px;
+	border:1px solid #62cdd7;
+	cursor:pointer;
+}
+.bind-btn, .change-btn {
+	color:#fff;
+	background:#62cdd7;
+}
+.close-bind, .close-change {
+	color:#999;
+	background:#fff;
+}
+.close-set, .close-headportrait {
+	width:40px;
+	height:40px;
+	right:0;
+	top:0;
+	cursor:pointer;
+	background-image:url('/static/images/designer/designerIcon.png');
+	background-position:-10px -332px;
+}
+em.test-ico {
+	width:24px;
+	height:24px;
+	top:5px;
+	right:-30px;
+}
+em.test-ico.test-true {
+	background-image:url('/static/images/designer/designerIcon.png');
+	background-position:-106px -126px;
+}
+em.test-ico.test-false {
+	background-image:url('/static/images/designer/designerIcon.png');
+	background-position:-170px -126px;
+}
+.set-headportrait-box {
+	width:410px;
+	height:210px;
+	position:fixed;
+	left:50%;
+	top:50%;
+	margin-top:-125px;
+	margin-left:-225px;
+	background:#fff;
+	padding:20px;
+}
+.set-head-title {
+	padding-bottom:14px;
+	border-bottom:1px solid #ccc;
+}
+.set-head-box {
+	width:200px;
+}
+.set-head-btn {
+	width:200px;
+	height:38px;
+	background:#62cdd7;
+	color:#fff;
+	cursor:pointer;
+}
+.set-payinfo-btn {
+	width:250px;
+}
+.change-head-box {
+	width:330px;
+}
+.change-img {
+	width:330px;
+	height:330px;
+	background:red;
+}
+.change-headportrait-box {
+	width:410px;
+	height:510px;
+	position:fixed;
+	left:50%;
+	top:50%;
+	margin-top:-275px;
+	margin-left:-225px;
+	background:#fff;
+	padding:20px;
+}
