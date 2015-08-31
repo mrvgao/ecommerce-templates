@@ -225,6 +225,7 @@ def my_state(request):
     #显示我的动态的页面 my_state
     '''
     #user = request.user
+
     designer = Designer_User.objects.get(user_id = 1)#user.id)
     unpublished_list = Goods_Upload.objects.filter(designer_id = designer.id)
     published_list = Goods.objects.filter(designer_id = designer.id)
@@ -239,33 +240,13 @@ def my_state(request):
     all_list = unpublished_list.count() + published_list.count()
     designer_record = Design_record.objects.filter(designer_id = designer.id)
     now = datetime.now()
-    design_week = [0]
-    good_week = [0]
     published_list = Goods.objects.filter(designer_id = designer.id)
-    for time in range(7):
-        start = now - timedelta(days = time,hours = 23)
-        a=designer_record.filter(d_visit_time__gte = start)
-        a = len(a) - sum(design_week)
-        design_week.append(a)
-    for time in range(7):
-        record = 0
-        for good in published_list:
-            goods_record = Good_record.objects.filter(good_id = good.id)
-            start = now - timedelta(days = time,hours = 23)
-            a=goods_record.filter(g_visit_time__gte = start)
-            record = record+len(a)
-        record = record - sum(good_week)
-        good_week.append(record)
-    center = center_visit(d_id) 
+    
     works = works_visit(d_id)
     conf = { 'worksNum':all_list,
             'worksCollection':collect,
             'downloadNum':download,
             'focusNum':designer.marked_count,
-            'weekNum_center': center['weekNum'],
-            'monthNum_center': center['monthNum'],
-            'weekNum_work': works['weekNum'],
-            'monthNum_work': works['monthNum'],
             'name':designer.designername,
             'img':str(server_website.file_server_path)+str(designer.img)
             }
@@ -325,8 +306,12 @@ def works_visit(d_id):
             record = record+len(a)
         record = record - sum(monthNum)
         monthNum.append(record)
-    conf = { 'weekNum': weekNum, 'monthNum': monthNum}
-    return conf
+    center = center_visit(d_id) 
+    conf = { 'weekNumcenter': center['weekNum'],
+            'monthNumcenter': center['monthNum'],
+            'weekNumwork': weekNum,
+            'monthNumwork': monthNum}
+    return HttpResponse(json.dumps(conf)) 
 
 
 def setup(request):
