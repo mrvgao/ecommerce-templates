@@ -365,20 +365,13 @@ def all_goods_list(request):
 
         goods_list = get_goods_list_by_tags(goods_tags, vender_id)
         goods_list *= 10
+    '''
 
     user = request.user
-    user.status = True
-    try:
-        customer = Vender_User.objects.get(id=user.id)
-        customer_name = customer.vendername
-    except ObjectDoesNotExist:
-        customer = Designer_User.objects.get(id=user.id)
-        customer_name = customer.designername
-        user.status = False
+    customer_name = common_handler.get_customer(user)
 
     context = {
         'customer_name': customer_name,
     }
-    '''
 
-    return render(request, website.all_goods_list)
+    return render(request, website.all_goods_list, context)
