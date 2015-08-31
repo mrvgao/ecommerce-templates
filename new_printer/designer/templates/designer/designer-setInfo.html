@@ -3,24 +3,29 @@
 	{% block rightContent %}
 		<div class="designer-baseInfo fl">
 			<div class="designer-baseInfo-container  clearfix ">
-				<h2>基本信息</h2>
-				<div class="designer-modify-photo fl">
-					<img src="{{ img }}">
-					<span  class="modify-photo-btn"><a href= "/designer/change_icon">头像编辑</a></span>
+				<div class="ower-info-box">
+					<h2>基本信息</h2>
+					<div class="designer-modify-photo fl">
+						<img src="{{ img }}">
+						<span  class="modify-photo-btn"><a href= "/designer/change_icon">头像编辑</a></span>
+					</div>
+					<div class="designer-personInfo fl">
+						<p>
+							<label>昵称：</label><span>{{ name }}</span>
+						</p>
+						<p>
+							<label>性别：</label><span>男{{ designer.sex }}</span>
+						</p>
+						<p>
+							<label>出生日期：</label><span>1991-10-01{{ designer.brithday }}</span>
+						</p>
+						<p>
+							<label>身份：</label><span>设计师{{ designer.identity }}</span>
+						</p>
+					</div>
 				</div>
-				<div class="designer-personInfo fl">
-					<p>
-						<label>昵称：</label><span>{{ name }}</span>
-					</p>
-					<p>
-						<label>性别：</label><span>男{{ designer.sex }}</span>
-					</p>
-					<p>
-						<label>出生日期：</label><span>1991-10-01{{ designer.brithday }}</span>
-					</p>
-					<p>
-						<label>身份：</label><span>设计师{{ designer.identity }}</span>
-					</p>
+				<div class="ower-alipay-info">
+					
 				</div>
 				<h2>账号信息</h2>
 				<P>账号：<span>{{desi}}</span></P>
