@@ -647,28 +647,6 @@ function publish_edit(){	//编辑弹窗函数
 		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 
 		$('.modify-imgs-container').append(imgStr);
-		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
-			var imgBox = $('.modify-imgs-box');
-			if(imgBox.length==1){
-				alert("至少要有一张预览图");
-			}else{
-				var _index = $(this).index(),
-					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
-				
-				$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
-					if('success'==JSON.parse(e).status){
-						alert('delete success!');
-					}
-				});
-				$(this).parents('.modify-imgs-box').find('img').attr('src','');
-			}
-		});
-
-		// 修改图片
-		$('.modify-imgs-modify-btn').on('click',function(){
-
-			$(this).prev().find('input').click();
-		});
 
 	});
 

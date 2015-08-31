@@ -7,7 +7,7 @@
 					<h2>基本信息</h2>
 					<div class="designer-modify-photo fl">
 						<img src="{{ img }}">
-						<span  class="modify-photo-btn"><a href= "/designer/change_icon">头像编辑</a></span>
+						<span  class="modify-photo-btn"><a class="head-portrait" href= "javascript:void(0)">头像编辑</a></span>
 					</div>
 					<div class="designer-personInfo fl">
 						<p>
@@ -24,9 +24,88 @@
 						</p>
 					</div>
 				</div>
-				<div class="ower-alipay-info">
-					
+				<div class="set-headportrait-wrap hide">
+					<div class="set-headportrait-box pr">
+						<div class="set-head-cont">
+							<p class="set-head-title f20 mb30">账号信息</p>
+							<div class="set-head-box bc">
+								<button class="set-head-btn mt30">上传头像</button>
+								<input class="head-file hide" type="file" />
+								<p class="mt5 f12">jpg或png，大小不超过2M</p>
+							</div>
+						</div>
+						<em class="close-headportrait pa"></em>
+					</div>
+				</div>
+				<div class="change-headportrait-wrap">
+					<div class="change-headportrait-box pr">
+						<div class="set-head-cont">
+							<p class="set-head-title f20 mb30">修改头像</p>
+							<div class="change-head-box bc">
+								<div class="change-img">
+									
+								</div>
+								<div class="set-payinfo-btn bc mt30">
+									<button class="change-btn mr10">确认</button>
+									<button class="close-change">取消</button>
+								</div>
+							</div>
+						</div>
+						<em class="close-headportrait pa"></em>
+					</div>
 				</div>
 			</div>
+			<div class="ower-alipay-info mt20">
+				<div class="uinfo-box">
+					<p class="f20 mb30">账号信息</p>
+					<div class="user-info-box">
+						<div class="info-list mb15 f16">
+							<span>账号：</span>
+							<span>18615261239</span>
+						</div>
+						<div class="info-list mb15 f16">
+							<span>密码：</span>
+							<button class="btn-changepw">更改密码</button>
+						</div>
+					</div>
+				</div>
+
+				{% if not is_alipaybind %}
+				<div class="add-alipay-account">
+					<p class="f18 mb30">您尚未添加支付宝账户</p>
+					<a class="add-alipay-btn tc" href="javascript:void(0)"><em class="add-alipay-ico bc mt50 mb20"></em>添加支付宝账户</a>
+					<div class="set-alipay-wrap hide">
+						<div class="set-alipay-box pr">
+							<p class="set-alipay-head f20 pb10">添加支付</p>
+							<div class="set-cont-box bc mt30">
+								<div class="set-cont-list pr">
+									<input class="pay-empty" type="text" placeholder="支付宝账户姓名" />
+									<em class="test-ico pa"></em>
+								</div>
+								<div class="set-cont-list pr">
+									<input class="pay-empty" type="text" placeholder="支付宝账号" />
+									<em class="test-ico pa"></em>
+								</div>
+								<div class="set-cont-list pr">
+									<input class="pay-empty" type="text" placeholder="确认支付宝账号" />
+									<em class="test-ico pa"></em>
+								</div>
+								<div class="set-payinfo-btn mt30">
+									<button class="bind-btn mr10">确认</button>
+									<button class="close-bind">取消</button>
+								</div>
+							</div>
+							<em class="close-set pa"></em>
+						</div>
+					</div>
+				</div>
+				{% else %}
+				<p class="f18 mb30">您已经绑定了支付宝账户</p>
+				{% endif %}
+
+			</div>
 		</div>
+		{% load staticfiles %}
+		<script type="text/javascript" src="{% static 'js/designer/setup.js' %}"></script>
+
 	{% endblock %}
