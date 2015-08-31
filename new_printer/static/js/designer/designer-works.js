@@ -8,7 +8,7 @@ $(function(){
 		designer_works_lists = $('.designer-works-lists'),
 		designer_works_container = $('.designer-works-container');
 
-	workd_unexecute(1);
+		workd_unexecute(1);
 
 	$('#checkall').on('click',function(){	//全选按钮点击事件
 		isCheckAll();
@@ -51,7 +51,7 @@ $(function(){
 
 
 ShowStl.screenShotByElement = function(elementId){
-	/*html2canvas(document.getElementById(elementId), {*/
+
 	html2canvas($('.designer-sidebar-pic'), {
 
 		allowTaint: true,
@@ -74,30 +74,6 @@ ShowStl.screenShotByElement = function(elementId){
 
 			$('.modify-imgs-box').eq(0).find('img').attr('src',dataUrl);
 
-			console.log('url:'+dataUrl);
-			console.log('imgsrc:'+$('.modify-imgs-box').eq(0).find('img').attr('src'));
-			//document.getElementById('designer_order_preview').appendChild(newImg); 
-
-
-
-
-
-			/*DesignerOrder.designer_introduction = $('.designer_order_choice textarea').eq(1).val();*/
-
-			/*if(DesignerOrder.order_state === "appointment_received"){*/
-
-			/*socket.emit('designer_first_draft_done',myUserName,nowTargUser,dataUrl,DesignerOrder.designer_introduction,DesignerOrder.finger,DesignerOrder.size,DesignerOrder.with_stone,DesignerOrder.material,DesignerOrder.price,DesignerOrder.canvas);*/
-
-			/*alert('已生成初稿订单');*/
-
-			/*}else if(DesignerOrder.order_state === "first_draft_done"){*/
-
-			/*socket.emit('designer_final_draft_done',myUserName,nowTargUser,dataUrl,DesignerOrder.designer_introduction,DesignerOrder.canvas);*/
-
-			/*alert('已生成终稿订单');*/
-
-			/*}*/
-
 		}
 
 	});
@@ -108,8 +84,8 @@ function toSearch(){
 	// 敲回车搜索
 	$('.search-box').on('keyup',function (e){
 		var _val = $('.search-box').val(),
-			_txt = $('.designer-works-nav-current').text(),
-			_title = $('.works-current').text().substr(0,3);
+		_txt = $('.designer-works-nav-current').text(),
+		_title = $('.works-current').text().substr(0,3);
 		if(e.keyCode == 13){
 			if(_val != '' || _val != null){
 				$.post('',{
@@ -126,10 +102,8 @@ function toSearch(){
 	// 点击搜索
 	$('.designer-works-search-icon').on('click',function (){
 		var _val = $('.search-box').val(),
-			_txt = $('.designer-works-nav-current').text(),
-			_title = $('.works-current').text().substr(0,3);
-		//alert(_val)
-		var _title = 0
+		_txt = $('.designer-works-nav-current').text(),
+		_title = $('.works-current').text().substr(0,3);
 
 		if(_val != '' || _val != null){
 			$.post('/designer/unpublished_good_search',{
@@ -157,7 +131,7 @@ function toSearch(){
 
 	$('.designer-works-nav li').on('click',function (){
 		var _txt = $(this).text(),
-			_title = $('.works-current').text().substr(0,3);
+		_title = $('.works-current').text().substr(0,3);
 
 		$(this).siblings().removeClass('designer-works-nav-current');
 		$(this).addClass('designer-works-nav-current');
@@ -192,10 +166,10 @@ function workd_unexecute(page){		//加载未审核的数据
 			var waitList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=waitList.length;i<len;i++){
-				//waitStr+='<tr data-state=1 data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="works-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
-				waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+
+				waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-img="'+ waitList[i].preview_1 +'" data-uptime="'+ waitList[i].upload_time +'" data-size="'+ waitList[i].file_size +'" data-type="'+ waitList[i].type +'" data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 			}
-			// waitStr = '<tbody>' + waitStr +'</tbody>';
+
 			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
 			getPage(totalPage,page);
 
@@ -211,27 +185,6 @@ function workd_unexecute(page){		//加载未审核的数据
 		$('.designer-works-list-bigpic fl').each(function(){
 			/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
 		});
-
-
-		// 未审核弹窗,用于编辑
-		// var _btn = $('.works-modify-btn ');
-		// _btn.on('click',function (){
-		// 	$('.modify-content').show();
-		// 	closeEdit();
-
-		// 	$.post('',{},function (e){
-		// 		// do something
-
-		// 	});
-
-		// 	$('.modify-btn-submit').on('click',function (){
-		// 		$.post('',{},function (){
-		// 			// do something
-
-		// 		});
-		// 	});
-		// });
-
 
 	});
 }
@@ -259,8 +212,6 @@ function auditing(page){	//加载审核中的数据
 		}
 		designer_works_lists.append(onStr);
 
-		// added by white
-		deisgnerWorkPicEvent();
 	});
 }
 
@@ -274,7 +225,7 @@ function published(page){	//获取已发布数据
 			var sucList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=sucList.length;i<len;i++){
-				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].upload_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
 					sucStr += '<img src="'+sucList[i].pic[j]+'"/>';
 				}
@@ -290,24 +241,6 @@ function published(page){	//获取已发布数据
 		cancelAll();
 		cancelSigle();
 
-		// 用于编辑
-		// var _btn = $('.works-modify-btn');
-		// _btn.on('click',function (){
-		// 	$('.modify-content').show();
-		// 	closeEdit();
-		// 	$('.modify-imgs-modify').remove();
-		// 	$.post('',{},function (e){
-		// 		// do something
-
-		// 	});
-
-		// 	$('.modify-btn-submit').on('click',function (){
-		// 		$.post('',{},function (){
-		// 			// do something
-
-		// 		});
-		// 	});
-		// });
 		publish_edit();	
 
 
@@ -319,7 +252,9 @@ function published(page){	//获取已发布数据
 			}
 		});
 		$('.works-canelAll-btn').on('click',function (){
-			var _cancelbool = false;
+			var _cancelbool = false,
+				_this = $(this);
+
 			$('.works-cancel-check').each(function (){
 				if(this.checked){
 					_cancelbool = true;
@@ -327,7 +262,7 @@ function published(page){	//获取已发布数据
 			})
 			if(_cancelbool){
 				var _parent = $('.works-cancel-check:checked').parents('.designer-works-list-box'),
-					_id = _parent.attr('data-id');
+				_id = _parent.attr('data-id');
 				$.post('/designer/unexecute_delete',{'id': _id},function (e){
 
 					// 如果数据库没有数据了，就执行else，否则执行if
@@ -341,8 +276,6 @@ function published(page){	//获取已发布数据
 			}
 		});
 
-		// added by white
-		deisgnerWorkPicEvent();
 	});
 }
 
@@ -393,16 +326,16 @@ function isCheckAll(obj){	//全选函数
 
 function deleteAll(){	//批量删除函数
 	var deleteTag = $('.works-wait-delete-check:checked'),
-		worksList = $('tr'),
-		worksContainer = $('.designer-works-wait').find('tbody');
+	worksList = $('tr'),
+	worksContainer = $('.designer-works-wait').find('tbody');
 	var str ='<tr><td colspan="4">没有数据啦⊙.⊙</td></tr>',
-		rest = worksList.length - deleteTag.length;
+	rest = worksList.length - deleteTag.length;
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
-			_id = _this.parents('tr').attr('data-id');
+		_id = _this.parents('tr').attr('data-id');
 		var _this = $(this),
-			deleteObj = _this.parents('tr'),
-			state = deleteObj.attr('data-state');
+		deleteObj = _this.parents('tr'),
+		state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id, 'state':state}, function(e){
 
 			if(e){
@@ -420,11 +353,11 @@ function deleteSigle(){		//单个删除
 
 	$('.wait-delete-single').on('click',function(){
 		var _this =$(this),
-			deleteObj = _this.parents('tr'),
-			_id = deleteObj.attr('data-id');
+		deleteObj = _this.parents('tr'),
+		_id = deleteObj.attr('data-id');
 		var _this = $(this),
-			deleteObj = _this.parents('tr'),
-			state = deleteObj.attr('data-state');
+		deleteObj = _this.parents('tr'),
+		state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 
 			if(e){
@@ -439,14 +372,14 @@ function deleteSigle(){		//单个删除
 function cancelAll(){	//批量取消发布
 
 	var cancelTag = $('.works-cancel-check:checked'),
-		worksList = $('.designer-works-list-box'),
-		worksContainer = designer_works_lists,
-		str ='没有数据啦⊙.⊙',
-		rest = worksList.length - cancelTag.length;
+	worksList = $('.designer-works-list-box'),
+	worksContainer = designer_works_lists,
+	str ='没有数据啦⊙.⊙',
+	rest = worksList.length - cancelTag.length;
 
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
-			_id = _this.parents('.designer-works-list-box').attr('data-id');
+		_id = _this.parents('.designer-works-list-box').attr('data-id');
 
 		$.post('/designer/unexecute_delete', { "id": _id ,'state':state }, function(e){
 
@@ -465,11 +398,11 @@ function cancelAll(){	//批量取消发布
 function cancelSigle(){		//单个取消发布
 	$('.works-cancel-btn').on('click',function(){
 		var _this = $(this),
-			deleteObj = _this.parents('.designer-works-list-box'),
-			_id = deleteObj.attr('data-id');
+		deleteObj = _this.parents('.designer-works-list-box'),
+		_id = deleteObj.attr('data-id');
 		var _this = $(this),
-			deleteObj = _this.parents('.designer-works-list-box'),
-			state = deleteObj.attr('data-state');
+		deleteObj = _this.parents('.designer-works-list-box'),
+		state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 			if(e){
 				alert(e);
@@ -493,6 +426,7 @@ function getPage(total,cur){	//生成页码
 
 		if(cur>5){		//当前页大于5，前面出现小点
 			pageStr += '<li class="designer-works-page-dots">...</li>';
+			cur = parseInt(cur);
 			for(var p=cur-4;p<cur+2;p++){
 				if((p+1) == cur){
 					pageStr +='<li class="page-current">'+cur+'</li>';
@@ -525,8 +459,8 @@ function creatPages(){		//生成页码
 	$('.designer-works-page li').on('click',function(){
 		var _this = $(this);
 		var toPage = _this.text(),
-			thisType = $('.works-current').text().substr(0,3),
-			curPage = $('.page-current').text();
+		thisType = $('.works-current').text().substr(0,3),
+		curPage = $('.page-current').text();
 		totalPage = $('.designer-works-page').attr('data-total');
 
 		toPage = judgePage(toPage, curPage, totalPage);
@@ -575,30 +509,35 @@ function judgePage(toPage, curPage, totalPage){		//判断点击的页码
 
 function edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
-		var _this = $(this);
-		p_editInfo (_this);
+		var _this = $(this),
+			_kind = 'pushed';
+		p_editInfo (_this,_kind);
 
 	});
 
 	$('.w-modify-btn').on('click',function(){
-		var _this = $(this);
-		p_editInfo (_this);
+		var _this = $(this),
+			_kind = 'unexecute';
+
+		p_editInfo (_this,_kind);
 
 	});
 
-	function p_editInfo (_this){
+	function p_editInfo (_this,_kind){
 		var _parent = _this.parents('.designer-works-list-box'),
-			id = _parent.attr('data-id'),
-			pic = _parent.find('.works-list-bigpic').attr('src'),
-			type = _parent.attr('data-type'),
-			size = _parent.attr('data-size'),
-			price = _parent.attr('data-price'),
-			name = _parent.find('.designer-works-list-title').text(),
-			describe = _parent.find('.designer-works-list-describe').text(),
-			imgs = _parent.find('.designer-works-list-img'),
-			modify_imgs_container = $('.modify-imgs-container'),
-			imgStr = '',
-			up_time = _parent.attr('data-uptime');
+		id = _parent.attr('data-id'),
+		pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
+		type = _parent.attr('data-type'),
+		size = _parent.attr('data-size'),
+		price = _parent.attr('data-price'),
+		name = _parent.find('.designer-works-list-title').text(),
+		describe = _parent.find('.designer-works-list-describe').text(),
+		imgs = _parent.find('.designer-works-list-img'),
+		modify_imgs_container = $('.modify-imgs-container'),
+		imgStr = '',
+		up_time = _parent.attr('data-uptime');
+
+
 
 		modify_imgs_container.empty();
 		$('.designer-zoom').css('display','block');
@@ -611,16 +550,18 @@ function edit(){	//编辑弹窗函数
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
 		$('.modify-id').val(id);
-		//for(var i=0;i<imgs.length;i++){
-		//	var imgsrc = imgs.eq(i).attr('src');
-		//	imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="photo_file" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
-		//}
+
+		if(_kind == 'unexecute'){
+			var _imgsrc = _parent.attr('data-img');
+			$('.modify-stl-preview').attr('src',_imgsrc );
+		}
+
 		var imgsrc = imgs.eq(0).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="1" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
+		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="1" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
 		var imgsrc = imgs.eq(1).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="2" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
+		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="2" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
 		var imgsrc = imgs.eq(2).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="3" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
+		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="3" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
 
 		$('.modify-imgs-container').append(imgStr);
 		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
@@ -630,14 +571,13 @@ function edit(){	//编辑弹窗函数
 			}else{
 				var _index = $(this).index(),
 					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
-				$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
-					if('success'==JSON.parse(e).status){
-						alert('delete success!')
-						//$(this).parents('.modify-imgs-box').find('img').attr('src','');
+					$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
+						if('success'==JSON.parse(e).status){
+							alert('delete success!');
 					}
 				});$(this).parents('.modify-imgs-box').find('img').attr('src','');
-			}
-		});
+				}
+			});
 
 		// 修改图片
 		$('.modify-imgs-modify-btn').on('click',function(){
@@ -676,18 +616,18 @@ function closeEdit(){
 function publish_edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
 		var _this = $(this),
-			_parent = _this.parents('.designer-works-list-box'),
-			id = _parent.attr('data-id'),
-			pic = _parent.find('.works-list-bigpic').attr('src'),
-			type = _parent.attr('data-type'),
-			size = _parent.attr('data-size'),
-			price = _parent.attr('data-price'),
-			name = _parent.find('.list-data-update').text(),
-			describe = _parent.find('.designer-works-list-describe').text(),
-			imgs = _parent.find('.designer-works-list-img'),
-			modify_imgs_container = $('.modify-imgs-container'),
-			imgStr = '',
-			up_time = _parent.attr('data-uptime');
+		_parent = _this.parents('.designer-works-list-box'),
+		id = _parent.attr('data-id'),
+		pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
+		type = _parent.attr('data-type'),
+		size = _parent.attr('data-size'),
+		price = _parent.find('.list-data-price-num').text(),
+		name = _parent.find('.designer-works-list-title').text(),
+		describe = _parent.find('.designer-works-list-describe').text(),
+		imgs = _parent.find('.designer-works-list-pics img'),
+		modify_imgs_container = $('.modify-imgs-container'),
+		imgStr = '',
+		up_time = _parent.attr('data-uptime');
 
 		modify_imgs_container.empty();
 		$('.designer-zoom').css('display','block');
@@ -699,16 +639,13 @@ function publish_edit(){	//编辑弹窗函数
 		$('.modify-price').val(price);
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
-		//for(var i=0;i<imgs.length;i++){
-		//	var imgsrc = imgs.eq(i).attr('src');
-		//	imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="photo_file" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a></div></div>';
-		//}
+
 		var imgsrc = imgs.eq(0).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="1" /></div></div></div>';
+		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 		var imgsrc = imgs.eq(1).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="2" /></div></div></div>';
+		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 		var imgsrc = imgs.eq(2).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="3" /></div></div></div>';
+		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 
 		$('.modify-imgs-container').append(imgStr);
 		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
@@ -718,12 +655,13 @@ function publish_edit(){	//编辑弹窗函数
 			}else{
 				var _index = $(this).index(),
 					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
+				
 				$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
 					if('success'==JSON.parse(e).status){
-						alert('delete success!')
-						//$(this).parents('.modify-imgs-box').find('img').attr('src','');
+						alert('delete success!');
 					}
-				});$(this).parents('.modify-imgs-box').find('img').attr('src','');
+				});
+				$(this).parents('.modify-imgs-box').find('img').attr('src','');
 			}
 		});
 

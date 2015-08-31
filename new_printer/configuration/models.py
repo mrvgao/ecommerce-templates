@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+
 class Designer_User(models.Model):
     '''
     设计师
@@ -84,7 +85,7 @@ class Goods_Upload(models.Model):
     #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
     good_state = models.IntegerField(default=0)
     #没有通过审核的原因 新加
-    not_passed = models.CharField(max_length=255,null=True) 
+    not_passed = models.CharField(max_length=255,null=True)
     #restdate
     restdate = models.IntegerField(default=0)
 
