@@ -642,10 +642,13 @@ function publish_edit(){	//编辑弹窗函数
 		var imgsrc = imgs.eq(0).attr('src');
 		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 		var imgsrc = imgs.eq(1).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
+		if (imgsrc) {
+			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
+		}
 		var imgsrc = imgs.eq(2).attr('src');
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
-
+		if (imgsrc) {
+			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
+	 	}
 		$('.modify-imgs-container').append(imgStr);
 		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
 			var imgBox = $('.modify-imgs-box');
