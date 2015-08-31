@@ -343,15 +343,6 @@ def not_passed(request):
     return HttpResponse(json.dumps(conf))
 
 
-'''#未通过页面，点击 重新申请发布 后的反馈操作
-def photo_not_passed(request):#未通过页面，点击重新申请发布
-    id = 56#request.POST['id']
-    design_list = Goods_Upload.objects.filter(id=id)
-    return_list = good_filter.unpublish_exec(design_list)
-    conf = {'return_list':return_list}
-    return HttpResponse(json.dumps(conf))'''
-
-
 def has_published(request):
     '''
     #显示已发布页面
