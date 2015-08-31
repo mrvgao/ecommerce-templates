@@ -29,9 +29,8 @@ class Verification():
         return: 
         '''
         string = ''
-        r = random.randint(11,44)
         for c in phone[-6:]:
-            string += str(self.encrypt(int(c)+r))
+            string += str(self.encrypt(int(c)))
         return string
 
     
