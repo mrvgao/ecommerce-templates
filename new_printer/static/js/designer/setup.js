@@ -90,8 +90,10 @@
 				test_ico.eq(i).addClass('test-false');
 			}
 		}
+		alert(1)
+		//console.log(ali_test[0],ali_test[1],ali_test[2])
 		if(ali_test[0] && ali_test[1] && ali_test[2]){
-			$.post('',{},function (){});
+			$.post('/designer/add_alipay',{},function (){});
 		}
 	});
 

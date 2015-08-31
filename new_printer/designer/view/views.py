@@ -378,7 +378,10 @@ def add_alipay(request):
     添加支付宝账号
     '''
     d_id = request.POST['d_id']
-    ali_name = request.POST['ali_name'] #u'任杰'
-    ali_num = request.POST['ali_num'] #'renmjie@163.com'
+    ali_name = request.POST['ali_name'] 
+    ali_num = request.POST['ali_num'] 
     d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
-    return HttpResponse(json.dumps("success"))
+    if d:
+        return HttpResponse(json.dumps("success"))
+    else:
+        return HttpResponse(json.dumps("Error"))
