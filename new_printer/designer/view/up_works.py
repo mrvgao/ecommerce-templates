@@ -28,8 +28,8 @@ import json,pdb,hashlib
 
 def works_upload(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img) }
-    return render(request, website.upfile,conf)
+    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img) }
+    return render(request, website.upfile, conf)
 
 def stls_save(stls):
     jwary_md5 = {}
@@ -211,6 +211,7 @@ def edit_submit(request):
     '''
     file_id = request.POST['modify_id']
     count = 1
+    pdb.set_trace()
     p_url = []
     good = Goods_Upload.objects.get(id=file_id)
     stl_md5 = good.stl_path.encode('utf-8')
@@ -224,7 +225,6 @@ def edit_submit(request):
     name = request.POST['stl_name']
     if not name:
         name = good.goods_name
-    
     for preview in previews:
         count = int(preview)
         preview_type=str(previews[preview])
@@ -341,15 +341,6 @@ def not_passed(request):
     conf = {'all_list':return_list,'total_pages':total_pages,'now_page':now_page,
               }
     return HttpResponse(json.dumps(conf))
-
-
-'''#未通过页面，点击 重新申请发布 后的反馈操作
-def photo_not_passed(request):#未通过页面，点击重新申请发布
-    id = 56#request.POST['id']
-    design_list = Goods_Upload.objects.filter(id=id)
-    return_list = good_filter.unpublish_exec(design_list)
-    conf = {'return_list':return_list}
-    return HttpResponse(json.dumps(conf))'''
 
 
 def has_published(request):

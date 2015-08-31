@@ -2,66 +2,98 @@ $(function(){
 
 	var chart_btn = $('.chart-btn'),
 		comment_list = $('.comment-title ul li'),
+		work_data_w = [],
+		work_data_m = [],
 		labels;
+	
+	getDataWork();
+	function getDataWork(){
+		$.post('/designer/works_visit',{}, function(e) {
+			if(e){
+				var weekNumwork = JSON.parse(e).weekNumwork,
+					monthNumwork = JSON.parse(e).monthNumwork,
+					weekNumcenter = JSON.parse(e).weekNumcenter,
+					monthNumcenter = JSON.parse(e).monthNumcenter;
 
-	comment_list.on('click',function (){
-		comment_list.removeClass('active');
-		$(this).addClass('active');
-	});
+				work_data_w = [
+			    	{
+			    		value: weekNumwork,
+			    		color: '#7ecbed',
+			    		line_width: 2
+			    	}
+			    ];
 
-	// 点击选择图表显示日期类型
-	chart_btn.on('click',function (){
-		var _this = $(this),
-			_index = _this.index(),
-			isHome = _this.parent().hasClass('isHome');
+			    work_data_m = [
+			    	{
+			    		value: monthNumwork,
+			    		color: '#7ecbed',
+			    		line_width: 2
+			    	}
+			    ];
 
-		labels=arrLabels[_index];
-		_this.parent().find('a').removeClass('active');
-		_this.addClass('active');
-		if(isHome){
-			setHomeVisitChart();
-		}else {
-			setGoodsVisitChart();
-		}
-	});
+			    center_data_w = [
+			    	{
+			    		value: weekNumcenter,
+			    		color: '#7ecbed',
+			    		line_width: 2
+			    	}
+			    ];
+
+			    center_data_m = [
+			    	{
+			    		value: monthNumcenter,
+			    		color: '#7ecbed',
+			    		line_width: 2
+			    	}
+			    ];
+
+			    setHomeVisitChart(work_data_w);
+			    setGoodsVisitChart(center_data_w);
+
+			    // 点击选择图表显示日期类型
+				chart_btn.on('click',function (){
+					var _this = $(this),
+						_txt = _this.text(),
+						_index = _this.index(),
+						isHome = _this.parent().hasClass('isHome');
+
+					labels = arrLabels[_index];
+					$(this).siblings().removeClass('active');
+					$(this).addClass('active');
+
+					if(isHome){
+						if(_txt == 'week'){
+							setHomeVisitChart(work_data_w);
+						}else if(_txt == 'month') {
+							setHomeVisitChart(work_data_m);
+						}
+					}else {
+						if(_txt == 'week'){
+							setGoodsVisitChart(center_data_w);
+						}else if(_txt == 'month') {
+							setGoodsVisitChart(center_data_m);
+						}
+					}
+
+				});
+			}
+		});
+	}
     
 	var arrLabels = [
 		["MON","TUE","WED","THUR","FRI","SAT","SUN"],
-		["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]	
+		["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
 	];
-
 	labels = arrLabels[0];
 	
-	// 作品访问量函数
-	function setHomeVisitChart(){
-		var weekNum=[],monthNum=[];
-		$.post('/designer/works_visit',{}, function(e) {
-			if(e){
-				var weekNum = JSON.parse(e).weekNum;
-				var monthNum = JSON.parse(e).monthNum;
-				console.log(weekNum)
-				console.log(monthNum)
-			}
-		});
-
-		var data = [
-			{
-				value:weekNum,
-				color:'#aad0db',
-				line_width:2
-			},
-			{
-				value:monthNum,
-				color:'#7ecbed',
-				ine_width:2
-			}
-		];
+	// 主页访问量函数
+	function setHomeVisitChart(data){
 		var homeVisit_chart = new iChart.Area2D({
 			render : 'homeVisit',
 			data: data,
 			title : '',
-			width : 800,
-			height : 200,
+			width : 780,
+			height : 300,
 			tip:{
 				enable : true,
 				listeners:{
@@ -100,35 +132,15 @@ $(function(){
 		});
 		homeVisit_chart.draw();
 	}
-	setHomeVisitChart();
-	// 个人中心访问量函数
-	function setGoodsVisitChart(){
-		var weekNum=[],monthNum=[];
-		$.post('/designer/center_visit',{}, function(e) {
-			if(e){
-				weekNum = JSON.parse(e).weekNum;
-				monthNum = JSON.parse(e).monthNum;
-			}
-		});
-
-		var data = [
-			{
-				value:weekNum,
-				color:'#aad0db',
-				line_width:2
-			},
-			{
-				value:monthNum,
-				color:'#7ecbed',
-				ine_width:2
-			}
-		];
+	
+	// 商品访问量函数
+	function setGoodsVisitChart(data){
 		var goodsVisit_chart = new iChart.Area2D({
 			render : 'goodsVisit',
 			data: data,
 			title : '',
-			width : 800,
-			height : 200,
+			width : 780,
+			height : 300,
 			tip:{
 				enable : true,
 				listeners:{
