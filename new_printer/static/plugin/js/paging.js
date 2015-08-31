@@ -1,19 +1,25 @@
+/* 基于jquery的分页插件 paging.js 
+*	Author: Well
+*	输入: 总页数: paging_total , paging_url --> 外部定义的 ajax 提交地址 , paging_cb(e) --> ajax 中的回调函数（分页后的数据操作）
+*	还存在的问题: html、css、js 代码还处于分离状态，且由于 paging 被定义为一个模板，很多数据定义、调用都受到了限制
+*/
+
 (function (){
 
 	var page_num_box = $('.paging-num'),
-		page_box = $('.paging-num'),
+		page_box = $('.paging-wrap'),
 		paging_btn = $('.paging-btn'),
 		ellipsis = '<span class="paging-more">....</span>',
+		total = paging_total,
 		_node = '';
 	
-	setPage(16,14);
+	setPage(total,1);
 
 	function setPage(total,_now){
 
-		// init
+		// node init
 		_node = '';
-		page_box.html('');
-
+		page_num_box.html('');
 
 		if(total <= 5){
 			for(var i=0;i<total;i++){
@@ -58,40 +64,61 @@
 			}
 		}
 
-
 		page_num_box.append(_node);
 
 		$('.page-btn').on('click',function (){
 			var _this = $(this),
 				_num = _this.text();
 
-			setPage(16,_num);
-		});
-
-		paging_btn.on('click',function (e){
-			e.stopPropagation();
-			var _index = $('.page-btn').filter('.active').text();
-			_index = parseInt(_index);
-
-			console.log(_index);
-
-			var _this = $(this),
-				_txt = _this.text();
-
-			switch(_txt){
-				case '首页': setPage(16,1);
-					break;
-				case '上一页': setPage(16,_index-1);
-					break;
-				case '下一页': setPage(16,_index+1);
-					break;
-				case '末页': setPage(16,16);
-					break;
-			}
+			post(_num);
+			setPage(total,_num);
 		});
 
 	}
 
-	
+	function post(num){
+
+		// paging_url 为外部定义的 ajax 提交地址
+		$.post(paging_url,{
+			'num_now': num
+		},function (e){
+			// do something
+			paging_cb(e);
+		});
+	}
+
+	paging_btn.on('click',function (){
+
+		_index = parseInt($('.page-btn').filter('.active').text());
+
+		var _this = $(this),
+			_txt = _this.text();
+
+		switch(_txt){
+			case '首页': if(_index<=1){return false;}post(1);setPage(total,1);
+				break;
+			case '上一页': (function (){
+				if(_index <= 1){
+					_index = 2;
+					return false;
+				}
+				post(_index-1);
+				setPage(total,_index-1);
+			}());
+				break;
+			case '下一页': (function (){
+				if(_index >= total){
+					_index = total-1;
+					return false;
+				}
+				post(_index+1);
+				setPage(total,_index+1);
+			}());
+				break;
+			case '末页': if(_index>=total){return false;}post(total);setPage(total,total);
+				break;
+		}
+
+	});
 
 }())
