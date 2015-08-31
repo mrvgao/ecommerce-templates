@@ -101,7 +101,7 @@ def unpublish_exec(good_list):
                 'name':good.goods_name,
                 'description':good.description,
                 'good_price':good.goods_price,
-                #'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
                 #'preview_2':str(server_website.file_server_path)+str(good.preview_2),
                 #'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                 'file_size':good.file_size,
