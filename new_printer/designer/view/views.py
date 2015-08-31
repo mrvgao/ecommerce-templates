@@ -231,6 +231,7 @@ def my_state(request):
     collect = 0
     download = 0
     all_list = 0
+    d_id = 1
     for good in published_list:
         if good.collected_count > 0:
             collect = collect + 1
@@ -255,23 +256,27 @@ def my_state(request):
             record = record+len(a)
         record = record - sum(good_week)
         good_week.append(record)
+    center = center_visit(d_id) 
+    works = works_visit(d_id)
     conf = { 'worksNum':all_list,
             'worksCollection':collect,
             'downloadNum':download,
             'focusNum':designer.marked_count,
-            'p_weekNum':design_week,
-            'weekNum':good_week,
+            'weekNum_center': center['weekNum'],
+            'monthNum_center': center['monthNum'],
+            'weekNum_work': works['weekNum'],
+            'monthNum_work': works['monthNum'],
             'name':designer.designername,
             'img':str(server_website.file_server_path)+str(designer.img)
             }
     return render(request, website.my_state, conf)
 
 
-def center_visit(request):
+def center_visit(d_id):
     '''
-    #设计师的 day 访问量
+    #设计师的 month 访问量
     '''
-    #user = request.user
+    d_id = d_id
     designer = Designer_User.objects.get(user_id = 1)#user.id)
     now = datetime.now()
     weekNum = [0]
@@ -288,32 +293,15 @@ def center_visit(request):
         a = len(a) - sum(monthNum)
         monthNum.append(a)
     conf = { 'weekNum':weekNum,'monthNum':monthNum}
-    return HttpResponse(json.dumps(conf))
+    return conf
 
 
-def design_month_visit(request):
-    '''
-    #设计师的  month 访问量
-    '''
-    #user = request.user
-    designer = Designer_User.objects.get(user_id = 1)#user.id)
-    now = datetime.now()
-    design_month = [0]
-    designer_record = Design_record.objects.filter(designer_id = designer.id)
-    for time in range(30):
-        start = now - timedelta(days = time,hours = 23)
-        a=designer_record.filter(d_visit_time__gte = start)
-        a = len(a) - sum(design_month)
-        design_month.append(a)
-    conf = { 'design_month':design_month}
-    return HttpResponse(json.dumps(conf))
-
-
-def works_visit(request):
+def works_visit(d_id):
     '''
     #设计师作品的 访问量
     '''
     #user = request.user
+    designer_id = d_id
     designer = Designer_User.objects.get(user_id = 1)#user.id)
     now = datetime.now()
     weekNum = []
@@ -338,30 +326,7 @@ def works_visit(request):
         record = record - sum(monthNum)
         monthNum.append(record)
     conf = { 'weekNum': weekNum, 'monthNum': monthNum}
-    return HttpResponse(json.dumps(conf))
-
-
-def good_month_visit(request):
-    '''
-    #设计师的作品  month 访问量
-    '''
-    #user = request.user
-    designer = Designer_User.objects.get(user_id = 1)#user.id)
-    now = datetime.now()
-    good_month = [0]
-    published_list = Goods.objects.filter(designer_id = designer.id)
-    for time in range(30):
-        record = 0
-        for good in published_list:
-            goods_record = Good_record.objects.filter(good_id = good.id)
-            start = now - timedelta(days = time,hours = 23)
-            a=goods_record.filter(g_visit_time__gte = start)
-            record = record+len(a)
-        record = record - sum(good_month)
-        good_month.append(record)
-    
-    conf = { 'good_month': good_month}
-    return HttpResponse(json.dumps(conf))
+    return conf
 
 
 def setup(request):

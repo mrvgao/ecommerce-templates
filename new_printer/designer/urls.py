@@ -59,9 +59,9 @@ urlpatterns = patterns('',
 	#显示我的动态的页面 my_state
 	url(r'^my_state$',views.my_state,name = 'my_state'),
 	
-	url(r'^center_visit$',views.center_visit,name = 'center_visit'),
+	#url(r'^center_visit$',views.center_visit,name = 'center_visit'),
 
-	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
+	#url(r'^works_visit$',views.works_visit,name = 'works_visit'),
 
 	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
 

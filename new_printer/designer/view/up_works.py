@@ -211,6 +211,7 @@ def edit_submit(request):
     '''
     file_id = request.POST['modify_id']
     count = 1
+    pdb.set_trace()
     p_url = []
     good = Goods_Upload.objects.get(id=file_id)
     stl_md5 = good.stl_path.encode('utf-8')
@@ -224,7 +225,6 @@ def edit_submit(request):
     name = request.POST['stl_name']
     if not name:
         name = good.goods_name
-    
     for preview in previews:
         count = int(preview)
         preview_type=str(previews[preview])
