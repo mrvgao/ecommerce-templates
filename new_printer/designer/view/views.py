@@ -116,43 +116,6 @@ def sort_list(request):
             }
     return HttpResponse(json.dumps(conf))
 
-def type_list(request):
-    '''
-    展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
-    '''
-    #user = request.user
-    #vender_id = request.POST['v_id']
-    #data_tag = int(request.POST['data_kind'])
-    type_tag = (request.POST['type_kind'])
-    designer = Designer_User.objects.get(user_id=1)#user.id)
-    design_list = Goods.objects.filter(designer_id=designer.id)
-    Test_user = Designer_User.objects.filter(user_id = 1).exists()
-    if (Test_user):
-        now_user = 'D'
-    else:
-        now_user = 'V'
-    if _tag != u'全部':
-        design_list = design_list.filter(tags = _tag)
-    if data_tag == 2:
-        design_list = design_list.order_by('download_count').reverse()
-    if data_tag == 3:
-        design_list = design_list.order_by('collected_count').reverse()
-    if data_tag == 4:
-        design_list = design_list.order_by('approval_time').reverse()
-    return_list = []
-    for good in design_list:
-        is_collect = False
-        _good = {}
-        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = 2):
-            is_collect = True
-        _good = {'goods_name': good.goods_name, 'id': good.id, 'download_count': good.download_count,
-         'collect_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
-         'preview_1': server_website.file_server_path + good.preview_1, 'now_user': now_user}
-        return_list.append(_good)
-    conf = {'all_list': return_list
-            }
-    return HttpResponse(json.dumps(conf))
-
 
 def unpublished_good_search(request):
     '''
@@ -175,9 +138,9 @@ def unpublished_good_search(request):
                     'style':good.style,
                     'type':'stl',
                     'stl_path':good.stl_path,
-                    'preview_1':str(server_website.file_server_path)+str(good.preview_1),
-                    'preview_2':str(server_website.file_server_path)+str(good.preview_2),
-                    'preview_3':str(server_website.file_server_path)+str(good.preview_3),
+                    'preview_1':str(server_website.file_server_path) + str(good.preview_1),
+                    'preview_2':str(server_website.file_server_path) + str(good.preview_2),
+                    'preview_3':str(server_website.file_server_path) + str(good.preview_3),
                     'upload_time':good.upload_time.strftime("%Y-%m-%d"),
                     'modify_time':good.modify_time.strftime("%Y-%m-%d"),
                     'file_size':good.file_size,
@@ -198,9 +161,9 @@ def unpublished_good_search(request):
                     'tags':good.tags,
                     'style':good.style,
                     'stl_path':str(good.stl_path),
-                    'preview_1':str(server_website.file_server_path)+str(good.preview_1),
-                    'preview_2':str(server_website.file_server_path)+str(good.preview_2),
-                    'preview_3':str(server_website.file_server_path)+str(good.preview_3),
+                    'preview_1':str(server_website.file_server_path) + str(good.preview_1),
+                    'preview_2':str(server_website.file_server_path) + str(good.preview_2),
+                    'preview_3':str(server_website.file_server_path) + str(good.preview_3),
                     'approval_time':good.approval_time.strftime("%Y-%m-%d"),
                     'file_size':good.file_size,
                     'collected_count':good.collected_count,
@@ -218,7 +181,7 @@ def published_good_search(request):
     '''
     describe = 'a'#request.POST['describe']
     designer = 1
-    result_goods = search_handle.published_search(describe,designer)
+    result_goods = search_handle.published_search(describe, designer)
     #pdb.set_trace()
     goods_find = []
     for good_id in result_goods:
@@ -248,7 +211,7 @@ def unpublish_eardrop_list(request):
     #未发布的商品过滤 耳坠
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     good_state = 0#request.POST['good_state']
     tags = 'Jweary'
     return_list = good_filter.unpublish_good_filter(good_state,tags,designer.id)
@@ -262,34 +225,33 @@ def my_state(request):
     #显示我的动态的页面 my_state
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
-    unpublished_list = Goods_Upload.objects.filter(designer_id=designer.id)
-    published_list = Goods.objects.filter(designer_id=designer.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
+    unpublished_list = Goods_Upload.objects.filter(designer_id = designer.id)
+    published_list = Goods.objects.filter(designer_id = designer.id)
     collect = 0
     download = 0
     all_list = 0
     for good in published_list:
         if good.collected_count > 0:
             collect = collect + 1
-        #if good.download_count > 0:
         download = download + good.download_count
     all_list = unpublished_list.count() + published_list.count()
-    designer_record = Design_record.objects.filter(designer_id=designer.id)
+    designer_record = Design_record.objects.filter(designer_id = designer.id)
     now = datetime.now()
     design_week = [0]
     good_week = [0]
-    published_list = Goods.objects.filter(designer_id=designer.id)
+    published_list = Goods.objects.filter(designer_id = designer.id)
     for time in range(7):
-        start = now - timedelta(days=time,hours=23)
-        a=designer_record.filter(d_visit_time__gte=start)
+        start = now - timedelta(days = time,hours = 23)
+        a=designer_record.filter(d_visit_time__gte = start)
         a = len(a) - sum(design_week)
         design_week.append(a)
     for time in range(7):
         record = 0
         for good in published_list:
-            goods_record = Good_record.objects.filter(good_id=good.id)
-            start = now - timedelta(days=time,hours=23)
-            a=goods_record.filter(g_visit_time__gte=start)
+            goods_record = Good_record.objects.filter(good_id = good.id)
+            start = now - timedelta(days = time,hours = 23)
+            a=goods_record.filter(g_visit_time__gte = start)
             record = record+len(a)
         record = record - sum(good_week)
         good_week.append(record)
@@ -310,19 +272,19 @@ def center_visit(request):
     #设计师的 day 访问量
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now = datetime.now()
     weekNum = [0]
-    designer_record = Design_record.objects.filter(designer_id=designer.id)
+    designer_record = Design_record.objects.filter(designer_id = designer.id)
     for time in range(7):
-        start = now - timedelta(days=time,hours=23)
-        a=designer_record.filter(d_visit_time__gte=start)
+        start = now - timedelta(days = time,hours = 23)
+        a=designer_record.filter(d_visit_time__gte = start)
         a = len(a) - sum(weekNum)
         weekNum.append(a)
     monthNum = [0]
     for time in range(30):
-        start = now - timedelta(days=time,hours=23)
-        a=designer_record.filter(d_visit_time__gte=start)
+        start = now - timedelta(days = time,hours = 23)
+        a=designer_record.filter(d_visit_time__gte = start)
         a = len(a) - sum(monthNum)
         monthNum.append(a)
     conf = { 'weekNum':weekNum,'monthNum':monthNum}
@@ -334,13 +296,13 @@ def design_month_visit(request):
     #设计师的  month 访问量
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now = datetime.now()
     design_month = [0]
-    designer_record = Design_record.objects.filter(designer_id=designer.id)
+    designer_record = Design_record.objects.filter(designer_id = designer.id)
     for time in range(30):
-        start = now - timedelta(days=time,hours=23)
-        a=designer_record.filter(d_visit_time__gte=start)
+        start = now - timedelta(days = time,hours = 23)
+        a=designer_record.filter(d_visit_time__gte = start)
         a = len(a) - sum(design_month)
         design_month.append(a)
     conf = { 'design_month':design_month}
@@ -352,16 +314,16 @@ def works_visit(request):
     #设计师作品的 访问量
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now = datetime.now()
     weekNum = []
-    published_list = Goods.objects.filter(designer_id=designer.id)
+    published_list = Goods.objects.filter(designer_id = designer.id)
     for time in range(7):
         record = 0
         for good in published_list:
-            goods_record = Good_record.objects.filter(good_id=good.id)
-            start = now - timedelta(days=time,hours=23)
-            a=goods_record.filter(g_visit_time__gte=start)
+            goods_record = Good_record.objects.filter(good_id = good.id)
+            start = now - timedelta(days = time,hours = 23)
+            a=goods_record.filter(g_visit_time__gte = start)
             record = record+len(a)
         record = record - sum(weekNum)
         weekNum.append(record)
@@ -369,13 +331,13 @@ def works_visit(request):
     for time in range(30):
         record = 0
         for good in published_list:
-            goods_record = Good_record.objects.filter(good_id=good.id)
-            start = now - timedelta(days=time,hours=23)
-            a=goods_record.filter(g_visit_time__gte=start)
+            goods_record = Good_record.objects.filter(good_id = good.id)
+            start = now - timedelta(days = time, hours = 23)
+            a=goods_record.filter(g_visit_time__gte = start)
             record = record+len(a)
         record = record - sum(monthNum)
         monthNum.append(record)
-    conf = { 'weekNum':weekNum,'monthNum':monthNum}
+    conf = { 'weekNum': weekNum, 'monthNum': monthNum}
     return HttpResponse(json.dumps(conf))
 
 
@@ -384,32 +346,35 @@ def good_month_visit(request):
     #设计师的作品  month 访问量
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now = datetime.now()
     good_month = [0]
-    published_list = Goods.objects.filter(designer_id=designer.id)
+    published_list = Goods.objects.filter(designer_id = designer.id)
     for time in range(30):
         record = 0
         for good in published_list:
-            goods_record = Good_record.objects.filter(good_id=good.id)
-            start = now - timedelta(days=time,hours=23)
-            a=goods_record.filter(g_visit_time__gte=start)
+            goods_record = Good_record.objects.filter(good_id = good.id)
+            start = now - timedelta(days = time,hours = 23)
+            a=goods_record.filter(g_visit_time__gte = start)
             record = record+len(a)
         record = record - sum(good_month)
         good_month.append(record)
     
-    conf = { 'good_month':good_month}
+    conf = { 'good_month': good_month}
     return HttpResponse(json.dumps(conf))
 
 
 def setup(request):
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1 )#user.id)
     has_alipay = False
-    if designer.alipay : #判断是不是有支付宝账号
+    if designer.alipay : 
+        '''
+        判断是不是有支付宝账号,没有就显示不同页面
+        '''
         has_alipay = True
-    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img),
-            'has_alipay': has_alipay }
+    conf = {'name': designer.designername,'img': str(server_website.file_server_path)+str(designer.img),
+            'has_alipay': has_alipay, 'phone': designer.phone }
     return render(request, website.setup, conf)
 
 
@@ -419,9 +384,9 @@ def change_icon(request):
 
 def show_3d(request):
     id = request.POST['pic_id']
-    _url = str(server_website.file_server_path) + Goods_Upload.objects.get(id=id).stl_path
+    _url = str(server_website.file_server_path) + Goods_Upload.objects.get(id = id).stl_path
     url_path = good_filter.down_stl(_url)
-    conf = { 'url_path':url_path}
+    conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf)) 
 
 def add_focus(request):
@@ -463,7 +428,7 @@ def add_alipay(request):
     添加支付宝账号
     '''
     d_id = request.POST['d_id']
-    ali_name = request.POST['ali_name']
-    ali_num = request.POST['ali_num']
-    d = Designer_User.objects.filter(id = d_id).update(alipay = alipay, alipay_name = ali_name)
+    ali_name = request.POST['ali_name'] #u'任杰'
+    ali_num = request.POST['ali_num'] #'renmjie@163.com'
+    d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
     return HttpResponse(json.dumps("success"))

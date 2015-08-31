@@ -75,7 +75,12 @@ urlpatterns = patterns('',
 
 	#添加关注和收藏
 	url(r'^add_focus$',views.add_focus,name = 'add_focus'),
+
 	url(r'^cancel_focus$',views.cancel_focus,name = 'cancel_focus'),
+
 	url(r'^add_collect$',views.add_collect,name = 'add_collect'),
+
 	url(r'^cancel_collect$',views.cancel_collect,name = 'cancel_collect'),
+	
+	url(r'^add_alipay$',views.add_alipay,name = 'add_alipay'),
 )

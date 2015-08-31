@@ -28,8 +28,8 @@ import json,pdb,hashlib
 
 def works_upload(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img) }
-    return render(request, website.upfile,conf)
+    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img) }
+    return render(request, website.upfile, conf)
 
 def stls_save(stls):
     jwary_md5 = {}
