@@ -18,14 +18,16 @@ var TABLES ={
 	}
 }
 
-var socketMap = [];
+var socketMap = {};
+socketMap.customer = [];
+socketMap.customerService = [];
 
 var usersInfos = [];
 
 function socketMain(socket){
 	
 	// when a user get connect 
-	console.log('a user connected:'+socket.remoteAddress);
+	console.log('a user connected:'+socket.handshake.address);
 
 
 	/*socket.on('login/', function(username, password){*/
@@ -38,31 +40,25 @@ function socketMain(socket){
 	socket.on('chat/logged_in_user/connect', function(userInfo){
 		var username = userInfo.username;
 		var nickname = userInfo.nickname;
-
-		socketMap[nickname] = socket; 
-
+		socketMap.customer[username] = socket; 
 		socket.emit('callback/logged_in_user/connect', usersInfos);
-
 		socket.broadcast.emit('chat/a_user_connect', userInfo);
-
-		var isNotLogged = usersInfos.filter(function(item){
-			return item.username === userInfo.username;
-		}).length;
-
-		// if this user is not logged   
-		if(isNotLogged === 0){
-			usersInfos.push(userInfo);
-		}
 	});
 
 
 	socket.on('chat/anonymous_user/connect', function(){
 			username = nickname = socket.id;
+			socketMap.customer[socket.id] = socket;
 	});
 
 
-	socket.on('chat/customer_service/connect', function(userInfo){
-		;
+	socket.on('chat/customer_service/connect', function(){
+			username = nickname = socket.id;
+			var ipAddress = socket.handshake.address;
+			ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
+			socketMap.customerService[ipAddress] = socket;
+			socket.emit('callback/chat/customer_service/connect',ipAddress);
+			l('ip:'+ipAddress);
 	});
 
 

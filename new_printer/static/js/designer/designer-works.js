@@ -37,71 +37,22 @@ $(function(){
 
 
 	// added by white
+
 	$('#show-3d-tool-cancel-fullscreen').click(function(){
 		$('#show-3d-fullscreen').empty();									  
 		$('#show-3d-cont').hide();
 	});
 
 	$('#show-3d-tool-screenshot').click(function(){
-		console.log('shot');
-		ShowStl.screenShotByElement('show-3d-tool-fullscreen');
+		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0];
+		var imgSrc = myCanvas.toDataURL();
+		$('.modify-imgs-box').eq(1).find('img').attr('src',imgSrc);
 
 	});
+	
+	// added by white over
 });
 
-
-ShowStl.screenShotByElement = function(elementId){
-	/*html2canvas(document.getElementById(elementId), {*/
-	html2canvas($('.designer-sidebar-pic'), {
-
-		allowTaint: true,
-
-		taintTest: false,
-
-		onrendered: function(canvas) {
-
-			canvas.id = "mycanvas";
-
-			document.body.appendChild(canvas); 
-
-			//生成base64图片数据 
-
-			var dataUrl = canvas.toDataURL();
-
-			var newImg = document.createElement("img");
-
-			newImg.src = dataUrl;
-
-			$('.modify-imgs-box').eq(0).find('img').attr('src',dataUrl);
-
-			console.log('url:'+dataUrl);
-			console.log('imgsrc:'+$('.modify-imgs-box').eq(0).find('img').attr('src'));
-			//document.getElementById('designer_order_preview').appendChild(newImg); 
-
-
-
-
-
-			/*DesignerOrder.designer_introduction = $('.designer_order_choice textarea').eq(1).val();*/
-
-			/*if(DesignerOrder.order_state === "appointment_received"){*/
-
-			/*socket.emit('designer_first_draft_done',myUserName,nowTargUser,dataUrl,DesignerOrder.designer_introduction,DesignerOrder.finger,DesignerOrder.size,DesignerOrder.with_stone,DesignerOrder.material,DesignerOrder.price,DesignerOrder.canvas);*/
-
-			/*alert('已生成初稿订单');*/
-
-			/*}else if(DesignerOrder.order_state === "first_draft_done"){*/
-
-			/*socket.emit('designer_final_draft_done',myUserName,nowTargUser,dataUrl,DesignerOrder.designer_introduction,DesignerOrder.canvas);*/
-
-			/*alert('已生成终稿订单');*/
-
-			/*}*/
-
-		}
-
-	});
-}
 
 // 搜索模块
 function toSearch(){
@@ -260,8 +211,6 @@ function auditing(page){	//加载审核中的数据
 		}
 		designer_works_lists.append(onStr);
 
-		// added by white
-		deisgnerWorkPicEvent();
 	});
 }
 
@@ -341,9 +290,6 @@ function published(page){	//获取已发布数据
 				});
 			}
 		});
-
-		// added by white
-		deisgnerWorkPicEvent();
 	});
 }
 

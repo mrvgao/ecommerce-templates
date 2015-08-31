@@ -16,6 +16,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
 from designer.conf import website 
+from conf import website as adminer_website 
 from configuration.models import Goods_Upload,Goods
 from django.contrib.auth.models import User
 import httplib, urllib
@@ -127,5 +128,11 @@ def work_passing(request):
 						)
 	conf = {'status':"success"}
 	return HttpResponse(json.dumps(conf))
+
+
+# 后台管理页面：审核作品和客服聊天
+def background(request):
+	return render(request,adminer_website.background)	
+
 
 #def search(request):
