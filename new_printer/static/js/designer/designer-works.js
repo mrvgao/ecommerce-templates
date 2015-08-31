@@ -380,7 +380,9 @@ function cancelAll(){	//批量取消发布
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
 		_id = _this.parents('.designer-works-list-box').attr('data-id');
-
+		var _this = $(this),
+			deleteObj = _this.parents('.designer-works-list-box'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', { "id": _id ,'state':state }, function(e){
 
 			if(e){
@@ -398,11 +400,11 @@ function cancelAll(){	//批量取消发布
 function cancelSigle(){		//单个取消发布
 	$('.works-cancel-btn').on('click',function(){
 		var _this = $(this),
-		deleteObj = _this.parents('.designer-works-list-box'),
-		_id = deleteObj.attr('data-id');
+			deleteObj = _this.parents('.designer-works-list-box'),
+			_id = deleteObj.attr('data-id');
 		var _this = $(this),
-		deleteObj = _this.parents('.designer-works-list-box'),
-		state = deleteObj.attr('data-state');
+			deleteObj = _this.parents('.designer-works-list-box'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 			if(e){
 				alert(e);
