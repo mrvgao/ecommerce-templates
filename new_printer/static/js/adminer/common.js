@@ -120,17 +120,17 @@ Commom.bindToolBarBtnEvent = function(){
 
 		var btnVal = $(this).attr('value');
 		if(btnVal === '0'){
-			$.post('word_list', {}, function(e){
+			$.post('/adminer/word_list', {}, function(e){
 				l('0');			  
 			})
 
 		}else if(btnVal === '1'){
-			$.post('has_failed', {}, function(e){
+			$.post('/adminer/has_failed', {}, function(e){
 				l('1');			  
 			})
 
 		}else if(btnVal === '2'){
-			$.post('has_passed', {}, function(e){
+			$.post('/adminer/has_passed', {}, function(e){
 				l('2');			  
 			})
 		}
