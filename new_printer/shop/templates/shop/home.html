@@ -9,7 +9,14 @@
 
 {% block content %}
 
-	<div class="home-banner"></div>
+	<div id="myCarousel" class="carousel slide home-banner w pr">
+		<ul class="clearfix pr home-slider carousel-inner">
+			<li class="item active" style="background:red;"></li>
+			<li class="item" style="background:green;"></li>
+			<li class="item" style="background:blue;"></li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="{% static 'plugin/js/slider.js' %}"></script>
 	<div class="container">
 		<div class="wehave">
 			<div class="wehave-box bc tc clearfix">
@@ -17,19 +24,19 @@
 					<div class="wehave-bg bc shop-ico mb30"></div>
 					<p>67家</p>
 					<p>线下门店</p>
-					<p class="doforyou">让你的首饰与众不同</p>
+					<p class="doforyou">我们的加盟门店遍及全国各地，无论在哪里，都可以为您服务。</p>
 				</div>
 				<div class="wehave-list mr80">
 					<div class="wehave-bg bc designer-ico mb30"></div>
 					<p>67位</p>
 					<p>设计师</p>
-					<p class="doforyou">让你的首饰与众不同</p>
+					<p class="doforyou">从国际名家到新生力量，汇集万千智慧，总有适合您的设计师。</p>
 				</div>
 				<div class="wehave-list wehave-l-last">
 					<div class="wehave-bg bc work-ico mb15"></div>
 					<p>3829件</p>
 					<p>在线作品</p>
-					<p class="doforyou">让你的首饰与众不同</p>
+					<p class="doforyou">作品每天都在更新，来这里，给自己一个更丰富的选择空间。</p>
 				</div>
 			</div>
 		</div>
@@ -38,120 +45,27 @@
 			<p class="groom-tag bc mt10"></p>
 			<div class="home-slider-box pr">
 				<ul class="clearfix">
+					{% for goods in recommend_list %}
 					<li>
 						<div class="list-box pr">
 							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+			                    <a target="_blank" href="goods-detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ goods.goods_img }}" alt="" />
 								</a>
 							</div>
 							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
+			                    <a class="goods_name" target="_blank" href="goods-detail?goods_id={{ goods.goods_id }}">
+								{{ goods.goods_name }}
 								</a>
 							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<p class="goods_price f12 tc">￥{{ goods.goods_price }}</p>
 							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
 								<em class="list-mark-btn-ico"></em>
 								收藏
 							</a>
 						</div>
 					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
+					{% endfor %}
 				</ul>
 				<span class="home-slider-l unselectable home-slider-guide pa"><em class="bc"></em></span>
 				<span class="home-slider-r unselectable home-slider-guide pa"><em class="bc"></em></span>
@@ -162,120 +76,27 @@
 			<p class="groom-tag hot-download bc mt10"></p>
 			<div class="home-slider-box pr">
 				<ul class="clearfix">
+					{% for goods in hot_list %}
 					<li>
 						<div class="list-box pr">
 							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+			                    <a target="_blank" href="goods-detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ goods.goods_img }}" alt="" />
 								</a>
 							</div>
 							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
+			                    <a class="goods_name" target="_blank" href="goods-detail?goods_id={{ goods.goods_id }}">
+								{{ goods.goods_name }}
 								</a>
 							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<p class="goods_price f12 tc">￥{{ goods.goods_price }}</p>
 							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
 								<em class="list-mark-btn-ico"></em>
 								收藏
 							</a>
 						</div>
 					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="list-box pr">
-							<div class="list-img mb5">
-			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
-									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
-								</a>
-							</div>
-							<div class="list-title tc mb10">
-			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
-								{{ 'other_goods.goods_name' }}
-								</a>
-							</div>
-							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
-								<em class="list-mark-btn-ico"></em>
-								收藏
-							</a>
-						</div>
-					</li>
+					{% endfor %}
 				</ul>
 				<span class="home-slider-l unselectable home-slider-guide pa"><em class="bc"></em></span>
 				<span class="home-slider-r unselectable home-slider-guide pa"><em class="bc"></em></span>

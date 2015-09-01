@@ -1,4 +1,14 @@
-
+.home-banner {
+	height:500px;
+	
+}
+.home-banner ul {
+	height:500px;overflow:hidden;
+}
+.home-banner ul li {
+    
+    height: 500px;
+}
 .wehave {
 	padding-top:80px;
 	padding-bottom:20px;
@@ -18,7 +28,8 @@
 	margin-top:4px;
 }
 .wehave-list p.doforyou {
-	font-size:14px;
+	font-size:12px;
+	color:#999;
 }
 .wehave-bg {
 	width:100px;
