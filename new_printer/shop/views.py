@@ -74,7 +74,38 @@ def index(request):
 
 
 def home(request):
-    return render(request, website.home)
+
+    class HomeGoods(object):
+
+        def __init__(self, goods):
+            self.goods_id = goods[0]
+            self.goods_name = goods[1]
+            self.goods_img = goods[2]
+            self.goods_price = goods[3]
+            self.goods_mark = goods[4]
+
+    def change_to_home_goods(goods_list, vender_id):
+        return_list = []
+        for goods in goods_list:
+            is_collected = vender_goods_handler.get_is_collected(goods.id, vender_id)
+            goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
+                           goods.goods_price, is_collected)
+            home_goods = HomeGoods(goods_param)
+            return_list.append(home_goods)
+        return return_list
+
+    vender_id = 2
+    goods_list = Goods.objects.all()
+    recommend_goods_list = goods_handler.comprehension_sort(goods_list)[:6]
+    recommend_list = change_to_home_goods(recommend_goods_list, vender_id)
+    hot_goods_list = goods_handler.sort_by_download(goods_list)[:6]
+    hot_list = change_to_home_goods(hot_goods_list, vender_id)
+
+    context = {
+        'recommend_list': recommend_list,
+        'hot_list': hot_list,
+    }
+    return render(request, website.home, context)
 
 
 def list(request):
