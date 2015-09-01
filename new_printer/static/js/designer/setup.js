@@ -11,13 +11,13 @@
 		head_portrait = $('.head-portrait'),
 		set_headportrait = $('.set-headportrait-wrap'),
 		close_headportrait = $('.close-headportrait'),
-		set_head_btn = $('.set-head-btn'),
-		head_file = $('.head-file'),
 		change_wrap = $('.change-headportrait-wrap'),
 		close_change = $('.close-change'),
 		change_btn = $('.change-btn'),
 		ali_test = [],
 		ali_val = [];
+
+
 
 	// 取消设置/关闭弹出框
 	close_set.on('click',function (){
@@ -105,25 +105,9 @@
 		alert ('该应用暂停服务');
 	});
 
-	// 编辑头像
 	head_portrait.on('click',function (){
-		set_headportrait.fadeIn();
-	});
-
-	// 关闭编辑头像
-	close_headportrait.on('click',function (){
-		set_headportrait.hide();
-	});
-
-	set_head_btn.on('click',function (){
-		head_file.click();
-	});
-
-	head_file.on('change',function (){
-		set_headportrait.hide();
 		change_wrap.fadeIn();
 	});
-
 
 	// 编辑头像时
 
@@ -131,14 +115,6 @@
 		change_wrap.hide();
 	});
 
-	// 取消修改
-	close_change.on('click',function (){
-		change_wrap.hide();
-	});
 
-	// 点击确认修改头像完毕
-	change_btn.on('click',function (){
-
-	});
 
 }())

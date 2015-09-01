@@ -65,6 +65,14 @@ def test(request):
     return render(request, website.test, context)
 
 
+
+def index(request):
+    return render(request, website.index)
+
+
+def home(request):
+    return render(request, website.home)
+
 def list(request):
 
     return render(request, website.list)
