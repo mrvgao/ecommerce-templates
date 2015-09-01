@@ -1051,11 +1051,11 @@ em.mark-num-ico {
 	border:1px solid #62cdd7;
 	cursor:pointer;
 }
-.bind-btn, .change-btn {
+.bind-btn {
 	color:#fff;
 	background:#62cdd7;
 }
-.close-bind, .close-change {
+.close-bind {
 	color:#999;
 	background:#fff;
 }
@@ -1111,21 +1111,20 @@ em.test-ico.test-false {
 	width:250px;
 }
 .change-head-box {
-	width:330px;
+	width:630px;
 }
-.change-img {
-	width:330px;
+#change_img {
+	width:630px;
 	height:330px;
-	background:red;
 }
 .change-headportrait-box {
-	width:410px;
-	height:510px;
+	width:710px;
+	height:520px;
 	position:fixed;
 	left:50%;
 	top:50%;
-	margin-top:-275px;
-	margin-left:-225px;
+	margin-top:-280px;
+	margin-left:-375px;
 	background:#fff;
 	padding:20px;
 }

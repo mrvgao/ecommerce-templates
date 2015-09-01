@@ -11,12 +11,13 @@
 		head_portrait = $('.head-portrait'),
 		set_headportrait = $('.set-headportrait-wrap'),
 		close_headportrait = $('.close-headportrait'),
-		set_head_btn = $('.set-head-btn'),
-		head_file = $('.head-file'),
 		change_wrap = $('.change-headportrait-wrap'),
 		close_change = $('.close-change'),
 		change_btn = $('.change-btn'),
-		ali_test = [];
+		ali_test = [],
+		ali_val = [];
+
+
 
 	// 取消设置/关闭弹出框
 	close_set.on('click',function (){
@@ -36,6 +37,7 @@
 		var _this = $(this),
 			_val = _this.val(),
 			reg = /[\u4e00-\u9fa5]{2,4}/;/^[a-zA-Z]{1}[0-9a-zA-Z_]{1,}$/
+		ali_val[0] = _val;
 
 		if(_val && reg.test(_val)){
 			test_ico.eq(0).removeClass('test-false');
@@ -53,7 +55,7 @@
 		var _this = $(this),
 			_val = _this.val(),
 			reg = /^[-\w]+$/;
-
+		ali_val[1] = _val;
 		if(_val && reg.test(_val)){
 			test_ico.eq(1).removeClass('test-false');
 			test_ico.eq(1).addClass('test-true');
@@ -90,8 +92,11 @@
 				test_ico.eq(i).addClass('test-false');
 			}
 		}
+		//alert('1');
+		//console.log(ali_test[0],ali_test[1],ali_test[2])
 		if(ali_test[0] && ali_test[1] && ali_test[2]){
-			$.post('',{},function (){});
+			d_id = 1
+			$.post('/designer/add_alipay',{'ali_name': ali_val[0], 'ali_num': ali_val[1], 'd_id': d_id},function (){});
 		}
 	});
 
@@ -100,25 +105,9 @@
 		alert ('该应用暂停服务');
 	});
 
-	// 编辑头像
 	head_portrait.on('click',function (){
-		set_headportrait.fadeIn();
-	});
-
-	// 关闭编辑头像
-	close_headportrait.on('click',function (){
-		set_headportrait.hide();
-	});
-
-	set_head_btn.on('click',function (){
-		head_file.click();
-	});
-
-	head_file.on('change',function (){
-		set_headportrait.hide();
 		change_wrap.fadeIn();
 	});
-
 
 	// 编辑头像时
 
@@ -126,14 +115,6 @@
 		change_wrap.hide();
 	});
 
-	// 取消修改
-	close_change.on('click',function (){
-		change_wrap.hide();
-	});
 
-	// 点击确认修改头像完毕
-	change_btn.on('click',function (){
-
-	});
 
 }())

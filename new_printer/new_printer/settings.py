@@ -135,11 +135,14 @@ STATICFILES_DIRS = (
 
 
 STATIC_URL = '/static/'
-New_s = '/Users/laola/Desktop'
+New_s=('/').join(os.getcwd().split('/')[0:3]) + '/static'
+if not os.path.exists(New_s):
+    os.mkdir(New_s)
+print New_s
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(New_s, 'static'),
+    New_s,
 )
 
 LOGIN_URL = '/shop/login_register'

@@ -1,4 +1,5 @@
 {% extends 'designer/designer-base.html' %}
+{% load staticfiles %}
 
 	{% block rightContent %}
 		<div class="designer-baseInfo fl">
@@ -24,31 +25,12 @@
 						</p>
 					</div>
 				</div>
-				<div class="set-headportrait-wrap hide">
-					<div class="set-headportrait-box pr">
-						<div class="set-head-cont">
-							<p class="set-head-title f20 mb30">账号信息</p>
-							<div class="set-head-box bc">
-								<button class="set-head-btn mt30">上传头像</button>
-								<input class="head-file hide" type="file" />
-								<p class="mt5 f12">jpg或png，大小不超过2M</p>
-							</div>
-						</div>
-						<em class="close-headportrait pa"></em>
-					</div>
-				</div>
-				<div class="change-headportrait-wrap">
+				<div class="change-headportrait-wrap hide">
 					<div class="change-headportrait-box pr">
 						<div class="set-head-cont">
 							<p class="set-head-title f20 mb30">修改头像</p>
 							<div class="change-head-box bc">
-								<div class="change-img">
-									
-								</div>
-								<div class="set-payinfo-btn bc mt30">
-									<button class="change-btn mr10">确认</button>
-									<button class="close-change">取消</button>
-								</div>
+								<div id="change_img"></div>
 							</div>
 						</div>
 						<em class="close-headportrait pa"></em>
@@ -58,7 +40,7 @@
 				<P>账号：<span>{{desi}}</span></P>
 				<p>密码：<span></span></p>							
 			</div>
-<<<<<<< HEAD
+
 			<div class="ower-alipay-info mt20">
 				<div class="uinfo-box">
 					<p class="f20 mb30">账号信息</p>
@@ -108,13 +90,10 @@
 				{% endif %}
 
 			</div>
-=======
-			<div>
-				<h2><
-			</div>	
->>>>>>> 956511c3caf6532270ea14921bf1ac3dac5dc324
 		</div>
-		{% load staticfiles %}
+		<script type="text/javascript" src="{% static 'plugin/js/swfobject.js' %}"></script>
+		<script type="text/javascript" src="{% static 'plugin/js/fullAvatarEditor.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/designer/change-headportrait.js' %}"></script>
 		<script type="text/javascript" src="{% static 'js/designer/setup.js' %}"></script>
-
+		
 	{% endblock %}

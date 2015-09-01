@@ -4,7 +4,7 @@ from django.db import transaction
 from django.contrib.auth.models import User
 
 from configuration.models import BetaApply, Designer_User, Vender_User
-
+from configuration import website
 import random
 
 
@@ -163,12 +163,12 @@ class UserManager():
             data.append('Content-Type: %s\r\n' % 'image/png')
             data.append(chunks)
             data.append('--%s--\r\n' % boundary)
-            http_url = 'http://192.168.1.101:8888/file/upload'
+            http_url = website.icon_server_upload  #'http://192.168.1.101:8888/file/upload'
             http_body = '\r\n'.join(data)
             req = urllib2.Request(http_url, data=http_body)
             req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
             req.add_header('User-Agent','Mozilla/5.0')
-            req.add_header('Referer','http://192.168.1.101:8888')
+            req.add_header('Referer',website.file_server_path)  #'http://192.168.1.101:8888')
             resp = urllib2.urlopen(req, timeout=2545)
             qrcont=resp.read()
             md = json.loads(qrcont)

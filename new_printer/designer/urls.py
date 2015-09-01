@@ -61,7 +61,7 @@ urlpatterns = patterns('',
 	
 	#url(r'^center_visit$',views.center_visit,name = 'center_visit'),
 
-	#url(r'^works_visit$',views.works_visit,name = 'works_visit'),
+	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
 
 	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
 
