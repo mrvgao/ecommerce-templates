@@ -42,7 +42,7 @@ def my_personal(request):
     #user = request.user
     #designer_id = request.GET['designer_id']
     #state = request.GET['good_state']
-    designer = Designer_User.objects.get(user_id = 1)#user.id)
+    designer = Designer_User.objects.get(user_id = user.id)
     is_focus = False
     designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
     designer.img = str(server_website.file_server_path) + str(designer.img)
@@ -77,7 +77,7 @@ def my_personal(request):
     		  }
     return render(request, website.my_personal, conf)
 
-
+#@login_required
 def sort_list(request):
     '''
     展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
@@ -116,7 +116,7 @@ def sort_list(request):
             }
     return HttpResponse(json.dumps(conf))
 
-
+##@login_required
 def unpublished_good_search(request):
     '''
     #搜索商品的方法
@@ -124,7 +124,7 @@ def unpublished_good_search(request):
     describe = request.POST['search_val']
     designer = 1
     good_state = int(request.POST['search_type'])
-    if good_state<3:
+    if good_state < 3:
         result_goods = search_handle.unexecuteed_search(describe,designer,good_state)
         goods_find = []
         for good_id in result_goods:
@@ -171,10 +171,11 @@ def unpublished_good_search(request):
             }
             goods_find.append(temp)
     total_pages = len(goods_find)/2+1
+  
     conf = {'all_list':goods_find,'total_pages':total_pages}
     return HttpResponse(json.dumps(conf))
 
-
+#@login_required
 def published_good_search(request):
     '''
     #搜索已发布商品的方法  published_good_search
@@ -313,7 +314,7 @@ def works_visit(d_id):
             'monthNumwork': monthNum}
     return HttpResponse(json.dumps(conf)) 
 
-
+#@login_required
 def setup(request):
     #user = request.user
     designer = Designer_User.objects.get(user_id = 1 )#user.id)
@@ -324,7 +325,7 @@ def setup(request):
         '''
         has_alipay = True
     conf = {'name': designer.designername,'img': str(server_website.file_server_path)+str(designer.img),
-            'has_alipay': has_alipay, 'phone': designer.phone }
+            'has_alipay': has_alipay, 'phone': designer.phone, 'alipay': designer.alipay_name}
     return render(request, website.setup, conf)
 
 
@@ -372,7 +373,7 @@ def cancel_collect(request):
     cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
     return HttpResponse(json.dumps("success"))
 
-
+#@login_required
 def add_alipay(request):
     '''
     添加支付宝账号

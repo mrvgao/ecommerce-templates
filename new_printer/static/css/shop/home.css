@@ -1,5 +1,35 @@
-
+.home-banner ul {
+	height:600px;
+}
+.home-banner ul li {
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+    height:600px;
+}
+.home-banner ul li:first-child {
+	z-index:1;
+}
+.h-b-btn {
+	width:30px;
+	height:60px;
+	top:50%;
+	margin-top:-30px;
+	background-image:url('/static/images/shop/home-icons.png');
+	cursor:pointer;
+	z-index:2;
+}
+.h-b-l {
+	left:50px;
+	background-position:-293px -325px;
+}
+.h-b-r {
+	right:50px;
+	background-position:-330px -325px;
+}
 .wehave {
+	right:0;
 	padding-top:80px;
 	padding-bottom:20px;
 }
@@ -18,7 +48,8 @@
 	margin-top:4px;
 }
 .wehave-list p.doforyou {
-	font-size:14px;
+	font-size:12px;
+	color:#999;
 }
 .wehave-bg {
 	width:100px;

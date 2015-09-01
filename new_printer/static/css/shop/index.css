@@ -31,6 +31,13 @@
 .wehave-list p.doforyou {
 	font-size:14px;
 }
+.wehave-list p.wehave-txt {
+	width:200px;
+	margin-top:10px;
+	margin-left:-30px;
+	font-size:12px;
+	color:#999;
+}
 .wehave-bg {
 	width:126px;
 	height:115px;
@@ -169,14 +176,14 @@
 	background-image:url('/static/images/shop/index/person-seller.png');
 }
 .person-seller span, .person-customer span {
-	left:70px;
+	left:130px;
 	bottom:36px;
 	font-size:16px;
 	color:#777;
 }
 .person-designer span {
-	right:102px;
-	bottom:36px;
+	right:170px;
+	bottom:38px;
 	font-size:16px;
 	color:#777;
 }

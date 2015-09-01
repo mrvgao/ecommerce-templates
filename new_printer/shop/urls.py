@@ -8,10 +8,10 @@ urlpatterns = patterns('',
         url('^test$', views.test, name="test"),
 
         # 展示型首页
-        url('^$', views.test, name="index"),
+        url('^$', views.index, name="index"),
 
         # 网站内首页
-        url('^home$', views.test, name="home"),
+        url('^home$', views.home, name="home"),
 
         # 登录注册页
         url('^login_register', views.login_register, name='login_register'),
@@ -54,5 +54,8 @@ urlpatterns = patterns('',
 
         # 首页按类型筛选，ajax
         url('filter-type', views.filter_type, name="filter_type"),
+
+		# 用户和客服聊天
+        url('^chat_customer_service_win', views.chat_customer_service_win, name="chat_customer_service_win"),
 )
 
