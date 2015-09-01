@@ -30,6 +30,7 @@ def login_register(request):
     '''
     dsecription:登录注册页
     '''
+
     return render(request, website.login_register, None)
 
 
@@ -37,10 +38,12 @@ def password_find(request):
     '''
     description:密码查找
     '''
+
     return render(request, website.password_find, None)
 
 
 def new_chat(request):
+
 	return render(request,website.index)
 
 
@@ -72,6 +75,7 @@ def index(request):
 
 def home(request):
     return render(request, website.home)
+
 
 def list(request):
 
@@ -357,26 +361,6 @@ def common_filter(tags_name, sort_name, style_name):
 
 
 def all_goods_list(request):
-
-    '''
-    type_name = [u'戒指', u'吊坠', u'耳坠', u'手链', u'项链', u'胸针']
-    type_class = ['ring', 'pendant', 'earbob', 'bracelet', 'torque', 'brooch']
-    nubmer = 6
-
-    type_list = []
-    for i in range(nubmer):
-        temp_list = goods_handler.get_all_goods_by_tags(type_name[i])
-        goods_list = modify_goods_list(temp_list)
-        index_goods_designer = IndexGoodsDesigner()
-        index_goods_designer.set_index_goods_designer(goods_list, type_class[i], type_name[i])
-        type_list.append(index_goods_designer)
-
-        goods_tags = u'戒指'
-        vender_id = 2
-
-        goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-        goods_list *= 10
-    '''
 
     user = request.user
     customer_name = common_handler.get_customer(user)
