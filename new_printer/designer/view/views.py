@@ -39,9 +39,10 @@ def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
-    #user = request.user
+    user = 1#request.user
     #designer_id = request.GET['designer_id']
     #state = request.GET['good_state']
+    is_designer = CommonHandler.get_customer(user)
     designer = Designer_User.objects.get(user_id =1)# user.id)
     is_focus = False
     designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
@@ -73,7 +74,7 @@ def my_personal(request):
         total_pages += 1
     conf = {'other_goods_list': return_list, 'designer_img': designer.img, 'designer_name': designer.designername,
             'marked': designer_marked, 'now_user': now_user, 'designer_id': designer.id,
-            'is_focus': is_focus
+            'is_focus': is_focus, 'is_designer': is_designer
     		  }
     return render(request, website.my_personal, conf)
 
@@ -225,8 +226,8 @@ def my_state(request):
     '''
     #显示我的动态的页面 my_state
     '''
-    #user = request.user
-
+    user = 1#request.user
+    is_designer = CommonHandler.get_customer(user)
     designer = Designer_User.objects.get(user_id = 1)#user.id)
     unpublished_list = Goods_Upload.objects.filter(designer_id = designer.id)
     published_list = Goods.objects.filter(designer_id = designer.id)
@@ -244,7 +245,7 @@ def my_state(request):
     published_list = Goods.objects.filter(designer_id = designer.id)
     
     works = works_visit(d_id)
-    conf = { 'worksNum':all_list,
+    conf = { 'worksNum':all_list, 'is_designer': is_designer,
             'worksCollection':collect,
             'downloadNum':download,
             'focusNum':designer.marked_count,
