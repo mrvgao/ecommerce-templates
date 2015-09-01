@@ -19,13 +19,17 @@ var TABLES ={
 }
 
 var socketMap = [];
+/*var socketMap = {};*/
+/*socketMap.customer = [];*/
+/*socketMap.customerService = [];*/
+var customerServiceList = [];
 
 var usersInfos = [];
 
 function socketMain(socket){
 	
 	// when a user get connect 
-	console.log('a user connected:'+socket.remoteAddress);
+	console.log('user connected'+socket.handshake.address);
 
 
 	/*socket.on('login/', function(username, password){*/
@@ -36,37 +40,46 @@ function socketMain(socket){
 
 
 	socket.on('chat/logged_in_user/connect', function(userInfo){
+		l('logged_in_user');
 		var username = userInfo.username;
 		var nickname = userInfo.nickname;
-
-		socketMap[nickname] = socket; 
-
+		/*socketMap.customer[username] = socket; */
+		socketMap[username] = socket;
 		socket.emit('callback/logged_in_user/connect', usersInfos);
-
 		socket.broadcast.emit('chat/a_user_connect', userInfo);
-
-		var isNotLogged = usersInfos.filter(function(item){
-			return item.username === userInfo.username;
-		}).length;
-
-		// if this user is not logged   
-		if(isNotLogged === 0){
-			usersInfos.push(userInfo);
-		}
 	});
 
 
 	socket.on('chat/anonymous_user/connect', function(){
-			username = nickname = socket.id;
+		l('anonymous_user');
+		var ipAddress = socket.handshake.address;
+		ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
+		username = nickname = ipAddress;
+		/*socketMap.customer[username] = socket;*/
+		socketMap[username] = socket;
+		socket.emit('callback/chat/anonymous_user/connect',ipAddress,customerServiceList[0]);
+
+		l('send a service to user:'+customerServiceList[0]);
 	});
 
 
-	socket.on('chat/customer_service/connect', function(userInfo){
-		;
+	socket.on('chat/customer_service/connect', function(){
+		l('customer_service');
+		var ipAddress = socket.handshake.address;
+		ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
+		/*username = nickname = ipAddress;*/
+		username = nickname = "Service1";
+		/*socketMap.customerService[username] = socket;*/
+		socketMap[username] = socket;
+		socket.emit('callback/chat/customer_service/connect',username);
+		customerServiceList.push(username);
+
+		l('ip:'+ipAddress);
 	});
 
 
 	socket.on('chat/disconnect', function(userInfo){
+		l('disconnect');
 		var username = userInfo.username;
 		var nickname = userInfo.nickname;
 
@@ -96,6 +109,24 @@ function socketMain(socket){
 			});
 		}
 	})
+	
+
+	socket.on('chat/new_chat_message', function(fromUser, toUser, message){
+		var socketTargUser = socketMap[toUser];
+		if(socketTargUser !== undefined){
+			socketTargUser.emit('chat/new_chat_message', message, fromUser);
+			/*var date = new Date();*/
+			/*var myDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();*/
+
+			/*bgMain.insertData(TABLES.chatData.tableName, [TABLES.chatData.fromUser, TABLES.chatData.toUser, TABLES.chatData.content, TABLES.chatData.tinyProtrait, TABLES.chatData.date], [fromUser, toUser, message, '', myDate], '', function(result){*/
+			/*;				 */
+			/*});*/
+			l('emmied');
+		}else{
+			l('not emmied:'+toUser);
+		}
+
+	});
 
 
 	socket.on('chat/get_chat_data', function(mainUser, chatWithUser, selectFrom, selectSum){
