@@ -58,21 +58,22 @@ def word_list(request):
 						)'''
 #点击驳回按键后的处理
 def pass_failed(request):
-	id = 40#request.POST['id']
-	#fail_state = [0,1]#request.POST['state']
+	#pdb.set_trace()
+	id = int(request.POST['id'])
+	state = int(request.POST['state'])
 	failed_reason = ''
 	count = 1
-	#pdb.set_trace()
-	for state in fail_state:
+	failed_reason = website.reason_failed[state]
+	'''for state in fail_state:
 		if count == len(fail_state):
 			failed_reason = failed_reason + str(website.reason_failed[state]) 
 		else :
 			failed_reason = failed_reason + str(website.reason_failed[state]) + ','
-		count = count +1
+		count = count +1'''
 	print failed_reason
-	else_reason = '难看'#request.POST['reason']
+	'''else_reason = '难看'#request.POST['reason']
 	if else_reason:
-		failed_reason = failed_reason + ',' + str(else_reason)
+		failed_reason = failed_reason + ',' + str(else_reason)'''
 	photo = Goods_Upload.objects.filter(id = id).update(
 						good_state = 2,
 						not_passed = failed_reason
@@ -98,9 +99,10 @@ def has_passed(request):
 
 #点击审核通过按键
 def work_passing(request):
-	id = 160#request.POST['id']
-	style_state = 1 #request.POST['state']
-	tags_state = 1 #request.POST['state']
+	id = request.POST['id']
+	#pdb.set_trace()
+	style_state = int(request.POST['style_state'])
+	tags_state = int(request.POST['type_state'])
 	count = 1
 	tags = website.good_tags[tags_state]
 	style = website.good_style[style_state]

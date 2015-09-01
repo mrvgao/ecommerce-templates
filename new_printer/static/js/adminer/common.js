@@ -44,7 +44,7 @@ $(function(){
 		var workId = $(this).parents('.good-container').find('#good-id').html();					 
 		workId = parseInt(workId);
 		var denyReasonId = $("[name|='deny-reason']:checked").val()
-		$.post('pass_failed', {id: workId, state: denyReasonId}, function(e){
+		$.post('/adminer/pass_failed', {'id': workId, 'state': denyReasonId}, function(e){
 			l('deny succeed');	  
 		})
 	});
@@ -54,7 +54,7 @@ $(function(){
 		workId = parseInt(workId);
 		var goodType = $('#good-type').val();
 		var goodStyle = $('#good-style').val();
-		$.post('work_passing', {id: workId, state: goodStyle, style: goodStyle}, function(e){
+		$.post('/adminer/work_passing', {'id': workId, 'type_state': goodType, 'style_state': goodStyle}, function(e){
 			l('pass succeed');	  
 		})
 	});
