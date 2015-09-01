@@ -37,19 +37,25 @@ $(function(){
 
 
 	// added by white
+
 	$('#show-3d-tool-cancel-fullscreen').click(function(){
 		$('#show-3d-fullscreen').empty();									  
 		$('#show-3d-cont').hide();
 	});
 
 	$('#show-3d-tool-screenshot').click(function(){
-		console.log('shot');
-		ShowStl.screenShotByElement('show-3d-tool-fullscreen');
+		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0];
+		var imgSrc = myCanvas.toDataURL();
+		$('.modify-imgs-box').eq(1).find('img').attr('src',imgSrc);
 
 	});
+	
+	// added by white over
 });
 
 
+<<<<<<< HEAD
+=======
 ShowStl.screenShotByElement = function(elementId){
 
 	html2canvas($('.designer-sidebar-pic'), {
@@ -79,6 +85,7 @@ ShowStl.screenShotByElement = function(elementId){
 	});
 }
 
+>>>>>>> 5ea6d67c181652768207133104a3e7a34b2457fd
 // 搜索模块
 function toSearch(){
 	// 敲回车搜索
@@ -103,14 +110,15 @@ function toSearch(){
 	$('.designer-works-search-icon').on('click',function (){
 		var _val = $('.search-box').val(),
 		_txt = $('.designer-works-nav-current').text(),
-		_title = $('.works-current').text().substr(0,3);
-
+		_title = $('.works-current').val();
 		if(_val != '' || _val != null){
 			$.post('/designer/unpublished_good_search',{
 				'search_val': _val,
 				'search_txt': _txt,
 				'search_type': _title
 			},function (e){
+				var waitList = JSON.parse(e).all_list;
+				console.log(waitList);
 				setData(e);
 			});
 		}
@@ -120,11 +128,12 @@ function toSearch(){
 		$('.designer-works-wait tbody').html('');
 		var waitList = JSON.parse(e).all_list;
 		var totalPage = JSON.parse(e).total_pages;
+		
 		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
 		for(var i=0,len=waitList.length;i<len;i++){
 			waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
 		}
-		getPage(totalPage,page);
+		getPage(totalPage,1);
 		designer_works_lists.append(waitStr);
 		deleteSigle();
 	}
@@ -275,7 +284,10 @@ function published(page){	//获取已发布数据
 				});
 			}
 		});
+<<<<<<< HEAD
+=======
 
+>>>>>>> 5ea6d67c181652768207133104a3e7a34b2457fd
 	});
 }
 

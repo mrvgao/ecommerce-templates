@@ -24,8 +24,7 @@ from datetime import date ,datetime
 import time
 import json,pdb,hashlib
 
-#(website.unexec_one)=2
-
+#@login_required
 def works_upload(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
     conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img) }
@@ -36,8 +35,7 @@ def stls_save(stls):
     file_size = []
     has_existed = {}
     count = 0
-    for stl in stls:
-        #pdb.set_trace()         
+    for stl in stls:       
         stl_type=str(stl)
         stl_type=stl_type.split('.')
         stl_md5 = file_save(stl,stl_type[0],stl_type[1])
@@ -72,7 +70,7 @@ def stls_save(stls):
     print has_existed
     return has_existed
 
-#@login_required
+##@login_required
 def works_save(request):
     if request.method == 'POST':
         a_have = True
@@ -117,26 +115,17 @@ def file_save(model,name,stl_type):
     md5 = md['status']
     return md5
 
-
-'''def stl_delete(request):
-
-    #上传STL文件处的删除操作
-
-    del_id = request.POST['id']
-    Goods_Upload.objects.filter(id = del_id).delete()
-    conf = {'status':'success'}
-    return HttpResponse(json.dumps(conf)) '''
-
-
+#@login_required
 def workd_unexecute(request):
     '''
-    #设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
+    设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
     '''
     user = 1#request.user
     now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
     designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
+    unexecute_list = unexecute_list.order_by('upload_time').reverse()   
     return_list = good_filter.unpublish_exec(unexecute_list)
     worksWait = unexecute_list.count()
     worksOn = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1).count()
@@ -176,7 +165,6 @@ def unexecute_delete(request):
     '''
         #在未审核页面直接删除作品 ;在已发布页面点击编辑后，点击取消发布；
     '''
-    #pdb.set_trace()
     ids = request.POST['id']
     state = int(request.POST['state'])
     if state<4:

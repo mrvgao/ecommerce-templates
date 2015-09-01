@@ -401,3 +401,7 @@ def all_goods_list(request):
     }
 
     return render(request, website.all_goods_list, context)
+
+
+def chat_customer_service_win(request):
+    return render(request, website.chat_customer_service_win)

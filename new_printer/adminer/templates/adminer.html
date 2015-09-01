@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+
+
+<body>
+	<style type="text/css">
+	.main-container{
+		width: 960px;
+		height: 700px;
+		opacity: 0.5;
+		margin-top: -723px;
+		margin-left: 19px;
+		position: absolute;
+
+	}	
+	.title-bar{
+		float: left;
+		padding-top: 8px;
+		padding-left: 20px;
+		color: #FFF;
+		width: 940px;
+		height: 42px;
+		background-color: #62CDD7;
+	}
+	.tool-bar{
+		width: 960px;
+		height: 36px;
+		margin-top: 50px;
+		background-color: #EBEBEB;
+		position: relative;
+		font-size: 14px;
+		color: #FFF;
+	}
+	.tool-bar-select{
+		float: left;
+		width: 77px;
+		height: 36px;
+	}
+	.tool-bar-choosed{
+		background-color: #FF766F;
+	}
+	.tool-bar-select option{
+		width: 77px;
+		height: 36px;
+	}
+	.search-bar{
+		padding-top: 14px;
+		width: 960px;
+		height: 46px;
+		display: none;
+	}
+	.search-bar img{
+		width: 30px;
+		height: 30px;
+		background-color: #111;
+		float: right;
+	}
+	.search-bar textarea{
+		height: 22px;
+		width: 139px;
+		resize: none;
+		float: right;
+		font-size: 16px;
+		padding-top: 4px;
+	}
+	.search-bar div{
+		width: 58px;
+		height: 30px;
+		float: right;
+	}
+	.goods-container{
+		width: 960px;
+		height: 554px;
+		background-color: #111;
+		display: none;
+	}
+	.goods-container ul{
+		margin: 0px;
+		padding: 0px;
+	}
+	.good-container{
+		width: 960px;
+		height: 243px;
+		background-color: #111;
+
+	}
+	.good-info{
+		width: 952px;
+		height: 26px;
+		background-color: #111;
+		padding-top: 5px;
+		padding-left: 10px;
+		color: #FFF;
+		font-size: 10px;
+	}
+	.good-pic-div{
+		width: 676px;
+		height: 184px;
+		background-color: #111;
+		padding-left: 10px;
+		padding-top: 13px;
+		float: left;
+	}
+	.good-pic{
+		margin-right: 0px;
+		width: 162px;
+		height: 162px;
+		margin-top: 13px;
+	}
+	.good-pic img{
+		width: 162px;
+		height: 162px;
+	}
+	.pages-bar{
+		width: 960px;
+		height: 82px;
+		background-color: #FF0000;
+		position: absolute;
+		bottom: 0px;
+		display: none;
+	}
+	.pages-bar div{
+		float: left;
+		margin-top: 36px;
+		border-radius: 2px;
+		font-weight: bold;
+		text-align: center;
+		font-size: 12px;
+		padding-top: 10px;
+		background-color: #F99;
+		width: 35px;
+		height: 25px;
+		margin-left: 5px;
+	}
+	.good-info-for-detail{
+		width: 261px;
+		height: 137px;
+		float: right;
+		padding-left: 13px;
+	}
+	.good-btn{
+		margin-top: 40px;
+		width: 106px;
+		height: 26px;
+		border-radius: 4px;
+		background-color: #62CDD7;
+		text-align: center;
+		font-size: 14px;
+		font-weight: bold;
+		color: #FFF;
+		padding-top: 8px;
+	}
+	</style>
+	<img src="static/images/adminer/talk.png">
+	<div class='main-container'> 
+		<div class='title-bar'>
+			<span style="font-family: -webkit-pictograph;font-size: 22px;">3Dilove</span>
+			<span style="font-family: cursive;font-size: 22px;">客服后台</span>
+			<a href="" style="margin-left: 693px;letter-spacing: -3px;font-family: serif;font-size: 17px;color: #fff;text-decoration: blink;">Lily</a>
+			<a href="" style="text-decoration: blink;color: #FFF;">退出</a>
+		</div>
+		<div class='tool-bar'>
+			<div style="float: left;width: 109px;height: 36px;text-align: center;padding-top: 10px;  padding-left: 4px;color：#474747;">作品审核管理</div>
+			<div style="float: left;height: 36px;padding-top: 9px;  font-size: 17px;">|</div>
+			<select class="tool-bar-select">
+				<option>未处理</option>
+				<option>已驳回</option>
+				<option>未通过</option>
+			</select>
+			<div style="  float: left;
+			width: 178px;
+			height: 26px;
+			padding-top: 10px;
+			text-align: center;" class="tool-bar-choosed">客户留言对话</div>
+		</div>
+		<div class='search-bar'>
+			<div></div>
+			<textarea>作品编号、作品名</textarea>
+			<img src="">
+
+		</div>
+
+		<HR align=center width=960 color=#987cb9 SIZE=1 style="margin-top:0px;margin-bottom:0px"></HR>
+		<div class='goods-container'>
+			<ul>
+				<li>
+					<div class="good-container">
+						<div class="good-info">
+							<span>作品编号:</span>
+							<span style="font-size: 13px;letter-spacing: 1px;">1234567890</span>
+							<span style="margin-left: 591px;">最后修改时间:</span>
+							<span style="letter-spacing: 4px;font-size: 13px;">2015/7/26 13:14</span>
+						</div>
+						<div>
+							<div class="good-pic-div">
+								<span class="good-pic"><img src=""></span>
+								<span class="good-pic"><img src=""></span>
+								<span class="good-pic"><img src=""></span>
+								<span class="good-pic"><img src=""></span>
+							</div>
+							<div class="good-info-for-detail">
+								<p style="font-size: 14px;font-weight: bold;margin-top: 22px;">蓝色之恋</p>
+								<p style="  font-size: 12px;
+								font-weight: bold;
+								margin-top: -2px;
+								width: 260px;
+								height: 32px;">设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义</p>
+								<span>￥30</span>
+								<span style="  margin-left: 10px;
+								font-size: 13px;
+								font-weight: bold;">STL文件</span>
+								<span style="  margin-left: 4px;
+								font-size: 14px;
+								font-weight: bold;">1.2MB</span>
+								<div class="good-btn" style="  float: left;
+								margin-left: 31px;">驳回作品</div>
+								<div class="good-btn" style="float: right;
+								margin-right: 9px;">审核通过</div>
+							</div>							
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="pages-bar">
+			<div style="  margin-left: 571px;
+			width: 66px;
+			height: 24px;
+			background-color: #F99;">上一页</div>
+			<div>1</div>
+			<div>2</div>
+			<div>3</div>
+			<div>4</div>
+			<div>5</div>
+			<div style="width: 39px;">...</div>
+			<div style="width: 66px;">下一页</div>
+		</div>
+		<div class='chat-container'>
+			<div class="user-list-box">
+				<div style="  width: 123px;
+				height: 25px;
+				font-size: 14px;
+				padding-left: 9px;
+				padding-top: 6px;
+				background-color: #EBEBEB;">当前接入(<span>5</span>)</div>
+				<div class="user-list">
+					<div class="chat-user choosed">
+						<img src="">
+						<div>东海三</div>
+					</div>
+				</div>
+			</div>
+			<div class="chat-box">
+				<div class="chat-tag-bar">
+					<div class="chat-tag">
+						<div style="float: left;color:#fff;">钻石人生</div>
+						<div style="float: right;margin-top: -26px;color:#fff;">×</div>
+					</div>
+				</div>
+				<div class="chat-message-container">
+					<div class="chat-message">
+						<div class="chat-message-info">
+							<span>客服</span>
+							<span>10:12</span>
+						</div>
+						<div class="chat-message-cont">卡看了看大师的撒离婚后</div>
+					</div>
+				</div>
+				<div class="chat-tool-bar">
+					<div class="chat-tool">
+						<div style="background: url('./bg/widget/widget.png') no-repeat;width: 25px;height: 25px;background-position: -3px -41px;float:left;"></div>
+						<div style="  font-size: 13px;padding-top: 6px;padding-left: 4px;float: left;font-weight: bold;">照片</div>
+					</div>
+					<div class="chat-tool">
+						<div style="background: url('./bg/widget/widget.png') no-repeat;width: 25px;height: 25px;background-position: -30px -41px;float:left;"></div>
+						<div style="  font-size: 13px;padding-top: 6px;padding-left: 4px;float: left;font-weight: bold;">表情</div>
+					</div>
+					<div class="chat-tool">
+						<div style="background: url('./bg/widget/widget.png') no-repeat;width: 25px;height: 25px;background-position: -58px -41px;float:left;"></div>
+						<div style="  font-size: 13px;padding-top: 6px;padding-left: 4px;float: left;font-weight: bold;">记录</div>
+					</div>
+				</div>
+				<textarea class="chat-input"></textarea>
+				<div class="send-msg-bar">
+					<div class="send-msg-btn">发送</div>
+				</div>
+			</div>
+			<div class="other-chat-tool-box">
+				<div class="user-info-box">
+					<div style="font-size: 15px;
+					padding-left: 10px;
+					padding-top: 8px;
+					background-color: #EBEBEB;
+					height: 23px;
+					color: #4C4C4C;">个人信息</div>
+					<div class="user-info">
+						<div style="background-color: #fff;padding-top: 10px;padding-left: 19px;color: #666666;font-size: 12px;height: 16px;">
+							<span>用户名：</span>
+							<span class="chat-user-name">钻石人生</span>
+						</div>
+						<div style="padding-top: 4px;padding-left: 21px;color: #666666;font-size: 12px;height: 16px;">
+							<span>账号：</span>
+							<span class="chat-user-account">1864565465464</span>
+						</div>
+						<div style="padding-top: 4px;padding-left: 21px;color: #666666;font-size: 12px;height: 16px;">
+							<span>身份：</span>
+							<span class="chat-user-identity">商家</span>
+						</div>
+					</div>
+				</div>
+				<div class="quick-reply-box">
+					<div style="font-size: 15px;padding-left: 9px;padding-top: 10px;background-color: #EBEBEB;height: 23px;color: #4C4C4C;margin-bottom: 8px;">快速回复</div>
+					<div class="quick-reply-item">大厦开个大厦的空间看撒大家</div>
+					<div class="quick-reply-item">大厦开个大厦的空间看撒大家</div>
+					<div class="quick-reply-item">大厦开个大厦的空间看撒大家</div>
+					<div class="quick-reply-item">大厦开个大厦的空间看撒大家</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+	.chat-container{
+		width: 960px;
+		height: 603px;
+		margin-top: 4px;
+	}
+	.user-list-box{
+		width: 132px;
+		height: 597px;
+		float: left;
+	}
+	.user-list{
+		width: 100%;
+		height: 567px;
+		overflow-y: auto;
+	}
+	.chat-user{
+		width: 100%;
+		height: 46px;
+		margin-top: 6px;
+		background-color: #fff;
+	}
+	.chat-user.choosed{
+		background-color: #E6E6E6;
+		color: #FAFAFA;
+	}
+	.chat-user img{
+		width: 38px;
+		height: 38px;
+		float: left;
+		margin-top: 5px;
+		margin-left: 10px;
+	}
+	.chat-user div{
+		float: left;
+		margin-top: 18px;
+		margin-left: 4px;
+		font-size: 13px;
+	}
+	.chat-box{
+		width: 618px;
+		height: 600px;
+		float: left;
+	}
+	.chat-tag-bar{
+		background-color: #62CDD7;
+		width: 618px;
+		height: 34px;
+	}
+	.chat-tag{
+		background-color: #57B4BD;
+		width: 65px;
+		height: 22px;
+		font-size: 12px;
+		padding-top: 10px;
+		padding-left: 12px;
+	}
+	.chat-message-container{
+		width: 618px;
+		height: 377px;
+		overflow-y: auto;
+	}
+	.chat-message{
+		background-color: #fff;
+		-width: 618px;
+		height: 54px;
+		margin-top: 5px;
+	}
+	.chat-message-info{
+		-width: 100%;
+		height: 17px;
+		font-size: 12px;
+		color: #fff;
+		padding-top: 8px;
+		padding-left: 19px;
+	}
+	.chat-message-cont{
+		-width: 618px;
+		height: 30px;
+		font-size: 14px;
+		color: #333333;
+		padding-top: 4px;
+		padding-left: 17px;
+	}
+	.chat-tool-bar{
+		background-color: #F5F5F5;
+		height: 33px;
+		padding-top: 6px;
+		padding-left: 6px;
+	}
+	.chat-tool{
+		width: 60px;
+		height: 25px;
+		background-color: #fff;
+		border-radius: 2px;
+		margin-left: 12px;
+		float: left;
+	}
+	.chat-input{
+		width: 616px;
+		height: 90px;
+		resize: none;
+		padding: 0px;
+	}
+	.send-msg-bar{
+		height: 53px;
+		background-color: #F0F0F0;
+	}
+	.send-msg-btn{
+		background-color: #F5756E;
+		width: 76px;
+		height: 26px;
+		border-radius: 8px;
+		font-size: 15px;
+		color: #fff;
+		text-align: center;
+		padding-top: 10px;
+		float: right;
+		margin-right: 21px;
+		margin-top: 6px;
+	}
+	.other-chat-tool-box{
+		padding-left: 10px;
+		width: 200px;
+		float: right;
+	}
+	.user-info-box{
+		width: 199px;
+		height: 223px;
+	}
+	.user-info{
+		height: 193px;
+	}
+	.quick-reply-item{
+		margin-top: 4px;
+		height: 18px;
+		font-size: 12px;
+		color: #666666;
+		padding-left: 4px;
+		padding-top: 2px;	
+		font-weight: bold;
+	}
+	</style>
+</body>
+</html>
