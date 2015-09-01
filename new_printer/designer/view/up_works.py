@@ -176,6 +176,7 @@ def unexecute_delete(request):
     '''
         #在未审核页面直接删除作品 ;在已发布页面点击编辑后，点击取消发布；
     '''
+    #pdb.set_trace()
     ids = request.POST['id']
     state = int(request.POST['state'])
     if state<4:
@@ -186,32 +187,12 @@ def unexecute_delete(request):
     return HttpResponse(json.dumps(conf))
 
 
-'''def unexecute_edit(request):
-    
-    #在未审核页面 点击处理并提交 后往JS传得值
-    
-    id = 40#request.POST['id'] 
-    goods_list = Goods_Upload.objects.filter(id = id)
-    return_good = []
-    for good in goods_list:
-        temp = {'id':good.id,
-                'name':good.goods_name,
-                'file_size':good.file_size,
-                'upload_time':good.upload_time.strftime("%Y-%m-%d"),
-                'stl_path':str(good.stl_path)
-                  }
-        return_good.append(temp)
-    conf = {'good':return_good}  
-    return HttpResponse(json.dumps(conf))  '''
-
-
 def edit_submit(request):
     '''
     #未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
     '''
     file_id = request.POST['modify_id']
     count = 1
-    pdb.set_trace()
     p_url = []
     good = Goods_Upload.objects.get(id=file_id)
     stl_md5 = good.stl_path.encode('utf-8')
@@ -255,18 +236,20 @@ def edit_submit(request):
 
 
 def deletePic(request):
+    #pdb.set_trace()
     this_id = request.POST['id']
     picid = int(request.POST['picId'])
     print picid
     good = Goods_Upload.objects.filter(id = this_id)
     if picid == 0:
-        delpic = good.update(preview_1='null')
+        delpic = good.update(preview_1='')
     if picid == 1:
-        delpic = good.update(preview_2='null')
+        delpic = good.update(preview_2='')
     if picid == 2:
-        delpic = good.update(preview_3='null')
+        delpic = good.update(preview_3='')
     conf = {'status':'success'}
     return HttpResponse(json.dumps(conf))
+
 
 def photo_save(model,name,stl_type,stl_md5):
     chunks = ""

@@ -31,7 +31,9 @@ unexec_one = 2 #
 auditing_one = 2#
 unpassed_one = 2#
 publish_one = 2#
-pwd = '/Users/laola/Desktop/static'
+
+pwd=('/').join(os.getcwd().split('/')[0:3]) + '/static'
+print pwd
 
 def unpublish_good_filter(good_state,tags,designer):
 	good_list = Goods_Upload.objects.filter(designer_id=designer,tags = tags,good_state=good_state)
@@ -147,7 +149,8 @@ def publish_exec(good_list):
                 'stl_path':str(good.stl_path),
                 'approval_time':good.approval_time.strftime("%Y-%m-%d"),
                 'tags':good.tags,
-                'pic':photo
+                'pic':photo,
+                'type': good.file_type
                 }
         print good.id
         return_list.append(temp)
@@ -155,10 +158,7 @@ def publish_exec(good_list):
     return return_list
 #下载STL 文件到本地,以便预览stl
 def down_stl(_url):
-    stl_path = "%s/temp/"%pwd
-    #_url = request.POST['url']
-    #pdb.set_trace()
-    #_url = 'http://192.168.1.101:8888/5d9d45315d5f24f97f138450459edfdf/ahri_九尾妖狐.stl'
+    stl_path = "%s/"%pwd
     local_filename = _url.split('/')[-1]
     r = requests.get(_url, stream=True)
     lists = os.listdir(stl_path)
@@ -168,66 +168,22 @@ def down_stl(_url):
         stl_path = stl_path.split('/')[-3:]
         stl_path = "/".join(stl_path)
         stl_path = '/' + stl_path
-        print stl_path
+        print '1',stl_path
         context = {'stl_path':stl_path}
     else:
-        print stl_path
+        print '2',stl_path
         with open(stl_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=1024):
                 if chunk:  # filter out keep-alive new chunks
                     f.write(chunk)
                     f.flush()
-        stl_path = stl_path.split('/')
-        stl_path = stl_path[-3:]
+        stl_path = stl_path.split('/')[-2:]
         stl_path = "/".join(stl_path)
         stl_path = '/' + stl_path
-        print stl_path
+        print '3',stl_path
         context = {'stl_path':stl_path}
 
     return stl_path
 
-#首页
-def to_first(good_state,designer):
-    if good_state > 3:
-        good_list = Goods.objects.filter(designer_id=designer)
-        return_list = publish_exec(good_list)
-        return_list = return_list[:publish_one]
-    else:
-        good_list = Goods_Upload.objects.filter(designer_id=designer,good_state=good_state)
-        return_list = unpublish_exec(good_list)
-        return_list = return_list[:unexec_one]
-    return return_list
-
-#未页
-def to_last(good_state,designer):
-    if good_state > 3:
-        good_list = Goods.objects.filter(designer_id=designer)
-        len_good = len(good_list)
-        last = len_good/publish_one
-        return_list = publish_exec(good_list)
-        return_list = return_list[last:]
-    else:
-        good_list = Goods_Upload.objects.filter(designer_id=designer,good_state=good_state)
-        len_good = len(good_list)
-        last = len_good/unexec_one
-        return_list = unpublish_exec(good_list)
-        return_list = return_list[last:]
-    return return_list
-
-#下一页
-def next_page(good_state,designer,now_page):
-    if good_state > 3:
-        good_list = Goods.objects.filter(designer_id=designer)
-        len_good = len(good_list)
-        last = len_good/publish_one
-        return_list = good_list[(now_page*publish_one):(now_page+1)*publish_one]
-        return_list = publish_exec(return_list)
-    else:
-        good_list = Goods_Upload.objects.filter(designer_id=designer,good_state=good_state)
-        len_good = len(good_list)
-        last = len_good/unexec_one
-        return_list = good_list[(now_page*publish_one):(now_page+1)*publish_one]
-        return_list = unpublish_exec(return_list)
-    return return_list
 
 #go to now_page

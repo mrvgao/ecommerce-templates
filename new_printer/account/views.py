@@ -357,7 +357,7 @@ def u_img(request):
             img_name = photo.cleaned_data['img_name']
             img_up = request.FILES['img_up']
             file_type = str(img_up).split('.')
-            md5 = file_save(img_up, img_name, file_type[1])
+            md5 = UserManager.file_save(img_up, img_name, file_type[1])
 
             img_url ='img/' + str(stl_md5)+ '.' +str(stl_type[1])  
             identity = UserManager().user_which(user)

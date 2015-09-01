@@ -225,7 +225,7 @@ function published(page){	//获取已发布数据
 			var sucList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=sucList.length;i<len;i++){
-				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].upload_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].approval_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
 					sucStr += '<img src="'+sucList[i].pic[j]+'"/>';
 				}
@@ -380,7 +380,9 @@ function cancelAll(){	//批量取消发布
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
 		_id = _this.parents('.designer-works-list-box').attr('data-id');
-
+		var _this = $(this),
+			deleteObj = _this.parents('.designer-works-list-box'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', { "id": _id ,'state':state }, function(e){
 
 			if(e){
@@ -398,11 +400,11 @@ function cancelAll(){	//批量取消发布
 function cancelSigle(){		//单个取消发布
 	$('.works-cancel-btn').on('click',function(){
 		var _this = $(this),
-		deleteObj = _this.parents('.designer-works-list-box'),
-		_id = deleteObj.attr('data-id');
+			deleteObj = _this.parents('.designer-works-list-box'),
+			_id = deleteObj.attr('data-id');
 		var _this = $(this),
-		deleteObj = _this.parents('.designer-works-list-box'),
-		state = deleteObj.attr('data-state');
+			deleteObj = _this.parents('.designer-works-list-box'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 			if(e){
 				alert(e);
@@ -569,15 +571,16 @@ function edit(){	//编辑弹窗函数
 			if(imgBox.length==1){
 				alert("至少要有一张预览图");
 			}else{
-				var _index = $(this).index(),
+				var _index = $(this).parents('.modify-imgs-box').index(),
 					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
-					$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
-						if('success'==JSON.parse(e).status){
-							alert('delete success!');
+				console.log(_index);
+				$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
+					if('success'==JSON.parse(e).status){
+						alert('delete success!');
 					}
 				});$(this).parents('.modify-imgs-box').find('img').attr('src','');
-				}
-			});
+			}
+		});
 
 		// 修改图片
 		$('.modify-imgs-modify-btn').on('click',function(){
@@ -650,28 +653,6 @@ function publish_edit(){	//编辑弹窗函数
 			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 	 	}
 		$('.modify-imgs-container').append(imgStr);
-		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
-			var imgBox = $('.modify-imgs-box');
-			if(imgBox.length==1){
-				alert("至少要有一张预览图");
-			}else{
-				var _index = $(this).index(),
-					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
-				
-				$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
-					if('success'==JSON.parse(e).status){
-						alert('delete success!');
-					}
-				});
-				$(this).parents('.modify-imgs-box').find('img').attr('src','');
-			}
-		});
-
-		// 修改图片
-		$('.modify-imgs-modify-btn').on('click',function(){
-
-			$(this).prev().find('input').click();
-		});
 
 	});
 
