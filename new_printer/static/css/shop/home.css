@@ -1,5 +1,5 @@
 .home-banner ul {
-	height:600px;
+	height:600px
 }
 .home-banner ul li {
 	position:absolute;
@@ -8,8 +8,31 @@
 	width:100%;
     height:600px;
 }
+.home-banner ul li img {
+	width:100%;
+}
 .home-banner ul li:first-child {
 	z-index:1;
+}
+.airm-banner {
+	bottom:30px;
+	left:50%;
+	z-index:1;
+}
+.airm-banner a {
+	display:inline-block;
+	width:12px;
+	height:12px;
+	background:#fff;
+	border:3px solid #fff;
+	border-radius:50%;
+	margin-left:20px;
+}
+.airm-banner a.active {
+	background:#f60;
+}
+.airm-banner a:first-child {
+	margin-left:0;
 }
 .h-b-btn {
 	width:30px;
