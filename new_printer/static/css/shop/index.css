@@ -176,13 +176,13 @@
 	background-image:url('/static/images/shop/index/person-seller.png');
 }
 .person-seller span, .person-customer span {
-	left:70px;
-	bottom:38px;
+	left:130px;
+	bottom:36px;
 	font-size:16px;
 	color:#777;
 }
 .person-designer span {
-	right:74px;
+	right:170px;
 	bottom:38px;
 	font-size:16px;
 	color:#777;

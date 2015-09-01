@@ -42,7 +42,7 @@ def my_personal(request):
     #user = request.user
     #designer_id = request.GET['designer_id']
     #state = request.GET['good_state']
-    designer = Designer_User.objects.get(user_id = user.id)
+    designer = Designer_User.objects.get(user_id =1)# user.id)
     is_focus = False
     designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
     designer.img = str(server_website.file_server_path) + str(designer.img)
@@ -325,7 +325,7 @@ def setup(request):
         '''
         has_alipay = True
     conf = {'name': designer.designername,'img': str(server_website.file_server_path)+str(designer.img),
-            'has_alipay': has_alipay, 'phone': designer.phone }
+            'has_alipay': has_alipay, 'phone': designer.phone, 'alipay': designer.alipay_name}
     return render(request, website.setup, conf)
 
 
