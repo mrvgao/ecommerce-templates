@@ -11,7 +11,7 @@ urlpatterns = patterns('',
         url('^$', views.test, name="index"),
 
         # 网站内首页
-        url('^home$', views.test, name="home"),
+        url('^home$', views.index, name="home"),
 
         # 登录注册页
         url('^login_register', views.login_register, name='login_register'),
