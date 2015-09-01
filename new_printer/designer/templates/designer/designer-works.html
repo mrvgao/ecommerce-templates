@@ -9,10 +9,10 @@
 {% block mainContent %}
 <div class="designer-works-container">
 	<div class="designer-works-btn">
-		<button class="works-current" id="works_wait_btn">未审核 ({{ worksWait }})</button>
-		<button id="works_on_btn">审核中({{ worksOn }})</button>
-		<button id="works_not_btn">未通过({{ worksNot }})</button>
-		<button id="works_Suc_btn">已发布({{ worksSuc }})</button>
+		<button class="works-current" value='0' id="works_wait_btn">未审核 ({{ worksWait }})</button>
+		<button value='1' id="works_on_btn">审核中({{ worksOn }})</button>
+		<button value='2' id="works_not_btn">未通过({{ worksNot }})</button>
+		<button value='3' id="works_Suc_btn">已发布({{ worksSuc }})</button>
 	</div>
 	<ul class="designer-works-nav fl">
 		<li><a type-tag='全部' class="designer-works-nav-current" href="javascript:void(0)">全部</a></li>
@@ -43,14 +43,14 @@
 					<img src="" class="modify-stl-preview">
 					<p class="modify-stl-show">点击可新打开页面查看三维效果<br/>截屏生成预览图</p>
 					<div id='show-3d-cont' style='position: absolute;top: 0px;left: 0px;z-index: 51; display:none;'>
-						<div id='show-3d' style=''></div>
+						<div id='show-3d'></div>
 						<div id='show-3d-tool-fullscreen' style='position:absolute;;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px; top:5px; right:5px;'>全屏</div>
 						<div id='show-3d-tool-screenshot' style='position:absolute;;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px; bottom:5px; right:5px;'>截图</div>
 					</div>
 					<div id='show-3d-fullscreen-cont' style='position: fixed;top: 0px;left: 0px;z-index: 51;'>
 						<div id='show-3d-fullscreen'></div>
-							<div id='show-3d-tool-cancel-fullscreen' style='position:absolute;z-index:51;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;top: 10px;right: 10px;'>退出全屏</div>
-							<!--<div id='show-3d-tool-screenshot' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 220px;margin-left: auto;margin-right: auto;'>截图</div>-->
+						<div id='show-3d-tool-cancel-fullscreen' style='position:absolute;z-index:51;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;top: 10px;right: 10px;'>退出全屏</div>
+						<!--<div id='show-3d-tool-screenshot' style='position:absolute;z-index:50;width: 60px;height: 25px;color: #111;background-color: #C0C0C0;border-radius: 3px;text-align: center;padding-top: 8px;margin-top: 220px;margin-left: auto;margin-right: auto;'>截图</div>-->
 					</div>
 				</div>
 				<div class="modify-show-info">

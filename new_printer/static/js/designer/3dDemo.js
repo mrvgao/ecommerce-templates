@@ -76,7 +76,8 @@ var _obj = {
 
 
 		// 准备渲染
-		this.renderer = new THREE.WebGLRenderer({antialias:true, alpha: false});
+		// set 'preserveDrawingBuffer' distribute to 'true' to make sure that the canvas with threejs can be captured as an image (via white)
+		this.renderer = new THREE.WebGLRenderer({antialias:true, alpha: false, preserveDrawingBuffer: true });
 		this.renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		this.renderer.setClearColor(0xffffff);
 

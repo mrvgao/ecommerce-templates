@@ -15,14 +15,8 @@ $(function (){
 		var type_tag = '全部'
 		clickFocus(_this);
 		ds_list_box.empty();
-<<<<<<< HEAD
 		var sucStr = '',
 			click_count = 0;
-
-=======
-		var sucStr = '';
-		var click_count = 0
->>>>>>> 956511c3caf6532270ea14921bf1ac3dac5dc324
 		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
 
 				var sucList = JSON.parse(e).all_list;

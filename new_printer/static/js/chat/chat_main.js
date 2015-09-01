@@ -66,7 +66,7 @@ $(function(){
 
 	Chat.registerUserElement();
 
-	socket.on('callback/logged_in_user/connect', function(usersInfos){
+	socket.on('callback/chat/logged_in_user/connect', function(usersInfos){
 
 		for (var i=0; i < usersInfos.length; i++ ){
 
@@ -86,33 +86,31 @@ $(function(){
 	});
 
 
+	socket.on('callback/chat/anonymous_user/connect',function(myUsername, customerService){
+		Chat.myUsername = myUsername;
+		Chat.nowTargUser = customerService;	
+		l('myname:'+Chat.myUsername);
+		l('targ:'+Chat.nowTargUser);
+	});
+
+
 	socket.on('chat/a_user_disconnect', function(userInfo){
 		var nickname = userInfo.nickname;
 		$('.user-info-nickname:contains('+nickname+')').parents('.user-inlist').remove();
 	});
 
 
-	socket.on('chat/a_new_message', function(message, fromUser){
+	socket.on('chat/new_chat_message', function(message, fromUser){
+		l('chat/new_chat_message:'+message+'/'+fromUser);
 
 		if(Chat.nowTargUser === fromUser){
-			if(Chat.chatWithBubble){
-				Chat.appendChatBubbleWithReceiveMsg(message, Chat.messageSide.otherSide);
-				var	chatContainerDom = $('.chat-bubble-cont');
-				Chat.contentToBottom(chatContainerDom);
-			}else{
-				Chat.appendChatContainerWithReceiveMsg(message, Chat.messageSide.otherSide);
-				var	chatContainerDom = $('.chat-cont');
-				Chat.contentToBottom(chatContainerDom);
-			}
+			Chat.appendChatContainerWithReceiveMsg(message, fromUser);
+			var	chatContainerDom = $('.chated-txt');
+			Chat.contentToBottom(chatContainerDom);
 		}else{
-
-			// 消息气泡提示
-			var fromUserDom = $('.user-info-nickname:contains("'+fromUser+'")').parents('.user-inlist');
-			fromUserDom.addClass('chat-bubble remind');
-
-			Chat.bubbleListWithNickname.unshift(fromUser);
+			;
 		}
-		Chat.saveChatDataInLocal( message, fromUser, fromUser);
+		/*Chat.saveChatDataInLocal( message, fromUser, fromUser);*/
 	});
 
 
@@ -130,7 +128,7 @@ $(function(){
 			data.forEach(function(item, index){
 				Chat.localChatData[chatWithUser].push(item);
 			});
-			Chat.contentToBottom($('#chat-cont'));
+			Chat.contentToBottom($('.chated-txt'));
 		}
 	});
 
@@ -150,7 +148,7 @@ $(function(){
 
 
 	window.onbeforeunload = function(){
-		socket.emit('chat/disconnect', Main.userInfo);
+		/*socket.emit('chat/disconnect', Main.userInfo);*/
 	}
 
 
@@ -181,8 +179,8 @@ $(function(){
 	}
 
 
-	Chat.chatTextareaReturnKeyEvent($('.chat-input-area'));
-	Chat.chatTextareaReturnKeyEvent($('.chat-bubble-input-area'));
+	/*Chat.chatTextareaReturnKeyEvent($('.chat-input-area'));*/
+	/*Chat.chatTextareaReturnKeyEvent($('.chat-bubble-input-area'));*/
 
 
 	$('.chatting-btn').click(function(){
@@ -192,8 +190,9 @@ $(function(){
 
 	$('.chat-problem-cont a').click(function(){
 		var chatProblem = $(this).html();
-		Chat.appendChatContainerWithChatMsg(chatProblem, 'test sender')
+		Chat.appendChatContainerWithChatMsg(chatProblem, Chat.myUsername);
 		Chat.contentToBottom($('.chated-txt'));
+		socket.emit('chat/FAQ',chatProblem);
 	});
 });
 
@@ -244,100 +243,88 @@ Chat.tabForBubble = function(e, keycode){
 }
 
 
-Chat.chatTextareaReturnKeyEvent = function(textareaDom){
-	textareaDom.focus(function (){ 
-		window.onkeydown = function (e) {
-			e = e || window.event;
-			var keycode = parseInt(e.keyCode);
+/*Chat.chatTextareaReturnKeyEvent = function(textareaDom){*/
+/*textareaDom.focus(function (){ */
+/*window.onkeydown = function (e) {*/
+/*e = e || window.event;*/
+/*var keycode = parseInt(e.keyCode);*/
 
-			if (keycode === 13) {// 回车键
+/*if (keycode === 13) {// 回车键*/
 
-				if(textareaDom.html() !== null && textareaDom.html() !== ''){
-					var cont = Chat.sendMsg(textareaDom);
-					var chatContDomStr = '.'+textareaDom.attr('class').replace('input-area', 'cont');
-					l(chatContDomStr);
-					var chatContDom = $(chatContDomStr);
-					Chat.contentToBottom( chatContDom );	
-					Chat.saveChatDataInLocal( cont, Main.userInfo.nickname, Chat.nowTargUser);
-				}
+/*if(textareaDom.html() !== null && textareaDom.html() !== ''){*/
+/*var cont = Chat.sendMsg(textareaDom);*/
+/*var chatContDomStr = '.'+textareaDom.attr('class').replace('input-area', 'cont');*/
+/*l(chatContDomStr);*/
+/*var chatContDom = $(chatContDomStr);*/
+/*Chat.contentToBottom( chatContDom );	*/
+/*Chat.saveChatDataInLocal( cont, Main.userInfo.nickname, Chat.nowTargUser);*/
+/*}*/
 
-				// 如果在用聊天气泡 还需添加更多的特殊功能
-				if(Chat.chatWithBubble){
+/*e.returnValue = false;*/
+/*return false;*/
+/*}   */
 
-					// 在气泡消息列表里删除已读过气泡消息的用户记录
-					Chat.bubbleListWithNickname.forEach(function(item, index){
-						if(item === Chat.nowTargUser){
-							Chat.bubbleListWithNickname.splice(index, 1);
-						}
-					});
+/*if (keycode === 9) {// tab键*/
+/*Chat.tabForBubble(e, keycode); // tab*/
 
-					if( Chat.timerForHiddingBubble === null ){
-						Chat.timerForHiddingBubble = setTimeout( function(){
-							var targBubbleUser = $('.user-bubble-choosed').find('.user-info-nickname').html();
-							Chat.jumpBackToMainChatWin( targBubbleUser );
-							clearTimeout(Chat.timerForHiddingBubble);
-							Chat.timerForHiddingBubble = null;
-						}, 1000);	
-					}
-				}
+/*e.returnValue = false;*/
+/*return false;*/
+/*}*/
 
-				e.returnValue = false;
-				return false;
-			}   
+/*if (keycode === 27) {// esc键*/
 
-			if (keycode === 9) {// tab键
-				Chat.tabForBubble(e, keycode); // tab
+/*if(Chat.chatWithBubble){*/
+/*Chat.bubbleListWithNickname.forEach(function(item, index){*/
 
-				e.returnValue = false;
-				return false;
-			}
+/*// 在气泡消息列表里删除已读过气泡消息的用户记录*/
+/*if(item === Chat.nowTargUser){*/
+/*Chat.bubbleListWithNickname.splice(index, 1);*/
+/*}*/
+/*});*/
 
-			if (keycode === 27) {// esc键
+/*// jump back to main chat window*/
+/*var targBubbleUser = $('.user-bubble-choosed').find('.user-info-nickname').html();*/
+/*Chat.jumpBackToMainChatWin( targBubbleUser );*/
+/*}*/
+/*}*/
 
-				if(Chat.chatWithBubble){
-					Chat.bubbleListWithNickname.forEach(function(item, index){
+/*};  */
+/*window.onkeyup = function (e) {*/
+/*e = e || window.event;*/
+/*var keycode = parseInt(e.keyCode);*/
 
-						// 在气泡消息列表里删除已读过气泡消息的用户记录
-						if(item === Chat.nowTargUser){
-							Chat.bubbleListWithNickname.splice(index, 1);
-						}
-					});
+/*if (keycode === 13) {// 回车键*/
 
-					// jump back to main chat window
-					var targBubbleUser = $('.user-bubble-choosed').find('.user-info-nickname').html();
-					Chat.jumpBackToMainChatWin( targBubbleUser );
-				}
-			}
-
-		};  
-		window.onkeyup = function (e) {
-			e = e || window.event;
-			var keycode = parseInt(e.keyCode);
-
-			if (keycode === 13) {// 回车键
-
-				if(Chat.timerForHiddingBubble !== null ){
-					clearTimeout(Chat.timerForHiddingBubble);
-					Chat.timerForHiddingBubble = null;
-				}
-			}
-		};
-	}); 
-}
+/*if(Chat.timerForHiddingBubble !== null ){*/
+/*clearTimeout(Chat.timerForHiddingBubble);*/
+/*Chat.timerForHiddingBubble = null;*/
+/*}*/
+/*}*/
+/*};*/
+/*}); */
+/*}*/
 
 
-Chat.appendChatContainerWithReceiveMsg = function(message, side){
-	var chatContDom = $('#chat-cont');
-	var myMsg =
-		"<div class='chat-message-container'>"+
-		"<div class='chat-message "+side+"'>"+message+"</div>"+
-		"</div>";
-	chatContDom.html(chatContDom.html()+myMsg);
+Chat.appendChatContainerWithReceiveMsg = function(newChatMsg, sender){
+	/*var chatContDom = $('.chated-txt');*/
+	/*var myMsg =*/
+	/*"<div class='chat-message-container'>"+*/
+	/*"<div class='chat-message "+side+"'>"+message+"</div>"+*/
+	/*"</div>";*/
+	/*chatContDom.html(chatContDom.html()+myMsg);*/
+
+	var message = 
+		'<div class="chat-word-us">'+
+		'<p style="color:#6393d6" class="chat-word-title mb5">'+sender+'</p>'+
+		'<div class="chat-word-cont">'+newChatMsg+'</div>'+
+		'</div>';
+	$('.chated-txt').html($('.chated-txt').html()+message);
+	/*$('.chat-entry').html(null);*/
 }
 
 
 Chat.appendChatContainerWithHistoryMsg = function(message, side){
-	var chatContDom = $('#chat-cont');
+	var chatContDom = $('..chated-txt');
 	var myMsg =
 		"<div class='chat-message-container'>"+
 		"<div class='chat-message "+side+"'>"+message+"</div>"+
@@ -380,7 +367,7 @@ Chat.registerUserElement = function(){
 		Chat.nowTargUser = thisUser;
 		$('.chat-input-area').focus();
 
-		$('#chat-cont').html('');
+		$('.chated-txt').html('');
 
 		if(Chat.localChatData[Chat.nowTargUser] === undefined){
 			var selectFrom = 0;
@@ -388,7 +375,7 @@ Chat.registerUserElement = function(){
 			socket.emit('chat/get_chat_data', Main.userInfo.nickname, Chat.nowTargUser, selectFrom, selectSum);
 		}else{
 			Chat.loadChatHistory(Chat.localChatData[Chat.nowTargUser]);
-			Chat.contentToBottom($('#chat-cont'));
+			Chat.contentToBottom($('.chated-txt'));
 		}
 	}); 
 }
@@ -406,18 +393,27 @@ Chat.saveChatDataInLocal = function(content, fromUser, chatWith){
 }
 
 Chat.sendMsg = function(){
-		var inputCont = $('.chat-entry').html();						
-		Chat.appendChatContainerWithChatMsg(inputCont, 'test sender');
-		Chat.contentToBottom($('.chated-txt'));
+	var inputCont = $('.chat-entry').html();						
+	Chat.appendChatContainerWithChatMsg(inputCont, Chat.myUsername);
+	Chat.contentToBottom($('.chated-txt'));
+	socket.emit('chat/new_chat_message',Chat.myUsername, Chat.nowTargUser, inputCont);
+	l('msg emmited');
 }
 
 
 Chat.appendChatContainerWithChatMsg = function(newChatMsg, sender){
-		var newChatMsg = 
-			'<div class="chat-word-us">'+
-			'<p style="color:#6393d6" class="chat-word-title mb5">'+sender+'</p>'+
-			'<div class="chat-word-cont">'+newChatMsg+'</div>'+
-			'</div>';
-		$('.chated-txt').html($('.chated-txt').html()+newChatMsg);
-		$('.chat-entry').html(null);
+	var message = 
+		'<div class="chat-word-customer>'+
+		'<p class="chat-word-title mb5">'+sender+'</p>'+
+		'<div class="chat-word-cont">'+newChatMsg+'</div>'+
+		'</div>';
+
+
+	var message = 
+	'<div class="chat-word-customer">'+
+	'<p class="chat-word-title mb5">'+sender+'</p>'+
+	'<div class="chat-word-cont">'+newChatMsg+'</div>'+
+	'</div>';
+	$('.chated-txt').html($('.chated-txt').html()+message);
+	$('.chat-entry').html(null);
 }
