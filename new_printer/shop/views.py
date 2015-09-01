@@ -105,6 +105,7 @@ def home(request):
         'recommend_list': recommend_list,
         'hot_list': hot_list,
     }
+
     return render(request, website.home, context)
 
 
