@@ -232,15 +232,48 @@
 			</div>
 			<div class="search-btn">搜索</div>
 		</div>
-		<ul style="list-style:none;overflow-y:auto;height: 473px;">
-			<li>
 
+		<div id="good-deny-infos" style="position: absolute;
+			width: 200px;
+			height: 64px;
+			background-color: #FFF;
+			font-size: 14px;
+			display: none;
+			color: #5F4747;">
+			<div><input name="deny-reason" type="radio" value="0" checked/>模型文件大</div>
+			<div><input name="deny-reason" type="radio" value="1" />错了，不是模型文件</div>
+			<div><input name="deny-reason" type="radio" value="2" />背景颜色</div>
+		</div>
+
+		<div id="good-pass-infos" style="position: absolute;
+			width: 133px;
+			height: 20px;
+			top:300px;
+			font-size: 14px;
+			display: none;
+			color: #5F4747;">
+				<select id="good-type">
+				<option value="0">戒指</option>
+				<option value="1">吊坠</option>
+				<option value="2">耳坠</option>
+				<option value="3">手链</option>
+				<option value="4">项链</option>
+				<option value="5">胸针</option>
+				</select>
+				<select id="good-style">
+				<option value="0">青春洋溢</option>
+				<option value="1">富丽典雅</option>
+				<option value="2">自然亲切</option>
+				<option value="3">时尚潮流</option>
+				</select>
+		</div>
+		<ul style="list-style:none;overflow-y:hidden;height: 488px;">
 			{% for goods in all_list %}
+			<li>
 			<div class="good-container">
-				<!--<HR align=center width=960 color=#987cb9 SIZE=1 style="margin-top:0px;margin-bottom:0px"></HR>-->
 				<div class="good-info">
 					<span style="letter-spacing: -1px;">作品编号:</span>
-					<span style="font-size: 13px;">{{ goods.id }}</span>
+					<span id="good-id" style="font-size: 13px;">{{ goods.id }}</span>
 					<span style="margin-left: 622px;letter-spacing: -1px;">最后修改时间:</span>
 					<span style="font-size: 13px;margin-left: 6px;">{{ goods.modify_time }}</span>
 				</div>
@@ -264,39 +297,37 @@
 						</span>
 					</div>
 					<div class="good-info-for-detail">
-						<p style="font-size: 14px;font-weight: bold;margin-top: 22px;">蓝色之恋</p>
+						<p style="font-size: 14px;font-weight: bold;margin-top: 22px;">{{ goods.goods_name }}</p>
 						<p style="  font-size: 12px;
 						font-weight: bold;
 						margin-top: -1px;
 						width: 260px;
-						height: 32px;margin-bottom: 14px;color: #7A7A7A;">设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义</p>
-						<span style="font-size: 14px;color: #FF766F;">￥30</span>
+						height: 32px;margin-bottom: 14px;color: #7A7A7A;">{{ goods.description }}</p>
+						<span style="font-size: 14px;color: #FF766F;">￥{{ goods.goods_price }}</span>
 						<span style="margin-left: 17px;
 							font-size: 13px;
-							font-weight: bold;">STL文件</span>
+							font-weight: bold;">{{ goods.type}}文件</span>
 						<span style="margin-left: 8px;
 							font-size: 13px;
-							font-weight: bold;">1.2MB</span>
-						<div class="good-btn" style="  float: left;
+							font-weight: bold;">{{ goods.file_size }}MB</span>
+						<div name="good-deny" class="good-btn" style="  float: left;
 							margin-left: 30px;background-color: #D7D7D7;color: #767676;">驳回作品</div>
-						<div class="good-btn" style="float: right;
+						<div name="good-pass" class="good-btn" style="float: right;
 							margin-right: 9px;">审核通过</div>
 					</div>							
 				</div>
 			</div>
 			</li>
-
 			{% endfor %}
 		</ul>
 		<div class="pages-bar">
-			<div class="pages-btn" style="margin-left: 571px;width: 66px;">上一页</div>
-			<div class="pages-btn">1</div>
-			<div class="pages-btn choosed">2</div>
-			<div class="pages-btn">3</div>
-			<div class="pages-btn">4</div>
-			<div class="pages-btn">5</div>
-			<div class="pages-btn" style="width: 39px;">...</div>
-			<div class="pages-btn" style="width: 66px;">下一页</div>
+			<div class="pages-btn" style="margin-left: 571px;width: 66px;" value="-1">上一页</div>
+			<!--<div class="pages-btn" value="1">1</div>-->
+			<!--<div class="pages-btn choosed" value="2">2</div>-->
+			<!--<div class="pages-btn" value="3">3</div>-->
+			<!--<div class="pages-btn" value="4">4</div>-->
+			<!--<div class="pages-btn" value="5">5</div>-->
+			<div class="pages-btn" style="width: 66px;" id="page-next" value="+1">下一页</div>
 		</div>
 	</div>
 	<div class='chat-container'>

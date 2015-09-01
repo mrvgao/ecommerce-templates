@@ -13,9 +13,6 @@ file_server_imgupload = 'http://192.168.1.101:8888/file/imgupload'
 stl = 'stl'
 pic = 'jpg'
 small = 'jpg'
-'''
-    *****************************************************************
-'''
 
 #baseurl = 'http://121.43.234.208/images_storage/'
 baseurl = ''
