@@ -53,9 +53,6 @@ $(function(){
 	// added by white over
 });
 
-
-<<<<<<< HEAD
-=======
 ShowStl.screenShotByElement = function(elementId){
 
 	html2canvas($('.designer-sidebar-pic'), {
@@ -85,7 +82,6 @@ ShowStl.screenShotByElement = function(elementId){
 	});
 }
 
->>>>>>> 5ea6d67c181652768207133104a3e7a34b2457fd
 // 搜索模块
 function toSearch(){
 	// 敲回车搜索
@@ -284,10 +280,6 @@ function published(page){	//获取已发布数据
 				});
 			}
 		});
-<<<<<<< HEAD
-=======
-
->>>>>>> 5ea6d67c181652768207133104a3e7a34b2457fd
 	});
 }
 

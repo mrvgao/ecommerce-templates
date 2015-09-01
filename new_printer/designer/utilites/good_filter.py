@@ -82,8 +82,6 @@ def publish_good_filter(tags,designer):
 	return return_list
 
 
-
-
 #对 未发布 商品的处理
 def unpublish_exec(good_list):
     return_list = []
@@ -98,14 +96,12 @@ def unpublish_exec(good_list):
         if good.preview_3:
             photo.append(str(server_website.file_server_path)+str(good.preview_3))
         #temp{'pic']=photo
-        modify = good.modify_time
+        modify = good.restdate
         temp={'id':good.id,
                 'name':good.goods_name,
                 'description':good.description,
                 'good_price':good.goods_price,
                 'preview_1':str(server_website.file_server_path)+str(good.preview_1),
-                #'preview_2':str(server_website.file_server_path)+str(good.preview_2),
-                #'preview_3':str(server_website.file_server_path)+str(good.preview_3),
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
                 'stl_path':str(server_website.file_server_path)+good.stl_path,
@@ -116,7 +112,7 @@ def unpublish_exec(good_list):
                 'good_state':good.good_state,
                 'type':'stl',
                 'pic':photo,
-                'restdate':(now-modify).days
+                'restdate':(modify-now).days
                 }
         return_list.append(temp)
     return return_list
@@ -154,7 +150,6 @@ def publish_exec(good_list):
                 }
         print good.id
         return_list.append(temp)
-
     return return_list
 #下载STL 文件到本地,以便预览stl
 def down_stl(_url):

@@ -20,7 +20,7 @@ from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
 from django.contrib.auth.models import User
 import httplib, urllib
 import urllib2,os
-from datetime import date ,datetime
+import datetime
 import time
 import json,pdb,hashlib
 
@@ -210,7 +210,8 @@ def edit_submit(request):
     s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
                         goods_price = int(price),
                         good_state = 1,
-                        description = describe
+                        description = describe,
+                        restdate = datetime.datetime.now()+datetime.timedelta(days=5)
                       )
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
@@ -227,7 +228,6 @@ def deletePic(request):
     #pdb.set_trace()
     this_id = request.POST['id']
     picid = int(request.POST['picId'])
-    print picid
     good = Goods_Upload.objects.filter(id = this_id)
     if picid == 0:
         delpic = good.update(preview_1='')
