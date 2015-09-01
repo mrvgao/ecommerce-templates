@@ -14,28 +14,26 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
-from django import forms
-from configuration import website 
-from conf import website as adminer_website 
-from configuration.models import Goods_Upload,Goods
-from django.contrib.auth.models import User
 import httplib, urllib
 import urllib2,os
 from datetime import date ,datetime
 import time
 import json,pdb
+from django import forms
+
+from configuration import website 
+from conf import website as adminer_website 
+from configuration.models import Goods_Upload,Goods
+from django.contrib.auth.models import User
+from designer.utilites import good_filter
 
 #显示默认页面，未处理商品
 def word_list(request):
-	print 'a'
 	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
+	return_list = good_filter.unpublish_exec(not_executed_works)
 	conf = {
-			'works_auditing':not_executed_works
+			'works_auditing':return_list
 			}
-	print 'ccc:'
-	print not_executed_works
-	print 'bbb'
-	print conf['works_auditing']
 	return HttpResponse(json.dumps(conf))
 	#return render(request,website.works_auditing)
 
@@ -85,15 +83,17 @@ def pass_failed(request):
 #显示已驳回的页面
 def has_failed(request):
 	has_failed_works = Goods_Upload.objects.filter(good_state = 2)
+	return_list = good_filter.unpublish_exec(has_failed_works)
 	conf = {
-			'works_auditing':has_failed_works
+			'works_auditing':return_list
 			}
 	return HttpResponse(json.dumps(conf))
 #显示已通过的页面
 def has_passed(request):
 	has_passed_works = Goods_Upload.objects.filter(good_state = 3)
+	return_list = good_filter.unpublish_exec(has_passed_works)
 	conf = {
-			'works_auditing':has_passed_works
+			'works_auditing':return_list
 			}
 	return HttpResponse(json.dumps(conf))
 
