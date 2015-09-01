@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     #发送验证信息
     url(r'^send_verify_message', views.send_verify_message, name='send_verify_message'),
     #内测申请
-    url(r'^beta_apply', views.beta_apply, name='beta_apply'),
+    #url(r'^beta_apply', views.beta_apply, name='beta_apply'),
     #验证用户名
     url(r'^check_username', views.check_username, name='check_username'),
     #验证邀请码
@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     #用户登录
     url(r'^u_login', views.u_login, name='u_login'),
     #忘记密码
-    url(r'^u_forgetpwd', views.u_forgetpwd, name='u_forgetpwd'),
+    url(r'^pwd_checkcode', views.pwd_checkcode, name='pwd_checkcode'),
     #修改密码
     url(r'^u_resetpwd', views.u_resetpwd, name='u_resetpwd'),
     #用户注销

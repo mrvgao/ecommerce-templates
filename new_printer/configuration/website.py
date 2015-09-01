@@ -29,6 +29,13 @@ server_upload = 'http://%(server)s:8888/file/upload' % {'server': server}
 server_download = 'http://%(server)s:8888/file/download' % {'server': server}
 server_ip = 'http://%(server)s:8888/' % {'server': server}
 
+
+file_server_path = 'http://%(server)s:8888/static/' % {'server': server}
+file_server_upload = 'http://%(server)s:8888/file/stlupload' % {'server': server}
+file_server_download = 'http://%(server)s:8888/file/download' % {'server': server}
+file_server_ip = 'http://%(server)s:8888/' % {'server': server}
+file_server_imgupload = 'http://%(server)s:8888/file/imgupload' % {'server': server}
+
 stl = 'stl'
 pic = 'jpg'
 small = 'jpg'

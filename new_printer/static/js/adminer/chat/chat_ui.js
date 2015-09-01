@@ -42,31 +42,25 @@ $(function(){
 })
 
 
-ChatUI.appendUserList = function(userInfo){
-	var userList = $('#user-list');
+ChatUI.appendUserList = function(username,nickname,userLogo){
+	l('append');
+	var userList = $('.user-list');
 	var newUserElement = 
-		"<div value='"+userInfo.sex+"' class='user-inlist user-"+userInfo.sex+"-dark'>"+
-		"<div class='user-logo'>"+
-		"<img src='"+''+"'>"+
-		"</div>"+
-		"<div class='user-info'>"+
-		"<p class='user-info-nickname'>"+userInfo.nickname+"</p>"+
-		"<p class='user-info-task-cont'>"+userInfo.task+"</p>"+
-		"</div>"+
-		"</div>";
+		'<div class="chat-user" username="'+username+'">'+
+		'<img src="'+userLogo+'">'+
+		'<div>'+nickname+'</div>'+
+		'</div>';
 	userList.html(userList.html() + newUserElement);	
+	Chat.registerUserElement();
 }
 
 
 ChatUI.userInListHoverEffect = function(){
-	$('.user-inlist').hover(function(){
-		var sex = $(this).attr('value');
-		$(this).addClass('user-'+sex+'-light');
-		$(this).removeClass('user-'+sex+'-dark');
+	$('.chat-user').hover(function(){
+		$(this).addClass('hovered');
+		/*$(this).removeClass('user-'+sex+'-dark');*/
 	},function(){
-		var sex = $(this).attr('value');
-		$(this).removeClass('user-'+sex+'-light');
-		$(this).addClass('user-'+sex+'-dark');
+		$(this).removeClass('hovered');
 	});
 }
 
@@ -87,3 +81,19 @@ ChatUI.useFace = function(){
 		$('.chat-entry').html($('.chat-entry').html() + thisFaceDom);
 	});	
 }
+
+ChatUI.remindUser = function(username){
+	l('remidnuser:'+username);
+	;
+	var thisUser = $('div[username|='+username+']');
+	var timer = setInterval(function(){
+		if(thisUser.hasClass('hovered')){
+			thisUser.removeClass('hovered');
+		}else{
+			thisUser.addClass('hovered');
+		}
+	},500)
+	thisUser.click(function(){
+		clearInterval(timer);			  
+	});
+};

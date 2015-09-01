@@ -9,8 +9,11 @@ $(function (){
 		detail_wrap = $('.detail-wrap'),
 		gopay = $('.gopay'),
 		_method = 'alipay',
-		goods_id = detail_wrap.attr('data-id');
-	goods_list = [];
+		goods_id = detail_wrap.attr('data-id'),
+		slider_img = $('.slider-img'),
+		goods_img = $('.goods-img'),
+		login_page = $('.login-page'),
+		goods_list = [];
 	
 	// 立即下单
 	paynow.on('click',function (){
@@ -21,8 +24,8 @@ $(function (){
 			goods_list.push(goods_id);
 			//生成订单		
 			$.post('/payment/build_bills',{
-				'goods_list': goods_list,
-				'where':'detail'
+					'goods_list': goods_list,
+					'where':'detail'
 				},function (e){
 				// 生成订单成功，返回 SUCCESS
 				result = JSON.parse(e);
@@ -36,24 +39,29 @@ $(function (){
 			pay_info.hide();
 			pay_method.show();
 		}else if(_this.attr('data-state') == 0) {
-			$.msgBox('提示','请先登录',function (){
-				location.href = "/login";
-			});
+			login_page.fadeIn();
 		}
 	});
 
 	// 加入购物车
 	addcart.on('click',function (){
-		$.post('/payment/add_cart',{
-			'goods_id': goods_id
-		},function (e){
-			result = JSON.parse(e);
-			if(result['status'] == 'SUCCESS'){
-				$.msgBox.mini('添加成功');
-			}else{
-				$.msgBox.mini('添加失败');
-			}
-		});
+		var _that = paynow;
+		if(_that.attr('data-state') == 1){
+
+			$.post('/payment/add_cart',{
+				'goods_id': goods_id
+			},function (e){
+				result = JSON.parse(e);
+				if(result['status'] == 'SUCCESS'){
+					$.msgBox.mini('添加成功');
+				}else{
+					$.msgBox.mini('添加失败');
+				}
+			});
+
+		}else if(_that.attr('data-state') == 0) {
+			login_page.fadeIn();
+		}
 	});
 
 	// 选择支付方式
@@ -96,6 +104,15 @@ $(function (){
 		},function (e){
 			window.open(e[0].download_url);
 		});
+	});
+
+	// 切换商品图片
+	slider_img.on('click',function (){
+		var _this = $(this),
+			_src = _this.find('img').attr('src'),
+			g_img = goods_img.find('img');
+
+		g_img.attr('src',_src);
 	});
 
 });

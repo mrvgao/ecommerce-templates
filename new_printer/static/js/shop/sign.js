@@ -14,8 +14,9 @@ $(function (){
 		input_play_box = $('.input-play-box'),
 		signIn = $('.signIn'),
 		signUp = $('.signUp');
-	var register_phone;
-	var register_code;
+	var phone_register;
+	var phone_code;
+
 
 	// 显示弹出框
 	contact_btn.on('click',function (){
@@ -80,6 +81,7 @@ $(function (){
 				_index = _this.parent().index(),
 				_parents = _this.parent().parent().attr('data-p'),
 				_next = _this.next(),
+				_ts = _next.find('span'),
 				_txt = _this.val(),
 				_name = _this.attr('valid-type'),
 				reg;
@@ -99,10 +101,6 @@ $(function (){
 
 			if(_txt && reg.test(_txt)){
 				validResult[_index] = true;
-				if(_next.css('display') == 'block'){
-					_next.slideUp();
-					_this.removeClass('active');
-				}
 
 				// 验证确认密码
 				if(_name == 'signUp-pwagin'){
@@ -112,11 +110,62 @@ $(function (){
 						validResult[_index] = false;
 					}
 				}
+
+				// 登录， 查找该手机号是否存在于数据库中
+				if(_this.hasClass('is_registered')){
+					
+					$.post('/account/check_phone',{'phone':_txt},function (e){
+						result = JSON.parse(e);
+						// 如果存在就返回 true , 否则就返回 false
+						if(result['status']=='TRUE'){
+							_next.slideUp();
+							_this.removeClass('active');
+							signInResult[0] = true;
+						}else {
+							_next.slideDown();
+							_this.addClass('active');
+							_ts.text('手机号未被注册');
+							signInResult[0] = false;
+						}
+						
+					});
+				}
+				
+				if(_this.hasClass('is_registered_r')){
+					
+					$.post('/account/check_phone',{'phone':_txt},function (e){
+						result = JSON.parse(e);
+						// 如果存在就返回 true , 否则就返回 false
+						if(result['status']=='TRUE'){
+							_next.slideDown();
+							_this.addClass('active');
+							_ts.text('手机号已被注册');
+							signInResult[0] = false;
+						}else {
+							_next.slideUp();
+							_this.removeClass('active');
+							signInResult[0] = true;
+						}
+						
+					});
+				}
+				if(!_this.hasClass('is_registered') && !_this.hasClass('is_registered_r')){
+					if(_next.css('display') == 'block'){
+						_next.slideUp();
+						_this.removeClass('active');
+					}
+				}
 				
 			}else {
+				if(_this.hasClass('is_registered')){
+					_ts.text('手机号格式不正确');
+				}else if(_this.hasClass('is_registered_r')){
+					_ts.text('手机号格式不正确');
+				}
 				validResult[_index] = false;
 				_next.slideDown();
 				_this.addClass('active');
+
 			}
 
 			switch(_parents){
@@ -128,73 +177,34 @@ $(function (){
 					break;
 			}
 
-			// 登录， 查找该手机号是否存在于数据库中
-			if(_this.hasClass('is_registered')){
-				
-				$.post('/account/check_phone',{'phone':_txt},function (e){
-					result = JSON.parse(e);
-					// 如果存在就返回 true , 否则就返回 false
-					if(result['status']=='TRUE'){
-						_next.slideUp();
-						_this.removeClass('active');
-						signInResult[0] = true;
-					}else {
-						_next.slideDown();
-						_this.addClass('active');
-						signInResult[0] = false;
-					}
-					
-				});
-			}
-					
-			//注册， 手机号
-			if(_this.hasClass('is_registered_r')){
-				
-				$.post('/account/check_phone',{'phone':_txt},function (e){
-					result = JSON.parse(e);
-					// 如果存在就返回 true , 否则就返回 false
-					if(result['status']=='FALSE'){
-						_next.slideUp();
-						_this.removeClass('active');
-						signInResult[0] = true;
-					}else {
-						_next.slideDown();
-						_this.addClass('active');
-						signInResult[0] = false;
-					}
-					
-				});
-			}
-			
-			
-			// 注册， 邀请码
+			//注册，验证邀请码
 			if(_this.hasClass('invitecode')){
-				register_phone = _this.parents('.sign-bindphoto').find('.sign-input').eq(0).val();
-				register_code = _this.parents('.sign-bindphoto').find('.sign-input').eq(1).val();
 				
-				$.post('/account/check_code',{'code':register_code},function (e){
+				var _this = $(this);
+				phone_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(0).val();
+				code_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(1).val();
+				
+				$.post('/account/check_code',{'phone':phone_register,'code':code_register},function (e){
 					result = JSON.parse(e);
 					// 如果存在就返回 true , 否则就返回 false
 					if(result['status']=='TRUE'){
-						bindphoneResult[1] = true;
 						_next.slideUp();
 						_this.removeClass('active');
-						signInResult[0] = true;
+						signInResult[1] = true;
 					}else {
-						bindphoneResult[1] = false;
 						_next.slideDown();
 						_this.addClass('active');
-						signInResult[0] = false;
+						signInResult[1] = false;
 					}
 					
 				});
 			}
-			
-			
-			//注册， 用户名
+
+			//注册，验证用户名
 			if(_this.hasClass('is_username')){
+				
 				var _this = $(this);
-				var username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+				username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
 				
 				$.post('/account/check_username',{'username':username},function (e){
 					result = JSON.parse(e);
@@ -212,6 +222,7 @@ $(function (){
 				});
 			}
 
+
 		});
 
 		// 点击下一步
@@ -228,19 +239,18 @@ $(function (){
 		register_btn.on('click',function (){
 			var _this = $(this);
 			testNoBlur(_this);
-			var username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
-			var pwd = _this.parents('.sign-signUp').find('.sign-input').eq(1).val();
-
+			username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+			pwd = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+			
 			if(signUpResult[0] && signUpResult[1] && signUpResult[2]){
-				$.post('/account/u_register',{'phone':register_phone,'code':register_code,'username':username,'password':pwd},function (e){
-					// do something
+				$.post('/account/u_register',{'phone':phone_register,'code':code_register,'username':username,'password':pwd},function (e){
 					result = JSON.parse(e);
-					if(result['status'] == 'SUCCESS'){
-						$.msgBox.mini('注册成功，请重新登录');
+					if (result['status'] == 'FAILURE'){
+						$.msgBox.mini('注册失败，请重新注册');
 					}else{
-						$.msgBox.mini('注册失败，请重新操作');
+						$.msgBox.mini('注册成功，请登录');
 					}
-					
+
 				});
 			}
 		});
@@ -267,8 +277,14 @@ $(function (){
 			if(signInResult[0] && signInResult[1]){
 				
 				$.post('/account/u_login',{'phone':phone,'password':pwd},function (e){
-		
+					result = JSON.parse(e);
+					if (result['status'] == 'FAILURE'){
+						$.msgBox.mini('登录失败，请重新输入');
+					}else{
+						window.location.assign('/shop/home');
+					}
 				});
+				
 			}
 		});
 

@@ -26,12 +26,18 @@ import time
 import json,pdb
 
 #显示默认页面，未处理商品
-def not_executed(request):
+def word_list(request):
+	print 'a'
 	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
 	conf = {
-			'works_auditing':not_executed
+			'works_auditing':not_executed_works
 			}
-	return render(request,website.works_auditing)
+	print 'ccc:'
+	print not_executed_works
+	print 'bbb'
+	print conf['works_auditing']
+	return HttpResponse(json.dumps(conf))
+	#return render(request,website.works_auditing)
 
 '''def works_pass(request):
 	ids = request.POST['ids']
@@ -53,7 +59,7 @@ def not_executed(request):
 #点击驳回按键后的处理
 def pass_failed(request):
 	id = 40#request.POST['id']
-	fail_state = [0,1]#request.POST['state']
+	#fail_state = [0,1]#request.POST['state']
 	failed_reason = ''
 	count = 1
 	#pdb.set_trace()
@@ -92,11 +98,12 @@ def has_passed(request):
 
 #点击审核通过按键
 def work_passing(request):
-	id = 40#request.POST['id']
-	pass_state = [1,2]#request.POST['state']
+	id = 150#request.POST['id']
+	pass_state = [1]#request.POST['state']
 	style = ''
 	count = 1
-	
+	tags = u'项链'
+	print type(tags)
 	for state in pass_state:
 		if count == len(pass_state):
 			style = style + str(website.good_style[state]) 
@@ -117,7 +124,7 @@ def work_passing(request):
 						designer = photo.designer,
 						goods_price = photo.goods_price,
 						description = photo.description,
-						tags = photo.tags,
+						tags = tags,
 						style = style,
 						stl_path = photo.stl_path,
 						preview_1 = photo.preview_1,
@@ -132,7 +139,9 @@ def work_passing(request):
 
 # 后台管理页面：审核作品和客服聊天
 def background(request):
-	return render(request,adminer_website.background)	
+	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
+	conf = {'all_list': not_executed_works}
+	return render(request,adminer_website.background,conf)	
 
 
 #def search(request):

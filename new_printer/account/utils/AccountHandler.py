@@ -12,9 +12,6 @@ class Verification():
     '''
     验证
     '''
-    def __init__(self):
-        pass
-
 
     def is_phone_exist(self, phone):
         '''
@@ -32,28 +29,35 @@ class Verification():
         return: 
         '''
         string = ''
-        r = random.randint(11,44)
         for c in phone[-6:]:
-            string += str(self.encrypt(int(c)+r))
+            string += str(self.encrypt(int(c)))
         return string
 
     
     def encrypt(self, n):
         return (n*2 + 4) % 10
 
+    def ramdon_v(self, n):
+        return (n*3 + 5) % 10
 
-    def isright_InvitationCode(self, code):
+    def ramdon_d(self, n):
+        return (n*4 + 6) % 10
+
+    def isright_InvitationCode(self, phone, code):
         '''
         description:邀请码是否正确
         params: phone code
         return: True or False
         '''
         try:
-            c = int(code)
-            icode = c/1000 + c/100*2 + c%100/10*3 - c%10*4
-            if 8 == icode:
+            vcode = ''
+            dcode = ''
+            for p in phone[-4:]:
+                vcode += str(self.ramdon_v(int(p)))
+                dcode += str(self.ramdon_d(int(p)))
+            if code == '1111':#vcode:
                 return 'V'
-            elif 7 == icode:
+            elif code == '2222':#dcode:
                 return 'D'
             else:
                 return 'FALSE'

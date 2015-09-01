@@ -1,6 +1,7 @@
 # coding=utf-8
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.core.exceptions import ObjectDoesNotExist
 import json
 import pdb
 
@@ -8,6 +9,7 @@ from conf import website
 
 from configuration.models import Goods
 from configuration.models import Designer_User
+from configuration.models import Vender_User
 
 from utils.common_class import IndexGoods
 from utils.common_class import IndexGoodsDesigner
@@ -30,8 +32,17 @@ def login_register(request):
     '''
     return render(request, website.login_register, None)
 
+
+def password_find(request):
+    '''
+    description:密码查找
+    '''
+    return render(request, website.password_find, None)
+
+
 def new_chat(request):
 	return render(request,website.index)
+
 
 def test(request):
 
@@ -335,3 +346,39 @@ def common_filter(tags_name, sort_name, style_name):
     goods_list = change_list_to_json(sorted_list)
 
     return goods_list
+
+
+def all_goods_list(request):
+
+    '''
+    type_name = [u'戒指', u'吊坠', u'耳坠', u'手链', u'项链', u'胸针']
+    type_class = ['ring', 'pendant', 'earbob', 'bracelet', 'torque', 'brooch']
+    nubmer = 6
+
+    type_list = []
+    for i in range(nubmer):
+        temp_list = goods_handler.get_all_goods_by_tags(type_name[i])
+        goods_list = modify_goods_list(temp_list)
+        index_goods_designer = IndexGoodsDesigner()
+        index_goods_designer.set_index_goods_designer(goods_list, type_class[i], type_name[i])
+        type_list.append(index_goods_designer)
+
+        goods_tags = u'戒指'
+        vender_id = 2
+
+        goods_list = get_goods_list_by_tags(goods_tags, vender_id)
+        goods_list *= 10
+    '''
+
+    user = request.user
+    customer_name = common_handler.get_customer(user)
+
+    context = {
+        'customer_name': customer_name,
+    }
+
+    return render(request, website.all_goods_list, context)
+
+
+def chat_customer_service_win(request):
+    return render(request, website.chat_customer_service_win)

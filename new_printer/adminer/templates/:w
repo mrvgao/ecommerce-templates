@@ -35,9 +35,6 @@
 		font-size: 14px;
 		color: #FFF;
 	}
-	.tool-bar{
-		color:#464747;
-	}
 	.tool-bar-select{
 		float: left;
 		width: 77px;
@@ -45,24 +42,14 @@
 		background-color: #EBEBEB;
 		    border: 0px;
 	}
-	.tool-bar-select.class{
-		
-	}
 	.tool-bar-choosed{
 		background-color: #FF766F;
-		font-size: 14px;
-		color: #FFF;
-	}
-	.tool-bar-not-choosed{
-		background-color: #FF766F;
-		font-size: 14px;
-		color: #EBEBEB;
 	}
 	.tool-bar-select option{
 		width: 77px;
 		height: 36px;
 		background-color: #EBEBEB;
-		border: 0px;
+		    border: 0px;
 	}
 	.search-bar{
 		padding-top: 14px;
@@ -72,12 +59,12 @@
 		background-color: #F5F5F5;
 	}
 	.search-box{
-		margin-left: 725px;
-		border: 1px solid #C2C2C2;
+    margin-left: 725px;
+	    border: 1px solid #C2C2C2;
 		border-right: 0px;
-		width: 174px;
-		height: 28px;
-		float:left;
+		    width: 174px;
+			    height: 28px;
+				float:left;
 	}
 	.search-box div{
 		width: 28px;
@@ -143,7 +130,7 @@
 		width: 162px;
 		height: 162px;
 		margin-top: 13px;
-		position: relative;
+		    position: relative;
 	}
 	.good-pic img{
 		width: 162px;
@@ -211,16 +198,20 @@
 		<a href="" style="text-decoration: blink;color: #FFF;">退出</a>
 	</div>
 	<div class='tool-bar'>
-		<div style="float:left;" class="tool-bar-choosed">
-			<div style="float: left;width: 109px;height: 25px;text-align: center;padding-top: 11px;  padding-left: 4px;">作品审核管理</div>
-			<div style="float: left;height: 27px;padding-top: 9px;  font-size: 17px;width: 9px;">|</div>
+		<div style="float:left;">
+			<div style="float: left;width: 109px;height: 25px;text-align: center;padding-top: 11px;  padding-left: 4px;color: #464747;">作品审核管理</div>
+			<div style="float: left;height: 27px;padding-top: 9px;  font-size: 17px;color: #464747;width: 9px;">|</div>
 			<select class="tool-bar-select">
 				<option>未处理</option>
 				<option>已驳回</option>
 				<option>未通过</option>
 			</select>
 		</div>
-		<div style="float: left;width: 178px;height: 25px;padding-top: 11px;text-align: center;">客户留言对话</div>
+		<div style="  float: left;
+			width: 178px;
+			height: 25px;
+			padding-top: 11px;
+			text-align: center;" class="tool-bar-choosed">客户留言对话</div>
 	</div>
 
 	<!--<HR align=center width=960 color=#987cb9 SIZE=1 style="margin-top:0px;margin-bottom:0px"></HR>-->
@@ -232,22 +223,20 @@
 			</div>
 			<div class="search-btn">搜索</div>
 		</div>
-		<ul style="list-style:none;overflow-y:auto;height: 473px;">
+		<ul style="list-style:none;overflow-y:auto;">
 			<li>
-
-			{% for goods in all_list %}
 			<div class="good-container">
 				<!--<HR align=center width=960 color=#987cb9 SIZE=1 style="margin-top:0px;margin-bottom:0px"></HR>-->
 				<div class="good-info">
 					<span style="letter-spacing: -1px;">作品编号:</span>
-					<span style="font-size: 13px;">{{ goods.id }}</span>
+					<span style="font-size: 13px;">1234567890</span>
 					<span style="margin-left: 622px;letter-spacing: -1px;">最后修改时间:</span>
-					<span style="font-size: 13px;margin-left: 6px;">{{ goods.modify_time }}</span>
+					<span style="font-size: 13px;margin-left: 6px;">2015/7/26 13:14</span>
 				</div>
 				<div style="background-color: #FFF;width: 960px;height: 198px;">
 					<div class="good-pic-div">
 						<span class="good-pic">
-							<img src="{{ goods.preview_1 }}">
+							<img src="">
 							<div></div>
 						</span>
 						<span class="good-pic">
@@ -285,8 +274,56 @@
 				</div>
 			</div>
 			</li>
-
-			{% endfor %}
+			<li>
+			<div class="good-container">
+				<!--<HR align=center width=960 color=#987cb9 SIZE=1 style="margin-top:0px;margin-bottom:0px"></HR>-->
+				<div class="good-info">
+					<span style="letter-spacing: -1px;">作品编号:</span>
+					<span style="font-size: 13px;">1234567890</span>
+					<span style="margin-left: 622px;letter-spacing: -1px;">最后修改时间:</span>
+					<span style="font-size: 13px;margin-left: 6px;">2015/7/26 13:14</span>
+				</div>
+				<div style="background-color: #FFF;width: 960px;height: 198px;">
+					<div class="good-pic-div">
+						<span class="good-pic">
+							<img src="">
+							<div></div>
+						</span>
+						<span class="good-pic">
+							<img src="">
+							<div></div>
+						</span>
+						<span class="good-pic">
+							<img src="">
+							<div></div>
+						</span>
+						<span class="good-pic">
+							<img src="">
+							<div></div>
+						</span>
+					</div>
+					<div class="good-info-for-detail">
+						<p style="font-size: 14px;font-weight: bold;margin-top: 22px;">蓝色之恋</p>
+						<p style="  font-size: 12px;
+						font-weight: bold;
+						margin-top: -1px;
+						width: 260px;
+						height: 32px;margin-bottom: 14px;">设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义设计主义</p>
+						<span style="font-size: 14px;">￥30</span>
+						<span style="margin-left: 17px;
+							font-size: 13px;
+							font-weight: bold;">STL文件</span>
+						<span style="margin-left: 8px;
+							font-size: 13px;
+							font-weight: bold;">1.2MB</span>
+						<div class="good-btn" style="  float: left;
+							margin-left: 30px;background-color: #D7D7D7">驳回作品</div>
+						<div class="good-btn" style="float: right;
+							margin-right: 9px;">审核通过</div>
+					</div>							
+				</div>
+			</div>
+			</li>
 		</ul>
 		<div class="pages-bar">
 			<div class="pages-btn" style="margin-left: 571px;width: 66px;">上一页</div>
@@ -402,7 +439,7 @@
 		border: 1px solid #ECECEC;
 		border-top: 0px;
 		border-radius: 0px 0px 6px 6px;
-		display: none;
+		-display: none;
 		background-color: #F5F5F5;
 	}
 	.user-list-box{

@@ -7,31 +7,68 @@ $(function (){
 		pwf_btn = $('.pwf-true'),
 		empty_newpw = $('.empty-newpw'),
 		empty_pwagin = $('.empty-pwagin'),
-		validpw = false;
+		remeber_ts = $('.get-code').find('.sign-warning'),
+		ts_txt = remeber_ts.find('span'),
+		validpw = false,
+		valid_bool = false;
 
 	// 获取验证码
 	getCodeBtn.on('click',function (){
-		var _txt = empty_phone.val(),
-			reg = /^1[3-8]+\d{9}$/;
-		if(_txt && reg.test(_txt)){
-			// do something
+		var _txt = empty_phone.val();
 
-			$('.get-code').find('.sign-warning').hide();
-			$.msgBox.mini('验证码发送成功，请注意查收!',function (){
-				empty_inputs.eq(0).focus();
+		if(valid_bool){
+			$.post('/account/send_verify_message',{'phone':_txt},function (e){
+				
+				$.msgBox.mini('验证码发送成功，请注意查收!',function (){
+					empty_inputs.eq(0).focus();
+				});
 			});
 		}else {
-			$('.get-code').find('.sign-warning').fadeIn();
+			remeber_ts.fadeIn();
 		}
 	});
 
+	empty_phone.on('keyup',function (e){
+		var _this = $(this),
+			kc = e.keyCode,
+			_txt = _this.val(),
+			reg = /^1[3-8]+\d{9}$/;
+
+		valid_bool = false;
+		
+		if(_txt.length == 11){
+			if(_txt && reg.test(_txt)){
+
+				$.post('/account/check_phone',{'phone':_txt},function (e){
+					result = JSON.parse(e);
+					if(result['status']=='TRUE'){
+						remeber_ts.hide();
+						valid_bool = true;
+					}else {
+						ts_txt.text('手机号未被注册');
+						remeber_ts.fadeIn();
+						valid_bool = false;
+					}
+				});
+			}else {
+				ts_txt.text('手机号格式不正确');
+				remeber_ts.fadeIn();
+			}
+		}
+	});
+
+	function testPhone(){
+
+	}
+
+	// 设置长度只能为 1
 	empty_inputs.attr('maxlength',1);
 	empty_inputs.on('keyup',function (e){
 		var _this = $(this),
 			_txt = _this.val(),
 			kc = e.keyCode;
 		
-		if(kc > 48 && kc < 57){
+		if(kc >= 48 && kc <= 57){
 			_this.next().focus();
 		}
 		
@@ -39,13 +76,15 @@ $(function (){
 
 	// 进入下一步
 	pwf_next.on('click',function (){
-		var codeNum;
+		var codeNum = '';
+		var phone = empty_phone.val()
 		for(var i=0;i<empty_inputs.length;i++){
 			codeNum += empty_inputs.eq(i).val();
 		}
 
-		$.post('',{},function (e){
-			if(codeNum == '111111'){
+		$.post('/account/pwd_checkcode',{'phone':phone,'code':codeNum},function (e){
+			result = JSON.parse(e);
+			if(result['status'] == 'TRUE'){
 				$('.pwf-setnew ').show();
 				$('.pwf-underline').animate({'left': 330});
 				$('.find-cont').animate({'left': -280});
@@ -101,13 +140,19 @@ $(function (){
 	});
 
 	// 确认修改
-	pwf_btn.on('click',function (){console.log(validpw);
+	pwf_btn.on('click',function (){
+		console.log(validpw);
 		if(validpw){
 			var new_password = empty_pwagin.val();
 
-			$.post('',{},function (e){
+			$.post('/account/u_resetpwd',{'password':new_password},function (e){
 				// do something
-
+				result = JSON.parse(e);
+				if (result['status'] == 'FAILURE'){
+						$.msgBox.mini('重置密码出错');
+					}else{
+						window.location.assign('/shop/login_register');
+					}
 			});
 		}
 	});

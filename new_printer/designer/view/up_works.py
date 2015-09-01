@@ -8,14 +8,13 @@
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
-import json, os, uuid, base64, platform, requests
+import os, uuid, base64, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
-from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
 from designer.conf import website 
+from configuration import website as server_website
 from designer.utilites import search_handle,good_filter
 from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
 from django.contrib.auth.models import User
@@ -29,8 +28,8 @@ import json,pdb,hashlib
 
 def works_upload(request):
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name':designer.designername,'img':str(website.file_server_path)+str(designer.img) }
-    return render(request, website.upfile,conf)
+    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img) }
+    return render(request, website.upfile, conf)
 
 def stls_save(stls):
     jwary_md5 = {}
@@ -106,12 +105,12 @@ def file_save(model,name,stl_type):
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(chunks)
     data.append('--%s--\r\n' % boundary)
-    http_url = website.file_server_upload#'http://192.168.1.104:8888/file/upload'
+    http_url = server_website.file_server_upload
     http_body = '\r\n'.join(data)
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%website.file_server_ip)#'http://192.168.1.101:8888/')
+    req.add_header('Referer','%s'%server_website.file_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=10)
     qrcont=resp.read()
     md = json.loads(qrcont)
@@ -136,7 +135,7 @@ def workd_unexecute(request):
     user = 1#request.user
     now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    designer.icon = str(website.file_server_imgupload) + str(designer.img)
+    designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
     return_list = good_filter.unpublish_exec(unexecute_list)
     worksWait = unexecute_list.count()
@@ -168,14 +167,16 @@ def designer_works(request):
     worksSuc = Goods.objects.filter(designer_id=designer.id,is_active=1).count()
     conf = {
             'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc,
-            'name':designer.designername,'img':str(website.file_server_path)+str(designer.img)
+            'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img)
               }
+    print 'designer!'
     return render(request, website.works_execute, conf)
 
 def unexecute_delete(request):
     '''
         #在未审核页面直接删除作品 ;在已发布页面点击编辑后，点击取消发布；
     '''
+    #pdb.set_trace()
     ids = request.POST['id']
     state = int(request.POST['state'])
     if state<4:
@@ -184,25 +185,6 @@ def unexecute_delete(request):
         Goods.objects.filter(id = ids).update(is_active=0)
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
-
-
-'''def unexecute_edit(request):
-    
-    #在未审核页面 点击处理并提交 后往JS传得值
-    
-    id = 40#request.POST['id'] 
-    goods_list = Goods_Upload.objects.filter(id = id)
-    return_good = []
-    for good in goods_list:
-        temp = {'id':good.id,
-                'name':good.goods_name,
-                'file_size':good.file_size,
-                'upload_time':good.upload_time.strftime("%Y-%m-%d"),
-                'stl_path':str(good.stl_path)
-                  }
-        return_good.append(temp)
-    conf = {'good':return_good}  
-    return HttpResponse(json.dumps(conf))  '''
 
 
 def edit_submit(request):
@@ -224,7 +206,6 @@ def edit_submit(request):
     name = request.POST['stl_name']
     if not name:
         name = good.goods_name
-    
     for preview in previews:
         count = int(preview)
         preview_type=str(previews[preview])
@@ -255,18 +236,20 @@ def edit_submit(request):
 
 
 def deletePic(request):
+    #pdb.set_trace()
     this_id = request.POST['id']
     picid = int(request.POST['picId'])
     print picid
     good = Goods_Upload.objects.filter(id = this_id)
     if picid == 0:
-        delpic = good.update(preview_1='null')
+        delpic = good.update(preview_1=' ')
     if picid == 1:
-        delpic = good.update(preview_2='null')
+        delpic = good.update(preview_2=' ')
     if picid == 2:
-        delpic = good.update(preview_3='null')
+        delpic = good.update(preview_3=' ')
     conf = {'status':'success'}
     return HttpResponse(json.dumps(conf))
+
 
 def photo_save(model,name,stl_type,stl_md5):
     chunks = ""
@@ -285,12 +268,12 @@ def photo_save(model,name,stl_type,stl_md5):
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(chunks)
     data.append('--%s--\r\n' % boundary)
-    http_url = website.file_server_imgupload#'http://192.168.1.101:8888/file/imgupload'
+    http_url = server_website.file_server_imgupload#'http://192.168.1.101:8888/file/imgupload'
     http_body = '\r\n'.join(data)
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%website.file_server_ip)#'http://192.168.1.101:8888/')
+    req.add_header('Referer','%s'%server_website.file_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
     md = json.loads(qrcont)
@@ -308,7 +291,7 @@ def auditing(request):
     user = 1#request.user
     now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    designer.icon = str(website.file_server_imgupload) + str(designer.img)
+    designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
     return_list = good_filter.unpublish_exec(unexecute_list)
     all_len = len(unexecute_list)
@@ -329,27 +312,18 @@ def not_passed(request):
     #显示 未通过 页面
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now_page = int(request.POST['page']) - 1
-    design_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 2)
+    design_list = Goods_Upload.objects.filter(designer_id = designer.id, good_state = 2)
     return_list = good_filter.unpublish_exec(design_list)
     all_len = len(return_list)
     total_pages = all_len/(website.unpassed_one)
-    if all_len%(website.unpassed_one) !=0:
+    if all_len%(website.unpassed_one) != 0:
         total_pages += 1
-    return_list = return_list[now_page*(website.unpassed_one):(now_page+1)*(website.unpassed_one)]
+    return_list = return_list[now_page*(website.unpassed_one):(now_page + 1)*(website.unpassed_one)]
     conf = {'all_list':return_list,'total_pages':total_pages,'now_page':now_page,
               }
     return HttpResponse(json.dumps(conf))
-
-
-'''#未通过页面，点击 重新申请发布 后的反馈操作
-def photo_not_passed(request):#未通过页面，点击重新申请发布
-    id = 56#request.POST['id']
-    design_list = Goods_Upload.objects.filter(id=id)
-    return_list = good_filter.unpublish_exec(design_list)
-    conf = {'return_list':return_list}
-    return HttpResponse(json.dumps(conf))'''
 
 
 def has_published(request):
@@ -357,15 +331,15 @@ def has_published(request):
     #显示已发布页面
     '''
     #user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = 1)#user.id)
     now_page = int(request.POST['page']) - 1
-    design_list = Goods.objects.filter(designer_id=designer.id,is_active=1)
+    design_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     return_list = good_filter.publish_exec(design_list)
     all_len = len(return_list)
     total_pages = all_len/(website.publish_one)
-    if all_len%(website.publish_one) !=0:
+    if all_len%(website.publish_one) != 0:
         total_pages += 1
-    return_list = return_list[now_page*(website.publish_one):(now_page+1)*(website.publish_one)]
+    return_list = return_list[now_page*(website.publish_one):(now_page + 1)*(website.publish_one)]
     conf = {'all_list':return_list,'total_pages':total_pages
             }
     return HttpResponse(json.dumps(conf))
@@ -376,7 +350,7 @@ def published_edit(request):
     #在已发布页面点击编辑后，传的值
     '''
     id = request.POST['id']
-    design_list = Goods.objects.filter(id=id)
+    design_list = Goods.objects.filter(id = id)
     return_list = good_filter.publish_exec(design_list)
     conf = {'photo':return_list}
     return HttpResponse(json.dumps(conf))
@@ -387,7 +361,7 @@ def published_submit(request):
     #在已发布页面点击编辑后，修改后提交的值
     '''
     file_id = request.POST['id']
-    photo = Goods.objects.filter(id=file_id)
+    photo = Goods.objects.filter(id = file_id)
     price = request.POST['price']
     describe = request.POST['describe']
     name = request.POST['name']
@@ -397,10 +371,10 @@ def published_submit(request):
         describe = photo.describe
     if not price:
         price = photo.price
-    s=Goods.objects.filter(id = id).update(name=str(name),
-                        price = int(price),
-                        describe = describe
-                      )
+    s=Goods.objects.filter(id = id).update(name = str(name),
+                                            price = int(price),
+                                            describe = describe
+                                            )
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
@@ -411,7 +385,7 @@ def dwon_stl(request):
     '''
     _url = request.POST['_url']
     stl_path = good_filter.down_stl(_url)
-    context = {'stl_path':stl_path}
+    context = {'stl_path': stl_path}
     return HttpResponse(json.dumps(context))
 
 
@@ -426,11 +400,11 @@ def file_download(request):
         glist = []
         conf = {}
         for goods_id in goods_list:
-            goods = Goods.objects.get(id=goods_id)
+            goods = Goods.objects.get(id = goods_id)
             md5 = str(goods.stl_path).split(r'/')[0]
             zip_name = goods.goods_name + '.zip'
             file_ = {}
-            file_ = {'md5':md5,'zip_name':zip_name}
+            file_ = {'md5':md5,'zip_name': zip_name}
             glist.append(file_)
-        conf = {'glist':glist}
+        conf = {'glist': glist}
         return HttpResponse(json.dumps(conf))
