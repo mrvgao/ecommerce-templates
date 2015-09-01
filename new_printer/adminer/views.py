@@ -15,7 +15,7 @@ from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
-from designer.conf import website 
+from configuration import website 
 from conf import website as adminer_website 
 from configuration.models import Goods_Upload,Goods
 from django.contrib.auth.models import User
@@ -98,22 +98,15 @@ def has_passed(request):
 
 #点击审核通过按键
 def work_passing(request):
-	id = 159#request.POST['id']
-	pass_state = [1]#request.POST['state']
-	style = ''
+	id = 160#request.POST['id']
+	style_state = 1 #request.POST['state']
+	tags_state = 1 #request.POST['state']
 	count = 1
-	tags = u'项链'
-	print type(tags)
-	for state in pass_state:
-		if count == len(pass_state):
-			style = style + str(website.good_style[state]) 
-		else :
-			style = style + str(website.good_style[state]) + ','
-		count = count +1
-		
+	tags = website.good_tags[tags_state]
+	style = website.good_style[style_state]
 	photo = Goods_Upload.objects.filter(id = id).update(
-						good_state = 3
-						#modify_time = datetime.now()
+						good_state = 3,
+						modify_time = datetime.now()
 						)
 	photo = Goods_Upload.objects.get(id = id)
 
@@ -138,7 +131,7 @@ def work_passing(request):
 # 后台管理页面：审核作品和客服聊天
 def background(request):
 	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
-	conf = {'all_list': not_executed_works}
+	conf = {'all_list': not_executed_works, 'photo_server': website.file_server_path}
 	return render(request,adminer_website.background,conf)	
 
 

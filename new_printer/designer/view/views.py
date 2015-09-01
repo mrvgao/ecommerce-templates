@@ -325,7 +325,7 @@ def setup(request):
         '''
         has_alipay = True
     conf = {'name': designer.designername,'img': str(server_website.file_server_path)+str(designer.img),
-            'has_alipay': has_alipay, 'phone': designer.phone }
+            'has_alipay': has_alipay, 'phone': designer.phone, 'alipay': designer.alipay_name}
     return render(request, website.setup, conf)
 
 
