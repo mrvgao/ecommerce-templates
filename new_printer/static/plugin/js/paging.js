@@ -10,7 +10,7 @@
 		page_box = $('.paging-wrap'),
 		paging_btn = $('.paging-btn'),
 		ellipsis = '<span class="paging-more">....</span>',
-		total = paging_total,
+		total = $('#paging').attr('paging-total'),
 		_node = '';
 	
 	setPage(total,1);
