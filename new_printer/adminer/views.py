@@ -27,15 +27,10 @@ import json,pdb
 
 #显示默认页面，未处理商品
 def word_list(request):
-	print 'a'
 	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
 	conf = {
 			'works_auditing':not_executed_works
 			}
-	print 'ccc:'
-	print not_executed_works
-	print 'bbb'
-	print conf['works_auditing']
 	return HttpResponse(json.dumps(conf))
 	#return render(request,website.works_auditing)
 
