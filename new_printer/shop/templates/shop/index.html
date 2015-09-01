@@ -1,0 +1,299 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/sign.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/index.css' %}" />
+	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/shop/sign.js' %}"></script>
+	<script type="text/javascript" src="{% static 'plugin/js/imgSlider.js' %}"></script>
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block logo %}
+{% endblock %}
+
+{% block content %}
+
+	<div class="sign-page w">
+		<div class="container clearfix">
+			<div class="sign-cont fl">
+				<div class="banner-word mb50">
+					<img src="{% static 'images/shop/banner-word.png' %}" alt="" />
+					<p class="mt10">在这里，定制任何你想要的首饰</p>
+				</div>
+				<a class="enter-btn tc mr20 inl-b" href="/shop/home">进去逛逛</a>
+				<a class="contact-btn tc inl-b" href="javascript:void(0)">联系我们获得内测邀请码</a>
+				<div class="sign-contact-wrap"></div>
+			</div>
+			<div class="sign-login fr">
+				<div class="sign-login-guide mb20 clearfix">
+					<p class="signup-btn-box fl">
+						<a class="signUp f20" href="javascript:void(0)">注册<span class="f12 ml5">(已有注册码)</span></a>
+					</p>
+					<p class="signin-btn-box fr">
+						<a class="signIn f16" href="javascript:void(0)">登陆</a>
+					</p>
+				</div>
+				<div class="input-play-wrap pr">
+					<div class="input-play-box pa clearfix">
+						<div data-p="bindphone" class="sign-bindphoto fl">
+							<div class="sign-empty-box signup-username">
+								<input valid-type="signUp-phone" class="sign-input is_registered_r" type="text" placeholder="手机号" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>手机号格式不正确</span>
+								</p>
+							</div>
+							<div class="sign-empty-box invite-code mt15">
+								<input valid-type="signUp-invitecode" class="sign-input invitecode" type="text" placeholder="邀请码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>邀请码</span>
+								</p>
+							</div>
+							<button class="register-next f18 mt30">下一步</button>
+							<a class="no-invite mt15 fr" href="javascript:void(0)">没有邀请码？</a>
+						</div>
+						<div data-p="signUp" class="sign-signUp fl">
+							<div class="sign-empty-box signup-username">
+								<input valid-type="signUp-name" class="sign-input is_username" type="text" placeholder="用户名" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>该用户名已经被注册</span>
+								</p>
+							</div>
+							<div class="sign-empty-box mt15">
+								<input valid-type="signUp-pw" class="sign-input" type="password" placeholder="密码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>密码格式不正确</span>
+								</p>
+							</div>
+							<div class="sign-empty-box mt15">
+								<input valid-type="signUp-pwagin" class="sign-input" type="password" placeholder="确认密码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>密码不一致</span>
+								</p>
+							</div>
+							<button class="register-btn f18 mt30">注册</button>
+							<a class="back-prev mt15 fr" href="javascript:void(0)"><< 返回上一步</a>
+						</div>
+						<div data-p="signIn" class="sign-signIn fl">
+							<div class="sign-empty-box signup-username">
+								<input valid-type="signUp-phone" class="sign-input is_registered" type="text" placeholder="手机号" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>手机号格式不正确</span>
+								</p>
+							</div>
+							<div class="sign-empty-box invite-code mt15">
+								<input valid-type="signUp-pw" class="sign-input" type="password" placeholder="密码" />
+								<p class="hide sign-warning">
+									<em class="test-ts"></em>
+									<span>密码不正确</span>
+								</p>
+							</div>
+							<button class="login-btn f18 mt30">登陆</button>
+							<div class="sign-remeber">
+								<div class="sign-remeber-in mt15 fl">
+									<input class="signIn-remeber" type="checkbox" />
+									<span>记住密码</span>
+								</div>
+								<a class="forget-pw mt15 fr" href="/shop/password_find">忘记密码？</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="contact-info-wrap hide">
+				<div class="contact-info-box pr">
+					<div class="contact-info-logo pb10">
+						<img class="ml10" src="{% static 'images/shop/contact-logo.png' %}" alt="" />
+					</div>
+					<div class="info-body bc">
+						<div class="contact-info clearfix">
+							<div class="info-cont fl">
+								<p class="f18 fb mb15">联系我们</p>
+								<p class="mb10">官方微博：<a href="#">3Dilove</a></p>
+								<p class="mb10">官方微信：JKbrother3d(3Dilove)</p>
+								<p class="mb10">官方邮箱：3dilove@jkbrother3d.com</p>
+								<p>公司地址：杭州市拱墅区登云路617号矩阵国际4号楼408室</p>
+							</div>
+							<div class="info-img fr"></div>
+						</div>
+						<div class="contact-service mt50">
+							<button class="contact-service-btn">联系客服 >></button>
+							<p class="ml20 fr">
+								<em class="contact-phone"></em>
+								<span class="ml5 f16 fb">联系电话：18868103391</span>
+							</p>
+						</div>
+					</div>
+					<a class="contact-close pa" href="javascript:void(0)"></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wehave">
+		<div class="wehave-box bc tc clearfix">
+			<div class="wehave-list mr200">
+				<div class="wehave-bg bc shop-ico mb30"></div>
+				<p>线下门店</p>
+				<p class="doforyou">232位</p>
+			</div>
+			<div class="wehave-list mr200">
+				<div class="wehave-bg bc designer-ico mb30"></div>
+				<p>设计师</p>
+				<p class="doforyou">236家</p>
+			</div>
+			<div class="wehave-list wehave-l-last">
+				<div class="wehave-bg bc work-ico mb30"></div>
+				<p>在线作品</p>
+				<p class="doforyou">5653件</p>
+			</div>
+		</div>
+	</div>
+	<div class="wechanged tc">
+		<p class="f20 mb20">我们改变了什么？</p>
+		<p class="mb5">如果你是设计师</p>
+		<p>你的每一件作品都将拥有它的归宿</p>
+		<p class="mt20 mb5">如果你是珠宝商</p>
+		<p>你的每一款首饰都是消费者自己的选择</p>
+		<p class="mt20 mb5">我们在引领珠宝定制的风尚</p>
+		<p>我们在实现共赢</p>
+		<div class="ds-to-seller inl-b clearfix">
+			<div class="dsto-img fl">
+				<span class=" ds-designer-img"></span>
+				<p class="mt50 f20">设计师</p>
+			</div>
+			<div class="ds-to-bg mt100 ml50 mr50 fl"></div>
+			<div class="sto-img fl">
+				<span class="ds-seller-img"></span>
+				<p class="mt50 f20">珠宝商</p>
+			</div>
+		</div>
+	</div>
+	<div class="theprocess">
+		<p class="theprocess-title f20 tc">我们如何引领定制风尚</p>
+		<div class="process-cont bc pr">
+			<img src="/static/images/shop/index/process-cont.png" alt="" />
+			<div class="process-txt pt-push tr">
+				<p class="f18 mb10">上传</p>
+				<p class="lh20">设计师上传作品，并给作品定价，接下来交给我们。</p>
+			</div>
+			<div class="process-txt pt-show">
+				<p class="f18 mb10">平台展示</p>
+				<p class="lh20">我们将细心展现每一件作品供消费者挑选。</p>
+			</div>
+			<div class="process-txt pt-download tr">
+				<p class="f18 mb10">下载</p>
+				<p class="lh20">珠宝商轻松下载，即刻3D打印出首饰模型。</p>
+			</div>
+			<div class="process-txt pt-print">
+				<p class="f18 mb10">3D打印</p>
+				<p class="lh20">即刻打印3D首饰模型，试戴体验定制效果。</p>
+			</div>
+			<div class="process-txt pt-wewin tr">
+				<p class="f18 mb10">三方共赢</p>
+				<p class="lh20">让所有作品找到它的归宿让每一件首饰都是消费者自己的选择，消费者引领时尚。</p>
+			</div>
+		</div>
+	</div>
+	<div class="cooperate-wrap">
+		<p class="mb50 f20 tc">目前与我们合作的线下商家</p>
+		<div class="cooperate-box bc clearfix">
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+			<img src="/static/images/shop/index/cooperate-seller-1.jpg" alt="" />
+		</div>
+	</div>
+	<div class="slider-bottom w">
+		<div class="container">
+			<ul class="clearfix pr s-b-box">
+				<li>
+					<div class="s-b-cont bc">
+						<p class="mb20 f38 tc">快速定制自己的唯一</p>
+						<p class="tc f18 bc w700 lh28">利用3D打印机快速成型技术， 使得线上大量的素材都能被快速制造，成型速度比传统工艺提升300%，而花费，却只有之前的60%</p>
+						<div class="person-talking clearfix">
+							<div class="person-bg person-customer pr fl">
+								<span class="pa">准新娘：</span>
+							</div>
+							<div class="person-txt w400 mr50 f16 fr">
+								简直太不可思议了！我能够自己设计，更重要的时居然能快速的利用3D打印机试戴
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="s-b-cont bc">
+						<p class="mb20 f38 tc">创意不再只是创意</p>
+						<p class="tc f18 bc w700 lh28">通过互联网与不同的顾客，设计师链接，使得您的作品能够更快的被市场接纳。 一款产品从设计到成型，需要的时间是传统工艺的 1/30</p>
+						<div class="person-talking clearfix">
+							<div class="person-bg person-designer pr fr">
+								<span class="pa">资深珠宝设计师：</span>
+							</div>
+							<div class="person-txt w400 f16 ml50 fl">
+								在这里，我发现了更多喜欢我作品的用户，和消费者直接沟通，使我的灵感越来越多。
+							</div>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="s-b-cont bc">
+						<p class="mb20 f38 tc">样式更多，库存却更少了</p>
+						<p class="tc f18 bc w700 lh28">因为互联网与3D打印技术，你能够拥有 10,000 多款样式，这吸引了更多得客户，除此之外，你的存货数目可以几乎减少为零</p>
+						<div class="person-talking clearfix">
+							<div class="person-bg person-seller pr fl">
+								<span class="pa">品牌珠宝商：Cartier</span>
+							</div>
+							<div class="person-txt w400 mr50 f16 fr">
+								有了3DiLove，生意明显好多了。囤货少了、客人多了！
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="airm-bottom tc">
+			<ul class="inl-b">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		imgSlider('.s-b-box','.s-b-box li','.airm-bottom ul li',6000);
+	</script>
+	<div class="index-joinus tc">
+		<p class="ind-join-title mb100">我们将改变珠宝的选购方式，让定制属于我们每一个人</p>
+		<div class="ind-joinus-btn">
+			<a class="enter-btn tc mr20 inl-b" href="#">加入我们</a>
+			<a class="enter-btn tc inl-b" href="/shop/home">进去逛逛</a>
+		</div>
+	</div>
+
+{% endblock %}

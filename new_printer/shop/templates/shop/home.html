@@ -1,0 +1,390 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block selfFiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/home.css' %}" />
+	<script type="text/javascript" src="{% static 'js/shop/home.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+	<div class="home-banner"></div>
+	<div class="container">
+		<div class="wehave">
+			<div class="wehave-box bc tc clearfix">
+				<div class="wehave-list mr80">
+					<div class="wehave-bg bc shop-ico mb30"></div>
+					<p>67家</p>
+					<p>线下门店</p>
+					<p class="doforyou">让你的首饰与众不同</p>
+				</div>
+				<div class="wehave-list mr80">
+					<div class="wehave-bg bc designer-ico mb30"></div>
+					<p>67位</p>
+					<p>设计师</p>
+					<p class="doforyou">让你的首饰与众不同</p>
+				</div>
+				<div class="wehave-list wehave-l-last">
+					<div class="wehave-bg bc work-ico mb15"></div>
+					<p>3829件</p>
+					<p>在线作品</p>
+					<p class="doforyou">让你的首饰与众不同</p>
+				</div>
+			</div>
+		</div>
+		<div class="groom-wrap">
+			<p class="groom-title tc f20 fb">推荐单品</p>
+			<p class="groom-tag bc mt10"></p>
+			<div class="home-slider-box pr">
+				<ul class="clearfix">
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+				</ul>
+				<span class="home-slider-l unselectable home-slider-guide pa"><em class="bc"></em></span>
+				<span class="home-slider-r unselectable home-slider-guide pa"><em class="bc"></em></span>
+			</div>
+		</div>
+		<div class="groom-wrap">
+			<p class="groom-title tc f20 fb">热门下载</p>
+			<p class="groom-tag hot-download bc mt10"></p>
+			<div class="home-slider-box pr">
+				<ul class="clearfix">
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+					<li>
+						<div class="list-box pr">
+							<div class="list-img mb5">
+			                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+									<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
+								</a>
+							</div>
+							<div class="list-title tc mb10">
+			                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+								{{ 'other_goods.goods_name' }}
+								</a>
+							</div>
+							<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<em class="list-mark-btn-ico"></em>
+								收藏
+							</a>
+						</div>
+					</li>
+				</ul>
+				<span class="home-slider-l unselectable home-slider-guide pa"><em class="bc"></em></span>
+				<span class="home-slider-r unselectable home-slider-guide pa"><em class="bc"></em></span>
+			</div>
+		</div>
+		<div class="star-designer">
+			<p class="groom-title tc f20 fb">明星设计师</p>
+			<p class="groom-tag s-designer bc mt10"></p>
+			<div class="s-designer-wrap clearfix">
+				<div class="s-designer-box pr">
+					<div class="s-designer-info bg98d3ec">
+						<p class="f16 mb10">设计狮大名</p>
+						<p>这位设计狮的曾经吹过的牛和扯过的蛋</p>
+					</div>
+					<div class="s-designer-photo">
+						<img src="/static/images/" alt="" />
+					</div>
+					<span class="s-cont-bg w h pa"></span>
+				</div>
+				<div class="s-designer-box pr">
+					<div class="s-designer-photo">
+						<img src="/static/images/" alt="" />
+					</div>
+					<div class="s-designer-info bgedce98">
+						<p class="f16 mb10">设计狮大名</p>
+						<p>这位设计狮的曾经吹过的牛和扯过的蛋</p>
+					</div>
+					<span class="s-cont-bg w h pa"></span>
+				</div>
+				<div class="s-designer-box pr">
+					<div class="s-designer-info bg98b4ed">
+						<p class="f16 mb10">设计狮大名</p>
+						<p>这位设计狮的曾经吹过的牛和扯过的蛋</p>
+					</div>
+					<div class="s-designer-photo">
+						<img src="/static/images/" alt="" />
+					</div>
+					<span class="s-cont-bg w h pa"></span>
+				</div>
+				<div class="s-designer-box pr">
+					<div class="s-designer-photo">
+						<img src="/static/images/" alt="" />
+					</div>
+					<div class="s-designer-info bg98e2ed">
+						<p class="f16 mb10">设计狮大名</p>
+						<p>这位设计狮的曾经吹过的牛和扯过的蛋</p>
+					</div>
+					<span class="s-cont-bg w h pa"></span>
+				</div>
+				<div class="s-designer-box pr">
+					<div class="s-designer-info bga398ed">
+						<p class="f16 mb10">设计狮大名</p>
+						<p>这位设计狮的曾经吹过的牛和扯过的蛋</p>
+					</div>
+					<div class="s-designer-photo">
+						<img src="/static/images/" alt="" />
+					</div>
+					<span class="s-cont-bg w h pa"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="fast-enter pt20">
+		<p class="groom-title tc f20 fb">快速进入</p>
+		<p class="groom-tag fast-in bc mt10"></p>
+		<div class="enter-list-wrap bc pt50 pb50 clearfix">
+			<a class="e-l-box fl" href="/shop/ring">
+				<div class="enter-list tc">
+					<p class="mb5">RING</p>
+					<p>戒指专区</p>
+					<span class="enter-list-ico bc e-l-ring"></span>
+				</div>
+			</a>
+			<a class="e-l-box fl" href="/shop/pendant">
+				<div class="enter-list tc">
+					<p class="mb5">PENDANT</p>
+					<p>吊坠专区</p>
+					<span class="enter-list-ico bc e-l-pendant"></span>
+				</div>
+			</a>
+			<a class="e-l-box fl" href="/shop/earbob">
+				<div class="enter-list tc">
+					<p class="mb5">EARBOB</p>
+					<p>耳坠专区</p>
+					<span class="enter-list-ico bc e-l-earbob"></span>
+				</div>
+			</a>
+			<a class="e-l-box fl" href="/shop/bracelet">
+				<div class="enter-list tc">
+					<p class="mb5">BRACELET</p>
+					<p>手链专区</p>
+					<span class="enter-list-ico bc e-l-bracelet"></span>
+				</div>
+			</a>
+			<a class="e-l-box fl" href="/shop/necklace">
+				<div class="enter-list tc">
+					<p class="mb5">NECKLACE</p>
+					<p>项链专区</p>
+					<span class="enter-list-ico bc e-l-necklace"></span>
+				</div>
+			</a>
+			<a class="e-l-box fl" href="/shop/brooch">
+				<div class="enter-list tc">
+					<p class="mb5">BROOCH</p>
+					<p>胸针专区</p>
+					<span class="enter-list-ico bc e-l-brooch"></span>
+				</div>
+			</a>
+		</div>
+	</div>
+
+{% endblock %}

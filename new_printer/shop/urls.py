@@ -8,7 +8,7 @@ urlpatterns = patterns('',
         url('^test$', views.test, name="test"),
 
         # 展示型首页
-        url('^$', views.all_goods_list, name="index"),
+        url('^$', views.test, name="index"),
 
         # 网站内首页
         url('^home$', views.test, name="home"),
