@@ -42,11 +42,16 @@
 		float: left;
 		width: 77px;
 		height: 36px;
-		background-color: #EBEBEB;
-		    border: 0px;
+		background-color: inherit;
+		border: 0px;
 	}
-	.tool-bar-select.class{
-		
+	.tool-bar-select div{
+		    width: 77px;
+			    height: 24px;
+				    background-color: inherit;
+					    text-align: center;
+						    padding-top: 12px;
+							    border-bottom: 1px solid;
 	}
 	.tool-bar-choosed{
 		background-color: #FF766F;
@@ -211,14 +216,14 @@
 		<a href="" style="text-decoration: blink;color: #FFF;">退出</a>
 	</div>
 	<div class='tool-bar'>
-		<div style="float:left;" class="tool-bar-choosed">
+		<div style="float:left; height: 36px;" class="tool-bar-choosed">
 			<div style="float: left;width: 109px;height: 25px;text-align: center;padding-top: 11px;  padding-left: 4px;">作品审核管理</div>
 			<div style="float: left;height: 27px;padding-top: 9px;  font-size: 17px;width: 9px;">|</div>
-			<select class="tool-bar-select">
-				<option>未处理</option>
-				<option>已驳回</option>
-				<option>未通过</option>
-			</select>
+			<div class="tool-bar-select" value="folded">
+				<div style="display:block" value="0">未处理</div>
+				<div style="display:none" value="1">已驳回</div>
+				<div style="display:none" value="2">已通过</div>
+			</div>
 		</div>
 		<div style="float: left;width: 178px;height: 25px;padding-top: 11px;text-align: center;">客户留言对话</div>
 	</div>
@@ -252,20 +257,20 @@
 			font-size: 14px;
 			display: none;
 			color: #5F4747;">
-				<select id="good-type">
+			<select id="good-type">
 				<option value="0">戒指</option>
 				<option value="1">吊坠</option>
 				<option value="2">耳坠</option>
 				<option value="3">手链</option>
 				<option value="4">项链</option>
 				<option value="5">胸针</option>
-				</select>
-				<select id="good-style">
+			</select>
+			<select id="good-style">
 				<option value="0">青春洋溢</option>
 				<option value="1">富丽典雅</option>
 				<option value="2">自然亲切</option>
 				<option value="3">时尚潮流</option>
-				</select>
+			</select>
 		</div>
 		<ul style="list-style:none;overflow-y:hidden;height: 488px;">
 			{% for goods in all_list %}
@@ -603,8 +608,9 @@
 		max-width: 400px;
 		background-color: #111;
 		position: absolute;
-		top: 255px;
-		left: 30px;
+		top: 355px;
+		left: 100px;
+		display: none;
 	}   
 	.face-box ul li{ 
 		float: left;
