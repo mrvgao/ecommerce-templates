@@ -98,6 +98,7 @@ def has_passed(request):
 
 #点击审核通过按键
 def work_passing(request):
+	print 'pass'
 	id = 159#request.POST['id']
 	pass_state = [1]#request.POST['state']
 	style = ''
