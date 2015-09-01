@@ -93,8 +93,49 @@ $(function(){
 		$(this).hide();					   
 	});
 
+	Commom.bindToolBarEvent();
+
 });
 
+
+Commom.bindToolBarEvent = function(){
+	$('.tool-bar-select').click(function(){
+		$(this).find('div').show();					   
+		$('.tool-bar-select').unbind('click');
+		Commom.bindToolBarBtnEvent();
+		l('unbind');
+	});
+}
+
+
+Commom.bindToolBarBtnEvent = function(){
+	$('.tool-bar-select').find('div').click(function(){
+		$(this).show().siblings().hide();
+		$('.tool-bar-select').find('div').unbind('click');
+		var timer = setTimeout(function(){
+			Commom.bindToolBarEvent();
+			clearTimeout(timer);
+			l('a');
+		},1000);
+
+		var btnVal = $(this).attr('value');
+		if(btnVal === '0'){
+			$.post('word_list', {}, function(e){
+				l('0');			  
+			})
+
+		}else if(btnVal === '1'){
+			$.post('has_failed', {}, function(e){
+				l('1');			  
+			})
+
+		}else if(btnVal === '2'){
+			$.post('has_passed', {}, function(e){
+				l('2');			  
+			})
+		}
+	});
+}
 
 Commom.initPageBtn = function(){
 	var pageSum = $(".goods-container ul").find('li').length/2;	

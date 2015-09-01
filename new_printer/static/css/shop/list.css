@@ -49,6 +49,7 @@ em.guide-ico.active {
 .list-box {
 	float:left;
 	padding:20px;
+	margin:20px;
 	border:1px solid #eee;
 	transition:all .3s ease;
 }
