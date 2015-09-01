@@ -242,11 +242,11 @@ def deletePic(request):
     print picid
     good = Goods_Upload.objects.filter(id = this_id)
     if picid == 0:
-        delpic = good.update(preview_1=' ')
+        delpic = good.update(preview_1='')
     if picid == 1:
-        delpic = good.update(preview_2=' ')
+        delpic = good.update(preview_2='')
     if picid == 2:
-        delpic = good.update(preview_3=' ')
+        delpic = good.update(preview_3='')
     conf = {'status':'success'}
     return HttpResponse(json.dumps(conf))
 

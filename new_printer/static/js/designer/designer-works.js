@@ -225,7 +225,7 @@ function published(page){	//获取已发布数据
 			var sucList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			for(var i=0,len=sucList.length;i<len;i++){
-				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].upload_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].approval_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 				for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
 					sucStr += '<img src="'+sucList[i].pic[j]+'"/>';
 				}

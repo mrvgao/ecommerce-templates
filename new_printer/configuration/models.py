@@ -127,7 +127,8 @@ class Goods(models.Model):
     file_size = models.CharField(max_length=6,default = 0,blank=True)
     #设计师是否执行删除操作  0：设计师执行了删除操作，1：未执行
     is_active = models.IntegerField(default=1)
-
+    #文件格式：Stl or Jcad
+    file_type =  models.CharField(max_length=25, default='stl', blank=True)
 #设计师个人主页访问记录表
 class Design_record(models.Model):
     designer = models.ForeignKey(Designer_User)
