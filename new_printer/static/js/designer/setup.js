@@ -16,7 +16,8 @@
 		change_wrap = $('.change-headportrait-wrap'),
 		close_change = $('.close-change'),
 		change_btn = $('.change-btn'),
-		ali_test = [];
+		ali_test = [],
+		ali_val = [];
 
 	// 取消设置/关闭弹出框
 	close_set.on('click',function (){
@@ -36,6 +37,7 @@
 		var _this = $(this),
 			_val = _this.val(),
 			reg = /[\u4e00-\u9fa5]{2,4}/;/^[a-zA-Z]{1}[0-9a-zA-Z_]{1,}$/
+		ali_val[0] = _val;
 
 		if(_val && reg.test(_val)){
 			test_ico.eq(0).removeClass('test-false');
@@ -53,7 +55,7 @@
 		var _this = $(this),
 			_val = _this.val(),
 			reg = /^[-\w]+$/;
-
+		ali_val[1] = _val;
 		if(_val && reg.test(_val)){
 			test_ico.eq(1).removeClass('test-false');
 			test_ico.eq(1).addClass('test-true');
@@ -90,10 +92,11 @@
 				test_ico.eq(i).addClass('test-false');
 			}
 		}
-		alert(1)
+		//alert('1');
 		//console.log(ali_test[0],ali_test[1],ali_test[2])
 		if(ali_test[0] && ali_test[1] && ali_test[2]){
-			$.post('/designer/add_alipay',{},function (){});
+			d_id = 1
+			$.post('/designer/add_alipay',{'ali_name': ali_val[0], 'ali_num': ali_val[1], 'd_id': d_id},function (){});
 		}
 	});
 

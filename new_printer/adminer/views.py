@@ -91,7 +91,7 @@ def has_passed(request):
 
 #点击审核通过按键
 def work_passing(request):
-	id = 150#request.POST['id']
+	id = 159#request.POST['id']
 	pass_state = [1]#request.POST['state']
 	style = ''
 	count = 1
@@ -104,8 +104,6 @@ def work_passing(request):
 			style = style + str(website.good_style[state]) + ','
 		count = count +1
 		
-	print style
-	#pdb.set_trace()
 	photo = Goods_Upload.objects.filter(id = id).update(
 						good_state = 3
 						#modify_time = datetime.now()
