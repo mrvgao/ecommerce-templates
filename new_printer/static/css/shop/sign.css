@@ -7,6 +7,14 @@ body.sign #footer {
 	background:url('/static/images/shop/page-banner.jpg') no-repeat;
 	background-size:cover;
 }
+.banner-word span {
+	display:block;
+	width:220px;
+	height:60px;
+	background-image:url('/static/images/common/logo.png');
+	background-repeat:no-repeat;
+	background-position:-10px -10px;
+}
 .banner-word p {
 	font-size:26px;
 	color:#fff;
