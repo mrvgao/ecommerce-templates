@@ -126,6 +126,8 @@ class RecommendGoodsHandler(object):
             goods_style.decode('unicode-escape')
             if goods_style.find(style) >= 0:
                 self.add_dict_value(score_dict, goods.id)
+            elif not score_dict.has_key(goods_id):
+                score_dict[goods_id] = 0
 
 
     def add_dict_value(self, score_dict, goods_id):
@@ -146,7 +148,6 @@ class RecommendGoodsHandler(object):
     def get_recommend_list(self,score_list):
         recommend_number = 4
         recommend_list = heapq.nlargest(recommend_number, score_list)
-        # recommend_list.sort()
         goods_id_list = []
         for recommend_id in recommend_list:
             goods_id_list.append(recommend_id[1])
