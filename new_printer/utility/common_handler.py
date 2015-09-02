@@ -33,7 +33,10 @@ class AlgorithmHandler(object):
 class CommonHandler(object):
 
     def get_file_path(self,part_path):
-        path = admin_website.server_path + part_path
+        if part_path:
+            path = admin_website.server_path + part_path
+        else:
+            path = None
         return path
 
 
