@@ -13,7 +13,8 @@ swfobject.addDomLoadEvent(function () {
                 case 5 : 
                     if(msg.type == 0)
                     {
-                        alert("头像已成功保存至服务器，url为：\n" + msg.content.avatarUrls.join("\n\n")+"\n\n传递的userid="+msg.content.userid+"&username="+msg.content.username);
+                        window.location.reload();
+
                     }
                 break;
             }
