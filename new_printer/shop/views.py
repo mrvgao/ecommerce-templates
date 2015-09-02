@@ -350,8 +350,10 @@ def sort_goods(request):
 
     goods_list = common_filter(tags_name, sort_name, style_name)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_list': goods_list,
+        'goods_list': goods_list, 'page_length': page_length,
     }
 
     return HttpResponse(json.dumps(context))
@@ -365,8 +367,10 @@ def filter_goods(request):
 
     goods_list = common_filter(tags_name, sort_name, style_name)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_list': goods_list,
+        'goods_list': goods_list, 'page_length': page_length,
     }
 
     return HttpResponse(json.dumps(context))
