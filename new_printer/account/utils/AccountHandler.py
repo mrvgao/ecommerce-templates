@@ -82,10 +82,11 @@ class UserManager():
         return: success or failure
         '''
         result = self.v.is_phone_exist(phone)
-        if result == 'C':
+        if result:
             return 'FAILURE'
         else:
-            new_user = User.objects.create_user(username=phone, password=password, first_name=username)
+            new_user = User.objects.create_user(username=phone, password=password)
+            new_user.first_name = username
             new_user.save()
             if identity == 'D':
                 new_designer = Designer_User(phone=phone, designername=username, user=new_user)

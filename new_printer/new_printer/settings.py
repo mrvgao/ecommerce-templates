@@ -146,4 +146,4 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_URL = '/shop/login_register'
-AUTH_PROFILE_MODULE = 'configutation.TestUser'
+#AUTH_PROFILE_MODULE = 'configutation.TestUser'
