@@ -393,7 +393,8 @@ def u_img(request):
             d = Designer_User.objects.filter(user_id=1).update(img=icon)
         else :
             v = Vender_User.objects.filter(user_id=1).update(img=icon)
-        return HttpResponse(json.dumps(True))
+        conf = {'success': True}
+        return HttpResponse(json.dumps(conf))
 
 def file_save(model, f_name, f_type):
         '''
