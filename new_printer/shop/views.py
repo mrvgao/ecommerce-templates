@@ -213,6 +213,7 @@ def get_page_length(goods_list):
     else:
         return length / per_page_num
 
+
 def get_goods_list_by_tags(goods_tags, vender_id):
 
     def change_to_tag_goods(sort_goods_list, vender_id):
@@ -375,6 +376,10 @@ def filter_goods(request):
 
     return HttpResponse(json.dumps(context))
 
+
+def paging(request):
+    context = {}
+    return HttpResponse(json.dumps(context))
 
 def common_filter(tags_name, sort_name, style_name):
 

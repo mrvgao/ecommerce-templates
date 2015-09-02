@@ -169,11 +169,11 @@ def u_login(request):
     '''
     pdb.set_trace()
     if request.method == 'POST':
-        username = request.POST.get('phone')
+        phone = request.POST.get('phone')
         password = request.POST.get('password')
         conf = {}
         try:
-            u = authenticate(username=username, password=password)
+            u = authenticate(username=phone, password=password)
             if u.is_active:
                 login(request, u)
                 identity = UserManager().user_which(u)

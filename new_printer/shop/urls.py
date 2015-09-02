@@ -55,6 +55,9 @@ urlpatterns = patterns('',
         # 首页按类型筛选，ajax
         url('filter-type', views.filter_type, name="filter_type"),
 
+        # 分页
+        url('paging', views.paging, name="paging"),
+
 		# 用户和客服聊天
         url('^chat_customer_service_win', views.chat_customer_service_win, name="chat_customer_service_win"),
 )
