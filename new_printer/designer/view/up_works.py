@@ -17,7 +17,7 @@ from designer.conf import website
 from configuration import website as server_website
 from configuration.website import file_server_download
 from designer.utilites import search_handle,good_filter
-from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
+from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods,Vender_User
 from django.contrib.auth.models import User
 import httplib, urllib
 import urllib2,os
@@ -380,11 +380,20 @@ def file_download(request):
     return:
     '''
     if request.method == 'POST':
+        ISOTIMEFORMAT='%Y-%m-%d %X'
+        date = time.strftime(ISOTIMEFORMAT, time.localtime())
+        user = request.user
+        vender_user = Vender_User.objects.get(user=user)
         goods_list = request.POST.getlist('goods_list[]')
         glist = []
         conf = {}
         for goods_id in goods_list:
             goods = Goods.objects.get(id = goods_id)
+            vg = Vender_Goods.objects.get(vender=vender_user, goods=goods)
+            vg.is_download = True
+            #vg.download_time = datetime.datetime.now()
+            vg.download_time = date
+            vg.save()
             md5 = str(goods.stl_path).split(r'/')[0]
             zip_name = goods.goods_name + '.zip'
             file_ = {}
