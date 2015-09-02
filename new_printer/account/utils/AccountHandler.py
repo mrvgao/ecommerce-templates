@@ -87,15 +87,17 @@ class UserManager():
         else:
             new_user = User.objects.create_user(username=phone, password=password)
             new_user.first_name = username
-            new_user.save()
             if identity == 'D':
                 new_designer = Designer_User(phone=phone, designername=username, user=new_user)
                 new_designer.save()
+                new_user.last_name = 'D'
             elif identity == 'V':
                 new_vender = Vender_User(phone=phone, vendername=username, user=new_user)
                 new_vender.save()
+                new_user.last_name = 'V'
             else:
                 pass
+            new_user.save()
             return 'SUCCESS'
 
 
