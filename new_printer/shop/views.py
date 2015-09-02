@@ -95,6 +95,9 @@ def home(request):
             return_list.append(home_goods)
         return return_list
 
+    user = request.user
+    common_handler.get_customer(user)
+
     vender_id = 2
     goods_list = Goods.objects.all()
     recommend_goods_list = goods_handler.comprehension_sort(goods_list)[:6]
@@ -439,10 +442,9 @@ def common_filter(tags_name, sort_name, style_name):
 def all_goods_list(request):
 
     user = request.user
-    customer_name = common_handler.get_customer(user)
+    common_handler.get_customer(user)
 
     context = {
-        'customer_name': customer_name,
     }
 
     return render(request, website.all_goods_list, context)
