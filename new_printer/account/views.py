@@ -167,7 +167,6 @@ def u_login(request):
     params: phone or username, password
     return:
     '''
-    pdb.set_trace()
     if request.method == 'POST':
         phone = request.POST.get('phone')
         password = request.POST.get('password')
@@ -183,7 +182,6 @@ def u_login(request):
                     conf = {'status':'V'}
                 else:
                     conf = {'status':'None'}
-                print username
         except Exception as e:
             conf = {'status':'FAILURE'}
         return HttpResponse(json.dumps(conf))
