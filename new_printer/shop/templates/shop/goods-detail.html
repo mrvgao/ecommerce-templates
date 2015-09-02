@@ -34,11 +34,11 @@
 						<div class="slider-box">
 							
 							{% for goods_img in goods_img_list %}
-
-							<div class="slider-img pr airm-before" class="active">
-								<img src="{{ goods_img }}" alt="" />
-							</div>
-
+								{% if goods_img %}
+								<div class="slider-img pr airm-before" class="active">
+									<img src="{{ goods_img }}" alt="" />
+								</div>
+								{% endif %}
 							{% endfor %}
 
 						</div>
