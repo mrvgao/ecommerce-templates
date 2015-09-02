@@ -23,7 +23,24 @@ $(function(){
 	Commom.goodsHtml.untreated = $(".goods-container ul").html();
 
 	Commom.goodsDomTemplate = $(".goods-container li").eq(0).prop('outerHTML');
+
+	Commom.registerShow3dBtn();
 });
+
+
+Commom.registerShow3dBtn = function(){
+	$('.good-stl').click(function(){
+		var thisGoodId = $(this).parents('.good-container').find('#good-id').html();
+		l('id:'+thisGoodId);
+		var fullscreenBtnDom = '<div class="fullscreen-btn"></div>'
+		var show3dDom = '<div id="show-3d"></div>'
+		$('.good-stl').each(function(index){
+			$(this).html(fullscreenBtnDom);		   
+		});
+		$(this).append(show3dDom);
+		showStlFileInRemoteServer(thisGoodId , 'unpassed',  162, 162, 'show-3d');
+	});
+}
 
 
 Commom.registerToolBarBtn = function(){
@@ -143,7 +160,7 @@ Commom.registerClassBtn = function(){
 	$('.tool-bar-select').find('div').click(function(){
 		$(this).show().siblings().hide();
 		var btnVal = $(this).attr('value');
-		
+
 		if(btnVal === '0'){
 
 			if(Commom.goodsHtml.untreated === null){
@@ -153,12 +170,14 @@ Commom.registerClassBtn = function(){
 					Commom.initPageBtn();
 					Commom.registerPageBtn();
 					Commom.registerGoodBtn();
+					Commom.registerShow3dBtn();
 				})
 			}else{
 				$(".goods-container ul").html(Commom.goodsHtml.untreated);
 				Commom.initPageBtn();
 				Commom.registerPageBtn();
 				Commom.registerGoodBtn();
+				Commom.registerShow3dBtn();
 			}
 		}else if(btnVal === '1'){
 
@@ -169,12 +188,14 @@ Commom.registerClassBtn = function(){
 					Commom.initPageBtn();
 					Commom.registerPageBtn();
 					Commom.removeGoodBtn();
+					Commom.registerShow3dBtn();
 				})
 			}else{
 				$(".goods-container ul").html(Commom.goodsHtml.passed);
 				Commom.initPageBtn();
 				Commom.registerPageBtn();
 				Commom.removeGoodBtn();
+				Commom.registerShow3dBtn();
 			}
 		}else if(btnVal === '2'){
 
@@ -185,12 +206,14 @@ Commom.registerClassBtn = function(){
 					Commom.initPageBtn();
 					Commom.registerPageBtn();
 					Commom.removeGoodBtn();
+					Commom.registerShow3dBtn();
 				})
 			}else{
 				$(".goods-container ul").html(Commom.goodsHtml.failed);
 				Commom.initPageBtn();
 				Commom.registerPageBtn();
 				Commom.removeGoodBtn();
+				Commom.registerShow3dBtn();
 			}
 		}
 		var thisDom = $(this).prop('outerHTML');

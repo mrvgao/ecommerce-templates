@@ -337,7 +337,6 @@ def show_3d(request):
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf)) 
 
-
 def add_focus(request):
 	d_id = request.POST['d_id']
 	v_id = request.POST['v_id']
