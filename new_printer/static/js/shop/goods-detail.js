@@ -119,8 +119,7 @@ $(function (){
 		}else if(_this.hasClass('watch3d-img')){
 			// 
 			var stlId = GetRequest();
-			console.log('id:'+stlId);
-			showStlFileInRemoteServer(stlId , 460, 460, 'show-3d');
+			showStlFileInRemoteServer(stlId, '', 460, 460, 'show-3d');
 			$('#show-3d').show();
 		}
 		airm_before.removeClass('active');

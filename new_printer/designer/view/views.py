@@ -368,19 +368,6 @@ def cancel_collect(request):
 
 #@login_required
 def add_alipay(request):
-<<<<<<< HEAD
-	'''
-	添加支付宝账号
-	'''
-	d_id = request.POST['d_id']
-	ali_name = request.POST['ali_name'] 
-	ali_num = request.POST['ali_num'] 
-	d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
-	if d:
-		return HttpResponse(json.dumps("success"))
-	else:
-		return HttpResponse(json.dumps("Error"))
-=======
     '''
     添加支付宝账号
     '''
@@ -439,4 +426,3 @@ def file_save(model, f_name, f_type):
         md5 = md[f_name]
         return md5
 
->>>>>>> cb6dee267e0ef7b857d2bf1c378bfc816b9a89ba
