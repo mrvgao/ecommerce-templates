@@ -208,22 +208,22 @@ def unpublish_eardrop_list(request):
     '''
     #未发布的商品过滤 耳坠
     '''
-    #user = request.user
-    designer = Designer_User.objects.get(user_id = 1)#user.id)
-    good_state = 0#request.POST['good_state']
+    user = request.user
+    designer = Designer_User.objects.get(user_id = user.id)
+    good_state = request.POST['good_state']
     tags = 'Jweary'
     return_list = good_filter.unpublish_good_filter(good_state,tags,designer.id)
     conf = {'all_list':return_list
               }
     return HttpResponse(json.dumps(conf))
 
-
+@login_required
 def my_state(request):
     '''
     #显示我的动态的页面 my_state
     '''
     user = request.user
-    designer = Designer_User.objects.get(user_id = user.id)
+    designer = Designer_User.objects.get(user = user)
     unpublished_list = Goods_Upload.objects.filter(designer_id = designer.id)
     published_list = Goods.objects.filter(designer_id = designer.id)
     collect = 0
@@ -239,7 +239,6 @@ def my_state(request):
     now = datetime.now()
     published_list = Goods.objects.filter(designer_id = designer.id)
     
-    works = works_visit(d_id)
     conf = { 'worksNum':all_list, 
             'worksCollection':collect,
             'downloadNum':download,
@@ -254,8 +253,7 @@ def center_visit(d_id):
     '''
     #设计师的 month 访问量
     '''
-    d_id = d_id
-    designer = Designer_User.objects.get(user_id = user.id)
+    designer = Designer_User.objects.get(id = d_id)
     now = datetime.now()
     weekNum = [0]
     designer_record = Design_record.objects.filter(designer_id = designer.id)
@@ -273,13 +271,13 @@ def center_visit(d_id):
     conf = { 'weekNum':weekNum,'monthNum':monthNum}
     return conf
 
-
-def works_visit(d_id):
+@login_required
+def works_visit(request):
     '''
     #设计师作品的 访问量
     '''
+    #pdb.set_trace()
     user = request.user
-    designer_id = d_id
     designer = Designer_User.objects.get(user_id = user.id)
     now = datetime.now()
     weekNum = []
@@ -303,7 +301,7 @@ def works_visit(d_id):
             record = record+len(a)
         record = record - sum(monthNum)
         monthNum.append(record)
-    center = center_visit(d_id) 
+    center = center_visit(designer.id) 
     conf = { 'weekNumcenter': center['weekNum'],
             'monthNumcenter': center['monthNum'],
             'weekNumwork': weekNum,
@@ -321,7 +319,7 @@ def setup(request):
         '''
         has_alipay = True
     conf = {'name': designer.designername,'img': str(server_website.file_server_path)+str(designer.img),
-            'has_alipay': has_alipay, 'phone': designer.phone, 'alipay': designer.alipay_name}
+            'has_alipay': has_alipay, 'phone': designer.phone, 'alipay': designer.alipay_name, 'id': designer.id}
     return render(request, website.setup, conf)
 
 
@@ -372,20 +370,19 @@ def cancel_collect(request):
 	v_id = request.POST['v_id']
 	cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
 	return HttpResponse(json.dumps("success"))
-
-@login_required
 def add_alipay(request):
-	'''
-	添加支付宝账号
-	'''
-	d_id = request.POST['d_id']
-	ali_name = request.POST['ali_name'] 
-	ali_num = request.POST['ali_num'] 
-	d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
-	if d:
-		return HttpResponse(json.dumps("success"))
-	else:
-		return HttpResponse(json.dumps("Error"))
+    '''
+    添加支付宝账号
+    '''
+    
+    d_id = request.POST['d_id']
+    ali_name = request.POST['ali_name'] 
+    ali_num = request.POST['ali_num'] 
+    d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
+    if d:
+        return HttpResponse(json.dumps("success"))
+    else:
+        return HttpResponse(json.dumps("Error"))
 
 def u_img(request):
 	if request.method == 'POST':
