@@ -314,7 +314,8 @@ def goods_detail(request):
     goods = Goods.objects.get(id=goods_id)
     designer_id = goods.designer_id
     designer = Designer_User.objects.get(id=designer_id)
-    vender_id = 3
+    user = request.user
+    vender_id = Vender_User.objects.get(user_id=user.id).id
     is_buy = vender_goods_handler.get_is_buy(goods_id, vender_id)
 
     goods_img_list = []
