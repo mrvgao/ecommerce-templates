@@ -32,13 +32,19 @@ Commom.registerShow3dBtn = function(){
 	$('.good-stl').click(function(){
 		var thisGoodId = $(this).parents('.good-container').find('#good-id').html();
 		l('id:'+thisGoodId);
-		var fullscreenBtnDom = '<div class="fullscreen-btn"></div>'
+		/*var fullscreenBtnDom = '<div class="fullscreen-btn"></div>'*/
 		var show3dDom = '<div id="show-3d"></div>'
 		$('.good-stl').each(function(index){
-			$(this).html(fullscreenBtnDom);		   
+			/*$(this).html(fullscreenBtnDom);		   */
+			$(this).html(null);		   
 		});
 		$(this).append(show3dDom);
 		showStlFileInRemoteServer(thisGoodId , 'unpassed',  162, 162, 'show-3d');
+		$('.good-stl').each(function(index){
+			$(this).unbind('click');
+		});
+		Commom.registerShow3dBtn();
+		$(this).unbind('click');
 	});
 }
 
