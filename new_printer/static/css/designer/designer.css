@@ -1110,14 +1110,10 @@ em.test-ico.test-false {
 	width:250px;
 }
 .change-head-box {
-	width:630px;
-}
-#change_img {
-	width:630px;
-	height:330px;
+	width:500px;
 }
 .change-headportrait-box {
-	width:710px;
+	width:580px;
 	height:520px;
 	position:fixed;
 	left:50%;
