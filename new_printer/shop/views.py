@@ -94,9 +94,6 @@ def home(request):
             return_list.append(home_goods)
         return return_list
 
-    user = request.user
-    common_handler.get_customer(user)
-
     vender_id = 2
     goods_list = Goods.objects.all()
     recommend_goods_list = goods_handler.comprehension_sort(goods_list)[:6]
@@ -121,10 +118,9 @@ def ring(request):
     goods_tags = u'戒指'
     vender_id = 2
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id) * 10
+    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
+    page_length = get_page_length(goods_list)
     goods_list = goods_list[:per_page_num]
-
-    page_length = get_page_length(goods_list * 10)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -138,8 +134,8 @@ def pendant(request):
     vender_id = 2
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-
     page_length = get_page_length(goods_list)
+    goods_list = goods_list[:per_page_num]
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -153,8 +149,8 @@ def earbob(request):
     vender_id = 2
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-
     page_length = get_page_length(goods_list)
+    goods_list = goods_list[:per_page_num]
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -168,8 +164,8 @@ def bracelet(request):
     vender_id = 2
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-
     page_length = get_page_length(goods_list)
+    goods_list = goods_list[:per_page_num]
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -183,8 +179,8 @@ def torque(request):
     vender_id = 2
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-
     page_length = get_page_length(goods_list)
+    goods_list = goods_list[:per_page_num]
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -198,8 +194,8 @@ def brooch(request):
     vender_id = 2
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-
     page_length = get_page_length(goods_list)
+    goods_list = goods_list[:per_page_num]
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -261,7 +257,7 @@ def filter_type(request):
     style = request.POST['style'].strip()
     tag = request.POST['type'].strip()
 
-    tag_style_list = get_list_by_tag_style(tag, style)
+    tag_style_list = get_list_by_tag_style(tag, style)[:per_page_num]
     goods_list = change_list_to_json(tag_style_list)
 
     context = {
@@ -353,8 +349,8 @@ def sort_goods(request):
     style_name = request.POST['classify_type']
 
     goods_list = common_filter(tags_name, sort_name, style_name)
-
     page_length = get_page_length(goods_list)
+    goods_list = goods_list[:per_page_num]
 
     context = {
         'goods_list': goods_list, 'page_length': page_length,
@@ -370,8 +366,8 @@ def filter_goods(request):
     style_name = request.POST['classify_type']
 
     goods_list = common_filter(tags_name, sort_name, style_name)
-
     page_length = get_page_length(goods_list)
+    goods_list = goods_list[:per_page_num]
 
     context = {
         'goods_list': goods_list, 'page_length': page_length,
@@ -389,11 +385,12 @@ def paging(request):
 
     start = page_now * per_page_num
     end = (page_now + 1) * per_page_num
-    goods_list = common_filter(tags_name, sort_name, style_name) * 10
+    goods_list = common_filter(tags_name, sort_name, style_name)
+    page_length = get_page_length(goods_list)
     goods_list = goods_list[start:end]
 
     context = {
-        'goods_list': goods_list,
+        'goods_list': goods_list, 'page_length': page_length,
     }
 
     return HttpResponse(json.dumps(context))
@@ -438,17 +435,6 @@ def common_filter(tags_name, sort_name, style_name):
     goods_list = change_list_to_json(sorted_list)
 
     return goods_list
-
-
-def all_goods_list(request):
-
-    user = request.user
-    common_handler.get_customer(user)
-
-    context = {
-    }
-
-    return render(request, website.all_goods_list, context)
 
 
 def chat_customer_service_win(request):
