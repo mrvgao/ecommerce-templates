@@ -212,7 +212,7 @@ body{
 	cursor: pointer;
 }
 .designer-works-lists{
-	margin-bottom:45px;
+	margin-bottom:60px;
 	clear:both;
 	position: relative;
 }
@@ -391,18 +391,17 @@ body{
 .designer-works-cancelAll,.designer-works-deleteAll{
 	position: absolute;
 	right: 15px;
-	bottom: -35px;
+	bottom: -45px;
 	font-size: 14px;
 }
 
 .works-cancelAll-btn {
-	width: 90px;
-	height: 23px;
-	line-height: 23px;
-	background: #f7f7f7;
-	color: #949494;
-	cursor: pointer;
-	margin-right: 18px;
+	width:120px;
+	height:36px;
+	cursor:pointer;
+	color:#fff;
+	border-radius:5px;
+	margin-right:20px;
 }
 .works-deleteAll-btn {
 	width: 120px;
@@ -847,7 +846,7 @@ em.add-alipay-ico {
 }
 .works-canelbox {
 	float:right;
-	margin-top:20px;
+	margin-top:10px;
 }
 em.upfile-success {
 	display:inline-block;
