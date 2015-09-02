@@ -369,15 +369,17 @@ def cancel_collect(request):
 	v_id = request.POST['v_id']
 	cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
 	return HttpResponse(json.dumps("success"))
+
+@login_required
 def add_alipay(request):
     '''
     添加支付宝账号
     '''
+    user = request.user
     
-    d_id = request.POST['d_id']
     ali_name = request.POST['ali_name'] 
     ali_num = request.POST['ali_num'] 
-    d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
+    d = Designer_User.objects.filter(user = user).update(alipay = ali_num, alipay_name = ali_name)
     if d:
         return HttpResponse(json.dumps("success"))
     else:

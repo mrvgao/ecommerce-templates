@@ -95,8 +95,8 @@
 		//alert('1');
 		//console.log(ali_test[0],ali_test[1],ali_test[2])
 		if(ali_test[0] && ali_test[1] && ali_test[2]){
-			d_id = 1
-			$.post('/designer/add_alipay',{'ali_name': ali_val[0], 'ali_num': ali_val[1], 'd_id': d_id},function (){});
+			
+			$.post('/designer/add_alipay',{'ali_name': ali_val[0], 'ali_num': ali_val[1] },function (){});
 		}
 	});
 
