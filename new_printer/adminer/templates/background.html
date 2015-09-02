@@ -146,28 +146,28 @@
 				margin-right: 4px;
 				width: 162px;
 				height: 162px;
-				margin-top: 13px;
 				position: relative;
+				float: left;
 			}
 			.good-pic img{
 				width: 162px;
 				height: 162px;
 			}
-			.good-pic div{
+			.fullscreen-btn{
 				background: url('{% static 'images/adminer/widget.png' %}') no-repeat;
-				width: 25px;
-				height: 25px;
-				background-position: -82px -8px;
+				width: 20px;
+				height: 20px;
+				background-position: -82px -10px;
 				position:absolute;
-				top: -149px;
-				right: 0px;
+				top: 0px;
+				left: 142px;
 			}
 			.good-stl{
 				margin-right: 4px;
 				width: 162px;
 				height: 162px;
-				margin-top: 13px;
 				position: relative;
+				float: right;
 			}
 			.pages-bar{
 				width: 960px;
@@ -290,22 +290,21 @@
 						</div>
 						<div style="background-color: #FFF;width: 960px;height: 198px;">
 							<div class="good-pic-div">
-								<span class="good-pic">
+								<div class="good-pic">
 									<img id="good-img-1" src="{{ photo_server }}{{ goods.preview_1 }}">
-									<div></div>
-								</span>
-								<span class="good-pic">
+									<div class="fullscreen-btn"></div>
+								</div>
+								<div class="good-pic">
 									<img id="good-img-2" src="{{ photo_server }}{{ goods.preview_1 }}">
-									<div></div>
-								</span>
-								<span class="good-pic">
+									<div class="fullscreen-btn" class="fullscreen-btn"></div>
+								</div>
+								<div class="good-pic">
 									<img id="good-img-3" src="{{ photo_server }}{{ goods.preview_2 }}">
-									<div></div>
-								</span>
-								<span class="good-stl">
-									<div id="show-3d"></div>
-									<div></div>
-								</span>
+									<div class="fullscreen-btn"></div>
+								</div>
+								<div class="good-stl">
+									<div class="fullscreen-btn"></div>
+								</div>
 							</div>
 							<div class="good-info-for-detail">
 								<p id="good-name" style="font-size: 14px;font-weight: bold;margin-top: 22px;">{{ goods.goods_name }}</p>
@@ -635,6 +634,12 @@
 		<script type="text/javascript" src="{% static 'js/adminer/chat/socket.io-1.3.0.js' %}"></script>
 		<script type="text/javascript" src="{% static 'js/adminer/chat/chat_main.js' %}"></script>
 		<script type="text/javascript" src="{% static 'js/adminer/chat/chat_ui.js' %}"></script>
+
+		<script src="{% static 'js/show3d/three-69.min.js' %} "></script>
+		<script src="{% static 'js/show3d/STLLoader.js' %}"></script>
+		<script src="{% static 'js/show3d/OrbitControls.js' %}"></script>
+		<script src="{% static 'js/show3d/3dDemo.js' %}"></script>
+		<script src="{% static 'js/show3d/uplist.js' %}"></script>
 
 	</body>
 </html>

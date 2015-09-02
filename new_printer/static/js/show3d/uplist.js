@@ -12,6 +12,7 @@ function showpic(index,src,url,name,describe){	//点击图片查看详情以及�
 function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerId){
 	$.post('/designer/show_3d',{'pic_id': stlId, unpassed: unpassed},function (e){
 		var url_path = JSON.parse(e).url_path ;
+		console.log('path':url_path);
 		initializeObj(url_path, canvasW, canvasH, containerId);
 		$('#show-3d-cont').show();
 		// added by white
