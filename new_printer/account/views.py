@@ -167,7 +167,6 @@ def u_login(request):
     params: phone or username, password
     return:
     '''
-    pdb.set_trace()
     if request.method == 'POST':
         phone = request.POST.get('phone')
         password = request.POST.get('password')
