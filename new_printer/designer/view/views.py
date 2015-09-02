@@ -39,9 +39,7 @@ def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
-    user = request.user
-    #designer_id = request.GET['designer_id']
-    #state = request.GET['good_state']
+    #user = request.user
     is_designer = CommonHandler.get_customer(user)
     designer = Designer_User.objects.get(user_id =1)# user.id)
     is_focus = False
