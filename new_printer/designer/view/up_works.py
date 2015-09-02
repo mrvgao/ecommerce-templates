@@ -218,7 +218,7 @@ def edit_submit(request):
                         restdate = datetime.datetime.now()+datetime.timedelta(days=5)
                       )
     conf = {'status':"success"}
-    return HttpResponse(json.dumps(conf))
+    return HttpResponseRedirect('designer_works') 
     '''else:
         s=Goods_Uploadobjects.filter(id= id).update(name=str(name),
                         price = int(price),

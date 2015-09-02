@@ -327,11 +327,13 @@ def setup(request):
 
 
 def show_3d(request):
-	id = request.POST['pic_id']
-	_url = str(server_website.file_server_path) + Goods_Upload.objects.get(id = id).stl_path
-	url_path = good_filter.down_stl(_url)
-	conf = { 'url_path': url_path}
-	return HttpResponse(json.dumps(conf)) 
+    id = request.POST['pic_id']
+    state = request.POST['unPassed']
+    pdb.set_trace()
+    _url = str(server_website.file_server_path) + Goods_Upload.objects.get(id = id).stl_path
+    url_path = good_filter.down_stl(_url)
+    conf = { 'url_path': url_path}
+    return HttpResponse(json.dumps(conf)) 
 
 def add_focus(request):
 	d_id = request.POST['d_id']
@@ -384,16 +386,15 @@ def u_img(request):
     if request.method == 'POST':
         user = request.user
         photo = request.FILES
-        md5 = file_save(photo['__avatar2'], '1', 'png')
+        md5 = file_save(photo['__avatar1'], '1', 'png')
         icon = 'img/' + md5 + '.png'
-        #designer = Designer_User.objects.filter(id =1).update(img=icon)
         d_user = Designer_User.objects.filter(user_id = 1).exists()
         if d_user :
             d = Designer_User.objects.filter(user_id=1).update(img=icon)
         else :
             v = Vender_User.objects.filter(user_id=1).update(img=icon)
-        #conf = {'statue': True}
-        return HttpResponse(json.dumps(True))
+        conf = {'success': True}
+        return HttpResponse(json.dumps(conf))
 
 def file_save(model, f_name, f_type):
         '''
