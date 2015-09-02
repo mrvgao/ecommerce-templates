@@ -383,6 +383,7 @@ def paging(request):
     tags_name  = request.POST['list_type'].strip()
     sort_name = request.POST['filter_type'].strip()
     style_name = request.POST['classify_type'].strip()
+
     start = page_now * per_page_num
     end = (page_now + 1) * per_page_num
     goods_list = common_filter(tags_name, sort_name, style_name)[start:end]
@@ -390,6 +391,7 @@ def paging(request):
     context = {
         'goods_list': goods_list,
     }
+
     return HttpResponse(json.dumps(context))
 
 
