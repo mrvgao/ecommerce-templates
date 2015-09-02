@@ -16,8 +16,8 @@
 				{% endif %}	
 			{% endif %}
 		</div>
-		{% if user.is_authenticated %}
-		{% if user.last_name == 'V' %}
+
+		{% if not user.last_name == 'V' %}
 		<div class="site-utool fr">
 			<a href="/shop/home">3DiLove首页</a>
 			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/vender/seller/download"><em class="site-ico site-download-ico"></em>我的下载</a>
@@ -41,7 +41,7 @@
 			</li>
 		</ul>
 		{% endif %}
-		{% endif %}
+
 	</div>
 </div>
 
