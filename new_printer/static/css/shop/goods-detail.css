@@ -60,7 +60,7 @@
 }
 button.paynow {
 	width:240px;
-	background:#ef635c;
+	background:#ff7972;
 }
 button.addcart {
 	width:140px;
@@ -136,7 +136,7 @@ a.tencenpay.active, a.alipay.active {
 	border-radius:5px;
 	color:#fff;
 	width:120px;
-	background:#ef635c;
+	background:#ff7972;
 }
 em.safa-ico {
 	display:inline-block;
@@ -154,7 +154,7 @@ em.safa-ico {
 	cursor:pointer;
 	border-radius:5px;
 	color:#fff;
-	background:#ef635c;
+	background:#ff7972;
 }
 i.coverb {
 	position:absolute;
@@ -189,4 +189,33 @@ i.covera {
 	padding:5px 12px;
 	border-radius:3px;
 	background:#ddd;
+}
+.goods-info {
+	padding:0 30px;
+	line-height:18px;
+}
+.airm-before.active:before {
+	content:'';
+	width:11px;
+	height:11px;
+	position:absolute;
+	left:-14px;
+	top:50%;
+	margin-top:-5px;
+	background-image:url('/static/images/common/site-icons.png');
+	background-position:-233px -12px;
+}
+em.download-num-ico, em.mark-num-ico {
+	display:inline-block;
+	width:14px;
+	height:14px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png');
+	vertical-align:bottom;
+}
+em.download-num-ico {
+	background-position:-10px -11px;
+}
+em.mark-num-ico {
+	background-position:-192px -11px;
 }

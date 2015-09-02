@@ -114,7 +114,6 @@ function toSearch(){
 				'search_type': _title
 			},function (e){
 				var waitList = JSON.parse(e).all_list;
-				console.log(waitList);
 				setData(e);
 			});
 		}
@@ -186,11 +185,6 @@ function workd_unexecute(page){		//加载未审核的数据
 		edit();
 		deleteSigle();
 
-
-		$('.designer-works-list-bigpic fl').each(function(){
-			/*console.log('bigpic:'+this.parent('.designer-works-list-box').attr('data-id'));                   */
-		});
-
 	});
 }
 
@@ -225,6 +219,7 @@ function published(page){	//获取已发布数据
 	designer_works_page.remove();
 	designer_works_lists.empty();
 	var sucStr = '';
+
 	$.post('/designer/has_published',{"page":page}, function(e) {
 		if(e){
 			var sucList = JSON.parse(e).all_list;
@@ -476,9 +471,9 @@ function creatPages(){		//生成页码
 			}else if(thisType=="审核中"){
 				auditing(toPage);
 			}else if(thisType=="未通过"){
-				published(toPage);
-			}else if(thisType=="已发布"){
 				not_passed(toPage);
+			}else if(thisType=="已发布"){
+				published(toPage);
 			}
 		}
 	});
@@ -577,7 +572,7 @@ function edit(){	//编辑弹窗函数
 			}else{
 				var _index = $(this).parents('.modify-imgs-box').index(),
 					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
-				console.log(_index);
+
 				$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
 					if('success'==JSON.parse(e).status){
 						alert('delete success!');

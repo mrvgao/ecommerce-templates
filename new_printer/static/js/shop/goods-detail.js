@@ -13,6 +13,7 @@ $(function (){
 		slider_img = $('.slider-img'),
 		goods_img = $('.goods-img'),
 		login_page = $('.login-page'),
+		airm_before = $('.airm-before'),
 		goods_list = [];
 	
 	// 立即下单
@@ -106,13 +107,21 @@ $(function (){
 		});
 	});
 
+	airm_before.eq(0).addClass('active');
 	// 切换商品图片
-	slider_img.on('click',function (){
+	airm_before.on('click',function (){
 		var _this = $(this),
 			_src = _this.find('img').attr('src'),
 			g_img = goods_img.find('img');
-
-		g_img.attr('src',_src);
+		if(_this.hasClass('slider-img')){
+			g_img.attr('src',_src);
+		}else if(_this.hasClass('watch3d-img')){
+			// 
+			var stlId = '';
+			showStlFileInRemoteServer(stlId , 458, 458, 'show-3d');
+		}
+		airm_before.removeClass('active');
+		_this.addClass('active');
 	});
 
 });
