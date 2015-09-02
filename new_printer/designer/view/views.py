@@ -325,7 +325,7 @@ def setup(request):
 
 def show_3d(request):
 
-    pdb.set_trace()
+    #pdb.set_trace()
     id = request.POST['pic_id']
     state = request.POST['unpassed']
 
