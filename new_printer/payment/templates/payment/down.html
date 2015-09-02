@@ -37,7 +37,7 @@
 								<input class="cart-checkbox ml-30" type="checkbox" value="{{ cart.goods.id }}" />
 							</p>
 							<p class="goods-t-photo layout-b">
-								<a href="/shop/goods-detail?goods_id=1"><img src="http://192.168.1.101:8888/static/{{ cart.goods.preview_1 }}" alt="" /></a>
+								<a href="/shop/goods-detail?goods_id=1"><img src="{{file_server_path}}{{ cart.goods.preview_1 }}" alt="" /></a>
 							</p>
 							<div class="goods-t-info layout-b">
 								<p class="f16">

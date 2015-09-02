@@ -15,6 +15,7 @@ from django.template import RequestContext
 from django import forms
 from designer.conf import website 
 from configuration import website as server_website
+from configuration.website import file_server_download
 from designer.utilites import search_handle,good_filter
 from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
 from django.contrib.auth.models import User
@@ -389,5 +390,5 @@ def file_download(request):
             file_ = {}
             file_ = {'md5':md5,'zip_name': zip_name}
             glist.append(file_)
-        conf = {'glist': glist}
+        conf = {'glist': glist, 'file_server_download':file_server_download}
         return HttpResponse(json.dumps(conf))
