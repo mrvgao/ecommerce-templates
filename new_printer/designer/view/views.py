@@ -39,7 +39,7 @@ def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
-    user = 1#request.user
+    user = request.user
     #designer_id = request.GET['designer_id']
     #state = request.GET['good_state']
     is_designer = CommonHandler.get_customer(user)

@@ -27,7 +27,7 @@ from utility.common_handler import CommonHandler
 CommonHandler = CommonHandler()
 #@login_required
 def works_upload(request):
-    user = 1#request.user
+    user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
     is_designer = CommonHandler.get_customer(user)
     conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img),
