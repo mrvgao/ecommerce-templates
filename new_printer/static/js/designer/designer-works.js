@@ -303,9 +303,9 @@ function not_passed(page){		//获取未通过数据
 			notStr='信息加载失败';
 		}
 		designer_works_lists.append(notStr);
-		edit();
+		
 		cancelSigle();
-
+		edit();
 	});
 }
 
@@ -659,6 +659,19 @@ function publish_edit(){	//编辑弹窗函数
 			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
 	 	}
 		$('.modify-imgs-container').append(imgStr);
+
+		// added by white	
+		$('#show-3d-cont').hide();
+		$('#show-3d').html(null);
+		$('.modify-stl-preview').unbind("click");
+		$('.modify-stl-preview').click(function(){
+			var stlTypeVal = $('.works-current').attr('value');
+			if(stlTypeVal === '2'){
+				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
+			}else if(stlTypeVal === '3'){
+				showStlFileInRemoteServer(id , '',  260, 260, 'show-3d');
+			}
+		});
 
 	});
 
