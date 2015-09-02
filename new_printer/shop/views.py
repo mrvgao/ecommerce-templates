@@ -20,7 +20,7 @@ from shop.utils.goods_handler import RecommendGoodsHandler
 from utility.common_handler import CommonHandler
 from utility.vender_goods_handler import VenderGoodsHandler
 
-per_page_num = 3
+per_page_num = 16
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
 vender_goods_handler = VenderGoodsHandler()
@@ -67,7 +67,6 @@ def test(request):
     }
 
     return render(request, website.test, context)
-
 
 
 def index(request):
@@ -122,9 +121,10 @@ def ring(request):
     goods_tags = u'戒指'
     vender_id = 2
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
+    goods_list = get_goods_list_by_tags(goods_tags, vender_id) * 10
+    goods_list = goods_list[:per_page_num]
 
-    page_length = get_page_length(goods_list)
+    page_length = get_page_length(goods_list * 10)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -339,8 +339,8 @@ def goods_detail(request):
         'goods_moduleType': goods.tags, 'goods_description': goods.description,
         'goods_price': goods.goods_price, 'designer_name': designer.designername,
         'designer_img': common_handler.get_file_path(str(designer.img)),'isDownload': is_buy,
-        'other_goods_list': recommend_goods_list,
-        'designer_goods_list': other_goods_list,
+        'other_goods_list': recommend_goods_list[:4],
+        'designer_goods_list': other_goods_list[:4],
     }
 
     return render(request,website.goods_detail,context)
@@ -389,7 +389,8 @@ def paging(request):
 
     start = page_now * per_page_num
     end = (page_now + 1) * per_page_num
-    goods_list = common_filter(tags_name, sort_name, style_name)[start:end]
+    goods_list = common_filter(tags_name, sort_name, style_name) * 10
+    goods_list = goods_list[start:end]
 
     context = {
         'goods_list': goods_list,

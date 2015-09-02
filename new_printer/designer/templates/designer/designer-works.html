@@ -9,7 +9,7 @@
 {% block mainContent %}
 <div class="designer-works-container">
 	<div class="designer-works-btn">
-		<button class="works-current" value='0' id="works_wait_btn">未审核 ({{ worksWait }})</button>
+		<button class="works-current" value='0' id="works_wait_btn">待定价 ({{ worksWait }})</button>
 		<button value='1' id="works_on_btn">审核中({{ worksOn }})</button>
 		<button value='2' id="works_not_btn">未通过({{ worksNot }})</button>
 		<button value='3' id="works_Suc_btn">已发布({{ worksSuc }})</button>
@@ -101,10 +101,10 @@
 						</div>
 					</div>
 				</div>
-				<input type="text" class="modify-name" name="stl_name" />
+				<p>标题：<input type="text" class="modify-name" name="stl_name" /></p>
 				<input type="hidden" class="modify-id" name="modify_id" />
-				<input type="text" class="modify-price" name="stl_price" />
-				<textarea class="modify-describe" name="stl_describe"></textarea>
+				<p>价格：<input type="text" class="modify-price" name="stl_price" /></p>
+				<p><span class="va-t">描述：</span><textarea class="modify-describe" name="stl_describe"></textarea></p>
 			</div>
 		</div>
 		<div class="modify-btn-container">
