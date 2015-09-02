@@ -22,16 +22,13 @@ import httplib, urllib
 import urllib2,os
 import datetime
 import time,json,pdb,hashlib
-from utility.common_handler import CommonHandler
 
-CommonHandler = CommonHandler()
-#@login_required
+
+@login_required
 def works_upload(request):
     user = request.user
-    designer = Designer_User.objects.get(user_id=1)#user.id)
-    is_designer = 1#CommonHandler.get_customer(user)
-    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img),
-            'is_designer': is_designer}
+    designer = Designer_User.objects.get(user_id = user.id)
+    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img)}
     return render(request, website.upfile, conf)
 
 def stls_save(stls):
@@ -53,8 +50,6 @@ def stls_save(stls):
         for chunk in stl.chunks():
             chunks = chunks + chunk
         mde = hashlib.md5(chunks).hexdigest()
-        print "stl_md5",stl_md5
-        print "mde",mde
         stl_path = str(stl_md5) + '.stl'
         if not Goods_Upload.objects.filter(stl_path=stl_path).exists():
             jwary_md5.setdefault(stl_type[0],stl_md5)
@@ -71,10 +66,9 @@ def stls_save(stls):
                                          preview_1 = 'photo.png'
                                          )
         count = count + 1
-    print has_existed
     return has_existed
 
-##@login_required
+@login_required
 def works_save(request):
     if request.method == 'POST':
         a_have = True
@@ -88,7 +82,6 @@ def works_save(request):
                     conf = {'hased':i}
                     file_hased.append(conf)
         return HttpResponseRedirect('designer_works')
-        #return HttpResponse(json.dumps(file_hased))
     else:
         return HttpResponse(json.dumps("Error"))
 
@@ -119,14 +112,14 @@ def file_save(model,name,stl_type):
     md5 = md['status']
     return md5
 
-#@login_required
+@login_required
 def workd_unexecute(request):
     '''
     设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
     '''
-    user = 1#request.user
+    user = request.user
     now_page = int(request.POST['page']) - 1    
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = user.id)
     designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
     unexecute_list = unexecute_list.order_by('upload_time').reverse()   
@@ -148,11 +141,10 @@ def workd_unexecute(request):
               }
     return HttpResponse(json.dumps(conf))
 
-
+@login_required
 def designer_works(request):
-    user = 1#request.user
-    is_designer = 1#CommonHandler.get_customer(user)
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    user = request.user
+    designer = Designer_User.objects.get(user_id = user.id)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
     return_list = good_filter.unpublish_exec(unexecute_list)
     worksWait = unexecute_list.count()
@@ -161,8 +153,8 @@ def designer_works(request):
     worksSuc = Goods.objects.filter(designer_id=designer.id,is_active=1).count()
     conf = {
             'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc,
-            'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img),
-            'is_designer': is_designer}
+            'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img)
+            }
     return render(request, website.works_execute, conf)
 
 def unexecute_delete(request):
@@ -178,7 +170,7 @@ def unexecute_delete(request):
     conf = {'status':"success"}
     return HttpResponse(json.dumps(conf))
 
-
+@login_required
 def edit_submit(request):
     '''
     #未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
@@ -188,7 +180,6 @@ def edit_submit(request):
     p_url = []
     good = Goods_Upload.objects.get(id=file_id)
     stl_md5 = good.stl_path.encode('utf-8')
-    print stl_md5
     stl_md5 = stl_md5.split('.')
     stl_md5 = stl_md5[0]
     stl_md5 = stl_md5.split('/')[0]
@@ -279,10 +270,10 @@ def auditing(request):
     '''
     #显示 审核中 页面
     '''
-    #user = request.user
-    user = 1#request.user
+    user = request.user
+    user = request.user
     now_page = int(request.POST['page']) - 1    
-    designer = Designer_User.objects.get(user_id=1)#user.id)
+    designer = Designer_User.objects.get(user_id = user.id)
     designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
     return_list = good_filter.unpublish_exec(unexecute_list)
@@ -303,8 +294,8 @@ def not_passed(request):
     '''
     #显示 未通过 页面
     '''
-    #user = request.user
-    designer = Designer_User.objects.get(user_id = 1)#user.id)
+    user = request.user
+    designer = Designer_User.objects.get(user_id = user.id)
     now_page = int(request.POST['page']) - 1
     design_list = Goods_Upload.objects.filter(designer_id = designer.id, good_state = 2)
     return_list = good_filter.unpublish_exec(design_list)
@@ -317,13 +308,13 @@ def not_passed(request):
               }
     return HttpResponse(json.dumps(conf))
 
-
+@login_required
 def has_published(request):
     '''
     #显示已发布页面
     '''
-    #user = request.user
-    designer = Designer_User.objects.get(user_id = 1)#user.id)
+    user = request.user
+    designer = Designer_User.objects.get(user_id = user.id)
     now_page = int(request.POST['page']) - 1
     design_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     return_list = good_filter.publish_exec(design_list)
