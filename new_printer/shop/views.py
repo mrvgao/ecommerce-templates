@@ -95,6 +95,9 @@ def home(request):
             return_list.append(home_goods)
         return return_list
 
+    user = request.user
+    common_handler.get_customer(user)
+
     vender_id = 2
     goods_list = Goods.objects.all()
     recommend_goods_list = goods_handler.comprehension_sort(goods_list)[:6]
@@ -383,6 +386,7 @@ def paging(request):
     tags_name  = request.POST['list_type'].strip()
     sort_name = request.POST['filter_type'].strip()
     style_name = request.POST['classify_type'].strip()
+
     start = page_now * per_page_num
     end = (page_now + 1) * per_page_num
     goods_list = common_filter(tags_name, sort_name, style_name)[start:end]
@@ -390,6 +394,7 @@ def paging(request):
     context = {
         'goods_list': goods_list,
     }
+
     return HttpResponse(json.dumps(context))
 
 
@@ -437,10 +442,9 @@ def common_filter(tags_name, sort_name, style_name):
 def all_goods_list(request):
 
     user = request.user
-    customer_name = common_handler.get_customer(user)
+    common_handler.get_customer(user)
 
     context = {
-        'customer_name': customer_name,
     }
 
     return render(request, website.all_goods_list, context)
