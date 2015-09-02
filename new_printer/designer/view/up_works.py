@@ -31,7 +31,13 @@ def works_upload(request):
     conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img)}
     return render(request, website.upfile, conf)
 
-def stls_save(stls):
+
+def stls_save(stls,designer):
+    
+    '''pdb.set_trace()
+                user = request.user
+                designer = Designer_User.objects.get(user = user).id'''
+   
     jwary_md5 = {}
     file_size = []
     has_existed = {}
@@ -58,7 +64,7 @@ def stls_save(stls):
     for md5 in jwary_md5:
         stl_url = str(jwary_md5[md5])+'.stl'
         new_jwary = Goods_Upload.objects.create(goods_name = str(md5),
-                                         designer_id = 1,
+                                         designer_id = designer,
                                          stl_path = str(jwary_md5[md5]) + '/' + str(md5) +'.stl',
                                          file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
                                          good_state = 0,
@@ -70,13 +76,15 @@ def stls_save(stls):
 
 @login_required
 def works_save(request):
+    user = request.user
+    designer = Designer_User.objects.get(user = user).id
     if request.method == 'POST':
         a_have = True
         stls = request.FILES.getlist('upfile-img')
         file_hased = []
         count = 0
         if stls:
-            existed = stls_save(stls)
+            existed = stls_save(stls,designer)
             if existed:
                 for i in existed:
                     conf = {'hased':i}
