@@ -1,5 +1,8 @@
 import socket
 
+__author__ = 'minchuian'
+__date__ = '2015-8-31'
+
 
 def in_test_server():
     '''
@@ -24,10 +27,9 @@ def in_test_server():
             break
 
     if result:
-      print('in test server')
+        print('in test server')
     else:
-      print('in deploy server')
-    print 'is test server: %s' % result
+        print('in deploy server')
     return result
 
 
