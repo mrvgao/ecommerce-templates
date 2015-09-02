@@ -3,22 +3,22 @@ swfobject.addDomLoadEvent(function () {
             id : "swf",
             upload_url : "/designer/u_img",
             method : "post",
-
-            src_upload : 2
+            avatar_tools_visible : false,
+            avatar_sizes : '140*140',
+            avatar_intro : '以下是最终头像展示效果',
+            src_upload : 0
         }, function (msg) {
             switch(msg.code)
             {
                 case 5 : 
                     if(msg.type == 0)
                     {
-                        if(msg.content.sourceUrl)
-                        {
-                            alert("原图片已成功保存至服务器，url为：\n" +　msg.content.sourceUrl);
-                        }
-                        alert("头像已成功保存至服务器，url为：\n" + msg.content.avatarUrls.join("\n"));
+                        window.location.reload();
+
                     }
                 break;
             }
+
         }
     );
 });
