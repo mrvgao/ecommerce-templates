@@ -9,10 +9,15 @@
 			{% endif %}
 
 			{% if user.is_authenticated %}
-				<a class="ml30" href="/vender/seller">进入个人中心</a>
+				{% if user.last_name == 'V' %}
+				<a class="ml30" href="/">进入个人中心</a>
+				{% else %}
+				<a class="ml30" href="/designer/my_state">进入个人中心</a>
+				{% endif %}	
 			{% endif %}
 		</div>
-		{% if user.status %}
+		{% if user.is_authenticated %}
+		{% if user.last_name == 'V' %}
 		<div class="site-utool fr">
 			<a href="/shop/home">3DiLove首页</a>
 			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/vender/seller/download"><em class="site-ico site-download-ico"></em>我的下载</a>
@@ -35,6 +40,7 @@
 				<a href="/designer/designer_works">作品管理</a>
 			</li>
 		</ul>
+		{% endif %}
 		{% endif %}
 	</div>
 </div>

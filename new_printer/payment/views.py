@@ -120,7 +120,6 @@ def list_cart(request):
     '''
     if request.method == 'GET':
         user = request.user
-        #customer_name = ch.get_customer(user)
         conf = {}
         vender_user = bm.authtovender(user)
         vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
