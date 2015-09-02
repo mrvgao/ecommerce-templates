@@ -240,7 +240,7 @@ $(function (){
 			var _this = $(this);
 			testNoBlur(_this);
 			username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
-			pwd = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+			pwd = _this.parents('.sign-signUp').find('.sign-input').eq(1).val();
 			
 			if(signUpResult[0] && signUpResult[1] && signUpResult[2]){
 				$.post('/account/u_register',{'phone':phone_register,'code':code_register,'username':username,'password':pwd},function (e){
