@@ -1,7 +1,7 @@
 var ShowStl = {};
 
 $(function(){
-	var works_wait_btn = $('#works_wait_btn'),	//未审核
+	var works_wait_btn = $('#works_wait_btn'),	//待定价
 		works_on_btn = $('#works_on_btn'),	//审核中
 		works_not_btn = $('#works_not_btn'),	//未通过
 		works_Suc_btn = $('#works_Suc_btn');	//已发布
@@ -14,7 +14,7 @@ $(function(){
 		isCheckAll();
 	});
 
-	works_wait_btn.on('click',function(){	//未审核按钮点击
+	works_wait_btn.on('click',function(){	//待定价按钮点击
 		workd_unexecute(1);
 		addWorkBtnCurrent($(this));
 	});
@@ -159,7 +159,7 @@ function addWorkBtnCurrent(_this){
 	}
 }
 
-function workd_unexecute(page){		//加载未审核的数据
+function workd_unexecute(page){		//加载待定价的数据
 	var designer_works_lists = $('.designer-works-lists');
 	var designer_works_page =$('.designer-works-page');
 	designer_works_page.remove();
@@ -468,7 +468,7 @@ function creatPages(){		//生成页码
 
 		toPage = judgePage(toPage, curPage, totalPage);
 		if(toPage){
-			if(thisType=="未审核"){
+			if(thisType=="待定价"){
 				workd_unexecute(toPage);
 			}else if(thisType=="审核中"){
 				auditing(toPage);
