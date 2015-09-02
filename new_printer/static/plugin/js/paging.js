@@ -79,10 +79,10 @@
 	function post(num){
 		var _filter, _classify, _kind;
 		if($('.filter-btn')){
-			_filter = $('.filter-btn').filter('.active').text();
+			_filter = $('.filter-btn').filter('.active').attr('data-tag');
 		}
 		if($('.classify-btn')){
-			_classify = $('.classify-btn').filter('.active').text();
+			_classify = $('.classify-btn').filter('.active').attr('data-tag');
 		}
 		if($('.list-wrap')){
 			_kind =  $('.list-wrap').attr('data-kind');
