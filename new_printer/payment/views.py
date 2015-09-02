@@ -303,7 +303,7 @@ def ten_return_url(request):
             if where == 'cart':
                 pay_detail_return(bills)
                 conf = pay_cart_return(bills)
-                return render(request, 'payment/cart.html', conf)
+                return render(request, 'payment/down.html', conf)
             elif where == 'detail':
                 goods = pay_detail_return(bills)
                 return HttpResponseRedirect('/shop/goods-detail?goods_id=%s'%goods.id)

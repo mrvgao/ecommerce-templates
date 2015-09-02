@@ -14,6 +14,7 @@ function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerI
 		var url_path = JSON.parse(e).url_path ;
 		initializeObj(url_path, canvasW, canvasH, containerId);
 		$('#show-3d-cont').show();
+		
 		// added by white
 		$('#show-3d-tool-fullscreen').unbind("click");
 		$('#show-3d-tool-fullscreen').on('click', function(){
