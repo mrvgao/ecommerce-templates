@@ -81,4 +81,6 @@ urlpatterns = patterns('',
 	url(r'^cancel_collect$',views.cancel_collect,name = 'cancel_collect'),
 	
 	url(r'^add_alipay$',views.add_alipay,name = 'add_alipay'),
+	#u_img
+	url(r'^u_img$',views.u_img,name = 'u_img'),
 )

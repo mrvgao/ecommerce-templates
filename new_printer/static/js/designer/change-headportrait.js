@@ -1,7 +1,7 @@
 swfobject.addDomLoadEvent(function () {
     var swf = new fullAvatarEditor("fullAvatarEditor.swf", "expressInstall.swf", "change_img", {
             id : "swf",
-            upload_url : "/upload.php?userid=999&username=looselive",
+            upload_url : "/designer/u_img",
             method : "post",
 
             src_upload : 2

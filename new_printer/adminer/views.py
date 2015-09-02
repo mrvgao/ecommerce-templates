@@ -93,7 +93,8 @@ def has_passed(request):
 	has_passed_works = Goods_Upload.objects.filter(good_state = 3)
 	return_list = good_filter.unpublish_exec(has_passed_works)
 	conf = {
-			'works_auditing':return_list
+			'works_auditing':return_list,
+			'test': 'te'
 			}
 	return HttpResponse(json.dumps(conf))
 
