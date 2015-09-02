@@ -3,7 +3,7 @@ function fullAvatarEditor() {
 	var file			= '/static/images/fullAvatarEditor.swf';		//flash文件的路径
 	var	version			= "10.1.0";						//播放该flash所需的最低版本
 	var	expressInstall	= '/static/images/expressInstall.swf';			//expressInstall.swf的路径
-	var	width			= 630;							//flash文件的宽度
+	var	width			= 500;							//flash文件的宽度
 	var	height			= 430;							//flash文件的高度
 	var container		= id;							//装载flash文件的容器(如div)的id
 	var flashvars		= {};

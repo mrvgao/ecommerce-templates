@@ -327,6 +327,7 @@ def setup(request):
 
 
 def show_3d(request):
+
     pdb.set_trace()
     id = request.POST['pic_id']
     state = request.POST['unpassed']
@@ -338,6 +339,7 @@ def show_3d(request):
     url_path = good_filter.down_stl(_url)
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf)) 
+
 
 def add_focus(request):
 	d_id = request.POST['d_id']
@@ -374,60 +376,60 @@ def cancel_collect(request):
 
 #@login_required
 def add_alipay(request):
-    '''
-    添加支付宝账号
-    '''
-    d_id = request.POST['d_id']
-    ali_name = request.POST['ali_name'] 
-    ali_num = request.POST['ali_num'] 
-    d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
-    if d:
-        return HttpResponse(json.dumps("success"))
-    else:
-        return HttpResponse(json.dumps("Error"))
+	'''
+	添加支付宝账号
+	'''
+	d_id = request.POST['d_id']
+	ali_name = request.POST['ali_name'] 
+	ali_num = request.POST['ali_num'] 
+	d = Designer_User.objects.filter(id = d_id).update(alipay = ali_num, alipay_name = ali_name)
+	if d:
+		return HttpResponse(json.dumps("success"))
+	else:
+		return HttpResponse(json.dumps("Error"))
 
 def u_img(request):
-    if request.method == 'POST':
-        user = request.user
-        photo = request.FILES
-        md5 = file_save(photo['__avatar1'], '1', 'png')
-        icon = 'img/' + md5 + '.png'
-        d_user = Designer_User.objects.filter(user_id = 1).exists()
-        if d_user :
-            d = Designer_User.objects.filter(user_id=1).update(img=icon)
-        else :
-            v = Vender_User.objects.filter(user_id=1).update(img=icon)
-        conf = {'success': True}
-        return HttpResponse(json.dumps(conf))
+	if request.method == 'POST':
+		user = request.user
+		photo = request.FILES
+		md5 = file_save(photo['__avatar1'], '1', 'png')
+		icon = 'img/' + md5 + '.png'
+		d_user = Designer_User.objects.filter(user_id = 1).exists()
+		if d_user :
+			d = Designer_User.objects.filter(user_id=1).update(img=icon)
+		else :
+			v = Vender_User.objects.filter(user_id=1).update(img=icon)
+		conf = {'success': True}
+		return HttpResponse(json.dumps(conf))
 
 def file_save(model, f_name, f_type):
-        '''
-        description:保存头像图片文件
-        params:
-        reutrn:
-        '''
-        chunks = ""
-        for chunk in model.chunks():
-            chunks = chunks + chunk
-        boundary = '----------%s' % hex(int(time.time() * 1000))
-        data = []
-        data.append('--%s' % boundary)
-        data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
-        data.append(f_type)
-        data.append('--%s' % boundary)
-        data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(f_name)))
-        data.append('Content-Type: %s\r\n' % 'image/png')
-        data.append(chunks)
-        data.append('--%s--\r\n' % boundary)
-        http_url = 'http://192.168.1.101:8888/file/upload'#server_website.file_server_upload  #http://192.168.1.101:8888/file/upload
-        http_body = '\r\n'.join(data)
-        req = urllib2.Request(http_url, data=http_body)
-        req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
-        req.add_header('User-Agent','Mozilla/5.0')
-        req.add_header('Referer',server_website.file_server_ip)  #'http://192.168.1.101:8888')
-        resp = urllib2.urlopen(req, timeout=2545)
-        qrcont=resp.read()
-        md = json.loads(qrcont)
-        md5 = md[f_name]
-        return md5
+		'''
+		description:保存头像图片文件
+		params:
+		reutrn:
+		'''
+		chunks = ""
+		for chunk in model.chunks():
+			chunks = chunks + chunk
+		boundary = '----------%s' % hex(int(time.time() * 1000))
+		data = []
+		data.append('--%s' % boundary)
+		data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
+		data.append(f_type)
+		data.append('--%s' % boundary)
+		data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(f_name)))
+		data.append('Content-Type: %s\r\n' % 'image/png')
+		data.append(chunks)
+		data.append('--%s--\r\n' % boundary)
+		http_url = 'http://192.168.1.101:8888/file/upload'#server_website.file_server_upload  #http://192.168.1.101:8888/file/upload
+		http_body = '\r\n'.join(data)
+		req = urllib2.Request(http_url, data=http_body)
+		req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
+		req.add_header('User-Agent','Mozilla/5.0')
+		req.add_header('Referer',server_website.file_server_ip)  #'http://192.168.1.101:8888')
+		resp = urllib2.urlopen(req, timeout=2545)
+		qrcont=resp.read()
+		md = json.loads(qrcont)
+		md5 = md[f_name]
+		return md5
 
