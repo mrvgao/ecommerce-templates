@@ -595,10 +595,9 @@ function edit(){	//编辑弹窗函数
 		$('.modify-stl-preview').unbind("click");
 		$('.modify-stl-preview').click(function(){
 			var stlTypeVal = $('.works-current').attr('value');
-			console.log('ty:'+stlTypeVal);
-			if(stlTypeVal === 2){
+			if(stlTypeVal === '2'){
 				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
-			}else if(stlTypeVal === 3){
+			}else if(stlTypeVal === '3'){
 				showStlFileInRemoteServer(id , '',  260, 260, 'show-3d');
 			}
 		});
