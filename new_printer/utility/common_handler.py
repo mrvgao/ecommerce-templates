@@ -50,11 +50,10 @@ class CommonHandler(object):
         if user.id:
             try:
                 customer = Vender_User.objects.get(id=user.id)
-                customer_name = customer.vendername
+                user.first_name = customer.vendername
             except ObjectDoesNotExist:
                 customer = Designer_User.objects.get(id=user.id)
-                customer_name = customer.designername
+                user.first_name = customer.designername
                 user.status = False
         else:
-            customer_name = ''
-        return customer_name
+            user.first_name = ''

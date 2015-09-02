@@ -1,3 +1,5 @@
+var paging_url = '/list/paging';
+
 $(function (){
 
 	var filter_btn = $('.filter-btn'),
@@ -25,7 +27,7 @@ $(function (){
 			list_wrap.html('');
 			for(var i=0;i<e.length;i++){
 				list_wrap.append(_node);
-
+				$('#paging').attr('paging-total',e.page_length);
 				// 添加数据
 				$('.list-box').eq(i).find('.goods_img').attr('src',e[i].goods_img);
 				$('.list-box').eq(i).find('.goods_downloadNum').text(e[i].goods_download_num);

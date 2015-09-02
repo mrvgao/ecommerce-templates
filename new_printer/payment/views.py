@@ -9,9 +9,12 @@ from django.views.decorators.csrf import csrf_exempt
 from configuration.models import Bills, Goods, Goods_Bills, Vender_Goods
 from utils.BillsHandler import BillsManager
 from utils import alipay, tenpay
-
+from utility.common_handler import CommonHandler
 
 import json
+
+bm = BillsManager()
+ch = CommonHandler()
 
 # Create your views here.
 
@@ -118,6 +121,7 @@ def list_cart(request):
     if request.method == 'GET':
         bm = BillsManager()
         user = request.user
+        customer_name = ch.get_customer(user)
         conf = {}
         vender_user = bm.authtovender(user)
         vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
@@ -126,7 +130,7 @@ def list_cart(request):
         else:
             for cart in vender_goods:
                 cart.goods
-            conf = {'vender_goods':vender_goods}
+            conf = {'vender_goods':vender_goods, 'customer_name':customer_name}
         return render(request, 'payment/cart.html', conf)
     else:
         raise Http404

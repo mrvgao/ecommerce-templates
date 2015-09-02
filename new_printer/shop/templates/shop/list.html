@@ -10,7 +10,7 @@
 {% block content %}
 
 {{ request.user.name }}
-	<div class="container">
+	<div id="paging" paging-total="{{ page_length }}" class="container">
 		<div class="filter-nav clearfix">
 			<div class="filter-bynum mt10 fl">
 				<a data-tag="filter_all" class="filter-btn chover active" href="javascript:void(0)">综合</a>
@@ -28,7 +28,6 @@
 						<a data-tag="classify_kindness"  class="classify-btn" href="javascript:void(0)">亲切自然</a>
 						<a data-tag="classify_fashion"  class="classify-btn" href="javascript:void(0)">时尚潮流</a>
 					</div>
-					
 				</div>
 				<em class="guide-ico inl-b pa"></em>
 			</div>
@@ -68,8 +67,8 @@
 			{% endfor %} 
 
 		</div>
-		
-		{% include 'paging.html' %}
-
+		{% if page_length != '1' %}
+			{% include 'paging.html' %}
+		{% endif %}
 	</div>
 {% endblock %}

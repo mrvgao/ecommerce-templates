@@ -120,8 +120,10 @@ def ring(request):
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_kind': goods_tags, 'goods_list': goods_list,
+        'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
     }
 
     return render(request, website.list, context)
@@ -133,8 +135,10 @@ def pendant(request):
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_kind': goods_tags, 'goods_list': goods_list,
+        'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
     }
 
     return render(request, website.list, context)
@@ -146,8 +150,10 @@ def earbob(request):
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_kind': goods_tags, 'goods_list': goods_list,
+        'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
     }
 
     return render(request, website.list, context)
@@ -159,8 +165,10 @@ def bracelet(request):
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_kind': goods_tags, 'goods_list': goods_list,
+        'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
     }
 
     return render(request, website.list, context)
@@ -172,8 +180,10 @@ def torque(request):
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_kind': goods_tags, 'goods_list': goods_list,
+        'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
     }
 
     return render(request, website.list, context)
@@ -185,12 +195,23 @@ def brooch(request):
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
 
+    page_length = get_page_length(goods_list)
+
     context = {
-        'goods_kind': goods_tags, 'goods_list': goods_list,
+        'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
     }
 
     return render(request, website.list, context)
 
+
+def get_page_length(goods_list):
+
+    per_page_num = 3
+    length = len(goods_list)
+    if length % per_page_num:
+        return length / per_page_num + 1
+    else:
+        return length / per_page_num
 
 def get_goods_list_by_tags(goods_tags, vender_id):
 
