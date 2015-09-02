@@ -10,7 +10,18 @@
 		dl_upw = $('.dl-empty').eq(1),
 		dl_push = $('.dl-push'),
 		dl_ts = $('.dl-ts-txt'),
+		is_authenticated = $('.is_authenticated'),
 		_remeber = document.getElementById('remeber_us');
+
+	is_authenticated.on('click',function (){
+
+		// get Cookie
+		var uphone = getCookie('uphone');
+		dl_uname.val(uphone);
+
+		login_page.fadeIn();
+		return false;
+	});
 
 	// goTop
 	$(window).scroll(function (){
