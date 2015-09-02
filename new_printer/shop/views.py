@@ -20,6 +20,7 @@ from shop.utils.goods_handler import RecommendGoodsHandler
 from utility.common_handler import CommonHandler
 from utility.vender_goods_handler import VenderGoodsHandler
 
+per_page_num = 3
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
 vender_goods_handler = VenderGoodsHandler()
@@ -206,7 +207,6 @@ def brooch(request):
 
 def get_page_length(goods_list):
 
-    per_page_num = 3
     length = len(goods_list)
     if length % per_page_num:
         return length / per_page_num + 1
@@ -378,8 +378,22 @@ def filter_goods(request):
 
 
 def paging(request):
-    context = {}
+
+    page_now = int(request.POST['num_now']) - 1
+    tags_name  = request.POST['list_type'].strip()
+    sort_name = request.POST['filter_type'].strip()
+    style_name = request.POST['classify_type'].strip()
+    pdb.set_trace()
+    start = page_now * per_page_num
+    end = (page_now + 1) * per_page_num
+    goods_list = common_filter(tags_name, sort_name, style_name)[start:end]
+    print 'nimie'
+
+    context = {
+        'goods_list': goods_list,
+    }
     return HttpResponse(json.dumps(context))
+
 
 def common_filter(tags_name, sort_name, style_name):
 
