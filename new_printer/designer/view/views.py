@@ -328,43 +328,45 @@ def setup(request):
 
 def show_3d(request):
     id = request.POST['pic_id']
+    state = request.POST['unPassed']
+    pdb.set_trace()
     _url = str(server_website.file_server_path) + Goods_Upload.objects.get(id = id).stl_path
     url_path = good_filter.down_stl(_url)
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf)) 
 
 def add_focus(request):
-    d_id = request.POST['d_id']
-    v_id = request.POST['v_id']
-    new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
-    return HttpResponse(json.dumps("success"))
+	d_id = request.POST['d_id']
+	v_id = request.POST['v_id']
+	new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
+	return HttpResponse(json.dumps("success"))
 
 
 def cancel_focus(request):
-    d_id = request.POST['d_id']
-    v_id = request.POST['v_id']
-    new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
-    return HttpResponse(json.dumps("success"))
+	d_id = request.POST['d_id']
+	v_id = request.POST['v_id']
+	new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
+	return HttpResponse(json.dumps("success"))
 
 
 def add_collect(request):
-    #pdb.set_trace()
-    g_id = request.POST['g_id']
-    v_id = request.POST['v_id']
-    this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
-    if  this_good:
-        now_collect = this_good.update(is_collected = True)
-    else:
-        new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
-            collected_time = datetime.now())
-    return HttpResponse(json.dumps("success"))
+	#pdb.set_trace()
+	g_id = request.POST['g_id']
+	v_id = request.POST['v_id']
+	this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
+	if  this_good:
+		now_collect = this_good.update(is_collected = True)
+	else:
+		new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
+				collected_time = datetime.now())
+		return HttpResponse(json.dumps("success"))
 
 
 def cancel_collect(request):
-    g_id = request.POST['g_id']
-    v_id = request.POST['v_id']
-    cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
-    return HttpResponse(json.dumps("success"))
+	g_id = request.POST['g_id']
+	v_id = request.POST['v_id']
+	cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
+	return HttpResponse(json.dumps("success"))
 
 #@login_required
 def add_alipay(request):
@@ -384,16 +386,15 @@ def u_img(request):
     if request.method == 'POST':
         user = request.user
         photo = request.FILES
-        md5 = file_save(photo['__avatar2'], '1', 'png')
+        md5 = file_save(photo['__avatar1'], '1', 'png')
         icon = 'img/' + md5 + '.png'
-        #designer = Designer_User.objects.filter(id =1).update(img=icon)
         d_user = Designer_User.objects.filter(user_id = 1).exists()
         if d_user :
             d = Designer_User.objects.filter(user_id=1).update(img=icon)
         else :
             v = Vender_User.objects.filter(user_id=1).update(img=icon)
-        #conf = {'statue': True}
-        return HttpResponse(json.dumps(True))
+        conf = {'success': True}
+        return HttpResponse(json.dumps(conf))
 
 def file_save(model, f_name, f_type):
         '''

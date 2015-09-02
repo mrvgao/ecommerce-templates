@@ -119,9 +119,8 @@ def list_cart(request):
     return:
     '''
     if request.method == 'GET':
-        bm = BillsManager()
         user = request.user
-        customer_name = ch.get_customer(user)
+        #customer_name = ch.get_customer(user)
         conf = {}
         vender_user = bm.authtovender(user)
         vender_goods = Vender_Goods.objects.filter(is_cart=True, vender=vender_user)
@@ -130,7 +129,7 @@ def list_cart(request):
         else:
             for cart in vender_goods:
                 cart.goods
-            conf = {'vender_goods':vender_goods, 'customer_name':customer_name}
+            conf = {'vender_goods':vender_goods}#, 'customer_name':customer_name}
         return render(request, 'payment/cart.html', conf)
     else:
         raise Http404
@@ -303,6 +302,7 @@ def ten_return_url(request):
             bills.save()
             where = bills.where
             if where == 'cart':
+                pay_detail_return(bills)
                 conf = pay_cart_return(bills)
                 return render(request, 'payment/cart.html', conf)
             elif where == 'detail':
@@ -330,6 +330,7 @@ def ten_notify_url(request):
                 bills.save()
                 where = bills.where
                 if where == 'cart':
+                    pay_detail_return(bills)
                     conf = pay_cart_return(bills)
                 elif where == 'detail':
                     goods = pay_detail_return(bills)
