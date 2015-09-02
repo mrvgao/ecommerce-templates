@@ -22,7 +22,7 @@ class Designer_User(models.Model):
     #绑定支付宝账号
     alipay = models.CharField(max_length=50)
     #支付宝名字
-    alipay_name = models.CharField(max_length=200,default=None)
+    alipay_name = models.CharField(max_length=200,default=None,null=True)
 
 class Vender_User(models.Model):
     '''

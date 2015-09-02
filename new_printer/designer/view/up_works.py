@@ -21,13 +21,17 @@ from django.contrib.auth.models import User
 import httplib, urllib
 import urllib2,os
 import datetime
-import time
-import json,pdb,hashlib
+import time,json,pdb,hashlib
+from utility.common_handler import CommonHandler
 
+CommonHandler = CommonHandler()
 #@login_required
 def works_upload(request):
+    user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img) }
+    is_designer = 1#CommonHandler.get_customer(user)
+    conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img),
+            'is_designer': is_designer}
     return render(request, website.upfile, conf)
 
 def stls_save(stls):
@@ -147,6 +151,7 @@ def workd_unexecute(request):
 
 def designer_works(request):
     user = 1#request.user
+    is_designer = 1#CommonHandler.get_customer(user)
     designer = Designer_User.objects.get(user_id=1)#user.id)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
     return_list = good_filter.unpublish_exec(unexecute_list)
@@ -156,9 +161,8 @@ def designer_works(request):
     worksSuc = Goods.objects.filter(designer_id=designer.id,is_active=1).count()
     conf = {
             'worksWait':worksWait,'worksOn':worksOn,'worksNot':worksNot,'worksSuc':worksSuc,
-            'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img)
-              }
-    print 'designer!'
+            'name':designer.designername,'img':str(server_website.file_server_path)+str(designer.img),
+            'is_designer': is_designer}
     return render(request, website.works_execute, conf)
 
 def unexecute_delete(request):

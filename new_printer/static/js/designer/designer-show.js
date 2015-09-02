@@ -11,8 +11,8 @@ $(function (){
 	filter_bynum.on('click',function (){
 		var _this = $(this),
 			data_tag = _this.attr('data-tag'),
-			type_tag = _this.attr('type-tag');
-		var type_tag = '全部'
+			type_tag = type_filter.filter('.active').attr('type-tag');
+
 		clickFocus(_this);
 		ds_list_box.empty();
 		var sucStr = '',
@@ -42,13 +42,16 @@ $(function (){
 
 	type_filter.on('click',function (){
 		var _this = $(this),
-			data_tag = _this.attr('data-tag'),
+			data_tag = filter_bynum.filter('.active').attr('data-tag'),
 			type_tag = _this.attr('type-tag');
-		data_tag = '1'
+		
+		type_filter.removeClass('active');
+		_this.addClass('active');
+		data_tag = '1';
 		clickFocus(_this);
 		ds_list_box.empty();
 		var sucStr = '';
-		var click_count = 0
+		var click_count = 0;
 		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
 
 				var sucList = JSON.parse(e).all_list;
