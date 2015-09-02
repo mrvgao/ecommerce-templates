@@ -182,7 +182,6 @@ def u_login(request):
                     conf = {'status':'V'}
                 else:
                     conf = {'status':'None'}
-                print username
         except Exception as e:
             conf = {'status':'FAILURE'}
         return HttpResponse(json.dumps(conf))
