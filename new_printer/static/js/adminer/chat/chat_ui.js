@@ -1,26 +1,7 @@
 var ChatUI = {};
 
-/*ChatUI.setLayout = function(){*/
-/*var winWidth = parseInt($('body').css('width'));*/
-/*var winHeight = parseInt($('body').css('height'));*/
-/*var userListWidth = parseInt($('#user-list').css('width'));*/
-/*var chatInputHeight = parseInt($('#chat-input').css('height'));*/
-/*$('.chat-main').width(winWidth-userListWidth);*/
-/*$('.chat-cont').css('height',winHeight-chatInputHeight+'px');*/
-/*}*/
 
 $(function(){
-	l('ui');
-	/*$(window).load(function(){*/
-	/*ChatUI.setLayout();*/
-	/*});*/
-
-
-	/*$(window).resize(function(){*/
-	/*ChatUI.setLayout();*/
-	/*});*/
-
-
 	ChatUI.initFaceBox($('#face-box ul'), 'emo_', 60);
 
 

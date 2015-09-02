@@ -279,20 +279,20 @@
 							<span style="letter-spacing: -1px;">作品编号:</span>
 							<span id="good-id" style="font-size: 13px;">{{ goods.id }}</span>
 							<span style="margin-left: 622px;letter-spacing: -1px;">最后修改时间:</span>
-							<span style="font-size: 13px;margin-left: 6px;">{{ goods.modify_time }}</span>
+							<span id="good-modified-time" style="font-size: 13px;margin-left: 6px;">{{ goods.modify_time }}</span>
 						</div>
 						<div style="background-color: #FFF;width: 960px;height: 198px;">
 							<div class="good-pic-div">
 								<span class="good-pic">
-									<img src="{{ photo_server }}{{ goods.preview_1 }}">
+									<img id="good-img-1" src="{{ photo_server }}{{ goods.preview_1 }}">
 									<div></div>
 								</span>
 								<span class="good-pic">
-									<img src="{{ photo_server }}{{ goods.preview_1 }}">
+									<img id="good-img-2" src="{{ photo_server }}{{ goods.preview_1 }}">
 									<div></div>
 								</span>
 								<span class="good-pic">
-									<img src="{{ photo_server }}{{ goods.preview_2 }}">
+									<img id="good-img-3" src="{{ photo_server }}{{ goods.preview_2 }}">
 									<div></div>
 								</span>
 								<span class="good-pic">
@@ -301,19 +301,17 @@
 								</span>
 							</div>
 							<div class="good-info-for-detail">
-								<p style="font-size: 14px;font-weight: bold;margin-top: 22px;">{{ goods.goods_name }}</p>
-								<p style="  font-size: 12px;
+								<p id="good-name" style="font-size: 14px;font-weight: bold;margin-top: 22px;">{{ goods.goods_name }}</p>
+								<p id="good-description" style="  font-size: 12px;
 								font-weight: bold;
 								margin-top: -1px;
 								width: 260px;
 								height: 32px;margin-bottom: 14px;color: #7A7A7A;">{{ goods.description }}</p>
-								<span style="font-size: 14px;color: #FF766F;">￥{{ goods.goods_price }}</span>
-								<span style="margin-left: 17px;
+								<span id="good-price" style="font-size: 14px;color: #FF766F;">￥{{ goods.goods_price }}</span>
+								<span id="good-type" style="margin-left: 17px;
 									font-size: 13px;
 									font-weight: bold;">{{ goods.type}}文件</span>
-								<span style="margin-left: 8px;
-									font-size: 13px;
-									font-weight: bold;">{{ goods.file_size }}MB</span>
+								<span id="good-file-size" style="margin-left: 8px;font-size: 13px;font-weight: bold;">{{ goods.file_size }}MB</span>
 								<div name="good-deny" class="good-btn" style="  float: left;
 									margin-left: 30px;background-color: #D7D7D7;color: #767676;">驳回作品</div>
 								<div name="good-pass" class="good-btn" style="float: right;
