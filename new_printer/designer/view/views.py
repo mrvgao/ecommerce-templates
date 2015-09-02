@@ -16,7 +16,6 @@ from designer.utilites import search_handle,good_filter
 import json, os, uuid, base64, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
-from django.http import HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django import forms
 from django.contrib.auth.models import User
@@ -39,10 +38,8 @@ def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
-    user = 1#request.user
-    #designer_id = request.GET['designer_id']
-    #state = request.GET['good_state']
-    is_designer = CommonHandler.get_customer(user)
+    user = request.user
+    is_designer = 1#CommonHandler.get_customer(user)
     designer = Designer_User.objects.get(user_id =1)# user.id)
     is_focus = False
     designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
@@ -83,7 +80,6 @@ def sort_list(request):
     '''
     展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
     '''
-    #pdb.set_trace()
     #user = request.user
     #vender_id = request.POST['v_id']
     data_tag = int(request.POST['data_kind'])
@@ -227,7 +223,7 @@ def my_state(request):
     #显示我的动态的页面 my_state
     '''
     user = 1#request.user
-    is_designer = CommonHandler.get_customer(user)
+    is_designer = 1#CommonHandler.get_customer(user)
     designer = Designer_User.objects.get(user_id = 1)#user.id)
     unpublished_list = Goods_Upload.objects.filter(designer_id = designer.id)
     published_list = Goods.objects.filter(designer_id = designer.id)
@@ -330,10 +326,6 @@ def setup(request):
     return render(request, website.setup, conf)
 
 
-def change_icon(request):
-    return render(request,website.change_icon)
-
-
 def show_3d(request):
     id = request.POST['pic_id']
     _url = str(server_website.file_server_path) + Goods_Upload.objects.get(id = id).stl_path
@@ -387,3 +379,50 @@ def add_alipay(request):
         return HttpResponse(json.dumps("success"))
     else:
         return HttpResponse(json.dumps("Error"))
+
+def u_img(request):
+    if request.method == 'POST':
+        user = request.user
+        photo = request.FILES
+        md5 = file_save(photo['__avatar2'], '1', 'png')
+        icon = 'img/' + md5 + '.png'
+        #designer = Designer_User.objects.filter(id =1).update(img=icon)
+        d_user = Designer_User.objects.filter(user_id = 1).exists()
+        if d_user :
+            d = Designer_User.objects.filter(user_id=1).update(img=icon)
+        else :
+            v = Vender_User.objects.filter(user_id=1).update(img=icon)
+        #conf = {'statue': True}
+        return HttpResponse(json.dumps(True))
+
+def file_save(model, f_name, f_type):
+        '''
+        description:保存头像图片文件
+        params:
+        reutrn:
+        '''
+        chunks = ""
+        for chunk in model.chunks():
+            chunks = chunks + chunk
+        boundary = '----------%s' % hex(int(time.time() * 1000))
+        data = []
+        data.append('--%s' % boundary)
+        data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
+        data.append(f_type)
+        data.append('--%s' % boundary)
+        data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str(f_name)))
+        data.append('Content-Type: %s\r\n' % 'image/png')
+        data.append(chunks)
+        data.append('--%s--\r\n' % boundary)
+        http_url = 'http://192.168.1.101:8888/file/upload'#server_website.file_server_upload  #http://192.168.1.101:8888/file/upload
+        http_body = '\r\n'.join(data)
+        req = urllib2.Request(http_url, data=http_body)
+        req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
+        req.add_header('User-Agent','Mozilla/5.0')
+        req.add_header('Referer',server_website.file_server_ip)  #'http://192.168.1.101:8888')
+        resp = urllib2.urlopen(req, timeout=2545)
+        qrcont=resp.read()
+        md = json.loads(qrcont)
+        md5 = md[f_name]
+        return md5
+

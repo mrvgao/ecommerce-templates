@@ -21,7 +21,7 @@
                 imgType: ["gif", "jpeg", "jpg", "bmp", "png"],  
                 callback: function() { return false; }  
             }, opts || {});  
-            //var _self = this;  
+             
             var _this = $(this);  
             var imgDiv = $(opts.imgDiv);  
             imgDiv.width(opts.width);  

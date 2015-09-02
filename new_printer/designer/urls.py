@@ -63,15 +63,13 @@ urlpatterns = patterns('',
 
 	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
 
-	url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
+	#url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
 
 	url(r'^setup$',views.setup,name = 'setup'),
     #下载
     url(r'^file_download$', up_works.file_download, name = 'file_download'),
 	#show_3d
 	url(r'^show_3d$',views.show_3d,name = 'show_3d'),
-	#chang_icon
-	url(r'^change_icon$',views.change_icon,name = 'change_icon'),
 
 	#添加关注和收藏
 	url(r'^add_focus$',views.add_focus,name = 'add_focus'),
@@ -83,4 +81,6 @@ urlpatterns = patterns('',
 	url(r'^cancel_collect$',views.cancel_collect,name = 'cancel_collect'),
 	
 	url(r'^add_alipay$',views.add_alipay,name = 'add_alipay'),
+	#u_img
+	url(r'^u_img$',views.u_img,name = 'u_img'),
 )

@@ -27,9 +27,9 @@ from utility.common_handler import CommonHandler
 CommonHandler = CommonHandler()
 #@login_required
 def works_upload(request):
-    user = 1#request.user
+    user = request.user
     designer = Designer_User.objects.get(user_id=1)#user.id)
-    is_designer = CommonHandler.get_customer(user)
+    is_designer = 1#CommonHandler.get_customer(user)
     conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img),
             'is_designer': is_designer}
     return render(request, website.upfile, conf)
@@ -151,7 +151,7 @@ def workd_unexecute(request):
 
 def designer_works(request):
     user = 1#request.user
-    is_designer = CommonHandler.get_customer(user)
+    is_designer = 1#CommonHandler.get_customer(user)
     designer = Designer_User.objects.get(user_id=1)#user.id)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
     return_list = good_filter.unpublish_exec(unexecute_list)
