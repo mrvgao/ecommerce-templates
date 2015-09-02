@@ -1,0 +1,27 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="UTF-8"> 
+<title>HTML5的标题</title> 
+<style> 
+ul {width:80%;padding:5px;} 
+li{list-style:none;float:left;padding:5px;margin:5px;background-color:#ccc;} 
+.info{color:green;} 
+</style> 
+</head> 
+<body> 
+  <p><a href="{%url headhat_index%}">继续上传头像</a></p> 
+  {% if messages %} 
+    {% for message in messages %} 
+      <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p> 
+    {% endfor %} 
+  {% endif %} 
+<ul> 
+  {%for p in photos%} 
+  <li><img src="{{path}}{{p.photo_name}}" alt="big"/><br/> 
+    <img src="{{path}}{{p.photo_thumb}}" alt="thumb"/> <a href="{%url headhat_cut p.id%}">继续剪切</a>   
+  </li> 
+  {%endfor%} 
+</ul> 
+</body> 
+</html> 
