@@ -7,6 +7,7 @@ from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
 
 from configuration.models import Bills, Goods, Goods_Bills, Vender_Goods
+from configuration.website import file_server_path
 from utils.BillsHandler import BillsManager
 from utils import alipay, tenpay
 from utility.common_handler import CommonHandler
@@ -128,7 +129,7 @@ def list_cart(request):
         else:
             for cart in vender_goods:
                 cart.goods
-            conf = {'vender_goods':vender_goods}#, 'customer_name':customer_name}
+            conf = {'vender_goods':vender_goods, 'file_server_path':file_server_path}
         return render(request, 'payment/cart.html', conf)
     else:
         raise Http404
@@ -221,7 +222,7 @@ def pay_cart_return(bills):
     conf = {}
     goods_list = []
     vender_goods = Vender_Goods.objects.filter(is_cart=True, is_buy=True, vender=vender_user)
-    conf = {'vender_goods':vender_goods}
+    conf = {'vender_goods':vender_goods,'file_server_path':file_server_path}
     for cart in vender_goods:
         goods_list.append(cart.goods.id)
     delc = bm.delcart(vender_user, goods_list)
@@ -303,7 +304,7 @@ def ten_return_url(request):
             if where == 'cart':
                 pay_detail_return(bills)
                 conf = pay_cart_return(bills)
-                return render(request, 'payment/cart.html', conf)
+                return render(request, 'payment/down.html', conf)
             elif where == 'detail':
                 goods = pay_detail_return(bills)
                 return HttpResponseRedirect('/shop/goods-detail?goods_id=%s'%goods.id)

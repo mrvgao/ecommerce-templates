@@ -256,7 +256,7 @@ def u_logout(request):
     '''
     logout(request)
     conf = {'status':'SUCCESS'}
-    return HttpResponse(json.dumps(conf))
+    return HttpResponseRedirect('/shop/home')
 
 
 @login_required
