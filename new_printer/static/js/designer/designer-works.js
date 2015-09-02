@@ -360,7 +360,8 @@ function deleteSigle(){		//单个删除
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 
 			if(e){
-				alert(e);
+				alert("删除成功！");
+				window.location.reload();
 				deleteObj.remove();
 			}
 		});
@@ -406,7 +407,8 @@ function cancelSigle(){		//单个取消发布
 			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 			if(e){
-				alert(e);
+				alert("取消发布成功！");
+				window.location.reload();	
 				deleteObj.remove();
 			}
 		});
@@ -592,7 +594,12 @@ function edit(){	//编辑弹窗函数
 		$('#show-3d').html(null);
 		$('.modify-stl-preview').unbind("click");
 		$('.modify-stl-preview').click(function(){
-			showStlFileInRemoteServer(id , 260, 260, 'show-3d');
+			var stlTypeVal = $('.works-current').attr('value');
+			if(stlTypeVal === '2'){
+				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
+			}else if(stlTypeVal === '3'){
+				showStlFileInRemoteServer(id , '',  260, 260, 'show-3d');
+			}
 		});
 	}
 
