@@ -1,4 +1,4 @@
-var paging_url = '/list/paging';
+var paging_url = '/shop/paging';
 
 $(function (){
 
