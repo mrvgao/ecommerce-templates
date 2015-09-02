@@ -77,10 +77,23 @@
 	}
 
 	function post(num){
+		var _filter, _classify, _kind;
+		if($('.filter-btn')){
+			_filter = $('.filter-btn').filter('.active');
+		}
+		if($('.classify-btn')){
+			_classify = $('.classify-btn').filter('.active');
+		}
+		if($('.list-wrap')){
+			_kind =  $('.list-wrap').attr('data-kind');
+		}
 
 		// paging_url 为外部定义的 ajax 提交地址
 		$.post(paging_url,{
-			'num_now': num
+			'num_now': num,
+			'filter_type':_filter,
+			'classify_type':_classify,
+			'list_type':_kind
 		},function (e){
 			// do something
 			paging_cb(e);
