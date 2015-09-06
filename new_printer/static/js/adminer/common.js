@@ -103,7 +103,13 @@ Commom.registerGoodBtn = function(){
 		workId = parseInt(workId);
 		var denyReasonId = $("[name|='deny-reason']:checked").val()
 		$.post('/adminer/pass_failed', {'id': workId, 'state': denyReasonId}, function(e){
-			l('deny succeed');	  
+			l('deny succeed');
+			var goods = JSON.parse(e).works_auditing;
+			Commom.appendGood(goods);
+			Commom.initPageBtn();
+			Commom.registerPageBtn();
+			Commom.registerGoodBtn();
+			Commom.registerShow3dBtn();
 		})
 	});
 
@@ -113,7 +119,13 @@ Commom.registerGoodBtn = function(){
 		var goodType = $('#good-type').val();
 		var goodStyle = $('#good-style').val();
 		$.post('/adminer/work_passing', {'id': workId, 'type_state': goodType, 'style_state': goodStyle}, function(e){
-			l('pass succeed');	  
+			l('pass succeed');
+			var goods = JSON.parse(e).works_auditing;
+			Commom.appendGood(goods);
+			Commom.initPageBtn();
+			Commom.registerPageBtn();
+			Commom.registerGoodBtn();
+			Commom.registerShow3dBtn();
 		})
 	});
 }
@@ -232,7 +244,7 @@ Commom.initPageBtn = function(){
 	var goodSum = $(".goods-container ul").find('li').length;
 	var pageSum = (goodSum+1)/2;
 
-	// make sure the goods sun is even number
+	// make sure the goods sum is even number
 	if(goodSum%2 === 1){
 		var blankGoodDom = '<li><div style="width:960px;height:244px;"></div></li>'
 		$(".goods-container ul").append(blankGoodDom);	
@@ -268,6 +280,5 @@ Commom.removeGoodBtn = function(){
 		$(this).find('.good-btn').each(function(index){
 			$(this).remove();							  
 		});
-		/*$(this).find('.good-btn').eq(1).remove();*/
 	});
 }
