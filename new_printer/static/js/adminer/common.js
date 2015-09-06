@@ -272,7 +272,6 @@ Commom.registerClassBtn = function(){
 }
 
 Commom.initPageBtn = function(){
-	l('even_1');
 	var goodSum = $(".goods-container ul").find('li').length;
 	var pageSum = (goodSum+1)/2;
 
@@ -288,7 +287,6 @@ Commom.initPageBtn = function(){
 		var pageDom = '<div class="pages-btn" value="'+i+'">'+i+'</div>';
 		$('.pages-btn').last().before(pageDom);
 	}
-	l('even');
 }
 
 Commom.appendGood = function(goods){
