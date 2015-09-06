@@ -24,23 +24,20 @@ import time
 import json,pdb,jieba
 
 def unexecuteed_search(describe,id,good_state):
-	print describe,id,good_state
 	goods = Goods_Upload.objects.filter(designer_id = id,good_state = good_state)
 	finds_id = []
 	s_d = list(jieba.cut(describe, cut_all = True))
 	for i in s_d:
 		#describe_finds = goods.filter(description__exact = i)
-		name_finds = goods.filter(goods_name__contains = i)
-		'''for g in describe_finds:
-			if g.id in finds_id:
-				continue
-			else:
-				finds_id.append(g.id)'''
-		for g in name_finds:
-			if g.id in finds_id:
-				continue
-			else:
-				finds_id.append(g.id)
+		if i == '':
+			continue
+		else:
+			name_finds = goods.filter(goods_name__contains = i)
+			for g in name_finds:
+				if g.id in finds_id:
+					continue
+				else:
+					finds_id.append(g.id)
 
 	'''for find in finds_id:
 		try:
