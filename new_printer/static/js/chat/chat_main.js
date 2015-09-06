@@ -194,6 +194,8 @@ $(function(){
 		Chat.contentToBottom($('.chated-txt'));
 		socket.emit('chat/FAQ',chatProblem);
 	});
+
+	Chat.quickToolStuff();
 });
 
 
@@ -416,4 +418,25 @@ Chat.appendChatContainerWithChatMsg = function(newChatMsg, sender){
 	'</div>';
 	$('.chated-txt').html($('.chated-txt').html()+message);
 	$('.chat-entry').html(null);
+}
+
+
+Chat.quickToolStuff = function(){
+	$('.user-tool-download').click(function(){
+		/*window.parent.location.href = "/";*/
+		/*top.window.location.href = top.window.location.href;*/
+		/*window.parent.parent.location.href = '/';*/
+		/*top.location.href = '/';*/
+		/*parent.location.reload();*/
+		var i = $("#mallPage",window.parent.document);
+		console.log('0:'+i.html());
+	});
+
+	$('.user-tool-mark').click(function(){
+		console.log('1');
+	});
+
+	$('.user-tool-help').click(function(){
+		console.log('2');
+	});
 }
