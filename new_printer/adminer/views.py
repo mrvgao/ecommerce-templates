@@ -90,11 +90,12 @@ def has_failed(request):
 	return HttpResponse(json.dumps(conf))
 #显示已通过的页面
 def has_passed(request):
+	pdb.set_trace()
+	
 	has_passed_works = Goods_Upload.objects.filter(good_state = 3)
 	return_list = good_filter.unpublish_exec(has_passed_works)
 	conf = {
 			'works_auditing':return_list,
-			'test': 'te'
 			}
 	return HttpResponse(json.dumps(conf))
 

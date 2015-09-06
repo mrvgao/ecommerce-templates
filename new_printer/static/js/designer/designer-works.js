@@ -87,16 +87,20 @@ function toSearch(){
 	// 敲回车搜索
 	$('.search-box').on('keyup',function (e){
 		var _val = $('.search-box').val(),
-		_txt = $('.designer-works-nav-current').text(),
-		_title = $('.works-current').text().substr(0,3);
+			_txt = $('.designer-works-nav-current').text(),
+			_title = $('.works-current').val();
+
 		if(e.keyCode == 13){
 			if(_val != '' || _val != null){
-				$.post('',{
+				$.post('/designer/unpublished_good_search',{
 					'search_val': _val,
 					'search_txt': _txt,
 					'search_type': _title
 				},function (e){
-					setData(e);
+					var waitList = JSON.parse(e).all_list,
+						totalPage = JSON.parse(e).total_pages;
+				
+					setData(waitList,totalPage);
 				});
 			}
 		}
@@ -105,45 +109,82 @@ function toSearch(){
 	// 点击搜索
 	$('.designer-works-search-icon').on('click',function (){
 		var _val = $('.search-box').val(),
-		_txt = $('.designer-works-nav-current').text(),
-		_title = $('.works-current').val();
+			_txt = $('.designer-works-nav-current').text(),
+			_title = $('.works-current').val();
+
 		if(_val != '' || _val != null){
 			$.post('/designer/unpublished_good_search',{
 				'search_val': _val,
 				'search_txt': _txt,
 				'search_type': _title
 			},function (e){
-				var waitList = JSON.parse(e).all_list;
-				setData(e);
+				var waitList = JSON.parse(e).all_list,
+					totalPage = JSON.parse(e).total_pages;
+			
+				setData(waitList,totalPage);
 			});
 		}
 	});
 
-	function setData(e){
-		$('.designer-works-wait tbody').html('');
-		var waitList = JSON.parse(e).all_list;
-		var totalPage = JSON.parse(e).total_pages;
-		
-		var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
-		for(var i=0,len=waitList.length;i<len;i++){
-			waitStr+='<tr data-id="'+waitList[i].id+'"><td><span>'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+	function setData(data,totalPage){
+		var _head = $('.designer-works-btn button').val();
+			
+
+		switch(_head){
+			case '0': toPrice();
+			break;
+			case '1': return 1;
+			break;
+			case '2': return 2;
+			break;
+			case '3': return 3;
+			break;
 		}
-		getPage(totalPage,1);
-		designer_works_lists.append(waitStr);
-		deleteSigle();
+
+		// ajax 获得待定价数据
+		function toPrice(){
+			var _tbody = $('.designer-works-wait tbody'),
+				_trNode = _tbody.find('tr').html(),
+				_node = '<tr class="designer-works-list-box clearfix" data-state="1" data-img="http://192.168.1.101:8888/static/photo.png" data-uptime="2015-09-02" data-size="0.434" data-type="stl" data-id="180">' + _trNode + '</tr>';
+
+			_tbody.html('');alert (data.length);
+			for(var i=0;i<data.length;i++){
+
+				_tbody.append(_node);
+				$('.designer-works-list-box').attr('data-img',data[i].img);
+				$('.designer-works-list-box').attr('data-size',data[i].file_size);
+				$('.designer-works-list-box').attr('data-uptime',data[i].upload_time);
+				$('.designer-works-list-box').attr('data-type',data[i].type);
+				$('.designer-works-list-box').attr('data-id',data[i].id);
+			}
+
+		}
+
+		// $('.designer-works-wait tbody').html('');
+		
+		// var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
+		// for(var i=0,len=data.length;i<len;i++){
+		// 	waitStr += '<tr data-id="'+data[i].id+'"><td><span>'+data[i].name+'</span></td><td><span>'+data[i].type+'文件 ｜'+data[i].file_size+'M </span></td><td><span>'+data[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+		// }
+		// getPage(totalPage,1);
+		// designer_works_lists.append(waitStr);
+		// deleteSigle();
 	}
 
 	$('.designer-works-nav li').on('click',function (){
 		var _txt = $(this).text(),
-		_title = $('.works-current').text().substr(0,3);
+			_title = $('.works-current').val();
 
 		$(this).siblings().removeClass('designer-works-nav-current');
 		$(this).addClass('designer-works-nav-current');
-		$.post('',{
+		$.post('/designer/unpublished_good_search',{
 			'search_txt': _txt,
 			'search_type': _title
 		},function (e){
-			setData(e);
+			var waitList = JSON.parse(e).all_list,
+				totalPage = JSON.parse(e).total_pages;
+				
+			setData(waitList,totalPage);
 		});
 	});
 }
