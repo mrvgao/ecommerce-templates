@@ -1127,3 +1127,6 @@ em.test-ico.test-false {
 .va-t {
 	vertical-align:top;
 }
+#designer-next-btn.actived {
+	background:#63cdd7;
+}
