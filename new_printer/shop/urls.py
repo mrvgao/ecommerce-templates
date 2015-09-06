@@ -60,5 +60,8 @@ urlpatterns = patterns('',
 
 		# 用户和客服聊天
         url('^chat_customer_service_win', views.chat_customer_service_win, name="chat_customer_service_win"),
+
+        # 收藏或取消收藏,ajax
+        url('mark-goods', views.marking, name="marking"),
 )
 
