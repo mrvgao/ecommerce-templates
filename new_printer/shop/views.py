@@ -345,6 +345,10 @@ def goods_detail(request):
             other_goods_list.append(other_goods)
         return other_goods_list
 
+    def get_style(goods):
+        goods_style = goods.style.split(',')
+        return goods_style[0]
+
     goods_id = request.GET['goods_id']
     goods = Goods.objects.get(id=goods_id)
     designer_id = goods.designer_id
