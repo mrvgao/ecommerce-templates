@@ -379,7 +379,6 @@ def add_alipay(request):
     添加支付宝账号
     '''
     user = request.user
-    
     ali_name = request.POST['ali_name'] 
     ali_num = request.POST['ali_num'] 
     d = Designer_User.objects.filter(user = user).update(alipay = ali_num, alipay_name = ali_name)

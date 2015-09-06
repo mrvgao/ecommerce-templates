@@ -700,7 +700,9 @@ function edit(){	//编辑弹窗函数
 
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
-		$.post('/designer/edit/screenshot', {id: workId, screenshot: ShowStl.screenShotData}, function(e){
+		console.log(workId)
+		console.log(ShowStl.screenShotData)
+		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){
 			console.log('screenshot upload succeed');	  
 		});
 	});
@@ -800,7 +802,7 @@ function publish_edit(){	//编辑弹窗函数
 		var _this = $(this),
 			_parent = _this.parents('.designer-works-list-box'),
 			id = _parent.attr('data-id'),
-			pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
+			pic = _parent.find('.designer-works-list-bigpic img').attr('src');
 	});
 
 }
