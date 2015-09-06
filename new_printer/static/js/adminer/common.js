@@ -103,7 +103,13 @@ Commom.registerGoodBtn = function(){
 		workId = parseInt(workId);
 		var denyReasonId = $("[name|='deny-reason']:checked").val()
 		$.post('/adminer/pass_failed', {'id': workId, 'state': denyReasonId}, function(e){
-			l('deny succeed');	  
+			l('deny succeed');
+			var goods = JSON.parse(e).works_auditing;
+			Commom.appendGood(goods);
+			Commom.initPageBtn();
+			Commom.registerPageBtn();
+			Commom.registerGoodBtn();
+			Commom.registerShow3dBtn();
 		})
 	});
 
@@ -113,10 +119,13 @@ Commom.registerGoodBtn = function(){
 		var goodType = $('#good-type').val();
 		var goodStyle = $('#good-style').val();
 		$.post('/adminer/work_passing', {'id': workId, 'type_state': goodType, 'style_state': goodStyle}, function(e){
-			if(JSON.parse(e).status === 'success'){
-				location.reload();
-			}
-			l(JSON.parse(e).status);
+			l('pass succeed');
+			var goods = JSON.parse(e).works_auditing;
+			Commom.appendGood(goods);
+			Commom.initPageBtn();
+			Commom.registerPageBtn();
+			Commom.registerGoodBtn();
+			Commom.registerShow3dBtn();
 		})
 	});
 }
