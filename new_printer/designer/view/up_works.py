@@ -195,6 +195,12 @@ def edit_submit(request):
     previews = request.FILES
     describe = request.POST['stl_describe']
     name = request.POST['stl_name']
+    preview_3 = request.POST['screenshot']
+    if preview_3 != null:
+        file_3 = open('a.png','r+')
+        file_3.write(preview_3)
+        file_3.close()
+        preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
     if not name:
         name = good.goods_name
     for preview in previews:
@@ -208,8 +214,7 @@ def edit_submit(request):
             s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
         if count == 2:
             s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
-        if count == 3:
-            s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
+        
     s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
                         goods_price = int(price),
                         good_state = 1,
@@ -228,20 +233,22 @@ def edit_submit(request):
 
 
 def screenshot(request):
+    pdb.set_trace()
     file_id = request.POST['id']
     good = Goods_Upload.objects.get(id=file_id)
     stl_md5 = good.stl_path.encode('utf-8')
     stl_md5 = stl_md5.split('.')
     stl_md5 = stl_md5[0]
     stl_md5 = stl_md5.split('/')[0]
-    preview = request.FILES
+    preview = request.POST['screenshot']
     preview_type=str(preview)
     preview_type=preview_type.split('.')
     preview_md5 = photo_save(preview,preview_type[0],preview_type[1],stl_md5)
     p_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p_url)
+    conf = {'status':'success'}
+    return HttpResponse(json.dumps(conf)) 
 
-    
 def deletePic(request):
     #pdb.set_trace()
     this_id = request.POST['id']
