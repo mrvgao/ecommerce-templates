@@ -13,9 +13,18 @@ $(function (){
 		$('.upfile-hide').on('change', function (){
 			var _val = $(this).val(),
 				name = getFileName(_val),
-				_cont;
+				_cont,
+				_type;
 
-			addCode(name);
+			_type = _val.substring(_val.lastIndexOf('.')+1,_val.length);
+			if(_type == 'stl' || _type == 'jca'){
+				fileBox.html('');
+				addCode(name);
+			}else {
+				fileBox.html('<p style="color:#f60">请上传正确的模型文件</p>');
+				return false;
+			}
+			
 		});
 	});
 

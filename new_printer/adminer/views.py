@@ -137,5 +137,3 @@ def background(request):
 	conf = {'all_list': not_executed_works, 'photo_server': website.file_server_path}
 	return render(request,adminer_website.background,conf)	
 
-
-#def search(request):

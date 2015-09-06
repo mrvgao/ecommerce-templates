@@ -5,13 +5,13 @@
 <div id="classify-nav">
 	<div class="classify-box bc">
 		<ul>
-			<li><a href="/shop/home">首页</a></li>
-			<li><a href="/shop/ring">戒指</a></li>
-			<li><a href="/shop/pendant">吊坠</a></li>
-			<li><a href="/shop/earbob">耳坠</a></li>
-			<li><a href="/shop/bracelet">手链</a></li>
-			<li><a href="/shop/torque">项链</a></li>
-			<li><a href="/shop/brooch">胸针</a></li>
+			<li {% if home %}class="active"{% else %}{% endif %}><a href="/shop/home">首页</a></li>
+			<li {% if ring %}class="active"{% else %}{% endif %}><a href="/shop/ring">戒指</a></li>
+			<li {% if pendant %}class="active"{% else %}{% endif %}><a href="/shop/pendant">吊坠</a></li>
+			<li {% if earbob %}class="active"{% else %}{% endif %}><a href="/shop/earbob">耳坠</a></li>
+			<li {% if bracelet %}class="active"{% else %}{% endif %}><a href="/shop/bracelet">手链</a></li>
+			<li {% if torque %}class="active"{% else %}{% endif %}><a href="/shop/torque">项链</a></li>
+			<li {% if brooch %}class="active"{% else %}{% endif %}><a href="/shop/brooch">胸针</a></li>
 		</ul>
 	</div>
 </div>

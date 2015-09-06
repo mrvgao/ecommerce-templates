@@ -19,12 +19,14 @@ from shop.utils.goods_handler import GoodsHandler
 from shop.utils.goods_handler import RecommendGoodsHandler
 from utility.common_handler import CommonHandler
 from utility.vender_goods_handler import VenderGoodsHandler
+from social.utils.social_handler import CollectionHandler
 
 per_page_num = 16
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
 vender_goods_handler = VenderGoodsHandler()
 recommend_goods_handler = RecommendGoodsHandler()
+collection_handler = CollectionHandler()
 
 
 def login_register(request):
@@ -128,6 +130,7 @@ def home(request):
     hot_list = change_to_home_goods(hot_goods_list, vender_id)
 
     context = {
+        'home': True,
         'recommend_list': recommend_list,
         'hot_list': hot_list,
     }
@@ -150,6 +153,7 @@ def ring(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'ring': True,
     }
 
     return render(request, website.list, context)
@@ -165,6 +169,7 @@ def pendant(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'pendant': True,
     }
 
     return render(request, website.list, context)
@@ -180,6 +185,7 @@ def earbob(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'earbob': True,
     }
 
     return render(request, website.list, context)
@@ -195,6 +201,7 @@ def bracelet(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'bracelet': True,
     }
 
     return render(request, website.list, context)
@@ -210,6 +217,7 @@ def torque(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'torque': True,
     }
 
     return render(request, website.list, context)
@@ -225,6 +233,7 @@ def brooch(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'brooch': True,
     }
 
     return render(request, website.list, context)
@@ -335,6 +344,10 @@ def goods_detail(request):
             other_goods  = RecommendGoods(goods_param)
             other_goods_list.append(other_goods)
         return other_goods_list
+
+    def get_style(goods):
+        goods_style = goods.style.split(',')
+        return goods_style[0]
 
     goods_id = request.GET['goods_id']
     goods = Goods.objects.get(id=goods_id)
@@ -468,3 +481,19 @@ def common_filter(tags_name, sort_name, style_name):
 
 def chat_customer_service_win(request):
     return render(request, website.chat_customer_service_win)
+
+
+def marking(request):
+    goods_id = request.POST['goods_id']
+    vender_id = get_vender_id(request)
+
+    if not vender_id:
+        return HttpResponse(json.dumps({'state': 'FAILURE'}))
+
+    is_collected = collection_handler.is_collected(vender_id, goods_id)
+    if is_collected:
+        collection_handler.cancel_collect_goods(vender_id, goods_id)
+    else:
+        collection_handler.collect_goods(vender_id, goods_id)
+
+    return HttpResponse(json.dumps({'state': 'SUCCESS'}))

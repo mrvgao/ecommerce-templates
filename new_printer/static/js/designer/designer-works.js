@@ -1,14 +1,15 @@
 var ShowStl = {};
+ShowStl.screenShotData = null;
 
 $(function(){
 	var works_wait_btn = $('#works_wait_btn'),	//待定价
 		works_on_btn = $('#works_on_btn'),	//审核中
 		works_not_btn = $('#works_not_btn'),	//未通过
 		works_Suc_btn = $('#works_Suc_btn');	//已发布
-		designer_works_lists = $('.designer-works-lists'),
+	designer_works_lists = $('.designer-works-lists'),
 		designer_works_container = $('.designer-works-container');
 
-		workd_unexecute(1);
+	workd_unexecute(1);
 
 	$('#checkall').on('click',function(){	//全选按钮点击事件
 		isCheckAll();
@@ -46,10 +47,37 @@ $(function(){
 	$('#show-3d-tool-screenshot').click(function(){
 		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0];
 		var imgSrc = myCanvas.toDataURL();
-		$('.modify-imgs-box').eq(1).find('img').attr('src',imgSrc);
+		console.log(document.getElementsByName('1')[0].files[0])
+		console.log(document.getElementsByName('2')[0].files[0])
+		/*for(var i=1; i<=3; i++){*/
+		/*var t = document.getElementsByName(i)[0].files[0];*/
+		/*if(t === undefined){*/
+		/*console.log(t);*/
+		/*break;*/
+		/*}*/
+		/*}*/
+		$('.modify-imgs-box').eq(2).find('img').attr('src',imgSrc);	
+		ShowStl.screenShotData = imgSrc;
+		/*var newImg = new Image();*/
+		/*newImg.src = imgSrc;*/
+		/*newImg.name = 'screenShot'*/
+		/*document.getElementsByName(i+'')[0].files[0] = newImg;*/
+		/*var f = document.getElementsByName(i+'')[0].files[0];*/
+		/*console.log('sss'+i+':'+f.name);*/
 
+		/*$('.modify-imgs-box').eq((0)).find('img').attr('src',imgSrc);	*/
+		/*var newImg = new Image();*/
+		/*newImg.src = imgSrc;*/
+		/*newImg.name = 'screenShot'*/
+		/*document.getElementsByName('1')[0].files[0] = newImg;*/
+		/*var f = document.getElementsByName('1')[0].files[0];*/
+		/*console.log('sss'+'1'+':'+f.name);*/
+
+		/*setInterval(function(){*/
+		/*var f = document.getElementsByName('1')[0].files[0];*/
+		/*console.log('sss'+'1'+':'+f.name);*/
+		/*},500);*/
 	});
-	
 	// added by white over
 });
 
@@ -99,7 +127,7 @@ function toSearch(){
 				},function (e){
 					var waitList = JSON.parse(e).all_list,
 						totalPage = JSON.parse(e).total_pages;
-				
+
 					setData(waitList,totalPage);
 				});
 			}
@@ -120,7 +148,7 @@ function toSearch(){
 			},function (e){
 				var waitList = JSON.parse(e).all_list,
 					totalPage = JSON.parse(e).total_pages;
-			
+
 				setData(waitList,totalPage);
 			});
 		}
@@ -128,7 +156,7 @@ function toSearch(){
 
 	function setData(data,totalPage){
 		var _head = $('.designer-works-btn button').val();
-			
+
 
 		switch(_head){
 			case '0': toPrice();
@@ -161,7 +189,7 @@ function toSearch(){
 		}
 
 		// $('.designer-works-wait tbody').html('');
-		
+
 		// var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
 		// for(var i=0,len=data.length;i<len;i++){
 		// 	waitStr += '<tr data-id="'+data[i].id+'"><td><span>'+data[i].name+'</span></td><td><span>'+data[i].type+'文件 ｜'+data[i].file_size+'M </span></td><td><span>'+data[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
@@ -183,7 +211,7 @@ function toSearch(){
 		},function (e){
 			var waitList = JSON.parse(e).all_list,
 				totalPage = JSON.parse(e).total_pages;
-				
+
 			setData(waitList,totalPage);
 		});
 	});
@@ -210,14 +238,17 @@ function workd_unexecute(page){		//加载待定价的数据
 		if(e){
 			var waitList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=waitList.length;i<len;i++){
+			if(waitList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有待定价的商品</p>');
+			}else {
+				for(var i=0,len=waitList.length;i<len;i++){
 
-				waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-img="'+ waitList[i].preview_1 +'" data-uptime="'+ waitList[i].upload_time +'" data-size="'+ waitList[i].file_size +'" data-type="'+ waitList[i].type +'" data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+					waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-img="'+ waitList[i].preview_1 +'" data-uptime="'+ waitList[i].upload_time +'" data-size="'+ waitList[i].file_size +'" data-type="'+ waitList[i].type +'" data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+				}
+
+				waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
+				getPage(totalPage,page);
 			}
-
-			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
-			getPage(totalPage,page);
-
 		}else{
 			waitStr ='数据加载失败...';
 		}
@@ -239,14 +270,19 @@ function auditing(page){	//加载审核中的数据
 		if(e){
 			var onList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=onList.length;i<len;i++){
-				onStr += '<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+onList[i].name+'</p><p class="designer-works-list-describe">'+onList[i].description+'</p><div class="designer-works-list-pics clearfix">';
-				for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
-					onStr += '<img src="'+onList[i].pic[j]+'"/>';
+			if(onList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有审核中的商品</p>');
+			}else {
+				for(var i=0,len=onList.length;i<len;i++){
+					onStr += '<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+onList[i].name+'</p><p class="designer-works-list-describe">'+onList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
+						onStr += '<img src="'+onList[i].pic[j]+'"/>';
+					}
+					onStr += '</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
 				}
-				onStr += '</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
+				getPage(totalPage,page);
 			}
-			getPage(totalPage,page);
+
 		}else{
 			onStr = '信息加载失败..';
 		}
@@ -265,16 +301,20 @@ function published(page){	//获取已发布数据
 		if(e){
 			var sucList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=sucList.length;i<len;i++){
-				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].approval_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
-				for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
-					sucStr += '<img src="'+sucList[i].pic[j]+'"/>';
-				}
+			if(sucList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有已发布的商品</p>');
+			}else {
+				for(var i=0,len=sucList.length;i<len;i++){
+					sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].approval_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
+						sucStr += '<img src="'+sucList[i].pic[j]+'"/>';
+					}
 
-				sucStr += '</div></div><div class="designer-works-list-data fl"><div class="list-data-container clearfix"><div class="list-data-box fl"><span class="list-data-num list-download-num">'+sucList[i].download_count+'</span>次下载</div><div class="list-data-box fl"><span class="list-data-num list-collection-num">'+sucList[i].collected_count+'</span>次收藏</div></div><div class="list-data-price">售价：<span class="list-data-price-num">'+sucList[i].good_price+'</span>RMB</div><div class="list-data-update">发布时间：<span class="list-data-update-num">'+sucList[i].approval_time+'</span></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>'
+					sucStr += '</div></div><div class="designer-works-list-data fl"><div class="list-data-container clearfix"><div class="list-data-box fl"><span class="list-data-num list-download-num">'+sucList[i].download_count+'</span>次下载</div><div class="list-data-box fl"><span class="list-data-num list-collection-num">'+sucList[i].collected_count+'</span>次收藏</div></div><div class="list-data-price">售价：<span class="list-data-price-num">'+sucList[i].good_price+'</span>RMB</div><div class="list-data-update">发布时间：<span class="list-data-update-num">'+sucList[i].approval_time+'</span></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>'
+				}
+				sucStr += '<div class="works-canelbox"><button class="works-canelAll-btn">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall"/></div>';
+				getPage(totalPage,page);
 			}
-			sucStr += '<div class="works-canelbox"><button class="works-canelAll-btn">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall"/></div>';
-			getPage(totalPage,page);
 		}else{
 			sucStr = '信息加载失败..';
 		}
@@ -303,7 +343,7 @@ function published(page){	//获取已发布数据
 			})
 			if(_cancelbool){
 				var _parent = $('.works-cancel-check:checked').parents('.designer-works-list-box'),
-				_id = _parent.attr('data-id');
+					_id = _parent.attr('data-id');
 				$.post('/designer/unexecute_delete',{'id': _id},function (e){
 
 					// 如果数据库没有数据了，就执行else，否则执行if
@@ -329,22 +369,28 @@ function not_passed(page){		//获取未通过数据
 			var data = JSON.parse(e);
 			var notList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=notList.length;i<len;i++){
-				notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
-				var picList=notList[i].pic;
-				for(var j=0,jlen=picList.length;j<jlen;j++){
-					notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
-				}
 
-				notStr+='</div></div><div class="works-data-box fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].not_passed+'</p><p class="works-not-time fr">'+notList[i].modify_time+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
+			if(notList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有未通过的商品</p>');
+			}else {
+				for(var i=0,len=notList.length;i<len;i++){
+					notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					var picList=notList[i].pic;
+					for(var j=0,jlen=picList.length;j<jlen;j++){
+						notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
+					}
+
+					notStr+='</div></div><div class="works-data-box fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].not_passed+'</p><p class="works-not-time fr">'+notList[i].modify_time+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
+				}
+				notStr += '<div class="designer-works-cancelAll"><button class="works-cancelAll-btn" onclick="cancelAll()">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
+				getPage(totalPage,page);
 			}
-			notStr +='<div class="designer-works-cancelAll"><button class="works-cancelAll-btn" onclick="cancelAll()">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
-			getPage(totalPage,page);
+
 		}else{
 			notStr='信息加载失败';
 		}
 		designer_works_lists.append(notStr);
-		
+
 		cancelSigle();
 		edit();
 	});
@@ -366,16 +412,16 @@ function isCheckAll(obj){	//全选函数
 
 function deleteAll(){	//批量删除函数
 	var deleteTag = $('.works-wait-delete-check:checked'),
-	worksList = $('tr'),
-	worksContainer = $('.designer-works-wait').find('tbody');
+		worksList = $('tr'),
+		worksContainer = $('.designer-works-wait').find('tbody');
 	var str ='<tr><td colspan="4">没有数据啦⊙.⊙</td></tr>',
-	rest = worksList.length - deleteTag.length;
+		rest = worksList.length - deleteTag.length;
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
-		_id = _this.parents('tr').attr('data-id');
+			_id = _this.parents('tr').attr('data-id');
 		var _this = $(this),
-		deleteObj = _this.parents('tr'),
-		state = deleteObj.attr('data-state');
+			deleteObj = _this.parents('tr'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id, 'state':state}, function(e){
 
 			if(e){
@@ -393,11 +439,11 @@ function deleteSigle(){		//单个删除
 
 	$('.wait-delete-single').on('click',function(){
 		var _this =$(this),
-		deleteObj = _this.parents('tr'),
-		_id = deleteObj.attr('data-id');
+			deleteObj = _this.parents('tr'),
+			_id = deleteObj.attr('data-id');
 		var _this = $(this),
-		deleteObj = _this.parents('tr'),
-		state = deleteObj.attr('data-state');
+			deleteObj = _this.parents('tr'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 
 			if(e){
@@ -413,14 +459,14 @@ function deleteSigle(){		//单个删除
 function cancelAll(){	//批量取消发布
 
 	var cancelTag = $('.works-cancel-check:checked'),
-	worksList = $('.designer-works-list-box'),
-	worksContainer = designer_works_lists,
-	str ='没有数据啦⊙.⊙',
-	rest = worksList.length - cancelTag.length;
+		worksList = $('.designer-works-list-box'),
+		worksContainer = designer_works_lists,
+		str ='没有数据啦⊙.⊙',
+		rest = worksList.length - cancelTag.length;
 
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
-		_id = _this.parents('.designer-works-list-box').attr('data-id');
+			_id = _this.parents('.designer-works-list-box').attr('data-id');
 		var _this = $(this),
 			deleteObj = _this.parents('.designer-works-list-box'),
 			state = deleteObj.attr('data-state');
@@ -503,8 +549,8 @@ function creatPages(){		//生成页码
 	$('.designer-works-page li').on('click',function(){
 		var _this = $(this);
 		var toPage = _this.text(),
-		thisType = $('.works-current').text().substr(0,3),
-		curPage = $('.page-current').text();
+			thisType = $('.works-current').text().substr(0,3),
+			curPage = $('.page-current').text();
 		totalPage = $('.designer-works-page').attr('data-total');
 
 		toPage = judgePage(toPage, curPage, totalPage);
@@ -564,22 +610,23 @@ function edit(){	//编辑弹窗函数
 			_kind = 'unexecute';
 
 		p_editInfo (_this,_kind);
+		$('.modify-imgs').attr('src','/static/images/common/up_default.jpg');
 
 	});
 
 	function p_editInfo (_this,_kind){
 		var _parent = _this.parents('.designer-works-list-box'),
-		id = _parent.attr('data-id'),
-		pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
-		type = _parent.attr('data-type'),
-		size = _parent.attr('data-size'),
-		price = _parent.attr('data-price'),
-		name = _parent.find('.designer-works-list-title').text(),
-		describe = _parent.find('.designer-works-list-describe').text(),
-		imgs = _parent.find('.designer-works-list-img'),
-		modify_imgs_container = $('.modify-imgs-container'),
-		imgStr = '',
-		up_time = _parent.attr('data-uptime');
+			id = _parent.attr('data-id'),
+			pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
+			type = _parent.attr('data-type'),
+			size = _parent.attr('data-size'),
+			price = _parent.attr('data-price'),
+			name = _parent.find('.designer-works-list-title').text(),
+			describe = _parent.find('.designer-works-list-describe').text(),
+			imgs = _parent.find('.designer-works-list-img'),
+			modify_imgs_container = $('.modify-imgs-container'),
+			imgStr = '',
+			up_time = _parent.attr('data-uptime');
 
 
 
@@ -636,7 +683,9 @@ function edit(){	//编辑弹窗函数
 		$('.modify-stl-preview').unbind("click");
 		$('.modify-stl-preview').click(function(){
 			var stlTypeVal = $('.works-current').attr('value');
-			if(stlTypeVal === '2'){
+			if(stlTypeVal === '0'){
+				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
+			}else if(stlTypeVal === '2'){
 				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
 			}else if(stlTypeVal === '3'){
 				showStlFileInRemoteServer(id , '',  260, 260, 'show-3d');
@@ -648,6 +697,12 @@ function edit(){	//编辑弹窗函数
 
 	$('.modify-btn-submit').on('click',function (){
 		$('.changeInfo').submit();
+
+		// added by white
+		var workId = $('.designer-works-list-box').attr('data-id');
+		$.post('/designer/edit/screenshot', {id: workId, screenshot: ShowStl.screenShotData}, function(e){
+			console.log('screenshot upload succeed');	  
+		});
 	});
 }
 
@@ -665,18 +720,18 @@ function closeEdit(){
 function publish_edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
 		var _this = $(this),
-		_parent = _this.parents('.designer-works-list-box'),
-		id = _parent.attr('data-id'),
-		pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
-		type = _parent.attr('data-type'),
-		size = _parent.attr('data-size'),
-		price = _parent.find('.list-data-price-num').text(),
-		name = _parent.find('.designer-works-list-title').text(),
-		describe = _parent.find('.designer-works-list-describe').text(),
-		imgs = _parent.find('.designer-works-list-pics img'),
-		modify_imgs_container = $('.modify-imgs-container'),
-		imgStr = '',
-		up_time = _parent.attr('data-uptime');
+			_parent = _this.parents('.designer-works-list-box'),
+			id = _parent.attr('data-id'),
+			pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
+			type = _parent.attr('data-type'),
+			size = _parent.attr('data-size'),
+			price = _parent.find('.list-data-price-num').text(),
+			name = _parent.find('.designer-works-list-title').text(),
+			describe = _parent.find('.designer-works-list-describe').text(),
+			imgs = _parent.find('.designer-works-list-pics img'),
+			modify_imgs_container = $('.modify-imgs-container'),
+			imgStr = '',
+			up_time = _parent.attr('data-uptime');
 
 		modify_imgs_container.empty();
 		$('.designer-zoom').css('display','block');
@@ -698,7 +753,7 @@ function publish_edit(){	//编辑弹窗函数
 		var imgsrc = imgs.eq(2).attr('src');
 		if (imgsrc) {
 			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
-	 	}
+		}
 		$('.modify-imgs-container').append(imgStr);
 
 		// added by white	
@@ -720,6 +775,32 @@ function publish_edit(){	//编辑弹窗函数
 
 	$('.modify-btn-submit').on('click',function (){
 		$('.changeInfo').submit();
+
+		// added by white
+		var workId = $('.designer-works-list-box').attr('data-id');
+		$.post('/designer/edit/screenshot', {id: workId, screenshot: ShowStl.screenShotData}, function(e){
+			console.log('screenshot upload succeed');	  
+		});
+	});
+}
+
+// 关闭弹窗
+function closeEdit(){
+	$('.modify-container-close').on('click',function(){
+		$('.designer-zoom').css('display','none');
+		$('.modify-content').css('display','none');
+		$('#show-3d').html(null);
+		$('#show-3d-cont').hide();
+	});
+}
+
+
+function publish_edit(){	//编辑弹窗函数
+	$('.works-modify-btn').on('click',function(){
+		var _this = $(this),
+			_parent = _this.parents('.designer-works-list-box'),
+			id = _parent.attr('data-id'),
+			pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
 	});
 
 }

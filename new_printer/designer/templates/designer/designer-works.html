@@ -8,32 +8,28 @@
 
 {% block mainContent %}
 <div class="designer-works-container">
-	<div class="designer-works-btn">
-		<button class="works-current" value='0' id="works_wait_btn">待定价 ({{ worksWait }})</button>
+	<div class="designer-works-btn mb30">
+		<button class="works-current" value='0' id="works_wait_btn">待定价({{ worksWait }})</button>
 		<button value='1' id="works_on_btn">审核中({{ worksOn }})</button>
 		<button value='2' id="works_not_btn">未通过({{ worksNot }})</button>
 		<button value='3' id="works_Suc_btn">已发布({{ worksSuc }})</button>
 	</div>
-	<ul class="designer-works-nav fl">
-		<li><a type-tag='全部' class="designer-works-nav-current" href="javascript:void(0)">全部</a></li>
-		<li><a type-tag='戒指' class="type-filter-btn chover " href="javascript:void(0)">戒指</a></li>
-		<li><a type-tag='吊坠' class="type-filter-btn chover " href="javascript:void(0)">吊坠</a></li>
-		<li><a type-tag='耳坠' class="type-filter-btn chover " href="javascript:void(0)">耳坠</a></li>
-		<li><a type-tag='手链' class="type-filter-btn chover " href="javascript:void(0)">手链</a></li>
-		<li><a type-tag='项链' class="type-filter-btn chover " href="javascript:void(0)">项链</a></li>
-		<li><a type-tag='胸针' class="type-filter-btn chover " href="javascript:void(0)">胸针</a></li>
-	</ul>
-	<div class="designer-works-search fr">
-		<input type="text" class="search-box fl"/>
-		<span class="designer-works-search-icon fl"></span>
-	</div>
-	<div class="designer-works-lists">
-		<ul class="designer-works-sort">
-			<li class="works-sort-download sort-current"><span>下载量</span></li>
-			<li class="works-sort-collection"><span>收藏量</span></li>
-			<li class="works-sort-time"><span>时间</span></li>
+	<div class="search-tag mb30 hide clearfix">
+		<ul class="designer-works-nav fl">
+			<li><a type-tag='全部' class="designer-works-nav-current" href="javascript:void(0)">全部</a></li>
+			<li><a type-tag='戒指' class="type-filter-btn chover " href="javascript:void(0)">戒指</a></li>
+			<li><a type-tag='吊坠' class="type-filter-btn chover " href="javascript:void(0)">吊坠</a></li>
+			<li><a type-tag='耳坠' class="type-filter-btn chover " href="javascript:void(0)">耳坠</a></li>
+			<li><a type-tag='手链' class="type-filter-btn chover " href="javascript:void(0)">手链</a></li>
+			<li><a type-tag='项链' class="type-filter-btn chover " href="javascript:void(0)">项链</a></li>
+			<li><a type-tag='胸针' class="type-filter-btn chover " href="javascript:void(0)">胸针</a></li>
 		</ul>
+		<div class="designer-works-search fr">
+			<input type="text" class="search-box fl"/>
+			<span class="designer-works-search-icon fl"></span>
+		</div>
 	</div>
+	<div class="designer-works-lists"></div>
 </div>
 <form type="file" action="/designer/edit_submit" method="post" class="changeInfo" enctype="multipart/form-data"  multiple="" >
 	<div class="modify-content ">
@@ -71,7 +67,7 @@
 			<div class="modify-right fl">
 				<div class="modify-imgs-container clearfix">
 					<div class="modify-imgs-box fl">
-						<img src="" class="modify-imgs"/>
+						<img src="/static/images/common/up_default.jpg" class="modify-imgs"/>
 						<div class="modify-imgs-modify">
 							<div class="modify-imgs-modify-hidden">
 								<input type="file" name="photo_file" />
@@ -81,7 +77,7 @@
 						</div>
 					</div>
 					<div class="modify-imgs-box fl">
-						<img src="" class="modify-imgs"/>
+						<img src="/static/images/common/up_default.jpg" class="modify-imgs"/>
 						<div class="modify-imgs-modify">
 							<div class="modify-imgs-modify-hidden">
 								<input type="file" name="photo_file" />
@@ -91,20 +87,20 @@
 						</div>
 					</div>
 					<div class="modify-imgs-box fl">
-						<img src="" class="modify-imgs"/>
+						<img src="/static/images/common/up_default.jpg" class="modify-imgs"/>
 						<div class="modify-imgs-modify">
 							<div class="modify-imgs-modify-hidden">
 								<input type="file" name="photo_file" />
 							</div>
-							<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>
-							<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>
+							<!--<a href="javascript:void(0)" class="modify-imgs-modify-btn">修改</a>-->
+							<!--<a href="javascript:void(0)" class="modify-imgs-delete-btn">删除</a>-->
 						</div>
 					</div>
 				</div>
-				<p>标题：<input type="text" class="modify-name" name="stl_name" /></p>
+				<p><span class="f18" style="color:#62cdd7;">标题：</span><input type="text" class="modify-name" name="stl_name" /></p>
 				<input type="hidden" class="modify-id" name="modify_id" />
-				<p>价格：<input type="text" class="modify-price" name="stl_price" /></p>
-				<p><span class="va-t">描述：</span><textarea class="modify-describe" name="stl_describe"></textarea></p>
+				<p><span class="f18" style="color:#62cdd7;">价格：</span><input type="text" class="modify-price" name="stl_price" /></p>
+				<p><span style="color:#62cdd7;" class="va-t f18">描述：</span><textarea class="modify-describe" name="stl_describe"></textarea></p>
 			</div>
 		</div>
 		<div class="modify-btn-container">

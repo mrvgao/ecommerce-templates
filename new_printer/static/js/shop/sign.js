@@ -17,6 +17,10 @@ $(function (){
 		phone_register,
 		phone_code;
 
+	var uphone = getCookie('uphone');
+	if(uphone){
+		$('.is_registered').val(uphone);
+	}
 
 	// 显示弹出框
 	contact_btn.on('click',function (){
@@ -196,7 +200,7 @@ $(function (){
 					});
 				}
 
-				if(!_this.hasClass('is_registered') && !_this.hasClass('is_registered_r') && !_this.hasClass('invitecode') && !_this.hasClass('is_username')){
+				if(!_this.hasClass('is_registered') && !_this.hasClass('is_registered_r') && !_this.hasClass('invitecode') && !_this.hasClass('is_username') && !_this.hasClass('login-upw')){
 					if(_next.css('display') == 'block'){
 						_next.slideUp();
 						_this.removeClass('active');
@@ -251,7 +255,8 @@ $(function (){
 					if (result['status'] == 'FAILURE'){
 						$.msgBox.mini('注册失败，请重新注册');
 					}else{
-						$.msgBox.mini('注册成功，请登录');
+						$.msgBox.mini('注册成功，请登陆');
+						input_play_box.animate({'left':-500});
 					}
 
 				});
@@ -268,15 +273,19 @@ $(function (){
 		// 登陆
 		login_btn.on('click',function (){
 			
-			var _this = $(this);
+			var _this = $(this),
+				_input = _this.parents('.sign-signIn').find('.sign-input'),
+				phone = _input.eq(0).val(),
+				pwd = _input.eq(1).val(),
+				pwd_ts = _input.eq(1).next().find('span');
+
 			testNoBlur(_this);
-			var phone = _this.parents('.sign-signIn').find('.sign-input').eq(0).val();
-			var pwd = _this.parents('.sign-signIn').find('.sign-input').eq(1).val();
-			
-			
+
 			// 记住密码 isRemeber: true 为记住, false 为不记住
 			if(signIn_remeber.checked){
 				isRemeber = true;
+			}else {
+				isRemeber = false;
 			}
 
 			if(signInResult[0] && signInResult[1]){
@@ -284,8 +293,15 @@ $(function (){
 				$.post('/account/u_login',{'phone':phone,'password':pwd},function (e){
 					result = JSON.parse(e);
 					if (result['status'] == 'FAILURE'){
-						$.msgBox.mini('登录失败，请重新输入');
+						pwd_ts.text('密码错误，请重新输入');
+						_input.eq(1).addClass('active');
+						_input.eq(1).next().slideDown();
 					}else{
+						if(isRemeber){
+							// set Cookie
+							addCookie('uphone', phone, 10);
+						}
+						
 						window.location.assign('/shop/home');
 					}
 				});
@@ -307,5 +323,30 @@ $(function (){
 		}
 
 	}());
+
+	// 设置 cookie
+	function addCookie(name, value, expiresDays){ 
+		var cookieString = name + "=" + escape(value);
+
+		// 判断是否设置过期时间
+		if(expiresDays>0){
+			var date=new Date();
+			date.setTime(date.getTime + expiresDays*24*3600*1000);
+			cookieString = cookieString + "; expires=" + date.toGMTString();
+		}
+		document.cookie = cookieString;
+	}
+
+	// 获取 cookie
+	function getCookie(name){
+		var strCookie = document.cookie,
+			arrCookie = strCookie.split("; ");
+
+		for(var i=0;i<arrCookie.length;i++){
+			var arr = arrCookie[i].split("=");
+			if(arr[0] == name) return arr[1];
+		}
+		return "";
+	}
 	
 })
