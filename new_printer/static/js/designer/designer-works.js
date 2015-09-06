@@ -1,14 +1,15 @@
 var ShowStl = {};
+ShowStl.screenShotData = null;
 
 $(function(){
 	var works_wait_btn = $('#works_wait_btn'),	//待定价
 		works_on_btn = $('#works_on_btn'),	//审核中
 		works_not_btn = $('#works_not_btn'),	//未通过
 		works_Suc_btn = $('#works_Suc_btn');	//已发布
-		designer_works_lists = $('.designer-works-lists'),
+	designer_works_lists = $('.designer-works-lists'),
 		designer_works_container = $('.designer-works-container');
 
-		workd_unexecute(1);
+	workd_unexecute(1);
 
 	$('#checkall').on('click',function(){	//全选按钮点击事件
 		isCheckAll();
@@ -46,16 +47,36 @@ $(function(){
 	$('#show-3d-tool-screenshot').click(function(){
 		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0];
 		var imgSrc = myCanvas.toDataURL();
-		$('.modify-imgs-box').eq(1).find('img').attr('src',imgSrc);
-		var newImg = new Image();
-		newImg.src = imgSrc;
-		console.log('aL'+newImg.src);
-		/*document.getElementsByName('2').files[0] = newImg;*/
-		console.log('aaa:'+document.getElementsByName('2').text());
-		var f = document.getElementById('upload_img_canvas').files[0];
-		console.log('sss:'+f.src);
-		/*$('input[name|="2"]').files[0] = newImg;*/
-		/*console.log('scrc;'+$('input[name|="2"]').val());*/
+		console.log(document.getElementsByName('1')[0].files[0])
+		console.log(document.getElementsByName('2')[0].files[0])
+		/*for(var i=1; i<=3; i++){*/
+		/*var t = document.getElementsByName(i)[0].files[0];*/
+		/*if(t === undefined){*/
+		/*console.log(t);*/
+		/*break;*/
+		/*}*/
+		/*}*/
+		$('.modify-imgs-box').eq(2).find('img').attr('src',imgSrc);	
+		ShowStl.screenShotData = imgSrc;
+		/*var newImg = new Image();*/
+		/*newImg.src = imgSrc;*/
+		/*newImg.name = 'screenShot'*/
+		/*document.getElementsByName(i+'')[0].files[0] = newImg;*/
+		/*var f = document.getElementsByName(i+'')[0].files[0];*/
+		/*console.log('sss'+i+':'+f.name);*/
+
+		/*$('.modify-imgs-box').eq((0)).find('img').attr('src',imgSrc);	*/
+		/*var newImg = new Image();*/
+		/*newImg.src = imgSrc;*/
+		/*newImg.name = 'screenShot'*/
+		/*document.getElementsByName('1')[0].files[0] = newImg;*/
+		/*var f = document.getElementsByName('1')[0].files[0];*/
+		/*console.log('sss'+'1'+':'+f.name);*/
+
+		/*setInterval(function(){*/
+		/*var f = document.getElementsByName('1')[0].files[0];*/
+		/*console.log('sss'+'1'+':'+f.name);*/
+		/*},500);*/
 	});
 	// added by white over
 });
@@ -106,7 +127,7 @@ function toSearch(){
 				},function (e){
 					var waitList = JSON.parse(e).all_list,
 						totalPage = JSON.parse(e).total_pages;
-				
+
 					setData(waitList,totalPage);
 				});
 			}
@@ -127,7 +148,7 @@ function toSearch(){
 			},function (e){
 				var waitList = JSON.parse(e).all_list,
 					totalPage = JSON.parse(e).total_pages;
-			
+
 				setData(waitList,totalPage);
 			});
 		}
@@ -135,7 +156,7 @@ function toSearch(){
 
 	function setData(data,totalPage){
 		var _head = $('.designer-works-btn button').val();
-			
+
 
 		switch(_head){
 			case '0': toPrice();
@@ -168,7 +189,7 @@ function toSearch(){
 		}
 
 		// $('.designer-works-wait tbody').html('');
-		
+
 		// var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
 		// for(var i=0,len=data.length;i<len;i++){
 		// 	waitStr += '<tr data-id="'+data[i].id+'"><td><span>'+data[i].name+'</span></td><td><span>'+data[i].type+'文件 ｜'+data[i].file_size+'M </span></td><td><span>'+data[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
@@ -190,7 +211,7 @@ function toSearch(){
 		},function (e){
 			var waitList = JSON.parse(e).all_list,
 				totalPage = JSON.parse(e).total_pages;
-				
+
 			setData(waitList,totalPage);
 		});
 	});
@@ -261,7 +282,7 @@ function auditing(page){	//加载审核中的数据
 				}
 				getPage(totalPage,page);
 			}
-			
+
 		}else{
 			onStr = '信息加载失败..';
 		}
@@ -322,7 +343,7 @@ function published(page){	//获取已发布数据
 			})
 			if(_cancelbool){
 				var _parent = $('.works-cancel-check:checked').parents('.designer-works-list-box'),
-				_id = _parent.attr('data-id');
+					_id = _parent.attr('data-id');
 				$.post('/designer/unexecute_delete',{'id': _id},function (e){
 
 					// 如果数据库没有数据了，就执行else，否则执行if
@@ -369,7 +390,7 @@ function not_passed(page){		//获取未通过数据
 			notStr='信息加载失败';
 		}
 		designer_works_lists.append(notStr);
-		
+
 		cancelSigle();
 		edit();
 	});
@@ -391,16 +412,16 @@ function isCheckAll(obj){	//全选函数
 
 function deleteAll(){	//批量删除函数
 	var deleteTag = $('.works-wait-delete-check:checked'),
-	worksList = $('tr'),
-	worksContainer = $('.designer-works-wait').find('tbody');
+		worksList = $('tr'),
+		worksContainer = $('.designer-works-wait').find('tbody');
 	var str ='<tr><td colspan="4">没有数据啦⊙.⊙</td></tr>',
-	rest = worksList.length - deleteTag.length;
+		rest = worksList.length - deleteTag.length;
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
-		_id = _this.parents('tr').attr('data-id');
+			_id = _this.parents('tr').attr('data-id');
 		var _this = $(this),
-		deleteObj = _this.parents('tr'),
-		state = deleteObj.attr('data-state');
+			deleteObj = _this.parents('tr'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id, 'state':state}, function(e){
 
 			if(e){
@@ -418,11 +439,11 @@ function deleteSigle(){		//单个删除
 
 	$('.wait-delete-single').on('click',function(){
 		var _this =$(this),
-		deleteObj = _this.parents('tr'),
-		_id = deleteObj.attr('data-id');
+			deleteObj = _this.parents('tr'),
+			_id = deleteObj.attr('data-id');
 		var _this = $(this),
-		deleteObj = _this.parents('tr'),
-		state = deleteObj.attr('data-state');
+			deleteObj = _this.parents('tr'),
+			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 
 			if(e){
@@ -438,14 +459,14 @@ function deleteSigle(){		//单个删除
 function cancelAll(){	//批量取消发布
 
 	var cancelTag = $('.works-cancel-check:checked'),
-	worksList = $('.designer-works-list-box'),
-	worksContainer = designer_works_lists,
-	str ='没有数据啦⊙.⊙',
-	rest = worksList.length - cancelTag.length;
+		worksList = $('.designer-works-list-box'),
+		worksContainer = designer_works_lists,
+		str ='没有数据啦⊙.⊙',
+		rest = worksList.length - cancelTag.length;
 
 	cancelTag.each(function(index, el) {
 		var _this = $(this),
-		_id = _this.parents('.designer-works-list-box').attr('data-id');
+			_id = _this.parents('.designer-works-list-box').attr('data-id');
 		var _this = $(this),
 			deleteObj = _this.parents('.designer-works-list-box'),
 			state = deleteObj.attr('data-state');
@@ -528,8 +549,8 @@ function creatPages(){		//生成页码
 	$('.designer-works-page li').on('click',function(){
 		var _this = $(this);
 		var toPage = _this.text(),
-		thisType = $('.works-current').text().substr(0,3),
-		curPage = $('.page-current').text();
+			thisType = $('.works-current').text().substr(0,3),
+			curPage = $('.page-current').text();
 		totalPage = $('.designer-works-page').attr('data-total');
 
 		toPage = judgePage(toPage, curPage, totalPage);
@@ -595,17 +616,17 @@ function edit(){	//编辑弹窗函数
 
 	function p_editInfo (_this,_kind){
 		var _parent = _this.parents('.designer-works-list-box'),
-		id = _parent.attr('data-id'),
-		pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
-		type = _parent.attr('data-type'),
-		size = _parent.attr('data-size'),
-		price = _parent.attr('data-price'),
-		name = _parent.find('.designer-works-list-title').text(),
-		describe = _parent.find('.designer-works-list-describe').text(),
-		imgs = _parent.find('.designer-works-list-img'),
-		modify_imgs_container = $('.modify-imgs-container'),
-		imgStr = '',
-		up_time = _parent.attr('data-uptime');
+			id = _parent.attr('data-id'),
+			pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
+			type = _parent.attr('data-type'),
+			size = _parent.attr('data-size'),
+			price = _parent.attr('data-price'),
+			name = _parent.find('.designer-works-list-title').text(),
+			describe = _parent.find('.designer-works-list-describe').text(),
+			imgs = _parent.find('.designer-works-list-img'),
+			modify_imgs_container = $('.modify-imgs-container'),
+			imgStr = '',
+			up_time = _parent.attr('data-uptime');
 
 
 
@@ -676,6 +697,12 @@ function edit(){	//编辑弹窗函数
 
 	$('.modify-btn-submit').on('click',function (){
 		$('.changeInfo').submit();
+
+		// added by white
+		var workId = $('.designer-works-list-box').attr('data-id');
+		$.post('/designer/edit/screenshot', {id: workId, screenshot: ShowStl.screenShotData}, function(e){
+			console.log('screenshot upload succeed');	  
+		});
 	});
 }
 
@@ -693,18 +720,18 @@ function closeEdit(){
 function publish_edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
 		var _this = $(this),
-		_parent = _this.parents('.designer-works-list-box'),
-		id = _parent.attr('data-id'),
-		pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
-		type = _parent.attr('data-type'),
-		size = _parent.attr('data-size'),
-		price = _parent.find('.list-data-price-num').text(),
-		name = _parent.find('.designer-works-list-title').text(),
-		describe = _parent.find('.designer-works-list-describe').text(),
-		imgs = _parent.find('.designer-works-list-pics img'),
-		modify_imgs_container = $('.modify-imgs-container'),
-		imgStr = '',
-		up_time = _parent.attr('data-uptime');
+			_parent = _this.parents('.designer-works-list-box'),
+			id = _parent.attr('data-id'),
+			pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
+			type = _parent.attr('data-type'),
+			size = _parent.attr('data-size'),
+			price = _parent.find('.list-data-price-num').text(),
+			name = _parent.find('.designer-works-list-title').text(),
+			describe = _parent.find('.designer-works-list-describe').text(),
+			imgs = _parent.find('.designer-works-list-pics img'),
+			modify_imgs_container = $('.modify-imgs-container'),
+			imgStr = '',
+			up_time = _parent.attr('data-uptime');
 
 		modify_imgs_container.empty();
 		$('.designer-zoom').css('display','block');
@@ -726,7 +753,7 @@ function publish_edit(){	//编辑弹窗函数
 		var imgsrc = imgs.eq(2).attr('src');
 		if (imgsrc) {
 			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
-	 	}
+		}
 		$('.modify-imgs-container').append(imgStr);
 
 		// added by white	
@@ -748,6 +775,32 @@ function publish_edit(){	//编辑弹窗函数
 
 	$('.modify-btn-submit').on('click',function (){
 		$('.changeInfo').submit();
+
+		// added by white
+		var workId = $('.designer-works-list-box').attr('data-id');
+		$.post('/designer/edit/screenshot', {id: workId, screenshot: ShowStl.screenShotData}, function(e){
+			console.log('screenshot upload succeed');	  
+		});
+	});
+}
+
+// 关闭弹窗
+function closeEdit(){
+	$('.modify-container-close').on('click',function(){
+		$('.designer-zoom').css('display','none');
+		$('.modify-content').css('display','none');
+		$('#show-3d').html(null);
+		$('#show-3d-cont').hide();
+	});
+}
+
+
+function publish_edit(){	//编辑弹窗函数
+	$('.works-modify-btn').on('click',function(){
+		var _this = $(this),
+			_parent = _this.parents('.designer-works-list-box'),
+			id = _parent.attr('data-id'),
+			pic = _parent.find('.designer-works-list-bigpic img').attr('src'),
 	});
 
 }
