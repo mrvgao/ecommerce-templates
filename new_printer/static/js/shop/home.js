@@ -20,22 +20,30 @@ $(function (){
 		var _this = $(this),
 			_num = _this.attr('data-num');
 
-		if(_this.hasClass('active')){
-			_this.removeClass('active');
-			toMark();
-		}else {
-			_this.addClass('active');
-			toMark();
-		}
+		// if(_this.hasClass('active')){
+		// 	_this.removeClass('active');
+		// 	toMark(_num);
+		// }else {
+		// 	_this.addClass('active');
+		// 	toMark(_num);
+		// }
+
+		toMark(_num);
 
 		// mark 的ajax方法
-		function toMark(){
-			$.post('shop/mark-goods',{goods_id:40},function (e){
-                e = JSON.parse(e)
-                if(e.state === 'SUCCESS'){
-                    alert(e.state);
-                }else{
-                    alert(e.state);
+		function toMark(id){
+
+			$.post('shop/mark-goods',{ goods_id: 40 },function (e){
+                var data = JSON.parse(e);
+                if(data.state == 'SUCCESS'){
+                	alert (1);
+                	if(_this.hasClass('active')){
+                		_this.addClass('active');
+                		$.msgBox.mini('已收藏');
+                	}else {
+                		_this.removeClass('active');
+                		$.msgBox.mini('取消收藏');
+                	}
                 }
             });
 		}

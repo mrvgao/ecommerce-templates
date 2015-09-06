@@ -108,7 +108,15 @@ body {
 .designer-head-nav li:hover .designer-head-nav-upfile {
 	background-position:-25px -126px;
 }
-
+.designer-head-nav-work {
+	width:15px;
+	height:15px;
+	background-position:-52px -155px;
+	vertical-align:bottom;
+}
+.designer-head-nav li:hover .designer-head-nav-work {
+	background-position:-52px -128px;
+}
 
 /* header */
 #header {
@@ -360,7 +368,8 @@ em.poptri {
 	color:#30B1BD;
 }
 .chat-word-cont {
-	max-width:380px;
+	max-width:468px;
+	word-wrap: break-word;
 }
 .chat-word-customer, .chat-word-us {
 	margin-bottom:16px;
@@ -408,6 +417,7 @@ em.select-history-ico {
 	height:60px;
 	margin:10px;
 	border:none;
+	overflow-y: auto;
 }
 .chatting-submit {
 	background:#f5f5f5;

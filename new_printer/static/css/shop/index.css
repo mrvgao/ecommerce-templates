@@ -134,6 +134,8 @@
 .cooperate-box img {
 	float:left;
 	margin:10px;
+	width:120px;
+	height:60px;
 }
 .slider-bottom {
 	background:url('/static/images/shop/index/bk-freeze.jpg');

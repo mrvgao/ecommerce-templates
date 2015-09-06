@@ -43,6 +43,8 @@ urlpatterns = patterns('',
 	#在已发布页面点击编辑后，修改后提交的值
 	url(r'^published_submit$',up_works.published_submit,name = 'published_submit'),
 
+	#screenshot
+	url(r'^screenshot$',up_works.screenshot,name = 'screenshot'),
 	#设计师个人中心，设计师本人看到的
 	url(r'^my_personal$',views.my_personal,name = 'my_personal'),
 

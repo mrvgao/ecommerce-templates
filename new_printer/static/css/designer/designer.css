@@ -879,6 +879,7 @@ em.upfile-success {
 .designer-show-img img {
 	width:210px;
 	height:210px;
+	border-radius:20px;
 }
 .designer-show-info p {
 	color:#fff;

@@ -315,6 +315,8 @@ def modify_goods_list(goods_list):
 
 def goods_detail(request):
 
+    to_tags = {u'戒指': 'ring', u'吊坠': 'pendant', u'耳坠': 'earbob', u'手链': 'bracelet', u'项链': 'torque', u'胸针': 'brooch'}
+
     class RecommendGoods(object):
 
         def __init__(self, goods):
@@ -373,6 +375,7 @@ def goods_detail(request):
         'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
         'goods_moduleType': goods.tags, 'goods_description': goods.description,
         'goods_price': goods.goods_price, 'designer_name': designer.designername,
+        'goods_tags': goods.tags, 'goods_style': get_style(goods), 'goods_list': to_tags[goods.tags],
         'designer_img': common_handler.get_file_path(str(designer.img)),'isDownload': is_buy,
         'other_goods_list': recommend_goods_list[:4],
         'designer_goods_list': other_goods_list[:4],
