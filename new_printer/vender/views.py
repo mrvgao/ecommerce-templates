@@ -77,7 +77,7 @@ def vender_center(request):
     vender = Vender_User.objects.get(user_id=user.id)
     vender_id = vender.id
 
-    bill_list = Bills.objects.filter(vender_id=vender_id)
+    bill_list = Bills.objects.filter(vender_id=vender_id, bill_status='down')
 
     vender_bills_list = get_bills_information(bill_list, vender_id)
 
