@@ -26,7 +26,7 @@ class VenderGoodsHandler(object):
         vender_goods = self.get_element(vender_id, goods_id)
         if vender_goods:
             vender_goods.is_collected = is_collected
-            vender.goods.save()
+            vender_goods.save()
         else:
             vender_goods = Vender_Goods.objects.create(vender_id=vender_id, goods_id=goods_id,is_collected=is_collected)
 

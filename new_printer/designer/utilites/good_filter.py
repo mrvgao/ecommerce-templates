@@ -160,7 +160,7 @@ def down_stl(_url):
     aleady_h = _url.split('/')[-1]
     stl_path = stl_path + local_filename
     if aleady_h in lists :
-        stl_path = stl_path.split('/')[-3:]
+        stl_path = stl_path.split('/')[-2:]
         stl_path = "/".join(stl_path)
         stl_path = '/' + stl_path
         print '1',stl_path

@@ -47,9 +47,16 @@ $(function(){
 		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0];
 		var imgSrc = myCanvas.toDataURL();
 		$('.modify-imgs-box').eq(1).find('img').attr('src',imgSrc);
-
+		var newImg = new Image();
+		newImg.src = imgSrc;
+		console.log('aL'+newImg.src);
+		/*document.getElementsByName('2').files[0] = newImg;*/
+		console.log('aaa:'+document.getElementsByName('2').text());
+		var f = document.getElementById('upload_img_canvas').files[0];
+		console.log('sss:'+f.src);
+		/*$('input[name|="2"]').files[0] = newImg;*/
+		/*console.log('scrc;'+$('input[name|="2"]').val());*/
 	});
-	
 	// added by white over
 });
 
@@ -655,7 +662,9 @@ function edit(){	//编辑弹窗函数
 		$('.modify-stl-preview').unbind("click");
 		$('.modify-stl-preview').click(function(){
 			var stlTypeVal = $('.works-current').attr('value');
-			if(stlTypeVal === '2'){
+			if(stlTypeVal === '0'){
+				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
+			}else if(stlTypeVal === '2'){
 				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
 			}else if(stlTypeVal === '3'){
 				showStlFileInRemoteServer(id , '',  260, 260, 'show-3d');
