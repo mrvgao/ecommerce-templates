@@ -210,14 +210,17 @@ function workd_unexecute(page){		//加载待定价的数据
 		if(e){
 			var waitList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=waitList.length;i<len;i++){
+			if(waitList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有待定价的商品</p>');
+			}else {
+				for(var i=0,len=waitList.length;i<len;i++){
 
-				waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-img="'+ waitList[i].preview_1 +'" data-uptime="'+ waitList[i].upload_time +'" data-size="'+ waitList[i].file_size +'" data-type="'+ waitList[i].type +'" data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+					waitStr+='<tr class="designer-works-list-box clearfix" data-state=1 data-img="'+ waitList[i].preview_1 +'" data-uptime="'+ waitList[i].upload_time +'" data-size="'+ waitList[i].file_size +'" data-type="'+ waitList[i].type +'" data-id="'+waitList[i].id+'"><td><span class="designer-works-list-title">'+waitList[i].name+'</span></td><td><span>'+waitList[i].type+'文件 ｜'+waitList[i].file_size+'M </span></td><td><span>'+waitList[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
+				}
+
+				waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
+				getPage(totalPage,page);
 			}
-
-			waitStr +='<div class="designer-works-deleteAll"><button class="works-deleteAll-btn" onclick="deleteAll()">批量删除</button><label for="checkall">全选</label><input type="checkbox" class="works-delete-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
-			getPage(totalPage,page);
-
 		}else{
 			waitStr ='数据加载失败...';
 		}
@@ -239,14 +242,19 @@ function auditing(page){	//加载审核中的数据
 		if(e){
 			var onList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=onList.length;i<len;i++){
-				onStr += '<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+onList[i].name+'</p><p class="designer-works-list-describe">'+onList[i].description+'</p><div class="designer-works-list-pics clearfix">';
-				for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
-					onStr += '<img src="'+onList[i].pic[j]+'"/>';
+			if(onList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有审核中的商品</p>');
+			}else {
+				for(var i=0,len=onList.length;i<len;i++){
+					onStr += '<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+onList[i].name+'</p><p class="designer-works-list-describe">'+onList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
+						onStr += '<img src="'+onList[i].pic[j]+'"/>';
+					}
+					onStr += '</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
 				}
-				onStr += '</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
+				getPage(totalPage,page);
 			}
-			getPage(totalPage,page);
+			
 		}else{
 			onStr = '信息加载失败..';
 		}
@@ -265,16 +273,20 @@ function published(page){	//获取已发布数据
 		if(e){
 			var sucList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=sucList.length;i<len;i++){
-				sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].approval_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
-				for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
-					sucStr += '<img src="'+sucList[i].pic[j]+'"/>';
-				}
+			if(sucList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有已发布的商品</p>');
+			}else {
+				for(var i=0,len=sucList.length;i<len;i++){
+					sucStr += '<div class="designer-works-list-box clearfix" data-state=4 data-uptime="'+ sucList[i].approval_time +'" data-size="'+ sucList[i].file_size +'" data-type="'+ sucList[i].type +'" data-id="'+sucList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+sucList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+sucList[i].name+'</p><p class="designer-works-list-describe">'+sucList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					for(var j=0,jlen=sucList[i].pic.length;j<jlen;j++){
+						sucStr += '<img src="'+sucList[i].pic[j]+'"/>';
+					}
 
-				sucStr += '</div></div><div class="designer-works-list-data fl"><div class="list-data-container clearfix"><div class="list-data-box fl"><span class="list-data-num list-download-num">'+sucList[i].download_count+'</span>次下载</div><div class="list-data-box fl"><span class="list-data-num list-collection-num">'+sucList[i].collected_count+'</span>次收藏</div></div><div class="list-data-price">售价：<span class="list-data-price-num">'+sucList[i].good_price+'</span>RMB</div><div class="list-data-update">发布时间：<span class="list-data-update-num">'+sucList[i].approval_time+'</span></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>'
+					sucStr += '</div></div><div class="designer-works-list-data fl"><div class="list-data-container clearfix"><div class="list-data-box fl"><span class="list-data-num list-download-num">'+sucList[i].download_count+'</span>次下载</div><div class="list-data-box fl"><span class="list-data-num list-collection-num">'+sucList[i].collected_count+'</span>次收藏</div></div><div class="list-data-price">售价：<span class="list-data-price-num">'+sucList[i].good_price+'</span>RMB</div><div class="list-data-update">发布时间：<span class="list-data-update-num">'+sucList[i].approval_time+'</span></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>'
+				}
+				sucStr += '<div class="works-canelbox"><button class="works-canelAll-btn">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall"/></div>';
+				getPage(totalPage,page);
 			}
-			sucStr += '<div class="works-canelbox"><button class="works-canelAll-btn">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall"/></div>';
-			getPage(totalPage,page);
 		}else{
 			sucStr = '信息加载失败..';
 		}
@@ -329,17 +341,23 @@ function not_passed(page){		//获取未通过数据
 			var data = JSON.parse(e);
 			var notList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
-			for(var i=0,len=notList.length;i<len;i++){
-				notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
-				var picList=notList[i].pic;
-				for(var j=0,jlen=picList.length;j<jlen;j++){
-					notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
-				}
 
-				notStr+='</div></div><div class="works-data-box fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].not_passed+'</p><p class="works-not-time fr">'+notList[i].modify_time+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
+			if(notList.length == 0){
+				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有未通过的商品</p>');
+			}else {
+				for(var i=0,len=notList.length;i<len;i++){
+					notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
+					var picList=notList[i].pic;
+					for(var j=0,jlen=picList.length;j<jlen;j++){
+						notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
+					}
+
+					notStr+='</div></div><div class="works-data-box fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].not_passed+'</p><p class="works-not-time fr">'+notList[i].modify_time+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
+				}
+				notStr += '<div class="designer-works-cancelAll"><button class="works-cancelAll-btn" onclick="cancelAll()">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
+				getPage(totalPage,page);
 			}
-			notStr +='<div class="designer-works-cancelAll"><button class="works-cancelAll-btn" onclick="cancelAll()">批量取消发布</button><label for="checkall">全选</label><input type="checkbox" class="works-cancel-allcheck" id="checkall" onclick="isCheckAll(this)"/></div></table>';
-			getPage(totalPage,page);
+
 		}else{
 			notStr='信息加载失败';
 		}
