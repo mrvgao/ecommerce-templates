@@ -90,6 +90,8 @@ class UserManager():
             if identity == 'D':
                 new_designer = Designer_User(phone=phone, designername=username, img='photo.png', user=new_user)
                 new_designer.save()
+                new_vender = Vender_User(phone=phone, vendername=username, img='photo.png'    , user=new_user)
+                new_vender.save()
                 new_user.last_name = 'D'
             elif identity == 'V':
                 new_vender = Vender_User(phone=phone, vendername=username, img='photo.png', user=new_user)
