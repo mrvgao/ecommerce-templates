@@ -11,10 +11,14 @@
 			{% if user.is_authenticated %}
 				{% if user.last_name == 'V' %}
 				<a class="ml30" href="/vender/vender-center">进入个人中心</a>
+				{% comment %}
 				<a class="ml20 f13" href="/account/u_logout">退出</a>
+				{% endcomment %}
 				{% else %}
 				<a class="ml30" href="/designer/my_state">进入个人中心</a>
+				{% comment %}
 				<a class="ml20 f13" href="/account/u_logout">退出</a>
+				{% endcomment %}
 				{% endif %}	
 			{% endif %}
 		</div>
