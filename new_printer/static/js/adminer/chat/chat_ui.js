@@ -39,10 +39,15 @@ ChatUI.appendUserList = function(username,nickname,userLogo){
 ChatUI.userInListHoverEffect = function(){
 	$('.chat-user').hover(function(){
 		$(this).addClass('hovered');
-		/*$(this).removeClass('user-'+sex+'-dark');*/
 	},function(){
 		$(this).removeClass('hovered');
 	});
+}
+
+
+ChatUI.showChatUserSum = function(){
+	var chatUserSum = $('.chat-user').length;
+	$('#chat-user-sum').html(chatUserSum);
 }
 
 
@@ -64,8 +69,6 @@ ChatUI.useFace = function(){
 }
 
 ChatUI.remindUser = function(username){
-	l('remidnuser:'+username);
-	;
 	var thisUser = $('div[username|='+username+']');
 	var timer = setInterval(function(){
 		if(thisUser.hasClass('hovered')){
