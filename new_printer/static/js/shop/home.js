@@ -30,7 +30,14 @@ $(function (){
 
 		// mark 的ajax方法
 		function toMark(){
-			$.post('',{},function (){});
+			$.post('shop/mark-goods',{goods_id:40},function (e){
+                e = JSON.parse(e)
+                if(e.state === 'SUCCESS'){
+                    alert(e.state);
+                }else{
+                    alert(e.state);
+                }
+            });
 		}
 	});
 
