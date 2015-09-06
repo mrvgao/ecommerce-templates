@@ -118,6 +118,7 @@ def unpublished_good_search(request):
     '''
     #搜索商品的方法
     '''
+    pdb.set_trace()
     describe = request.POST['search_val']
     user = request.user
     designer = Designer_User.objects.get(user = user).id 

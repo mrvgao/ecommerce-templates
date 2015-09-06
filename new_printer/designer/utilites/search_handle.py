@@ -30,7 +30,7 @@ def unexecuteed_search(describe,id,good_state):
 	s_d = list(jieba.cut(describe, cut_all = True))
 	for i in s_d:
 		#describe_finds = goods.filter(description__exact = i)
-		name_finds = goods.filter(goods_name__exact = i)
+		name_finds = goods.filter(goods_name__contains = i)
 		'''for g in describe_finds:
 			if g.id in finds_id:
 				continue
