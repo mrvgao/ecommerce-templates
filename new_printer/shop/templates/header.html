@@ -24,7 +24,7 @@
 			<a href="/shop/home">3DiLove首页</a>
 			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/vender/vender-center"><em class="site-ico site-download-ico"></em>我的下载</a>
 			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/payment/list_cart"><em class="site-ico site-cart-ico"></em>购物车</a>
-			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="javascript:void(0)"><em class="site-ico site-favorite-ico"></em>收藏夹</a>
+			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/vender/myCollection/works"><em class="site-ico site-favorite-ico"></em>收藏夹</a>
 		</div>
 		{% else %}
 		<ul class="designer-head-nav fr">

@@ -21,9 +21,9 @@
 	
 	<div class="container">
 		<div class="detail-site-guide pt15 pb10">
-			<a href="/list/ring">戒指</a>
+			<a href="/shop/{{ goods_list }}">{{ goods_tags }}</a>
 			>
-			<a href="/list/ring/young">青春洋溢</a>
+			<a href="/shop/{{ goods_list }}/?goods_type={{ goods_type }}">{{ goods_style }}</a>
 			>
             <a href="/shop/goods-detail?goods_id={{ goods_id }}">{{ goods_name }}</a>
 		</div>
@@ -61,7 +61,7 @@
 						<div class="goods-info mb30">{{ goods_description }}</div>
 						<p class="mb30 tc">￥{{ goods_price }}</p>
 						<div class="designer-img bc">
-							<img src="{{ designer_img }}" alt="" />
+							<a href="/designer/designer-show?designer_id={{ designer_id }}"><img src="{{ designer_img }}" alt="" /></a>
 						</div>
 						<p class="tc mt5">设计师：{{ designer_name }}</p>
 					</div>
@@ -147,6 +147,10 @@
 									</a>
 								</div>
 								<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
+								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+									<em class="list-mark-btn-ico"></em>
+									收藏
+								</a>
 							</div>
 						</li>
 
@@ -185,6 +189,10 @@
 									</a>
 								</div>
 								<p class="goods_price f12 tc">￥{{ designer_goods.goods_price }}</p>
+								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+									<em class="list-mark-btn-ico"></em>
+									收藏
+								</a>
 							</div>
 						</li>
 
