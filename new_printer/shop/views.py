@@ -130,6 +130,7 @@ def home(request):
     hot_list = change_to_home_goods(hot_goods_list, vender_id)
 
     context = {
+        'home': True,
         'recommend_list': recommend_list,
         'hot_list': hot_list,
     }
@@ -152,6 +153,7 @@ def ring(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'ring': True,
     }
 
     return render(request, website.list, context)
@@ -167,6 +169,7 @@ def pendant(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'pendant': True,
     }
 
     return render(request, website.list, context)
@@ -182,6 +185,7 @@ def earbob(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'earbob': True,
     }
 
     return render(request, website.list, context)
@@ -197,6 +201,7 @@ def bracelet(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'bracelet': True,
     }
 
     return render(request, website.list, context)
@@ -212,6 +217,7 @@ def torque(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'torque': True,
     }
 
     return render(request, website.list, context)
@@ -227,6 +233,7 @@ def brooch(request):
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
+        'brooch': True,
     }
 
     return render(request, website.list, context)
