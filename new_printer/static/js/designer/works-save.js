@@ -14,12 +14,18 @@ $(function (){
 			var _val = $(this).val(),
 				name = getFileName(_val),
 				_cont;
+
 			addCode(name);
 		});
 	});
 
 	designer_next_btn.on('click',function (){
-		$('.uploadFile').submit();
+		if($('#designer-next-btn').hasClass('actived')){
+			$('.uploadFile').submit();
+		}else {
+			return false;
+		}
+		
 	});
 
 	function addCode(name){
@@ -34,10 +40,13 @@ $(function (){
 			$('.delete-file').eq(i).on('click',function (){
 				var _this = $(this),
 					index = _this.parents('.file-name').index();
+
 				$('.upfile-hide').eq(index).remove();
 				_this.parents('.file-name').remove();
 			});
 		}
+
+		$('#designer-next-btn').addClass('actived');
 	}
 
 	// 获取上传文件的文件名
