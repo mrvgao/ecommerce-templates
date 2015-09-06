@@ -99,6 +99,7 @@ $(function(){
 			var nickname = '匿名用户:'+fromUser;
 			var userlogo = 'someImg';
 			ChatUI.appendUserList(fromUser,nickname,userlogo);	
+			ChatUI.showChatUserSum();
 			ChatUI.remindUser(fromUser);
 		}
 		Chat.saveChatDataInLocal( message, fromUser, fromUser);
@@ -186,6 +187,8 @@ $(function(){
 		Chat.appendChatContainerWithChatMsg(chatProblem, Chat.myUsername)
 		Chat.contentToBottom($('.chated-txt'));
 	});
+
+	ChatUI.showChatUserSum();
 });
 
 

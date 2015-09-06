@@ -15,7 +15,7 @@ $(function (){
 		login_page = $('.login-page'),
 		airm_before = $('.airm-before'),
 		goods_list = [];
-	
+		
 	// 立即下单
 	paynow.on('click',function (){
 		var _this = $(this);
@@ -100,11 +100,23 @@ $(function (){
 	download.on('click',function (){
 		
 		// 获取商品下载链接
-		$.post('/shop/goods-detail/download',{
-			'goods_id': goods_id
+		goods_list.push(goods_id);	
+		
+		$.post('/designer/file_download',{
+			'goods_list': goods_list
 		},function (e){
-			window.open(e[0].download_url);
+			result = JSON.parse(e);
+			glist = result['glist'];
+			file_download_url = result['file_server_download'];
+			for(var r in glist){
+				md5 = glist[r]['md5'];
+				zip_name = glist[r]['zip_name'];
+				url = file_download_url+'/'+md5+'/'+zip_name;
+				var obj=document.getElementById('download'); 
+				obj.contentWindow.location.href=url; 
+			}
 		});
+
 	});
 
 	airm_before.eq(0).addClass('active');
