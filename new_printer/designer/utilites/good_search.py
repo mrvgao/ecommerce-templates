@@ -25,6 +25,8 @@ import time
 import json,pdb
 
 def unexecuteed_search(describe,id,good_state):
+    pdb.set_trace()
+	
 	goods = Goods_Upload.objects.filter(designer_id = id,good_state = good_state)
 	describe_finds = goods.filter(description__icontains = describe)
 	name_finds = goods.filter(goods_name__icontains = describe)

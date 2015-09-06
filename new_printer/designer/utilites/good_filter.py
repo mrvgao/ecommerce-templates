@@ -90,18 +90,18 @@ def unpublish_exec(good_list):
         photo = []
         temp = {}
         if good.preview_1:
-            photo.append(str(server_website.file_server_path)+str(good.preview_1))
+            photo.append(str(server_website.file_server_path)+good.preview_1)
         if good.preview_2:
-            photo.append(str(server_website.file_server_path)+str(good.preview_2))
+            photo.append(str(server_website.file_server_path)+good.preview_2)
         if good.preview_3:
-            photo.append(str(server_website.file_server_path)+str(good.preview_3))
+            photo.append(str(server_website.file_server_path)+good.preview_3)
         #temp{'pic']=photo
         modify = good.restdate
         temp={'id':good.id,
                 'name':good.goods_name,
                 'description':good.description,
                 'good_price':good.goods_price,
-                'preview_1':str(server_website.file_server_path)+str(good.preview_1),
+                'preview_1':str(server_website.file_server_path)+good.preview_1,
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
                 'stl_path':str(server_website.file_server_path)+good.stl_path,
