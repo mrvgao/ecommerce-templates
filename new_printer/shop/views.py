@@ -19,12 +19,14 @@ from shop.utils.goods_handler import GoodsHandler
 from shop.utils.goods_handler import RecommendGoodsHandler
 from utility.common_handler import CommonHandler
 from utility.vender_goods_handler import VenderGoodsHandler
+from social.utils.social_handler import CollectionHandler
 
 per_page_num = 16
 goods_handler = GoodsHandler()
 common_handler = CommonHandler()
 vender_goods_handler = VenderGoodsHandler()
 recommend_goods_handler = RecommendGoodsHandler()
+collection_handler = CollectionHandler()
 
 
 def login_register(request):
@@ -468,3 +470,19 @@ def common_filter(tags_name, sort_name, style_name):
 
 def chat_customer_service_win(request):
     return render(request, website.chat_customer_service_win)
+
+
+def marking(request):
+    goods_id = request.POST['goods_id']
+    vender_id = get_vender_id(request)
+
+    if not vender_id:
+        return HttpResponse(json.dumps({'state': 'FAILURE'}))
+
+    is_collected = collection_handler.is_collected(vender_id, goods_id)
+    if is_collected:
+        collection_handler.cancel_collect_goods(vender_id, goods_id)
+    else:
+        collection_handler.collect_goods(vender_id, goods_id)
+
+    return HttpResponse(json.dumps({'state': 'SUCCESS'}))
