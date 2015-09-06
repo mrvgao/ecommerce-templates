@@ -143,9 +143,8 @@ def workd_unexecute(request):
         total_pages += 1
     last_page = all_len%(website.unexec_one)
     return_list = return_list[now_page*(website.unexec_one):(now_page+1)*(website.unexec_one)]
-    conf = {'all_list':return_list,
-            'icon' : designer.icon,
-            'name':designer.designername,'total_pages':total_pages,'last_page':last_page,'now_page':now_page,
+    conf = {'all_list':return_list, 'icon' : designer.icon,
+            'name':designer.designername, 'total_pages':total_pages, 'last_page':last_page,'now_page':now_page,
             'worksWait':worksWait,'designer.worksOn':worksOn,'designer.worksNot':worksNot,'designer.worksSuc':worksSuc
               }
     return HttpResponse(json.dumps(conf))

@@ -68,15 +68,13 @@ def pass_failed(request):
 		else :
 			failed_reason = failed_reason + str(website.reason_failed[state]) + ','
 		count = count +1'''
-	print failed_reason
-	'''else_reason = '难看'#request.POST['reason']
-	if else_reason:
-		failed_reason = failed_reason + ',' + str(else_reason)'''
+	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
+	unexecuted_works = good_filter.unpublish_exec(not_executed_works)
 	photo = Goods_Upload.objects.filter(id = id).update(
 						good_state = 2,
 						not_passed = failed_reason
 						)
-	conf = {'status':"success"}
+	conf = {'status':"success", 'works_auditing': unexecuted_works}
 	return HttpResponse(json.dumps(conf))
 
 
@@ -90,8 +88,7 @@ def has_failed(request):
 	return HttpResponse(json.dumps(conf))
 #显示已通过的页面
 def has_passed(request):
-	pdb.set_trace()
-	
+
 	has_passed_works = Goods_Upload.objects.filter(good_state = 3)
 	return_list = good_filter.unpublish_exec(has_passed_works)
 	conf = {
@@ -128,7 +125,9 @@ def work_passing(request):
 						file_size = photo.file_size
 						#approval_time = datetime.now()
 						)
-	conf = {'status':"success"}
+	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
+	unexecuted_works = good_filter.unpublish_exec(not_executed_works)
+	conf = {'status':"success", 'works_auditing': unexecuted_works}
 	return HttpResponse(json.dumps(conf))
 
 
