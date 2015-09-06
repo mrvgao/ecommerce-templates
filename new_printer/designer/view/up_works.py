@@ -109,12 +109,12 @@ def file_save(model,name,stl_type):
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(chunks)
     data.append('--%s--\r\n' % boundary)
-    http_url = server_website.file_server_upload
+    http_url = 'http://192.168.1.120:8888/file/stlupload'#server_website.file_server_upload
     http_body = '\r\n'.join(data)
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%server_website.file_server_ip)#'http://192.168.1.101:8888/')
+    req.add_header('Referer','http://192.168.1.120:8888/')#%server_website.file_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=10)
     qrcont=resp.read()
     md = json.loads(qrcont)
@@ -195,12 +195,8 @@ def edit_submit(request):
     previews = request.FILES
     describe = request.POST['stl_describe']
     name = request.POST['stl_name']
-    preview_3 = request.POST['screenshot']
-    if preview_3 != null:
-        file_3 = open('a.png','r+')
-        file_3.write(preview_3)
-        file_3.close()
-        preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
+    #preview_3 = request.POST['screenshot']
+    
     if not name:
         name = good.goods_name
     for preview in previews:
@@ -214,7 +210,7 @@ def edit_submit(request):
             s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
         if count == 2:
             s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
-        
+    
     s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
                         goods_price = int(price),
                         good_state = 1,
@@ -241,10 +237,39 @@ def screenshot(request):
     stl_md5 = stl_md5[0]
     stl_md5 = stl_md5.split('/')[0]
     preview = request.POST['screenshot']
-    preview_type=str(preview)
-    preview_type=preview_type.split('.')
-    preview_md5 = photo_save(preview,preview_type[0],preview_type[1],stl_md5)
-    p_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
+    if 2:#preview != null:
+        file_3 = open('a.jpg','w+')
+        file_3.write(preview)
+        file_3.close()
+        d = open('a.png','r')
+
+    boundary = '----------%s' % hex(int(time.time() * 1000))
+    data = []
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
+    data.append('png')
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"\r\n' % 'md5')
+    data.append(stl_md5)
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str('a')))
+    data.append('Content-Type: %s\r\n' % 'image/png')
+    data.append(preview)
+    data.append('--%s--\r\n' % boundary)
+    http_url = 'http://192.168.1.120:8888/file/imgupload'#server_website.file_server_imgupload#
+    http_body = '\r\n'.join(data)
+    req = urllib2.Request(http_url, data=http_body)
+    req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
+    req.add_header('User-Agent','Mozilla/5.0')
+    req.add_header('Referer','http://192.168.1.120:8888/')#'%server_website.file_server_ip)#)
+    resp = urllib2.urlopen(req, timeout=2545)
+    qrcont=resp.read()
+    md = json.loads(qrcont)
+    print md
+    md5 = md['status']
+    print md5
+
+    p_url = str(stl_md5) + '/' + 'a' + '.' + 'png'
     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p_url)
     conf = {'status':'success'}
     return HttpResponse(json.dumps(conf)) 
