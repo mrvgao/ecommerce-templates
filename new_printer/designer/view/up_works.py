@@ -15,8 +15,9 @@ from django.template import RequestContext
 from django import forms
 from designer.conf import website 
 from configuration import website as server_website
+from configuration.website import file_server_download
 from designer.utilites import search_handle,good_filter
-from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods
+from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods,Vender_User
 from django.contrib.auth.models import User
 import httplib, urllib
 import urllib2,os
@@ -31,7 +32,13 @@ def works_upload(request):
     conf = {'name': designer.designername, 'img': str(server_website.file_server_path) + str(designer.img)}
     return render(request, website.upfile, conf)
 
-def stls_save(stls):
+
+def stls_save(stls,designer):
+    
+    '''pdb.set_trace()
+                user = request.user
+                designer = Designer_User.objects.get(user = user).id'''
+   
     jwary_md5 = {}
     file_size = []
     has_existed = {}
@@ -58,7 +65,7 @@ def stls_save(stls):
     for md5 in jwary_md5:
         stl_url = str(jwary_md5[md5])+'.stl'
         new_jwary = Goods_Upload.objects.create(goods_name = str(md5),
-                                         designer_id = 1,
+                                         designer_id = designer,
                                          stl_path = str(jwary_md5[md5]) + '/' + str(md5) +'.stl',
                                          file_size = str(float('%0.3f'%(file_size[count]/1024.0/1024.0)))+'M',
                                          good_state = 0,
@@ -70,13 +77,15 @@ def stls_save(stls):
 
 @login_required
 def works_save(request):
+    user = request.user
+    designer = Designer_User.objects.get(user = user).id
     if request.method == 'POST':
         a_have = True
         stls = request.FILES.getlist('upfile-img')
         file_hased = []
         count = 0
         if stls:
-            existed = stls_save(stls)
+            existed = stls_save(stls,designer)
             if existed:
                 for i in existed:
                     conf = {'hased':i}
@@ -379,15 +388,24 @@ def file_download(request):
     return:
     '''
     if request.method == 'POST':
+        ISOTIMEFORMAT='%Y-%m-%d %X'
+        date = time.strftime(ISOTIMEFORMAT, time.localtime())
+        user = request.user
+        vender_user = Vender_User.objects.get(user=user)
         goods_list = request.POST.getlist('goods_list[]')
         glist = []
         conf = {}
         for goods_id in goods_list:
             goods = Goods.objects.get(id = goods_id)
+            vg = Vender_Goods.objects.get(vender=vender_user, goods=goods)
+            vg.is_download = True
+            #vg.download_time = datetime.datetime.now()
+            vg.download_time = date
+            vg.save()
             md5 = str(goods.stl_path).split(r'/')[0]
             zip_name = goods.goods_name + '.zip'
             file_ = {}
             file_ = {'md5':md5,'zip_name': zip_name}
             glist.append(file_)
-        conf = {'glist': glist}
+        conf = {'glist': glist, 'file_server_download':file_server_download}
         return HttpResponse(json.dumps(conf))
