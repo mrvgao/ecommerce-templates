@@ -10,44 +10,20 @@
 
 			{% if user.is_authenticated %}
 				{% if user.last_name == 'V' %}
-				<a class="ml30" href="/vender/vender-center">进入个人中心</a>
-				{% comment %}
-				<a class="ml20 f13" href="/account/u_logout">退出</a>
-				{% endcomment %}
+				<a class="ml30" href="/vender/vender-center">商家中心</a>
 				{% else %}
-				<a class="ml30" href="/designer/my_state">进入个人中心</a>
-				{% comment %}
-				<a class="ml20 f13" href="/account/u_logout">退出</a>
-				{% endcomment %}
+				<a class="ml30" href="/designer/my_state">设计师中心</a>
 				{% endif %}	
 			{% endif %}
 		</div>
-
-		{% if user.last_name != 'D' %}
+		
 		<div class="site-utool fr">
 			<a href="/shop/home">3DiLove首页</a>
 			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/vender/vender-center"><em class="site-ico site-download-ico"></em>我的下载</a>
 			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/payment/list_cart"><em class="site-ico site-cart-ico"></em>购物车</a>
 			<a class="{% if not user.is_authenticated %}is_authenticated{% endif %}" href="/vender/myCollection/works"><em class="site-ico site-favorite-ico"></em>收藏夹</a>
 		</div>
-		{% else %}
-		<ul class="designer-head-nav fr">
-			<li ><a href="/shop/home">3Dilove首页</a></li>
-			<li >
-				<span class="designer-head-nav-show"></span>
-				<a href="/designer/my_personal">个人主页</a>
-			</li>
-			<li >
-				<span class="designer-head-nav-upfile"></span>
-				<a href="/designer/works_upload">作品上传</a>
-			</li>
-			<li>
-				<span class="designer-head-nav-work"></span>
-				<a href="/designer/designer_works">作品管理</a>
-			</li>
-		</ul>
-		{% endif %}
-
+		
 	</div>
 </div>
 

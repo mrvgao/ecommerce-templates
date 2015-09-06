@@ -67,10 +67,12 @@
 								</a>
 							</div>
 							<p class="goods_price f12 tc">￥{{ goods.goods_price }}</p>
+							{% if user.last_name == 'V' %}
 							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
 								<em class="list-mark-btn-ico"></em>
 								收藏
 							</a>
+							{% endif %}
 						</div>
 					</li>
 					{% endfor %}
@@ -98,10 +100,12 @@
 								</a>
 							</div>
 							<p class="goods_price f12 tc">￥{{ goods.goods_price }}</p>
+							{% if user.last_name == 'V' %}
 							<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
 								<em class="list-mark-btn-ico"></em>
 								收藏
 							</a>
+							{% endif %}
 						</div>
 					</li>
 					{% endfor %}
