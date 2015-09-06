@@ -227,6 +227,21 @@ def edit_submit(request):
         return HttpResponse(json.dumps(conf))'''
 
 
+def screenshot(request):
+    file_id = request.POST['id']
+    good = Goods_Upload.objects.get(id=file_id)
+    stl_md5 = good.stl_path.encode('utf-8')
+    stl_md5 = stl_md5.split('.')
+    stl_md5 = stl_md5[0]
+    stl_md5 = stl_md5.split('/')[0]
+    preview = request.FILES
+    preview_type=str(preview)
+    preview_type=preview_type.split('.')
+    preview_md5 = photo_save(preview,preview_type[0],preview_type[1],stl_md5)
+    p_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
+    s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p_url)
+
+    
 def deletePic(request):
     #pdb.set_trace()
     this_id = request.POST['id']
