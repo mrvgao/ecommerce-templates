@@ -4,7 +4,7 @@ base_site = 'designer'
 my_state = '%s/designer-center.html'%base_site
 upfile = '%s/designer-upfile.html'%base_site
 works_execute = '%s/designer-works.html'%base_site
-setup = '%s/designer-setinfo.html'%base_site
+setup = '%s/designer-setInfo.html'%base_site
 change_icon = '%s/change_icon.html'%base_site
 my_personal = '%s/designer-show.html'%base_site
 

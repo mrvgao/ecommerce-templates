@@ -589,6 +589,7 @@ function edit(){	//编辑弹窗函数
 			_kind = 'unexecute';
 
 		p_editInfo (_this,_kind);
+		$('.modify-imgs').attr('src','/static/images/common/up_default.jpg');
 
 	});
 
