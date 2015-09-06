@@ -53,7 +53,7 @@
 				padding-top: 12px;
 			}
 			.tool-bar-choosed{
-				background-color: #FF766F;
+				background-color: #FF766F !important;
 				font-size: 14px;
 				color: #FFF;
 			}
@@ -168,6 +168,7 @@
 				height: 162px;
 				position: relative;
 				float: right;
+				background-color: aquamarine;
 			}
 			.pages-bar{
 				width: 960px;
@@ -222,7 +223,7 @@
 				<a href="" style="text-decoration: blink;color: #FFF;">退出</a>
 			</div>
 			<div class='tool-bar'>
-				<div style="float:left; height: 36px;" class="tool-bar-choosed">
+				<div style="float:left; height: 36px;background: inherit;" class="tool-bar-choosed">
 					<div style="float: left;width: 109px;height: 25px;text-align: center;padding-top: 11px;  padding-left: 4px;">作品审核管理</div>
 					<div style="float: left;height: 27px;padding-top: 9px;  font-size: 17px;width: 9px;">|</div>
 					<div class="tool-bar-select" value="folded">
@@ -345,55 +346,55 @@
 						font-size: 14px;
 						padding-left: 9px;
 						padding-top: 9px;
-						background-color: #EBEBEB;">当前接入(<span>5</span>)</div>
+						background-color: #EBEBEB;">当前接入(<span id="chat-user-sum">5</span>)</div>
 					<div class="user-list">
-						<div class="chat-user choosed" username="user1">
-							<img src="">
-							<div>东海三</div>
-						</div>
-						<div class="chat-user" username="user2">
-							<img src="">
-							<div>东海三</div>
-						</div>
-						<div class="chat-user" username="user3">
-							<img src="">
-							<div>东海三</div>
-						</div>
+						<!--<div class="chat-user choosed" username="user1">-->
+							<!--<img src="">-->
+							<!--<div>东海三</div>-->
+							<!--</div>-->
+						<!--<div class="chat-user" username="user2">-->
+							<!--<img src="">-->
+							<!--<div>东海三</div>-->
+							<!--</div>-->
+						<!--<div class="chat-user" username="user3">-->
+							<!--<img src="">-->
+							<!--<div>东海三</div>-->
+							<!--</div>-->
 					</div>
 				</div>
 				<div class="chat-box">
 					<div class="chat-tag-bar">
-						<div class="chat-tag">
-							<div style="float: left;color:#fff;">钻石人生</div>
-							<div style="float: right;margin-top: -10px;margin-right: 2px;color:#fff;">×</div>
-						</div>
+						<!--<div class="chat-tag">-->
+							<!--<div style="float: left;color:#fff;">钻石人生</div>-->
+							<!--<div style="float: right;margin-top: -10px;margin-right: 2px;color:#fff;">×</div>-->
+							<!--</div>-->
 					</div>
 					<div class="chated-txt">
-						<div class="chat-message">
-							<div class="chat-message-info">
-								<span>客服</span>
-								<span style="padding-left: 8px;">10:12</span>
-							</div>
-							<div class="chat-message-cont">您好</div>
-						</div>
+						<!--<div class="chat-message">-->
+							<!--<div class="chat-message-info">-->
+								<!--<span>客服</span>-->
+								<!--<span style="padding-left: 8px;">10:12</span>-->
+								<!--</div>-->
+							<!--<div class="chat-message-cont">您好</div>-->
+							<!--</div>-->
 					</div>
 					<div class="chat-tool-bar">
-						<div class="chat-tool">
-							<div style="background: url('{% static 'images/adminer/widget.png' %}') no-repeat;width: 25px;height: 25px;background-position: -5px -44px;float:left;"></div>
-							<div style="  font-size: 13px;padding-top: 5px;padding-left: 2px;float: left;font-weight: bold;">照片</div>
-						</div>
+						<!--<div class="chat-tool">-->
+							<!--<div style="background: url('{% static 'images/adminer/widget.png' %}') no-repeat;width: 25px;height: 25px;background-position: -5px -44px;float:left;"></div>-->
+							<!--<div style="  font-size: 13px;padding-top: 5px;padding-left: 2px;float: left;font-weight: bold;">照片</div>-->
+							<!--</div>-->
 						<div class="chat-tool" id="face">
 							<div style="background: url('{% static 'images/adminer/widget.png' %}') no-repeat;width: 25px;height: 25px;background-position: -32px -44px;float:left;"></div>
 							<div style="  font-size: 13px;padding-top: 5px;padding-left: 2px;float: left;font-weight: bold;">表情</div>
 						</div>
 						<div id='face-box' class='face-box'>
-							<ul>
+							<ul style="margin: 4px;padding: 0px;">
 							</ul>
 						</div>
-						<div class="chat-tool">
-							<div style="background: url('{% static 'images/adminer/widget.png' %}') no-repeat;width: 25px;height: 25px;background-position: -60px -44px;float:left;"></div>
-							<div style="  font-size: 13px;padding-top: 5px;padding-left: 2px;float: left;font-weight: bold;">记录</div>
-						</div>
+						<!--<div class="chat-tool">-->
+							<!--<div style="background: url('{% static 'images/adminer/widget.png' %}') no-repeat;width: 25px;height: 25px;background-position: -60px -44px;float:left;"></div>-->
+							<!--<div style="  font-size: 13px;padding-top: 5px;padding-left: 2px;float: left;font-weight: bold;">记录</div>-->
+							<!--</div>-->
 					</div>
 					<div class="chat-entry" contenteditable="true"></div>
 					<div class="send-msg-bar">
@@ -546,12 +547,13 @@
 				border: 1px solid #DBDBDB;
 			}
 			.chat-entry{
-				width: 600px;
+				width: 595px;
 				height: 73px;
 				resize: none;
 				border: 1px solid #E1E1E1;
 				background-color: #fff;
 				padding: 8px;
+				margin-left: 2px;
 			}
 			.send-msg-bar{
 				height: 53px;
@@ -611,7 +613,7 @@
 				max-width: 400px;
 				background-color: #111;
 				position: absolute;
-				top: 355px;
+				top: 366px;
 				left: 100px;
 				display: none;
 			}   
