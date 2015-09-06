@@ -415,12 +415,7 @@ def paging(request):
     end = (page_now + 1) * per_page_num
     goods_list = common_filter(tags_name, sort_name, style_name)
     page_length = get_page_length(goods_list)
-<<<<<<< HEAD
-    goods_list = goods_list[start:end] 
-=======
     goods_list = goods_list[start:end]
-    print len(goods_list)
->>>>>>> 7f1d9e91ea8b3cef12f01f1e7ae6dc3dcd2f84af
 
     
     context = {
