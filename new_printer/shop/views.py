@@ -62,6 +62,7 @@ def test(request):
         index_goods_designer.set_index_goods_designer(goods_list, type_class[i], type_name[i])
         type_list.append(index_goods_designer)
 
+
     context = {
         'type_list': type_list,
     }
@@ -388,8 +389,9 @@ def paging(request):
     end = (page_now + 1) * per_page_num
     goods_list = common_filter(tags_name, sort_name, style_name)
     page_length = get_page_length(goods_list)
-    goods_list = goods_list[start:end]
+    goods_list = goods_list[start:end] 
 
+    
     context = {
         'goods_list': goods_list, 'page_length': page_length,
     }
