@@ -13,9 +13,9 @@ $(function (){
 		signIn_remeber = document.getElementsByClassName('signIn-remeber')[0],
 		input_play_box = $('.input-play-box'),
 		signIn = $('.signIn'),
-		signUp = $('.signUp');
-	var phone_register;
-	var phone_code;
+		signUp = $('.signUp'),
+		phone_register,
+		phone_code;
 
 
 	// 显示弹出框
@@ -149,7 +149,54 @@ $(function (){
 						
 					});
 				}
-				if(!_this.hasClass('is_registered') && !_this.hasClass('is_registered_r')){
+
+				//注册，验证邀请码
+				if(_this.hasClass('invitecode')){
+					
+					var _this = $(this);
+					phone_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(0).val();
+					code_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(1).val();
+					
+					$.post('/account/check_code',{'phone':phone_register,'code':code_register},function (e){
+						result = JSON.parse(e);
+						// 如果存在就返回 true , 否则就返回 false
+						if(result['status']=='TRUE'){
+							_next.slideUp();
+							_this.removeClass('active');
+							signInResult[1] = true;
+						}else {
+							_next.slideDown();
+							_this.addClass('active');
+							signInResult[1] = false;
+						}
+						
+					});
+				}
+
+				//注册，验证用户名
+				if(_this.hasClass('is_username')){
+					
+					var _this = $(this);
+					username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
+					
+					$.post('/account/check_username',{'username':username},function (e){
+						result = JSON.parse(e);
+						// 如果存在就返回 true , 否则就返回 false
+						if(result['status']=='FALSE'){
+							_next.slideUp();
+							_this.removeClass('active');
+							signInResult[0] = true;
+						}else {
+							_next.slideDown();
+							_this.addClass('active');
+							_ts.text('该用户名已被注册');
+							signInResult[0] = false;
+						}
+						
+					});
+				}
+
+				if(!_this.hasClass('is_registered') && !_this.hasClass('is_registered_r') && !_this.hasClass('invitecode') && !_this.hasClass('is_username')){
 					if(_next.css('display') == 'block'){
 						_next.slideUp();
 						_this.removeClass('active');
@@ -177,53 +224,8 @@ $(function (){
 					break;
 			}
 
-			//注册，验证邀请码
-			if(_this.hasClass('invitecode')){
-				
-				var _this = $(this);
-				phone_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(0).val();
-				code_register = _this.parents('.sign-bindphoto').find('.sign-input').eq(1).val();
-				
-				$.post('/account/check_code',{'phone':phone_register,'code':code_register},function (e){
-					result = JSON.parse(e);
-					// 如果存在就返回 true , 否则就返回 false
-					if(result['status']=='TRUE'){
-						_next.slideUp();
-						_this.removeClass('active');
-						signInResult[1] = true;
-					}else {
-						_next.slideDown();
-						_this.addClass('active');
-						signInResult[1] = false;
-					}
-					
-				});
-			}
-
-			//注册，验证用户名
-			if(_this.hasClass('is_username')){
-				
-				var _this = $(this);
-				username = _this.parents('.sign-signUp').find('.sign-input').eq(0).val();
-				
-				$.post('/account/check_username',{'username':username},function (e){
-					result = JSON.parse(e);
-					// 如果存在就返回 true , 否则就返回 false
-					if(result['status']=='FALSE'){
-						_next.slideUp();
-						_this.removeClass('active');
-						signInResult[0] = true;
-					}else {
-						_next.slideDown();
-						_this.addClass('active');
-						signInResult[0] = false;
-					}
-					
-				});
-			}
-
-
 		});
+
 
 		// 点击下一步
 		register_next.on('click',function (){
@@ -234,6 +236,7 @@ $(function (){
 				input_play_box.animate({'left':-250});
 			}
 		});
+
 
 		// 点击注册
 		register_btn.on('click',function (){
@@ -255,10 +258,12 @@ $(function (){
 			}
 		});
 
+
 		// 返回上一步
 		back_prev.on('click',function (){
 			input_play_box.animate({'left':0});
 		});
+
 
 		// 登陆
 		login_btn.on('click',function (){

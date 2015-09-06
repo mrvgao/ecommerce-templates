@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponseRedirect
 
@@ -23,6 +24,7 @@ def test(request):
     return render(request, website.test)
 
 
+@login_required
 def vender_center(request):
 
     class VenderBills(object):
@@ -71,9 +73,9 @@ def vender_center(request):
             vender_bills_list.extend(vender_bills_part_list)
         return vender_bills_list
 
-    vender_id = 2
-
-    vender = Vender_User.objects.get(id=vender_id)
+    user = request.user
+    vender = Vender_User.objects.get(user_id=user.id)
+    vender_id = vender.id
 
     bill_list = Bills.objects.filter(vender_id=vender_id)
 
@@ -87,6 +89,7 @@ def vender_center(request):
     return render(request, website.vender_center, context)
 
 
+@login_required
 def designers_collection(request):
 
     class DesignerCollection(object):
@@ -112,8 +115,9 @@ def designers_collection(request):
             designer_list.append(designer_collection)
         return designer_list
 
-    vender_id = 2
-    vender = Vender_User.objects.get(id=vender_id)
+    user = request.user
+    vender = Vender_User.objects.get(user_id=user.id)
+    vender_id = vender.id
 
     vender_designer_list  = Vender_Designer.objects.filter(vender_id=vender_id)
     designer_list = get_designer_list(vender_designer_list)
@@ -126,6 +130,7 @@ def designers_collection(request):
     return render(request,website.designers_collection,context)
 
 
+@login_required
 def works_collection(request):
     class WorksCollection(object):
 
@@ -158,8 +163,9 @@ def works_collection(request):
             work_list.append(works_collection)
         return work_list
 
-    vender_id = 2
-    vender = Vender_User.objects.get(id=vender_id)
+    user = request.user
+    vender = Vender_User.objects.get(user_id=user.id)
+    vender_id = vender.id
 
     vender_goods_list = Vender_Goods.objects.filter(vender_id=vender_id).filter(is_collected=True)
     work_list = get_work_list(vender_goods_list)
@@ -172,6 +178,7 @@ def works_collection(request):
     return render(request,website.works_collection,context)
 
 
+@login_required
 def set_account(request):
 
     class VenderAccount(object):
@@ -189,9 +196,9 @@ def set_account(request):
             self.vender_identity = identity
 
     identity = u'商家'
-    vender_id = 2
+    user = request.user
+    vender = Vender_User.objects.get(user_id=user.id)
 
-    vender = Vender_User.objects.get(id=vender_id)
     vender_account = VenderAccount()
     vender_account.set_vender_account(vender.vendername, common_handler.get_file_path(str(vender.img)),vender.phone, identity)
 

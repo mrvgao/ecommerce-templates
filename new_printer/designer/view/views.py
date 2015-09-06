@@ -145,7 +145,6 @@ def unpublished_good_search(request):
                     'not_passed':good.not_passed
             }
             goods_find.append(temp)
-        conf = {'all_list':goods_find}
     else:
         result_goods = search_handle.published_search(describe,designer)
         goods_find = []
@@ -167,7 +166,10 @@ def unpublished_good_search(request):
                     'download_count':good.download_count
             }
             goods_find.append(temp)
-    total_pages = len(goods_find)/2+1
+    if len(goods_find)%2 == 1:
+        total_pages = len(goods_find)/2+1
+    else:
+        total_pages = len(goods_find)/2
   
     conf = {'all_list':goods_find,'total_pages':total_pages}
     return HttpResponse(json.dumps(conf))

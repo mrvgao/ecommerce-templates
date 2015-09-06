@@ -14,6 +14,10 @@ $(function(){
 					monthNumwork = JSON.parse(e).monthNumwork,
 					weekNumcenter = JSON.parse(e).weekNumcenter,
 					monthNumcenter = JSON.parse(e).monthNumcenter;
+				console.log(weekNumwork)
+				console.log(monthNumwork)
+				console.log(weekNumcenter)
+				console.log(monthNumcenter)
 
 				work_data_w = [
 			    	{
