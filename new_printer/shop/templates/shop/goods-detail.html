@@ -25,7 +25,7 @@
 			>
 			<a href="/list/ring/young">青春洋溢</a>
 			>
-			<a href="/shop/goods-detail?goods_id=1">{{ goods_name }}</a>
+            <a href="/shop/goods-detail?goods_id={{ goods_id }}">{{ goods_name }}</a>
 		</div>
 		<div class="detail-cont pb100">
 			<div  data-id="{{ goods_id }}" class="detail-wrap mt30 pb50 clearfix">
@@ -127,7 +127,7 @@
 						<li>
 							<div class="list-box pr">
 								<div class="list-img mb10">
-				                    <a target="_blank" href="goods_detail?goods_id={{ goods.goods_id }}">
+				                    <a target="_blank" href="goods-detail?goods_id={{ other_goods.goods_id }}">
 										<img class="goods_img" src="{{ other_goods.goods_img }}" alt="" />
 									</a>
 								</div>
@@ -142,7 +142,7 @@
 									</p>
 								</div>
 								<div class="list-title tc mb10">
-				                    <a class="goods_name" target="_blank" href="goods_detail?goods_id={{ other_goods.goods_id }}">
+				                    <a class="goods_name" target="_blank" href="goods-detail?goods_id={{ other_goods.goods_id }}">
 									{{ other_goods.goods_name }}
 									</a>
 								</div>
