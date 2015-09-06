@@ -368,7 +368,8 @@ em.poptri {
 	color:#30B1BD;
 }
 .chat-word-cont {
-	max-width:380px;
+	max-width:468px;
+	word-wrap: break-word;
 }
 .chat-word-customer, .chat-word-us {
 	margin-bottom:16px;
@@ -416,6 +417,7 @@ em.select-history-ico {
 	height:60px;
 	margin:10px;
 	border:none;
+	overflow-y: auto;
 }
 .chatting-submit {
 	background:#f5f5f5;

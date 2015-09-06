@@ -58,11 +58,11 @@ $(function(){
 	/*Main.checkLogin();*/
 
 	// emit connect message to node
-	if(Main.userInfo === null){
-		socket.emit('chat/anonymous_user/connect');
-	}else{
-		socket.emit('chat/logged_in_user/connect', Main.userInfo);
-	}
+	/*if(Main.userInfo === null){*/
+	socket.emit('chat/anonymous_user/connect');
+	/*}else{*/
+	/*socket.emit('chat/logged_in_user/connect', Main.userInfo);*/
+	/*}*/
 
 	Chat.registerUserElement();
 
@@ -396,10 +396,12 @@ Chat.saveChatDataInLocal = function(content, fromUser, chatWith){
 
 Chat.sendMsg = function(){
 	var inputCont = $('.chat-entry').html();						
+	if(inputCont === ''){
+		return;
+	} 
 	Chat.appendChatContainerWithChatMsg(inputCont, Chat.myUsername);
 	Chat.contentToBottom($('.chated-txt'));
 	socket.emit('chat/new_chat_message',Chat.myUsername, Chat.nowTargUser, inputCont);
-	l('msg emmited');
 }
 
 
@@ -412,10 +414,10 @@ Chat.appendChatContainerWithChatMsg = function(newChatMsg, sender){
 
 
 	var message = 
-	'<div class="chat-word-customer">'+
-	'<p class="chat-word-title mb5">'+sender+'</p>'+
-	'<div class="chat-word-cont">'+newChatMsg+'</div>'+
-	'</div>';
+		'<div class="chat-word-customer">'+
+		'<p class="chat-word-title mb5">'+sender+'</p>'+
+		'<div class="chat-word-cont">'+newChatMsg+'</div>'+
+		'</div>';
 	$('.chated-txt').html($('.chated-txt').html()+message);
 	$('.chat-entry').html(null);
 }

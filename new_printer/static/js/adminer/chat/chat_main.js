@@ -376,6 +376,9 @@ Chat.saveChatDataInLocal = function(content, fromUser, chatWith){
 
 Chat.sendMsg = function(){
 	var inputCont = $('.chat-entry').html();						
+	if(inputCont === ''){
+		return;
+	}
 	Chat.appendChatContainerWithChatMsg(inputCont, Chat.myUsername);
 	Chat.contentToBottom($('.chated-txt'));
 	socket.emit('chat/new_chat_message',Chat.myUsername, Chat.nowTargUser, inputCont);
