@@ -20,9 +20,44 @@ $(function(){
 
 	Commom.registerClassBtn();
 
-	Commom.goodsHtml.untreated = $(".goods-container ul").html();
+	/*Commom.goodsHtml.untreated = $(".goods-container ul").html();*/
 
-	Commom.goodsDomTemplate = $(".goods-container li").eq(0).prop('outerHTML');
+	/*Commom.goodsDomTemplate = $(".goods-container li").eq(0).prop('outerHTML');*/
+
+
+	Commom.goodsDomTemplate = 
+	'<div class="good-container">'+
+	'<div class="good-info">'+
+	'<span style="letter-spacing: -1px;">作品编号:</span>'+
+	'<span id="good-id" style="font-size: 13px;">232</span>'+
+	'<span style="margin-left: 622px;letter-spacing: -1px;">最后修改时间:</span>'+
+	'<span id="good-modified-time" style="font-size: 13px;margin-left: 6px;">2015-09-06</span>'+
+	'</div>'+
+	'<div style="background-color: #FFF;width: 960px;height: 198px;">'+
+	'<div class="good-pic-div">'+
+	'<div class="good-pic">'+
+	'<img id="good-img-1" src="http://192.168.1.101:8888/static/photo.png">'+
+	'</div>'+
+	'<div class="good-pic">'+
+	'<img id="good-img-2" src="http://192.168.1.101:8888/static/photo.png">'+
+	'</div>'+
+	'<div class="good-pic">'+
+	'<img id="good-img-3" src="http://192.168.1.101:8888/static/">'+
+	'</div>'+
+	'<div class="good-stl">'+
+	'</div>'+
+	'</div>'+
+	'<div class="good-info-for-detail">'+
+	'<p id="good-name" style="font-size: 14px;font-weight: bold;margin-top: 22px;">jinx_暴走萝莉</p>'+
+	'<p id="good-description" style="  font-size: 12px;font-weight: bold;margin-top: -1px;width: 260px;height: 32px;margin-bottom: 14px;color: #7A7A7A;">das</p>'+
+	'<span id="good-price" style="font-size: 14px;color: #FF766F;">￥1.0</span>'+
+	'<span id="good-type" style="margin-left: 17px;font-size: 13px;font-weight: bold;">stl文件</span>'+
+	'<span id="good-file-size" style="margin-left: 8px;font-size: 13px;font-weight: bold;">0.738MB</span>'+
+	'<div name="good-deny" class="good-btn" style="  float: left;margin-left: 30px;background-color: #D7D7D7;color: #767676;">驳回作品</div>'+
+	'<div name="good-pass" class="good-btn" style="float: right;margin-right: 9px;">审核通过</div>'+
+	'</div>style'+
+	'</div>'+
+	'</div>';
 
 	Commom.registerShow3dBtn();
 });
@@ -110,6 +145,7 @@ Commom.registerGoodBtn = function(){
 			Commom.registerPageBtn();
 			Commom.registerGoodBtn();
 			Commom.registerShow3dBtn();
+			Commom.goodsHtml.untreated = $(".goods-container ul").html();
 		})
 	});
 
@@ -126,6 +162,7 @@ Commom.registerGoodBtn = function(){
 			Commom.registerPageBtn();
 			Commom.registerGoodBtn();
 			Commom.registerShow3dBtn();
+			Commom.goodsHtml.untreated = $(".goods-container ul").html();
 		})
 	});
 }
@@ -181,58 +218,62 @@ Commom.registerClassBtn = function(){
 
 		if(btnVal === '0'){
 
-			if(Commom.goodsHtml.untreated === null){
-				$.post('/adminer/word_list', {}, function(e){
-					var goods = JSON.parse(e).works_auditing;
-					Commom.appendGood(goods);
-					Commom.initPageBtn();
-					Commom.registerPageBtn();
-					Commom.registerGoodBtn();
-					Commom.registerShow3dBtn();
-				})
-			}else{
-				$(".goods-container ul").html(Commom.goodsHtml.untreated);
+			/*if(Commom.goodsHtml.untreated === null){*/
+			$.post('/adminer/word_list', {}, function(e){
+				l('0:'+JSON.stringify(e));
+				var goods = JSON.parse(e).works_auditing;
+				Commom.appendGood(goods);
 				Commom.initPageBtn();
 				Commom.registerPageBtn();
 				Commom.registerGoodBtn();
 				Commom.registerShow3dBtn();
-			}
+			})
+			/*}else{*/
+			/*$(".goods-container ul").html(Commom.goodsHtml.untreated);*/
+			/*Commom.initPageBtn();*/
+			/*Commom.registerPageBtn();*/
+			/*Commom.registerGoodBtn();*/
+			/*Commom.registerShow3dBtn();*/
+			/*}*/
 		}else if(btnVal === '1'){
 
-			if(Commom.goodsHtml.passed === null){
-				$.post('/adminer/has_failed', {}, function(e){
-					var goods = JSON.parse(e).works_auditing;
-					Commom.appendGood(goods);
-					Commom.initPageBtn();
-					Commom.registerPageBtn();
-					Commom.removeGoodBtn();
-					Commom.registerShow3dBtn();
-				})
-			}else{
-				$(".goods-container ul").html(Commom.goodsHtml.passed);
+			/*if(Commom.goodsHtml.passed === null){*/
+			$.post('/adminer/has_failed', {}, function(e){
+				l('1:'+JSON.stringify(e));
+				var goods = JSON.parse(e).works_auditing;
+				Commom.appendGood(goods);
 				Commom.initPageBtn();
 				Commom.registerPageBtn();
 				Commom.removeGoodBtn();
 				Commom.registerShow3dBtn();
-			}
+				l('ov');
+			})
+			/*}else{*/
+			/*$(".goods-container ul").html(Commom.goodsHtml.passed);*/
+			/*Commom.initPageBtn();*/
+			/*Commom.registerPageBtn();*/
+			/*Commom.removeGoodBtn();*/
+			/*Commom.registerShow3dBtn();*/
+			/*}*/
 		}else if(btnVal === '2'){
 
-			if(Commom.goodsHtml.failed === null){
-				$.post('/adminer/has_passed', {}, function(e){
-					var goods = JSON.parse(e).works_auditing;
-					Commom.appendGood(goods);
-					Commom.initPageBtn();
-					Commom.registerPageBtn();
-					Commom.removeGoodBtn();
-					Commom.registerShow3dBtn();
-				})
-			}else{
-				$(".goods-container ul").html(Commom.goodsHtml.failed);
+			/*if(Commom.goodsHtml.failed === null){*/
+			$.post('/adminer/has_passed', {}, function(e){
+				l('2:'+JSON.stringify(e));
+				var goods = JSON.parse(e).works_auditing;
+				Commom.appendGood(goods);
 				Commom.initPageBtn();
 				Commom.registerPageBtn();
 				Commom.removeGoodBtn();
 				Commom.registerShow3dBtn();
-			}
+			})
+			/*}else{*/
+			/*$(".goods-container ul").html(Commom.goodsHtml.failed);*/
+			/*Commom.initPageBtn();*/
+			/*Commom.registerPageBtn();*/
+			/*Commom.removeGoodBtn();*/
+			/*Commom.registerShow3dBtn();*/
+			/*}*/
 		}
 		var thisDom = $(this).prop('outerHTML');
 		$(this).remove();
@@ -241,6 +282,7 @@ Commom.registerClassBtn = function(){
 }
 
 Commom.initPageBtn = function(){
+	l('even_1');
 	var goodSum = $(".goods-container ul").find('li').length;
 	var pageSum = (goodSum+1)/2;
 
@@ -256,6 +298,7 @@ Commom.initPageBtn = function(){
 		var pageDom = '<div class="pages-btn" value="'+i+'">'+i+'</div>';
 		$('.pages-btn').last().before(pageDom);
 	}
+	l('even');
 }
 
 Commom.appendGood = function(goods){
