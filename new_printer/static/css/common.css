@@ -152,6 +152,9 @@ body {
 .classify-box ul li a:hover {
 	background:#43b6c1;
 }
+.classify-box ul li.active a {
+	background:#43b6c1;
+}
 .classify-box ul li:first-child {
 	margin-left:0;
 }

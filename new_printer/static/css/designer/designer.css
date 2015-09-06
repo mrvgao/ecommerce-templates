@@ -795,7 +795,7 @@ em.add-alipay-ico {
 }
 .modify-describe{
 	display:inline-block;
-	width: 254px;
+	width: 244px;
 	height: 64px;
 	padding: 5px;
 }
@@ -1044,7 +1044,7 @@ em.mark-num-ico {
 	height:34px;
 }
 .set-payinfo-btn button {
-	width:118px;
+	width:117px;
 	height:34px;
 	border:1px solid #62cdd7;
 	cursor:pointer;
@@ -1118,7 +1118,7 @@ em.test-ico.test-false {
 	left:50%;
 	top:50%;
 	margin-top:-280px;
-	margin-left:-375px;
+	margin-left:-310px;
 	background:#fff;
 	padding:20px;
 }

@@ -255,7 +255,8 @@ $(function (){
 					if (result['status'] == 'FAILURE'){
 						$.msgBox.mini('注册失败，请重新注册');
 					}else{
-						$.msgBox.mini('注册成功，请登录');
+						$.msgBox.mini('注册成功，请登陆');
+						input_play_box.animate({'left':-500});
 					}
 
 				});
@@ -297,10 +298,8 @@ $(function (){
 						_input.eq(1).next().slideDown();
 					}else{
 						if(isRemeber){
-							// get Cookie
-							if(!uphone){
-								addCookie('uphone', uname, 10);
-							}
+							// set Cookie
+							addCookie('uphone', phone, 10);
 						}
 						
 						window.location.assign('/shop/home');
