@@ -113,7 +113,10 @@ Commom.registerGoodBtn = function(){
 		var goodType = $('#good-type').val();
 		var goodStyle = $('#good-style').val();
 		$.post('/adminer/work_passing', {'id': workId, 'type_state': goodType, 'style_state': goodStyle}, function(e){
-			l('pass succeed');	  
+			if(JSON.parse(e).status === 'success'){
+				location.reload();
+			}
+			l(JSON.parse(e).status);
 		})
 	});
 }
@@ -232,7 +235,7 @@ Commom.initPageBtn = function(){
 	var goodSum = $(".goods-container ul").find('li').length;
 	var pageSum = (goodSum+1)/2;
 
-	// make sure the goods sun is even number
+	// make sure the goods sum is even number
 	if(goodSum%2 === 1){
 		var blankGoodDom = '<li><div style="width:960px;height:244px;"></div></li>'
 		$(".goods-container ul").append(blankGoodDom);	
@@ -268,6 +271,5 @@ Commom.removeGoodBtn = function(){
 		$(this).find('.good-btn').each(function(index){
 			$(this).remove();							  
 		});
-		/*$(this).find('.good-btn').eq(1).remove();*/
 	});
 }
