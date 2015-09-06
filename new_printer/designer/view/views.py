@@ -119,7 +119,8 @@ def unpublished_good_search(request):
     #搜索商品的方法
     '''
     describe = request.POST['search_val']
-    designer = 1
+    user = request.user
+    designer = Designer_User.objects.get(user = user).id 
     good_state = int(request.POST['search_type'])
     if good_state < 3:
         result_goods = search_handle.unexecuteed_search(describe,designer,good_state)
