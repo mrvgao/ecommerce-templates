@@ -73,6 +73,31 @@ def index(request):
     return render(request, website.index)
 
 
+def get_vender_id(request):
+
+    user = request.user
+    try:
+        vender_id = Vender_User.objects.get(user_id=user.id).id
+    except ObjectDoesNotExist:
+        vender_id = None
+    return vender_id
+
+
+def get_is_collected(goods_id, vender_id):
+    if vender_id:
+        is_collected = vender_goods_handler.get_is_collected(goods_id, vender_id)
+    else:
+        is_collected = False
+    return is_collected
+
+
+def get_is_buy(goods_id, vender_id):
+    if vender_id:
+        is_buy = vender_goods_handler.get_is_buy(goods_id, vender_id)
+    else:
+        is_buy = False
+    return is_buy
+
 def home(request):
 
     class HomeGoods(object):
@@ -87,14 +112,14 @@ def home(request):
     def change_to_home_goods(goods_list, vender_id):
         return_list = []
         for goods in goods_list:
-            is_collected = vender_goods_handler.get_is_collected(goods.id, vender_id)
+            is_collected = get_is_collected(goods.id, vender_id)
             goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
                            goods.goods_price, is_collected)
             home_goods = HomeGoods(goods_param)
             return_list.append(home_goods)
         return return_list
 
-    vender_id = 2
+    vender_id = get_vender_id(request)
     goods_list = Goods.objects.all()
     recommend_goods_list = goods_handler.comprehension_sort(goods_list)[:6]
     recommend_list = change_to_home_goods(recommend_goods_list, vender_id)
@@ -116,7 +141,7 @@ def list(request):
 
 def ring(request):
     goods_tags = u'戒指'
-    vender_id = 2
+    vender_id = get_vender_id(request)
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
     page_length = get_page_length(goods_list)
@@ -131,7 +156,7 @@ def ring(request):
 
 def pendant(request):
     goods_tags = u'吊坠'
-    vender_id = 2
+    vender_id = get_vender_id(request)
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
     page_length = get_page_length(goods_list)
@@ -146,7 +171,7 @@ def pendant(request):
 
 def earbob(request):
     goods_tags = u'耳坠'
-    vender_id = 2
+    vender_id = get_vender_id(request)
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
     page_length = get_page_length(goods_list)
@@ -161,7 +186,7 @@ def earbob(request):
 
 def bracelet(request):
     goods_tags = u'手链'
-    vender_id = 2
+    vender_id = get_vender_id(request)
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
     page_length = get_page_length(goods_list)
@@ -176,7 +201,7 @@ def bracelet(request):
 
 def torque(request):
     goods_tags = u'项链'
-    vender_id = 2
+    vender_id = get_vender_id(request)
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
     page_length = get_page_length(goods_list)
@@ -191,7 +216,7 @@ def torque(request):
 
 def brooch(request):
     goods_tags = u'胸针'
-    vender_id = 2
+    vender_id = get_vender_id(request)
 
     goods_list = get_goods_list_by_tags(goods_tags, vender_id)
     page_length = get_page_length(goods_list)
@@ -218,7 +243,7 @@ def get_goods_list_by_tags(goods_tags, vender_id):
     def change_to_tag_goods(sort_goods_list, vender_id):
         goods_list = []
         for goods in sort_goods_list:
-            is_collected = vender_goods_handler.get_is_collected(goods.id, vender_id)
+            is_collected = get_is_collected(goods.id, vender_id)
             goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
                            goods.tags, is_collected, goods.download_count,
                            goods.collected_count, goods.goods_price)
@@ -314,9 +339,8 @@ def goods_detail(request):
     goods = Goods.objects.get(id=goods_id)
     designer_id = goods.designer_id
     designer = Designer_User.objects.get(id=designer_id)
-    user = request.user
-    vender_id = Vender_User.objects.get(user_id=user.id).id
-    is_buy = vender_goods_handler.get_is_buy(goods_id, vender_id)
+    vender_id = get_vender_id(request)
+    is_buy = get_is_buy(goods_id, vender_id)
 
     goods_img_list = []
     goods_img_list.append(common_handler.get_file_path(goods.preview_1))
@@ -380,15 +404,18 @@ def filter_goods(request):
 def paging(request):
 
     page_now = int(request.POST['num_now']) - 1
+    print page_now
     tags_name  = request.POST['list_type'].strip()
     sort_name = request.POST['filter_type'].strip()
     style_name = request.POST['classify_type'].strip()
+    print tags_name, sort_name, style_name
 
     start = page_now * per_page_num
     end = (page_now + 1) * per_page_num
     goods_list = common_filter(tags_name, sort_name, style_name)
     page_length = get_page_length(goods_list)
     goods_list = goods_list[start:end]
+    print len(goods_list)
 
     context = {
         'goods_list': goods_list, 'page_length': page_length,
