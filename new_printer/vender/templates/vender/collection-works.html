@@ -19,10 +19,10 @@
 				<p class="t-el mb20">设计语义：{{ work.work_description }}</p>
 				<p>
 					<span>价格：{{ work.work_price }}</span>
-					<a class="download-go fr" target="_blank" href="/product/goods-detail">去下载>></a>
+					<a class="download-go fr" target="_blank" href="/shop//goods-detail?goods_id={{ work.goods_id }}">查看详情>></a>
 				</p>
 			</div>
-			<a class="cancel-btn pa" href="javascript:void(0)">
+			<a class="cancel-btn pa" data-num="{{ work.goods_id }}" href="javascript:void(0)">
 				<em class="cancel-ico"></em>
 				取消收藏
 			</a>

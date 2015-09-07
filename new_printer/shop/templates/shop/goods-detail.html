@@ -48,7 +48,7 @@
 						<img src="{{ goods_img }}" alt="">
 						<div id="show-3d" style="position:absolute;top:0px;left:160px;"></div>
 					</div>
-					<a class="pa goods-tomark {% if goods.goods_mark %}active{% endif %}" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+					<a class="pa goods-tomark {% if goods_mark %}active{% endif %}" data-num="{{ goods_id }}" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
 				</div>
 				<div class="detail-txt fr">
 					<div class="goods-info-box mb50">
@@ -149,7 +149,7 @@
 								<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
 								<a class="list-mark-btn {% if other_goods.goods_mark %}active{% endif %} chover pa" data-num="{{ other_goods.goods_id }}" href="javascript:void(0)">
 									<em class="list-mark-btn-ico"></em>
-									收藏{{ other_goods.goods_mark }}
+									收藏
 								</a>
 							</div>
 						</li>
