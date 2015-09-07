@@ -39,10 +39,10 @@ $(function(){
 
 	// added by white
 
-	$('#show-3d-tool-cancel-fullscreen').click(function(){
-		$('#show-3d-fullscreen').empty();									  
-		$('#show-3d-cont').hide();
-	});
+	/*$('#show-3d-tool-cancel-fullscreen').click(function(){*/
+	/*$('#show-3d-fullscreen').empty();									  */
+	/*$('#show-3d-cont').hide();*/
+	/*});*/
 
 	$('#show-3d-tool-screenshot').click(function(){
 		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0],

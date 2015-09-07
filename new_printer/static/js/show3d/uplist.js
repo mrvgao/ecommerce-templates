@@ -12,17 +12,22 @@ function showpic(index,src,url,name,describe){	//点击图片查看详情以及�
 function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerId){
 	$.post('/designer/show_3d',{'pic_id': stlId, 'unpassed': unpassed},function (e){
 		var url_path = JSON.parse(e).url_path ;
+		$('#'+containerId).html(null);
 		initializeObj(url_path, canvasW, canvasH, containerId);
-		$('#show-3d-cont').show();
+		$('#'+containerId+'-cont').show();
 		
 		// added by white
-		$('#show-3d-tool-fullscreen').unbind("click");
-		$('#show-3d-tool-fullscreen').on('click', function(){
+		$('#'+containerId+'-tool-fullscreen').unbind("click");
+		$('#'+containerId+'-tool-fullscreen').on('click', function(){
 			var win_height = $(window).height();
 			var win_width = $(window).width();
-			$('#show-3d-fullscreen').empty();
-			initializeObj(url_path, win_width, win_height, 'show-3d-fullscreen');
-
+			$('#'+containerId+'-fullscreen').empty();
+			initializeObj(url_path, win_width, win_height, ''+containerId+'-fullscreen');
 		}); 
+
+		$('#'+containerId+'-tool-cancel-fullscreen').click(function(){
+			$('#'+containerId+'-fullscreen').empty();    
+			$('#'+containerId+'-cont').hide();
+		});
 	});
 }
