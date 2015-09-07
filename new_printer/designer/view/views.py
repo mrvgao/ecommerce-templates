@@ -44,14 +44,14 @@ def my_personal(request):
     is_focus = False
     designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
     designer.img = str(server_website.file_server_path) + str(designer.img)
-    d_user = Designer_User.objects.filter(user_id = 1).exists()
+    d_user = Designer_User.objects.filter(user = user).exists()
     if (d_user):
         now_user = 'D'
     else:
         now_user = 'V'
         if Vender_Designer.objects.filter(designer_id = designer.id, vender_id = 2):
             is_focus = True
-    design_list = Goods.objects.filter(designer_id = designer.id)
+    design_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     return_list = []
     for good in design_list:
         is_collect = False
@@ -420,7 +420,7 @@ def file_save(model, f_name, f_type):
 		data.append('Content-Type: %s\r\n' % 'image/png')
 		data.append(chunks)
 		data.append('--%s--\r\n' % boundary)
-		http_url = 'http://192.168.1.101:8888/file/upload'#server_website.file_server_upload  #http://192.168.1.101:8888/file/upload
+		http_url = server_website.icon_server_upload  #http://192.168.1.101:8888/file/upload
 		http_body = '\r\n'.join(data)
 		req = urllib2.Request(http_url, data=http_body)
 		req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
