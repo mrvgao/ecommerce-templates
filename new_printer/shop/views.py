@@ -73,7 +73,10 @@ def test(request):
 
 
 def index(request):
-    return render(request, website.index)
+    if not request.user.is_authenticated():
+        return render(request, website.index)
+    else:
+        return home(request)
 
 
 def get_vender_id(request):

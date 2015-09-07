@@ -1,7 +1,5 @@
 list = 'shop/list.html'
 
-test = 'shop/test.html'
-
 goods_detail = 'shop/goods-detail.html'
 
 index = 'shop/index.html'
