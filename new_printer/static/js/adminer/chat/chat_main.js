@@ -64,8 +64,8 @@ $(function(){
 	Chat.registerUserElement();
 
 
-	socket.on('callback/chat/customer_service/connect', function(ipAddress){
-		Chat.myUsername = 'Service1';
+	socket.on('callback/chat/customer_service/connect', function(myUsername){
+		Chat.myUsername = myUsername;
 	});
 
 
@@ -84,7 +84,6 @@ $(function(){
 
 	/*socket.on('chat/a_new_message', function(message, fromUser){*/
 	socket.on('chat/new_chat_message', function(message, fromUser){
-		l('chat/new_chat_message:'+message+'/'+fromUser);
 
 		if(Chat.userInList(fromUser)){
 
@@ -93,17 +92,31 @@ $(function(){
 				var	chatContainerDom = $('.chated-txt');
 				Chat.contentToBottom(chatContainerDom);
 			}else{
-			l('3:'+Chat.nowTargUser+'/'+fromUser);
 				ChatUI.remindUser(fromUser);
 			}
 		}else{
-			var nickname = '匿名用户:'+fromUser;
-			var userlogo = 'someImg';
+			var nickname = fromUser;
+			var userlogo = 'http://192.168.1.101:8888/static/photo.png';
 			ChatUI.appendUserList(fromUser,nickname,userlogo);	
 			ChatUI.showChatUserSum();
 			ChatUI.remindUser(fromUser);
 		}
 		Chat.saveChatDataInLocal( message, fromUser, fromUser);
+
+		if($('.tool-bar-choosed').attr('id') !== 'tool-bar-chat'){
+			$('#tool-bar-chat').append(ChatUI.msgRemindMark);
+			var thisTimer = setInterval(function(){
+				if($('#msg-remind-mark').hasClass('tool-bar-msg-remind-mark')){
+				$('#msg-remind-mark').removeClass('tool-bar-msg-remind-mark');
+				}else{
+				$('#msg-remind-mark').addClass('tool-bar-msg-remind-mark');
+				}
+			},500);
+			$('#tool-bar-chat').click(function(){
+				clearInterval(thisTimer);						 
+				$('#tool-bar-chat').html('客户留言对话');
+			});
+		}
 	});
 
 
@@ -130,8 +143,6 @@ $(function(){
 
 		// 逐条把聊天记录放到聊天面板里
 		Chat.localChatData[chatWith].forEach(function(item, index){
-			l('t');
-			l('tt:'+item.content);
 
 			if(item.from_user === Chat.myUsername){
 				Chat.appendChatContainerWithChatMsg(item.content, item.from_user);
@@ -225,8 +236,6 @@ Chat.chatTextareaReturnKeyEvent = function(textareaDom){
 					var chatContDom = $(chatContDomStr);
 					Chat.contentToBottom( chatContDom );	
 					Chat.saveChatDataInLocal( cont, Chat.myUsername, Chat.nowTargUser);
-					l('save:'+cont+'/'+Chat.myUsername+'/'+Chat.nowTargUser);
-					/*Chat.saveChatDataInLocal( message, fromUser, fromUser);*/
 				}
 
 				// 如果在用聊天气泡 还需添加更多的特殊功能
@@ -342,7 +351,6 @@ Chat.registerUserElement = function(){
 		if(thisUser !== Chat.nowTargUser){
 			$(this).addClass('choosed').siblings().removeClass('choosed');
 			Chat.nowTargUser = thisUser;
-			l('thisuser:'+thisUser);
 			$('.chat-entry').focus();
 			$('.chated-txt').html('');
 

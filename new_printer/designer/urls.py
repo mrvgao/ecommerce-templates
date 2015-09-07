@@ -38,20 +38,21 @@ urlpatterns = patterns('',
 
 	#在已发布页面点击编辑后，传的值
 	url(r'^published_edit$',up_works.published_edit,name = 'published_edit'),
+
 	#deletePic  删除图片
 	url(r'^deletePic$',up_works.deletePic,name = 'deletePic'),
+
 	#在已发布页面点击编辑后，修改后提交的值
 	url(r'^published_submit$',up_works.published_submit,name = 'published_submit'),
 
 	#screenshot
 	url(r'^screenshot$',up_works.screenshot,name = 'screenshot'),
 	#设计师个人中心，设计师本人看到的
-	url(r'^my_personal$',views.my_personal,name = 'my_personal'),
+	url(r'^designer_personal$',views.my_personal,name = 'my_personal'),
 
 	##作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现 按照下载次数排序 downed_list
 	url(r'^sort_list$',views.sort_list,name = 'sort_list'),
-	#type_list
-	#url(r'^type_list$',views.type_list,name = 'type_list'),
+
 	#搜索方法
 	url(r'^unpublished_good_search$',views.unpublished_good_search,name = 'unpublished_good_search'),
 
@@ -61,11 +62,7 @@ urlpatterns = patterns('',
 	#显示我的动态的页面 my_state
 	url(r'^my_state$',views.my_state,name = 'my_state'),
 	
-	#url(r'^center_visit$',views.center_visit,name = 'center_visit'),
-
 	url(r'^works_visit$',views.works_visit,name = 'works_visit'),
-
-	#url(r'^unpublish_eardrop_list$',views.unpublish_eardrop_list,name = 'unpublish_eardrop_list'),
 
 	url(r'^setup$',views.setup,name = 'setup'),
     #下载

@@ -77,13 +77,12 @@ Commom.registerToolBarBtn = function(){
 	$('.tool-bar').children('div').eq(0).click(function(){
 		$('.goods-container').show();
 		$('.chat-container').hide();
-		$(this).addClass('tool-bar-choosed').removeClass('tool-bar-not-choosed').siblings().removeClass('tool-bar-choosed');
+		$(this).addClass('tool-bar-choosed').siblings().removeClass('tool-bar-choosed');
 	});
-
 	$('.tool-bar').children('div').eq(1).click(function(){
 		$('.goods-container').hide();
 		$('.chat-container').show();
-		$(this).addClass('tool-bar-choosed').removeClass('tool-bar-not-choosed').siblings().removeClass('tool-bar-choosed');
+		$(this).addClass('tool-bar-choosed').siblings().removeClass('tool-bar-choosed');
 	});
 }
 

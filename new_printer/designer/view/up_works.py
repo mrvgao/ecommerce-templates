@@ -219,13 +219,6 @@ def edit_submit(request):
                       )
     conf = {'status':"success"}
     return HttpResponseRedirect('designer_works') 
-    '''else:
-        s=Goods_Uploadobjects.filter(id= id).update(name=str(name),
-                        price = int(price),
-                        describe = describe
-                      )
-        conf = {'status':"success"}
-        return HttpResponse(json.dumps(conf))'''
 
 
 def screenshot(request):
@@ -238,9 +231,6 @@ def screenshot(request):
     stl_md5 = stl_md5.split('/')[0]
     preview = request.POST['screenshot']
     imgstr = re.search(r'base64,(.*)', preview).group(1)
-    output = open('output.png', 'wb')
-    output.write(imgstr.decode('base64'))
-    output.close()
 
     boundary = '----------%s' % hex(int(time.time() * 1000))
     data = []
@@ -251,7 +241,7 @@ def screenshot(request):
     data.append('Content-Disposition: form-data; name="%s"\r\n' % 'md5')
     data.append(stl_md5)
     data.append('--%s' % boundary)
-    data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str('a')))
+    data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str('preview_3')))
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(imgstr.decode('base64'))
     data.append('--%s--\r\n' % boundary)
@@ -264,11 +254,8 @@ def screenshot(request):
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
     md = json.loads(qrcont)
-    print md
-    md5 = md['status']
-    print md5
 
-    p_url = str(stl_md5) + '/' + 'a' + '.' + 'png'
+    p_url = str(stl_md5) + '/' + 'preview_3' + '.' + 'png'
     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p_url)
     conf = {'status':'success'}
     return HttpResponse(json.dumps(conf)) 
@@ -314,9 +301,7 @@ def photo_save(model,name,stl_type,stl_md5):
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
     md = json.loads(qrcont)
-    print md
     md5 = md['status']
-    print md5
     return md5
 
 
