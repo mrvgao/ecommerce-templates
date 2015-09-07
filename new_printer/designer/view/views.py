@@ -358,14 +358,28 @@ def add_focus(request):
 	d_id = request.POST['d_id']
 	v_id = request.POST['v_id']
 	new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
-	return HttpResponse(json.dumps("success"))
+    if new_collect:
+        conf = {'status':'fialed!'}
+    else:
+        conf = {'status':'success'}
+    marked = Designer_User.objects.get(id = d_id).marked_count
+    marked ++ 
+    d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
+	return HttpResponse(json.dumps(conf))
 
 
 def cancel_focus(request):
 	d_id = request.POST['d_id']
 	v_id = request.POST['v_id']
 	new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
-	return HttpResponse(json.dumps("success"))
+    if new_collect:
+        conf = {'status':'fialed!'}
+    else:
+        conf = {'status':'success'}
+    marked = Designer_User.objects.get(id = d_id).marked_count
+    marked -= 1
+    d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
+	return HttpResponse(json.dumps(conf))
 
 
 def add_collect(request):
