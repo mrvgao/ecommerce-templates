@@ -147,3 +147,6 @@ STATICFILES_DIRS = (
 
 LOGIN_URL = '/shop/login_register'
 #AUTH_PROFILE_MODULE = 'configutation.TestUser'
+
+#session is unable when browser is closed
+session_expire_at_browser_close = True
