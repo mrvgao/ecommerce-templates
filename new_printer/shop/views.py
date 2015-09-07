@@ -10,6 +10,7 @@ from conf import website
 from configuration.models import Goods
 from configuration.models import Designer_User
 from configuration.models import Vender_User
+from configuration.models import Good_record
 
 from utils.common_class import IndexGoods
 from utils.common_class import IndexGoodsDesigner
@@ -101,6 +102,30 @@ def get_is_buy(goods_id, vender_id):
     return is_buy
 
 
+def get_is_cart(goods_id, vender_id):
+    if vender_id:
+        is_cart = vender_goods_handler.get_is_cart(goods_id, vender_id)
+    else:
+        is_cart = False
+    return is_cart
+
+
+def get_style_param(request):
+    try:
+        style = request.GET['goods_type']
+    except:
+        style = None
+    return style
+
+
+def get_style_list(goods_list, style):
+    if style:
+        style_list = goods_handler.get_goods_by_style(goods_list, style)
+    else:
+        style_list = goods_list
+    return style_list
+
+
 def home(request):
 
     class HomeGoods(object):
@@ -143,13 +168,23 @@ def list(request):
     return render(request, website.list)
 
 
-def ring(request):
-    goods_tags = u'戒指'
-    vender_id = get_vender_id(request)
+def get_tags_list(request, goods_tags):
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
+    vender_id = get_vender_id(request)
+    style_param = get_style_param(request)
+
+    goods_list = get_goods_list_by_tags(goods_tags, vender_id, style_param)
+
     page_length = get_page_length(goods_list)
     goods_list = goods_list[:per_page_num]
+
+    return goods_list, page_length
+
+
+def ring(request):
+    goods_tags = u'戒指'
+
+    goods_list, page_length = get_tags_list(request, goods_tags)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -161,11 +196,8 @@ def ring(request):
 
 def pendant(request):
     goods_tags = u'吊坠'
-    vender_id = get_vender_id(request)
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-    page_length = get_page_length(goods_list)
-    goods_list = goods_list[:per_page_num]
+    goods_list, page_length = get_tags_list(request, goods_tags)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -177,11 +209,8 @@ def pendant(request):
 
 def earbob(request):
     goods_tags = u'耳坠'
-    vender_id = get_vender_id(request)
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-    page_length = get_page_length(goods_list)
-    goods_list = goods_list[:per_page_num]
+    goods_list, page_length = get_tags_list(request, goods_tags)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -193,11 +222,8 @@ def earbob(request):
 
 def bracelet(request):
     goods_tags = u'手链'
-    vender_id = get_vender_id(request)
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-    page_length = get_page_length(goods_list)
-    goods_list = goods_list[:per_page_num]
+    goods_list, page_length = get_tags_list(request, goods_tags)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -209,11 +235,8 @@ def bracelet(request):
 
 def torque(request):
     goods_tags = u'项链'
-    vender_id = get_vender_id(request)
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-    page_length = get_page_length(goods_list)
-    goods_list = goods_list[:per_page_num]
+    goods_list, page_length = get_tags_list(request, goods_tags)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -225,11 +248,8 @@ def torque(request):
 
 def brooch(request):
     goods_tags = u'胸针'
-    vender_id = get_vender_id(request)
 
-    goods_list = get_goods_list_by_tags(goods_tags, vender_id)
-    page_length = get_page_length(goods_list)
-    goods_list = goods_list[:per_page_num]
+    goods_list, page_length = get_tags_list(request, goods_tags)
 
     context = {
         'goods_kind': goods_tags, 'goods_list': goods_list, 'page_length': page_length,
@@ -248,7 +268,7 @@ def get_page_length(goods_list):
         return length / per_page_num
 
 
-def get_goods_list_by_tags(goods_tags, vender_id):
+def get_goods_list_by_tags(goods_tags, vender_id, style_param):
 
     def change_to_tag_goods(sort_goods_list, vender_id):
         goods_list = []
@@ -262,7 +282,9 @@ def get_goods_list_by_tags(goods_tags, vender_id):
         return goods_list
 
     all_goods_list = goods_handler.get_all_goods_by_tags(goods_tags)
-    sort_goods_list = goods_handler.comprehension_sort(all_goods_list)
+    all_goods_list = all_goods_list.filter(is_active=True)
+    style_list = get_style_list(all_goods_list, style_param)
+    sort_goods_list = goods_handler.comprehension_sort(style_list)
     goods_list = change_to_tag_goods(sort_goods_list, vender_id)
     return goods_list
 
@@ -357,6 +379,9 @@ def goods_detail(request):
     designer = Designer_User.objects.get(id=designer_id)
     vender_id = get_vender_id(request)
     is_buy = get_is_buy(goods_id, vender_id)
+    is_cart = get_is_cart(goods_id, vender_id)
+
+    Good_record.objects.create(good_id=goods_id)
 
     goods_img_list = []
     goods_img_list.append(common_handler.get_file_path(goods.preview_1))
@@ -373,8 +398,8 @@ def goods_detail(request):
         'goods_id': goods.id, 'goods_name': goods.goods_name, 'goods_img_list': goods_img_list,
         'goods_img': common_handler.get_file_path(goods.preview_1), 'goods_name': goods.goods_name,
         'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
-        'goods_moduleType': goods.tags, 'goods_description': goods.description,
-        'goods_price': goods.goods_price, 'designer_name': designer.designername,
+        'goods_moduleType': goods.tags, 'goods_description': goods.description, 'is_cart': is_cart,
+        'goods_price': goods.goods_price, 'designer_name': designer.designername, 'designer_id': designer_id,
         'goods_tags': goods.tags, 'goods_style': get_style(goods), 'goods_list': to_tags[goods.tags],
         'designer_img': common_handler.get_file_path(str(designer.img)),'isDownload': is_buy,
         'other_goods_list': recommend_goods_list[:4],

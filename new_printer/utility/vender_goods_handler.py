@@ -64,3 +64,12 @@ class VenderGoodsHandler(object):
         else:
             vender_goods = Vender_Goods.objects.create(vender_id=vender_id, goods_id=goods_id, is_buy=False)
             return False
+
+
+    def get_is_cart(self, goods_id, vender_id):
+        vender_goods = self.get_element(vender_id, goods_id)
+        if vender_goods:
+            return vender_goods.is_cart
+        else:
+            vender_goods = Vender_Goods.objects.create(vender_id=vender_id, goods_id=goods_id, is_cart=False)
+            return False

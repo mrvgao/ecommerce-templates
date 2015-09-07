@@ -28,23 +28,6 @@ var _obj = {
 		this.camera.lookAt(new THREE.Vector3(0,0,0));
 
 		//////////added by white
-		/*
-		   var cam_light = new THREE.DirectionalLight(0xffffff);
-		   var cam_light_1 = new THREE.DirectionalLight(0xffffff);
-		   cam_light_2.position.set(-1000,0,1000);
-		   var cam_light_3 = new THREE.DirectionalLight(0xffffff);
-		   cam_light_3.position.set(0,1000,1000);
-		   var cam_light_4 = new THREE.DirectionalLight(0xffffff);
-		   cam_light_4.position.set(0,-1000,1000);
-		   cam_light_4.lookAt(new THREE.Vector3(0,0,0));
-		//this.camera.add(cam_light);
-		this.camera.add(cam_light_1);
-		this.camera.add(cam_light_2);
-		this.camera.add(cam_light_3);
-		this.camera.add(cam_light_4);
-		var ambien_light = new THREE.AmbientLight( 0xffffff );
-		//this.scene.add(ambien_light);
-		*/
 		this.spotLight = new THREE.SpotLight(0xffffff, .3, 0);
 		this.spotLight.position.set(-700, 1000, 1000);
 		this.spotLight.castShadow = false;
@@ -72,9 +55,6 @@ var _obj = {
 		this.scene.add(pointLight);
 		this.pointLights.push(pointLight);
 
-
-
-
 		// 准备渲染
 		// set 'preserveDrawingBuffer' distribute to 'true' to make sure that the canvas with threejs can be captured as an image (via white)
 		this.renderer = new THREE.WebGLRenderer({antialias:true, alpha: false, preserveDrawingBuffer: true });
@@ -99,13 +79,6 @@ var _obj = {
 		// 准备计时器
 		this.clock = new THREE.Clock();
 
-		// 准备统计
-		// this.stats = new Stats();
-		// this.stats.domElement.style.position = 'absolute';
-		// this.stats.domElement.style.bottom = '0px';
-		// this.stats.domElement.style.zIndex = 10;
-		// this.container.appendChild( this.stats.domElement );
-
 		// 添加定向光线
 		var dLight = new THREE.DirectionalLight(0xffffff);
 		dLight.position.set(1000, 0, 1);
@@ -115,47 +88,10 @@ var _obj = {
 		dLight.shadowMapWidth = dLight.shadowMapHeight = 1000;
 		//this.scene.add(dLight);
 
-		// 添加粒子光线
-		// particleLight = new THREE.Mesh( new THREE.SphereGeometry(10, 10, 10), new THREE.MeshBasicMaterial({ color: 0x44ff44 }));
-		// particleLight.position = dLight.position;
-		// this.scene.add(particleLight);
-
-		// 添加简单的场地
-		// var groundGeometry = new THREE.PlaneGeometry(1000, 1000, 1, 1);  // 设置底部托盘大小
-		// ground = new THREE.Mesh(groundGeometry, new THREE.MeshLambertMaterial({
-		//     color: this.getRandColor()
-		// }));
-		// ground.position.y = 0;
-		// ground.rotation.x = - Math.PI / 2;
-		// ground.receiveShadow = true;
-		// this.scene.add(ground);
-
 		// 开始画3D图
 
 		// ASCII file
 		var _this = this;
-
-		// var loader = new THREE.STLLoader();
-		// loader.addEventListener('load', function(event) {
-		//     var geometry = event.content;
-		//     var material = new THREE.MeshPhongMaterial({
-		//         ambient: 0xff5533,
-		//         color: 0xff5533,
-		//         specular: 0x111111,
-		//         shininess: 200
-		//     });
-		//     var mesh = new THREE.Mesh(geometry, material);
-
-		//     mesh.position.set(0, -0.25, 0.6);
-		//     mesh.rotation.set(0, -Math.PI / 2, 0);
-		//     mesh.scale.set(0.5, 0.5, 0.5);
-
-		//     mesh.castShadow = true;
-		//     mesh.receiveShadow = true;
-
-		//     _this.scene.add(mesh);
-		// });
-		// loader.load(url);   // 3D图对应的 .stl 文件地址
 
 		// Binary files
 		//var material = new THREE.MeshPhongMaterial({ambient: 0x555555,color: 0xff0000,specular: 0x111111,shininess: 200});
@@ -180,56 +116,7 @@ var _obj = {
 
 				});
 		loader.load(url);
-
-		// var loader = new THREE.STLLoader();
-		// loader.addEventListener('load', function(event) {
-
-		//     var geometry = event.content;
-		//     var mesh = new THREE.Mesh(geometry, material);
-
-		//     mesh.position.set(0.136, -0.37, -0.6);
-		//     mesh.rotation.set(-Math.PI / 2, 0.3, 0);
-		//     mesh.scale.set(2, 2, 2);
-
-		//     mesh.castShadow = true;
-		//     mesh.receiveShadow = true;
-
-		//     _this.scene.add(mesh);
-
-		// });
-		// loader.load(url);
-
-		// Colored binary STL
-		// var loaderColored = new THREE.STLLoader();
-		// loaderColored.addEventListener('load', function(event) {
-
-		//     var geometry = event.content;
-
-		//     var meshMaterial = material;
-		//     if (geometry.hasColors) {
-		//         meshMaterial = new THREE.MeshPhongMaterial({
-		//             opacity: geometry.alpha,
-		//             vertexColors: THREE.VertexColors
-		//         });
-		//     }
-
-		//     var mesh = new THREE.Mesh(geometry, meshMaterial);
-
-		//     mesh.position.set(0.5, 0.2, 0);
-		//     mesh.rotation.set(-Math.PI / 2, Math.PI / 2, 0);
-		//     mesh.scale.set(0.3, 0.3, 0.3);
-
-		//     mesh.castShadow = true;
-		//     mesh.receiveShadow = true;
-
-		//     _this.scene.add(mesh);
-
-		// });
-		// loaderColored.load(url);
 	},
-	// getRandColor: function() {
-	//     return colors[Math.floor(Math.random() * colors.length)];   // 底部托盘随机颜色
-	// }
 };
 
 // 动画
@@ -258,7 +145,7 @@ function render() {
 
 // 在页面加载时初始化 _obj 对象
 function initializeObj(url, width, height, contId) {
-	$('#show-3d').html(null);
+	/*$('#show-3d').html(null);*/
 	_obj.init(url,width,height,contId);
 	animate();
 	$('canvas').hover(function(){
@@ -267,10 +154,4 @@ function initializeObj(url, width, height, contId) {
 		$('body').css('overflow','auto');	   
 	});
 }
-
-// if (window.addEventListener)
-//     window.addEventListener('load', initializeObj, false);
-// else if (window.attachEvent)
-//     window.attachEvent('onload', initializeObj);
-// else window.onload = initializeObj;
 

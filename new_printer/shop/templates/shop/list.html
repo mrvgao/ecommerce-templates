@@ -67,7 +67,7 @@
 			{% endfor %} 
 
 		</div>
-		{% if page_length == 1 %}
+		{% if page_length != 1 %}
 			{% include 'paging.html' %}
 		{% endif %}
 	</div>
