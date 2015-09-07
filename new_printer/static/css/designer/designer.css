@@ -669,9 +669,10 @@ em.add-alipay-ico {
 .modify-content {
 	position: fixed;
 	background: #fff;
-	top: 225px;
+	top: 50%;
 	left: 50%;
-	margin-left: -383px;
+	margin-left: -369px;
+	margin-top:-270px;
 	height: 428px;
 	width: 656px;
 	padding: 55px 40px;
