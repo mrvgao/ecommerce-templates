@@ -48,11 +48,11 @@ urlpatterns = patterns('',
 	#screenshot
 	url(r'^screenshot$',up_works.screenshot,name = 'screenshot'),
 	#设计师个人中心，设计师本人看到的
-	url(r'^my_personal$',views.my_personal,name = 'my_personal'),
+	url(r'^designer_personal$',views.my_personal,name = 'my_personal'),
 
 	##作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现 按照下载次数排序 downed_list
 	url(r'^sort_list$',views.sort_list,name = 'sort_list'),
-	
+
 	#搜索方法
 	url(r'^unpublished_good_search$',views.unpublished_good_search,name = 'unpublished_good_search'),
 

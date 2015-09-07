@@ -11,13 +11,14 @@ $(function (){
 	filter_bynum.on('click',function (){
 		var _this = $(this),
 			data_tag = _this.attr('data-tag'),
+			_vid = mark_btn.attr('data-vid'),
+			_did = mark_btn.attr('data-did'),
 			type_tag = type_filter.filter('.active').attr('type-tag');
-
 		clickFocus(_this);
 		ds_list_box.empty();
 		var sucStr = '',
 			click_count = 0;
-		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
+		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag, 'v_id': _vid, 'd_id': _did },function (e){
 
 				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){
@@ -43,8 +44,9 @@ $(function (){
 	type_filter.on('click',function (){
 		var _this = $(this),
 			data_tag = filter_bynum.filter('.active').attr('data-tag'),
+			_vid = mark_btn.attr('data-vid'),
+			_did = mark_btn.attr('data-did'),
 			type_tag = _this.attr('type-tag');
-		
 		type_filter.removeClass('active');
 		_this.addClass('active');
 		data_tag = '1';
@@ -52,7 +54,7 @@ $(function (){
 		ds_list_box.empty();
 		var sucStr = '';
 		var click_count = 0;
-		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag },function (e){
+		$.post('/designer/sort_list',{ 'data_kind': data_tag, 'type_kind': type_tag, 'v_id': _vid, 'd_id': _did },function (e){
 
 				var sucList = JSON.parse(e).all_list;
 				for(var i=0,len=sucList.length;i<len;i++){
@@ -79,47 +81,33 @@ $(function (){
 
 	// 关注 or 取消关注
 	mark_btn.on('click',function (){
-		var _this = $(this);
+		var _this = $(this),
+			_did = _this.attr('data-did'),
+			_vid = _this.attr('data-vid');
+
 		if(_this.hasClass('active')){
 			_this.removeClass('active');
-			var d_id = 1;
-			var v_id = 2;
-			$.post('/designer/cancel_focus',{ 'd_id': d_id, 'v_id': v_id },function (e){
-				alert("取消关注成功！")
-
-			});
+			$.post('/designer/cancel_focus',{ 'd_id': _did, 'v_id': _vid },function (e){});
 
 		}else {
 			_this.addClass('active');
-			var d_id = 1;
-			var v_id = 2;
-			$.post('/designer/add_focus',{ 'd_id': d_id, 'v_id': v_id},function (e){
-				alert("添加关注成功！")
-				
-			});
+			$.post('/designer/add_focus',{ 'd_id': _did, 'v_id': _vid},function (e){});
 
 		}
 	});
 	// 收藏 or 取消收藏
 	goods_tomark.on('click',function (){
-		var _this = $(this);
+		var _this = $(this),
+			_vid = mark_btn.attr('data-vid'),
+			_gid = _this.attr('data-num');
+		
 		if(_this.hasClass('active')){
 			_this.removeClass('active');
-			var g_id = 1;
-			var v_id = 2;
-			$.post('/designer/cancel_collect',{ 'g_id': g_id, 'v_id': v_id },function (e){
-				alert("取消收藏成功！");
-
-			});
+			$.post('/designer/cancel_collect',{ 'g_id': _gid, 'v_id': _vid },function (e){});
 
 		}else {
 			_this.addClass('active');
-			var g_id = 8;
-			var v_id = 2;
-			$.post('/designer/add_collect',{ 'g_id': g_id, 'v_id': v_id},function (e){
-				alert("添加收藏成功！");
-				
-			});
+			$.post('/designer/add_collect',{ 'g_id': _gid, 'v_id': _vid},function (e){});
 
 		}
 	});
