@@ -36,6 +36,7 @@ function setDataInList(){
 		guide_btn = $('.classify-guide'),
 		classify_nav_box = $('.classify-nav-box'),
 		_kind = list_wrap.attr('data-kind'),
+		list_mark_btn = $('.list-mark-btn'),
 		_node = "<div class='list-box pr'>" + $('.list-box').html() + "</div>";
 	
 	// 过滤筛选
@@ -124,4 +125,27 @@ function setDataInList(){
 			});
 		}
 	});
+
+	list_mark_btn.on('click',function (){
+		var _this = $(this),
+			_num = _this.attr('data-num');
+
+		toMark(_this,_num);
+	});
+
+	// mark 的ajax方法
+	function toMark(_this,id){
+		$.post('/shop/mark-goods',{ goods_id: id },function (e){
+            var data = JSON.parse(e);
+            if(data.state == 'SUCCESS'){
+            	if(_this.hasClass('active')){
+            		_this.removeClass('active');
+            	}else {
+            		_this.addClass('active');
+            	}
+            }else {
+            	$('.login-page').fadeIn();
+            }
+        });
+	}
 }
