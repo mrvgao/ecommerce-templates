@@ -18,10 +18,9 @@ $(function (){
 
 			_type = _val.substring(_val.lastIndexOf('.')+1,_val.length);
 			if(_type == 'stl' || _type == 'jca'){
-				fileBox.html('');
 				addCode(name);
 			}else {
-				fileBox.html('<p style="color:#f60">请上传正确的模型文件</p>');
+				$.msgBox.mini('请上传正确的模型文件');
 				return false;
 			}
 			

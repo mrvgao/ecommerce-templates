@@ -239,3 +239,23 @@ a.list-mark-btn:hover em.list-mark-btn-ico, a.list-mark-btn.active em.list-mark-
 .list-box:hover a.list-mark-btn {
 	display:block;
 }
+.watch-fullscreen {
+	right:0;
+	top:0;
+	padding:6px 12px;
+	border-radius:5px;
+	background:#eee;
+}
+.fullscreen-wrap {
+	width:100%;
+	height:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:10002;
+	background:#fff;
+}
+#show-3d-fullscreen {
+	width:100%;
+	height:100%;
+}

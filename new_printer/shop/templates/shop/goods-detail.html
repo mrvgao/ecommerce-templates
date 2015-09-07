@@ -49,6 +49,10 @@
 						<div id="show-3d" style="position:absolute;top:0px;left:160px;"></div>
 					</div>
 					<a class="pa goods-tomark" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+					<a class="pa chover hide watch-fullscreen" href="javascript:void(0)">全屏</a>
+					<div class="fullscreen-wrap hide">
+						<div id="show-3d-tool-fullscreen"></div>
+					</div>
 				</div>
 				<div class="detail-txt fr">
 					<div class="goods-info-box mb50">
@@ -147,7 +151,7 @@
 									</a>
 								</div>
 								<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ other_goods.goods_id }}" href="javascript:void(0)">
 									<em class="list-mark-btn-ico"></em>
 									收藏
 								</a>
@@ -189,7 +193,7 @@
 									</a>
 								</div>
 								<p class="goods_price f12 tc">￥{{ designer_goods.goods_price }}</p>
-								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
+								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ designer_goods.goods_id }}" href="javascript:void(0)">
 									<em class="list-mark-btn-ico"></em>
 									收藏
 								</a>

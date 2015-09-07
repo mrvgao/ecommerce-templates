@@ -14,6 +14,8 @@ $(function (){
 		goods_img = $('.goods-img'),
 		login_page = $('.login-page'),
 		airm_before = $('.airm-before'),
+		goods_tomark = $('.goods-tomark'),
+		list_mark_btn = $('.list-mark-btn'),
 		goods_list = [];
 		
 	// 立即下单
@@ -146,6 +148,35 @@ $(function (){
 			strs = str.split("=");   //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
 			return strs[1];
 		}
+	}
+
+	// mark
+	goods_tomark.on('click',function (){
+		var _this = $(this);
+		toMark(_this,goods_id);
+	});
+
+	list_mark_btn.on('click',function (){
+		var _this = $(this),
+			_num = _this.attr('data-num');
+
+		toMark(_this,_num);
+	});
+
+	// mark 的ajax方法
+	function toMark(_this,id){
+		$.post('/shop/mark-goods',{ goods_id: id },function (e){
+            var data = JSON.parse(e);
+            if(data.state == 'SUCCESS'){
+            	if(_this.hasClass('active')){
+            		_this.removeClass('active');
+            	}else {
+            		_this.addClass('active');
+            	}
+            }else {
+            	$('.login-page').fadeIn();
+            }
+        });
 	}
 
 });

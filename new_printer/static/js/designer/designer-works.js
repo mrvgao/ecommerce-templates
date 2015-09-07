@@ -5,8 +5,8 @@ $(function(){
 	var works_wait_btn = $('#works_wait_btn'),	//待定价
 		works_on_btn = $('#works_on_btn'),	//审核中
 		works_not_btn = $('#works_not_btn'),	//未通过
-		works_Suc_btn = $('#works_Suc_btn');	//已发布
-	designer_works_lists = $('.designer-works-lists'),
+		works_Suc_btn = $('#works_Suc_btn'),	//已发布
+		designer_works_lists = $('.designer-works-lists'),
 		designer_works_container = $('.designer-works-container');
 
 	workd_unexecute(1);
@@ -45,10 +45,8 @@ $(function(){
 	});
 
 	$('#show-3d-tool-screenshot').click(function(){
-		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0];
-		var imgSrc = myCanvas.toDataURL();
-		console.log(document.getElementsByName('1')[0].files[0])
-		console.log(document.getElementsByName('2')[0].files[0])
+		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0],
+			imgSrc = myCanvas.toDataURL();
 		/*for(var i=1; i<=3; i++){*/
 		/*var t = document.getElementsByName(i)[0].files[0];*/
 		/*if(t === undefined){*/
@@ -175,7 +173,7 @@ function toSearch(){
 				_trNode = _tbody.find('tr').html(),
 				_node = '<tr class="designer-works-list-box clearfix" data-state="1" data-img="http://192.168.1.101:8888/static/photo.png" data-uptime="2015-09-02" data-size="0.434" data-type="stl" data-id="180">' + _trNode + '</tr>';
 
-			_tbody.html('');alert (data.length);
+			_tbody.html('');
 			for(var i=0;i<data.length;i++){
 
 				_tbody.append(_node);
@@ -414,8 +412,7 @@ function deleteAll(){	//批量删除函数
 	var deleteTag = $('.works-wait-delete-check:checked'),
 		worksList = $('tr'),
 		worksContainer = $('.designer-works-wait').find('tbody');
-	var str ='<tr><td colspan="4">没有数据啦⊙.⊙</td></tr>',
-		rest = worksList.length - deleteTag.length;
+
 	deleteTag.each(function(index, el) {
 		var _this = $(this),
 			_id = _this.parents('tr').attr('data-id');
@@ -430,9 +427,6 @@ function deleteAll(){	//批量删除函数
 		_this.parents('tr').remove();
 	});
 	$('#checkall').attr('checked',false);
-	if(rest==1){
-		worksContainer.append(str);
-	}
 }
 
 function deleteSigle(){		//单个删除
@@ -447,7 +441,7 @@ function deleteSigle(){		//单个删除
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 
 			if(e){
-				alert("删除成功！");
+				$.msgBox.mini("删除成功！");
 				window.location.reload();
 				deleteObj.remove();
 			}
@@ -494,7 +488,7 @@ function cancelSigle(){		//单个取消发布
 			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 			if(e){
-				alert("取消发布成功！");
+				$.msgBox.mini("取消发布成功！");
 				window.location.reload();	
 				deleteObj.remove();
 			}
@@ -580,14 +574,14 @@ function judgePage(toPage, curPage, totalPage){		//判断点击的页码
 			if(curPage < totalPage){
 				return (curPage+1);
 			}else{
-				alert("没有下一页啦!");
+				$.msgBox.mini("没有下一页啦!");
 				return false;
 			}
 		}else if(toPage == "上一页"){
 			if(curPage != 1){
 				return curPage-1;
 			}else{
-				alert("没有上一页啦!");
+				$.msgBox.mini("没有上一页啦!");
 				return false;
 			}
 		}
@@ -601,7 +595,7 @@ function edit(){	//编辑弹窗函数
 	$('.works-modify-btn').on('click',function(){
 		var _this = $(this),
 			_kind = 'pushed';
-		p_editInfo (_this,_kind);
+		p_editInfo(_this,_kind);
 
 	});
 
@@ -609,7 +603,7 @@ function edit(){	//编辑弹窗函数
 		var _this = $(this),
 			_kind = 'unexecute';
 
-		p_editInfo (_this,_kind);
+		p_editInfo(_this,_kind);
 		$('.modify-imgs').attr('src','/static/images/common/up_default.jpg');
 
 	});
@@ -627,8 +621,6 @@ function edit(){	//编辑弹窗函数
 			modify_imgs_container = $('.modify-imgs-container'),
 			imgStr = '',
 			up_time = _parent.attr('data-uptime');
-
-
 
 		modify_imgs_container.empty();
 		$('.designer-zoom').css('display','block');
@@ -658,14 +650,14 @@ function edit(){	//编辑弹窗函数
 		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
 			var imgBox = $('.modify-imgs-box');
 			if(imgBox.length==1){
-				alert("至少要有一张预览图");
+				$.msgBox.mini("至少要有一张预览图");
 			}else{
 				var _index = $(this).parents('.modify-imgs-box').index(),
 					picId = _parent.find('.designer-works-list-pics img').eq(_index).attr('data-pid');	//pic分别是0，1，2
 
 				$.post('/designer/deletePic', { "picId": picId, "id": id },function (e){
 					if('success'==JSON.parse(e).status){
-						alert('delete success!');
+						$.msgBox.mini('删除成功');
 					}
 				});$(this).parents('.modify-imgs-box').find('img').attr('src','');
 			}
@@ -700,11 +692,7 @@ function edit(){	//编辑弹窗函数
 
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
-		console.log(workId)
-		console.log(ShowStl.screenShotData)
-		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){
-			console.log('screenshot upload succeed');	  
-		});
+		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
 	});
 }
 
@@ -780,9 +768,7 @@ function publish_edit(){	//编辑弹窗函数
 
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
-		$.post('/designer/edit/screenshot', {id: workId, screenshot: ShowStl.screenShotData}, function(e){
-			console.log('screenshot upload succeed');	  
-		});
+		$.post('/designer/edit/screenshot', {id: workId, screenshot: ShowStl.screenShotData}, function(e){});
 	});
 }
 
@@ -795,20 +781,5 @@ function closeEdit(){
 		$('#show-3d-cont').hide();
 	});
 }
-
-
-function publish_edit(){	//编辑弹窗函数
-	$('.works-modify-btn').on('click',function(){
-		var _this = $(this),
-			_parent = _this.parents('.designer-works-list-box'),
-			id = _parent.attr('data-id'),
-			pic = _parent.find('.designer-works-list-bigpic img').attr('src');
-	});
-
-}
-
-
-
-
 
 
