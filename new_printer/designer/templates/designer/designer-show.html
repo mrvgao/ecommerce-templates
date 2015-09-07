@@ -21,11 +21,7 @@
 					<div class="designer-show-info mt30 tc">
 						<p class="inl-b f20 mr20">{{ designer_name }}</p>
 						{% if now_user == 'V' %}
-							{% if is_focus %}
-								<a class="show-mark-btn f16 active" href="javascript:void(0)"><em class="designer-show-mark"></em>{{ marked }}</a>
-							{% else %}
-								<a class="show-mark-btn f16" href="javascript:void(0)"><em class="designer-show-mark"></em>{{ marked }}</a>
-							{% endif %}
+							<a data-did="{{ designer_id }}" data-vid="{{ vender_id }}" class="show-mark-btn f16 {% if is_focus %}active{% else %}{% endif %}" href="javascript:void(0)"><em class="designer-show-mark"></em>{{ marked }}</a>
 						{% else %}
 							<a class="no-show-mark-btn f16 active" ><em class="designer-show-mark"></em>{{ marked }}</a>
 						{% endif %}
@@ -85,9 +81,9 @@
 									<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
 									{% if now_user == 'V' %}
 										{% if other_goods.is_collect %}
-											<a class="pa goods-tomark active" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+											<a class="pa goods-tomark active" data-num="{{ other_goods.id }}" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
 										{% else %}
-											<a class="pa goods-tomark " href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
+											<a class="pa goods-tomark " data-num="{{ other_goods.id }}" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
 										{% endif %}
 									{% endif %}
 								</div>
