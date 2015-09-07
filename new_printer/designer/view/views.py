@@ -59,7 +59,7 @@ def my_personal(request):
     for good in design_list:
         is_collect = False
         _good = {}
-        if now_user == 'v':
+        if now_user == 'V':
             g_v = Vender_Goods.objects.filter(goods_id = good.id, vender_id = vender_id)
             if g_v:
                 is_collect = True
@@ -369,15 +369,19 @@ def cancel_focus(request):
 
 
 def add_collect(request):
-	g_id = request.POST['g_id']
-	v_id = request.POST['v_id']
-	this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
-	if  this_good:
-		now_collect = this_good.update(is_collected = True)
-	else:
-		new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
-				collected_time = datetime.now())
-		return HttpResponse(json.dumps("success"))
+    #pdb.set_trace()
+    g_id = request.POST['g_id']
+    v_id = request.POST['v_id']
+    
+    this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
+    if  this_good:
+        now_collect = this_good.update(is_collected = True)
+    else:
+        new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
+                collected_time = datetime.now())
+    return HttpResponse(json.dumps("success"))
+
+
 
 
 def cancel_collect(request):
