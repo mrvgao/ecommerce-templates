@@ -141,10 +141,10 @@ em.cancel-ico {
 	margin-right:3px;
 	background-repeat:no-repeat;
 	background-image:url('/static/images/common/site-icons.png');
-	background-position:-58px -10px;
+	background-position:-55px -10px;
 }
 a.cancel-btn:hover em.cancel-ico {
-	background-position:-58px -34px;
+	background-position:-55px -34px;
 }
 .work-list:hover a.cancel-btn {
 	display:block;

@@ -100,7 +100,7 @@ def sort_list(request):
     data_tag = int(request.POST['data_kind'])
     type_tag = request.POST['type_kind']
     
-    design_list = Goods.objects.filter(designer_id = designer_id)
+    design_list = Goods.objects.filter(designer_id = designer_id, is_active = 1)
     if type_tag != u'全部':
         design_list = design_list.filter(tags = type_tag)
     if (Test_user):
