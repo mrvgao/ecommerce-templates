@@ -47,21 +47,25 @@ $(function (){
 	});
 
 	// 加入购物车
-	addcart.on('click',function (){
-		var _that = paynow;
+	addcart.one('click',function (){
+		var _that = paynow,
+			_this = $(this);
+
 		if(_that.attr('data-state') == 1){
-
-			$.post('/payment/add_cart',{
-				'goods_id': goods_id
-			},function (e){
-				result = JSON.parse(e);
-				if(result['status'] == 'SUCCESS'){
-					$.msgBox.mini('添加成功');
-				}else{
-					$.msgBox.mini('添加失败');
-				}
-			});
-
+			if(_this.attr('data-cart') == 1){
+				return false;
+			}else {
+				$.post('/payment/add_cart',{
+					'goods_id': goods_id
+				},function (e){
+					result = JSON.parse(e);
+					if(result['status'] == 'SUCCESS'){
+						$.msgBox.mini('添加成功');
+					}else{
+						$.msgBox.mini('添加失败');
+					}
+				});
+			}
 		}else if(_that.attr('data-state') == 0) {
 			login_page.fadeIn();
 		}
