@@ -82,15 +82,17 @@ $(function (){
 	// 关注 or 取消关注
 	mark_btn.on('click',function (){
 		var _this = $(this),
+			_txt = _this.find('span'),
 			_did = _this.attr('data-did'),
 			_vid = _this.attr('data-vid');
 
 		if(_this.hasClass('active')){
 			_this.removeClass('active');
+			_txt.text(parseInt(_txt.text())-1);
 			$.post('/designer/cancel_focus',{ 'd_id': _did, 'v_id': _vid },function (e){});
-
 		}else {
 			_this.addClass('active');
+			_txt.text(parseInt(_txt.text())+1);
 			$.post('/designer/add_focus',{ 'd_id': _did, 'v_id': _vid},function (e){});
 
 		}
