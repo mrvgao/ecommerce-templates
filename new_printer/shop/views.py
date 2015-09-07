@@ -351,23 +351,26 @@ def goods_detail(request):
             self.goods_price = goods[3]
             self.goods_download_num = goods[4]
             self.goods_mark_num = goods[5]
+            self.goods_mark = goods[6]
 
 
-    def get_recommend_goods_list(recommend_id_list):
+    def get_recommend_goods_list(recommend_id_list, vender_id):
         recommend_goods_list = []
         for recommend_id in recommend_id_list:
             goods = Goods.objects.get(id=recommend_id)
+            is_collected = get_is_collected(goods.id, vender_id)
             goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
-                        goods.goods_price, goods.download_count, goods.collected_count)
+                        goods.goods_price, goods.download_count, goods.collected_count, is_collected)
             recommend_goods = RecommendGoods(goods_param)
             recommend_goods_list.append(recommend_goods)
         return recommend_goods_list
 
-    def get_other_goods_list(designer_goods_list):
+    def get_other_goods_list(designer_goods_list, vender_id):
         other_goods_list = []
         for goods in designer_goods_list:
+            is_collected = get_is_collected(goods.id, vender_id)
             goods_param = (goods.id, goods.goods_name, common_handler.get_file_path(goods.preview_1),
-                        goods.goods_price, goods.download_count, goods.collected_count)
+                        goods.goods_price, goods.download_count, goods.collected_count, is_collected)
             other_goods  = RecommendGoods(goods_param)
             other_goods_list.append(other_goods)
         return other_goods_list
@@ -384,6 +387,8 @@ def goods_detail(request):
     is_buy = get_is_buy(goods_id, vender_id)
     is_cart = get_is_cart(goods_id, vender_id)
 
+    is_collected = get_is_collected(goods_id, vender_id)
+
     Good_record.objects.create(good_id=goods_id)
 
     goods_img_list = []
@@ -392,15 +397,15 @@ def goods_detail(request):
     goods_img_list.append(common_handler.get_file_path(goods.preview_3))
 
     recommend_id_list = recommend_goods_handler.get_recommend_by_id(goods_id)
-    recommend_goods_list = get_recommend_goods_list(recommend_id_list)
+    recommend_goods_list = get_recommend_goods_list(recommend_id_list, vender_id)
 
     designer_goods_list = goods_handler.get_other_goods(designer_id, goods_id)
-    other_goods_list = get_other_goods_list(designer_goods_list)
+    other_goods_list = get_other_goods_list(designer_goods_list, vender_id)
 
     context = {
         'goods_id': goods.id, 'goods_name': goods.goods_name, 'goods_img_list': goods_img_list,
         'goods_img': common_handler.get_file_path(goods.preview_1), 'goods_name': goods.goods_name,
-        'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
+        'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count, 'goods_mark': is_collected,
         'goods_moduleType': goods.tags, 'goods_description': goods.description, 'is_cart': is_cart,
         'goods_price': goods.goods_price, 'designer_name': designer.designername, 'designer_id': designer_id,
         'goods_tags': goods.tags, 'goods_style': get_style(goods), 'goods_list': to_tags[goods.tags],

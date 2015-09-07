@@ -5,14 +5,14 @@
 				<a class="site-dl mr10" href="javascript:void(0)">登陆</a>
 				<a href="/shop/login_register">注册</a>
 			{% else %}
-            <span>欢迎您，{{ user.first_name }}</span>
+            <span class="f12">欢迎您 <span class="ml10">{{ user.first_name }}</span></span>
 			{% endif %}
 
 			{% if user.is_authenticated %}
 				{% if user.last_name == 'V' %}
-				<a class="ml30" href="/vender/vender-center">商家中心</a>
+				<a class="ml30 unl" href="/vender/vender-center">商家中心</a>
 				{% else %}
-				<a class="ml30" href="/designer/my_state">设计师中心</a>
+				<a class="ml30 unl" href="/designer/my_state">设计师中心</a>
 				{% endif %}	
 			{% endif %}
 		</div>
