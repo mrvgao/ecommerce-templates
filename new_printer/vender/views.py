@@ -111,7 +111,7 @@ def designers_collection(request):
         for vender_designer in vender_designer_list:
             designer = Designer_User.objects.get(id=vender_designer.designer_id)
             designer_collection = DesignerCollection()
-            designer_collection.set_designer_collection(designer.id, designer.designername,designer.img,designer.marked_count)
+            designer_collection.set_designer_collection(designer.id, designer.designername,common_handler.get_file_path(str(designer.img)),designer.marked_count)
             designer_list.append(designer_collection)
         return designer_list
 
@@ -123,7 +123,7 @@ def designers_collection(request):
     designer_list = get_designer_list(vender_designer_list)
 
     context = {
-        'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)),
+        'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)), 'vender_id': vender_id,
         'designer_list': designer_list,
     }
 
@@ -210,6 +210,7 @@ def set_account(request):
     }
 
     return render(request, website.set_account,context)
+
 
 
 def logout_account(request):
