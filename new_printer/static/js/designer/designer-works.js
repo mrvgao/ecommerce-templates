@@ -5,9 +5,10 @@ $(function(){
 	var works_wait_btn = $('#works_wait_btn'),	//待定价
 		works_on_btn = $('#works_on_btn'),	//审核中
 		works_not_btn = $('#works_not_btn'),	//未通过
-		works_Suc_btn = $('#works_Suc_btn'),	//已发布
-		designer_works_lists = $('.designer-works-lists'),
-		designer_works_container = $('.designer-works-container');
+		works_Suc_btn = $('#works_Suc_btn');	//已发布
+	
+	designer_works_lists = $('.designer-works-lists');
+	designer_works_container = $('.designer-works-container');
 
 	workd_unexecute(1);
 
@@ -692,15 +693,9 @@ function edit(){	//编辑弹窗函数
 
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
-<<<<<<< HEAD
+
 		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
-=======
-		console.log(workId)
-		
-		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){
-			console.log('screenshot upload succeed');	  
-		});
->>>>>>> 24451f8b36ae10b3fb560c29060b123fcbf898b6
+
 	});
 }
 
