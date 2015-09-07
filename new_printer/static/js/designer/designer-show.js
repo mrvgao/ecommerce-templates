@@ -92,7 +92,6 @@ $(function (){
 			_this.addClass('active');
 			_txt.text(parseInt(_txt.text())+1);
 			$.post('/designer/add_focus',{ 'd_id': _did, 'v_id': _vid},function (e){});
-
 		}
 	});
 
