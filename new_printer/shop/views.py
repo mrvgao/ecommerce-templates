@@ -10,6 +10,7 @@ from conf import website
 from configuration.models import Goods
 from configuration.models import Designer_User
 from configuration.models import Vender_User
+from configuration.models import Good_record
 
 from utils.common_class import IndexGoods
 from utils.common_class import IndexGoodsDesigner
@@ -370,6 +371,8 @@ def goods_detail(request):
     vender_id = get_vender_id(request)
     is_buy = get_is_buy(goods_id, vender_id)
 
+    Good_record.objects.create(good_id=goods_id)
+
     goods_img_list = []
     goods_img_list.append(common_handler.get_file_path(goods.preview_1))
     goods_img_list.append(common_handler.get_file_path(goods.preview_2))
@@ -386,7 +389,7 @@ def goods_detail(request):
         'goods_img': common_handler.get_file_path(goods.preview_1), 'goods_name': goods.goods_name,
         'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
         'goods_moduleType': goods.tags, 'goods_description': goods.description,
-        'goods_price': goods.goods_price, 'designer_name': designer.designername,
+        'goods_price': goods.goods_price, 'designer_name': designer.designername, 'designer_id': designer_id,
         'goods_tags': goods.tags, 'goods_style': get_style(goods), 'goods_list': to_tags[goods.tags],
         'designer_img': common_handler.get_file_path(str(designer.img)),'isDownload': is_buy,
         'other_goods_list': recommend_goods_list[:4],
