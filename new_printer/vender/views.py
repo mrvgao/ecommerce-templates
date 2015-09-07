@@ -123,7 +123,7 @@ def designers_collection(request):
     designer_list = get_designer_list(vender_designer_list)
 
     context = {
-        'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)),
+        'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)), 'vender_id': vender_id,
         'designer_list': designer_list,
     }
 
