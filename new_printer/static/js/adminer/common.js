@@ -101,10 +101,10 @@ Commom.registerGoodBtn = function(){
 
 	$("[name|='good-deny']").hover(function(){
 		var domOffset = $(this).offset();
-		var infoWinTop = domOffset.top -$('#good-deny-infos').height() - parseInt($(this).css('padding-top'))+1;
-		var infoWinLeft = domOffset.left - $('#good-deny-infos').width()/2 + $(this).width()/2; 
+		var infoWinTop = domOffset.top -$('#good-deny-infos').height() - parseInt($(this).css('padding-top'));
+		var infoWinRight = $('#good-deny-infos').width()/2 + $(this).width()/2 - 80;
 		$('#good-deny-infos').css('top', infoWinTop);
-		$('#good-deny-infos').css('left', infoWinLeft);
+		$('#good-deny-infos').css('right', infoWinRight);
 		$('#good-deny-infos').show();
 	},function(){
 		$('#good-deny-infos').hide();
@@ -113,9 +113,9 @@ Commom.registerGoodBtn = function(){
 	$("[name|='good-pass']").hover(function(){
 		var domOffset = $(this).offset();
 		var infoWinTop = domOffset.top -$('#good-pass-infos').height() - parseInt($(this).css('padding-top'))+1;
-		var infoWinLeft = domOffset.left - $('#good-pass-infos').width()/2 + $(this).width()/2; 
+		var infoWinRight = $('#good-pass-infos').width()/2 - $(this).width()/2 - 10; 
 		$('#good-pass-infos').css('top', infoWinTop);
-		$('#good-pass-infos').css('left', infoWinLeft);
+		$('#good-pass-infos').css('right', infoWinRight);
 		$('#good-pass-infos').show();
 	},function(){
 		$('#good-pass-infos').hide();
