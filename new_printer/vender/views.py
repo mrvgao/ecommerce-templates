@@ -141,7 +141,7 @@ def works_collection(request):
             self.work_description = None
             self.work_status = None
             self.designer_name = None
-            self.goods_id
+            self.goods_id = None
 
         def set_works_collection(self,work):
             self.work_name = work[0]
@@ -177,7 +177,7 @@ def works_collection(request):
         'work_list': work_list,
     }
 
-    return render(request,website.works_collection,context)
+    return render(request, website.works_collection, context)
 
 
 @login_required
