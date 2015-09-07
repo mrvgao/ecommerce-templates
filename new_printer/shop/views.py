@@ -387,6 +387,8 @@ def goods_detail(request):
     is_buy = get_is_buy(goods_id, vender_id)
     is_cart = get_is_cart(goods_id, vender_id)
 
+    is_collected = get_is_collected(goods_id, vender_id)
+
     Good_record.objects.create(good_id=goods_id)
 
     goods_img_list = []
@@ -403,7 +405,7 @@ def goods_detail(request):
     context = {
         'goods_id': goods.id, 'goods_name': goods.goods_name, 'goods_img_list': goods_img_list,
         'goods_img': common_handler.get_file_path(goods.preview_1), 'goods_name': goods.goods_name,
-        'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
+        'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count, 'goods_mark': is_collected,
         'goods_moduleType': goods.tags, 'goods_description': goods.description, 'is_cart': is_cart,
         'goods_price': goods.goods_price, 'designer_name': designer.designername, 'designer_id': designer_id,
         'goods_tags': goods.tags, 'goods_style': get_style(goods), 'goods_list': to_tags[goods.tags],
