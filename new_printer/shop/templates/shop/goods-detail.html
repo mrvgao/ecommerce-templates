@@ -23,7 +23,7 @@
 		<div class="detail-site-guide pt15 pb10">
 			<a href="/shop/{{ goods_list }}">{{ goods_tags }}</a>
 			>
-			<a href="/shop/{{ goods_list }}?goods_type={{ goods_style }}">{{ goods_style }}</a>
+			<a href="/shop/{{ goods_list }}/?goods_type={{ goods_style }}">{{ goods_style }}</a>
 			>
             <a href="/shop/goods-detail?goods_id={{ goods_id }}">{{ goods_name }}</a>
 		</div>
@@ -49,10 +49,6 @@
 						<div id="show-3d" style="position:absolute;top:0px;left:160px;"></div>
 					</div>
 					<a class="pa goods-tomark" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a>
-					<a class="pa chover hide watch-fullscreen" href="javascript:void(0)">全屏</a>
-					<div class="fullscreen-wrap hide">
-						<div id="show-3d-tool-fullscreen"></div>
-					</div>
 				</div>
 				<div class="detail-txt fr">
 					<div class="goods-info-box mb50">
@@ -65,7 +61,7 @@
 						<div class="goods-info mb30">{{ goods_description }}</div>
 						<p class="mb30 tc">￥{{ goods_price }}</p>
 						<div class="designer-img bc">
-							<a href="/designer/designer-show?designer_id={{ designer_id }}"><img src="{{ designer_img }}" alt="" /></a>
+							<a href="/designer/designer_personal?designer_id={{ designer_id }}"><img src="{{ designer_img }}" alt="" /></a>
 						</div>
 						<p class="tc mt5">设计师：{{ designer_name }}</p>
 					</div>
@@ -76,7 +72,7 @@
 					<div class="pay-info">
 						<div class="pay-btn bc">
 							<button data-state="{% if user.is_authenticated %}1{% else %}0{% endif %}" class="paynow f18 fb mr10 tc">立即下单</button>
-							<button data-cart="{% if user.is_cart %}1{% else %}{% endif %}" class="addcart f18 fb tc">加入购物车</button>
+							<button class="addcart f18 fb tc">加入购物车</button>
 						</div>
 						<div class="pay-ts mt30 tc c888">
 							<p class="mb5">该模型您尚未购买，点击按钮即可支付并下载</p>
@@ -151,7 +147,7 @@
 									</a>
 								</div>
 								<p class="goods_price f12 tc">￥{{ other_goods.goods_price }}</p>
-								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ other_goods.goods_id }}" href="javascript:void(0)">
+								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
 									<em class="list-mark-btn-ico"></em>
 									收藏
 								</a>
@@ -193,7 +189,7 @@
 									</a>
 								</div>
 								<p class="goods_price f12 tc">￥{{ designer_goods.goods_price }}</p>
-								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ designer_goods.goods_id }}" href="javascript:void(0)">
+								<a class="list-mark-btn {% if goods.goods_mark %}active{% endif %} chover pa" data-num="{{ goods.goods_id }}" href="javascript:void(0)">
 									<em class="list-mark-btn-ico"></em>
 									收藏
 								</a>

@@ -39,8 +39,10 @@ def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
     '''
+    #pdb.set_trace()
     user = request.user
-    designer = Designer_User.objects.get(user_id = user.id)
+    designer_id = request.GET['designer_id']
+    designer = Designer_User.objects.get(id = designer_id)
     is_focus = False
     designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
     designer.img = str(server_website.file_server_path) + str(designer.img)
@@ -49,14 +51,15 @@ def my_personal(request):
         now_user = 'D'
     else:
         now_user = 'V'
-        if Vender_Designer.objects.filter(designer_id = designer.id, vender_id = 2):
+        vender_id = Vender_User.objects.get(user = user).id
+        if Vender_Designer.objects.filter(designer_id = designer.id, vender_id = vender_id):
             is_focus = True
     design_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     return_list = []
     for good in design_list:
         is_collect = False
         _good = {}
-        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = 2):
+        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = vender_id):
             is_collect = True
         print is_collect
         print good.id

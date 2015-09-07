@@ -79,47 +79,33 @@ $(function (){
 
 	// 关注 or 取消关注
 	mark_btn.on('click',function (){
-		var _this = $(this);
+		var _this = $(this),
+			_did = _this.attr('data-did'),
+			_vid = _this.attr('data-vid');
+
 		if(_this.hasClass('active')){
 			_this.removeClass('active');
-			var d_id = 1;
-			var v_id = 2;
-			$.post('/designer/cancel_focus',{ 'd_id': d_id, 'v_id': v_id },function (e){
-				alert("取消关注成功！")
-
-			});
+			$.post('/designer/cancel_focus',{ 'd_id': _did, 'v_id': _vid },function (e){});
 
 		}else {
 			_this.addClass('active');
-			var d_id = 1;
-			var v_id = 2;
-			$.post('/designer/add_focus',{ 'd_id': d_id, 'v_id': v_id},function (e){
-				alert("添加关注成功！")
-				
-			});
+			$.post('/designer/add_focus',{ 'd_id': _did, 'v_id': _vid},function (e){});
 
 		}
 	});
 	// 收藏 or 取消收藏
 	goods_tomark.on('click',function (){
-		var _this = $(this);
+		var _this = $(this),
+			_vid = mark_btn.attr('data-vid'),
+			_gid = _this.attr('data-num');
+
 		if(_this.hasClass('active')){
 			_this.removeClass('active');
-			var g_id = 1;
-			var v_id = 2;
-			$.post('/designer/cancel_collect',{ 'g_id': g_id, 'v_id': v_id },function (e){
-				alert("取消收藏成功！");
-
-			});
+			$.post('/designer/cancel_collect',{ 'g_id': _gid, 'v_id': _vid },function (e){});
 
 		}else {
 			_this.addClass('active');
-			var g_id = 8;
-			var v_id = 2;
-			$.post('/designer/add_collect',{ 'g_id': g_id, 'v_id': v_id},function (e){
-				alert("添加收藏成功！");
-				
-			});
+			$.post('/designer/add_collect',{ 'g_id': _gid, 'v_id': _vid},function (e){});
 
 		}
 	});
