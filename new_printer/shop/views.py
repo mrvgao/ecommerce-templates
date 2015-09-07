@@ -102,6 +102,14 @@ def get_is_buy(goods_id, vender_id):
     return is_buy
 
 
+def get_is_cart(goods_id, vender_id):
+    if vender_id:
+        is_cart = vender_goods_handler.get_is_cart(goods_id, vender_id)
+    else:
+        is_cart = False
+    return is_cart
+
+
 def get_style_param(request):
     try:
         style = request.GET['goods_type']
@@ -274,6 +282,7 @@ def get_goods_list_by_tags(goods_tags, vender_id, style_param):
         return goods_list
 
     all_goods_list = goods_handler.get_all_goods_by_tags(goods_tags)
+    all_goods_list = all_goods_list.filter(is_active=True)
     style_list = get_style_list(all_goods_list, style_param)
     sort_goods_list = goods_handler.comprehension_sort(style_list)
     goods_list = change_to_tag_goods(sort_goods_list, vender_id)
@@ -370,6 +379,7 @@ def goods_detail(request):
     designer = Designer_User.objects.get(id=designer_id)
     vender_id = get_vender_id(request)
     is_buy = get_is_buy(goods_id, vender_id)
+    is_cart = get_is_cart(goods_id, vender_id)
 
     Good_record.objects.create(good_id=goods_id)
 
@@ -388,7 +398,7 @@ def goods_detail(request):
         'goods_id': goods.id, 'goods_name': goods.goods_name, 'goods_img_list': goods_img_list,
         'goods_img': common_handler.get_file_path(goods.preview_1), 'goods_name': goods.goods_name,
         'goods_download_num': goods.download_count, 'goods_mark_num': goods.collected_count,
-        'goods_moduleType': goods.tags, 'goods_description': goods.description,
+        'goods_moduleType': goods.tags, 'goods_description': goods.description, 'is_cart': is_cart,
         'goods_price': goods.goods_price, 'designer_name': designer.designername, 'designer_id': designer_id,
         'goods_tags': goods.tags, 'goods_style': get_style(goods), 'goods_list': to_tags[goods.tags],
         'designer_img': common_handler.get_file_path(str(designer.img)),'isDownload': is_buy,
