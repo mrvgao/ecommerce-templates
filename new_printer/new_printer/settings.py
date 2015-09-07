@@ -64,6 +64,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'new_printer.urls'
 
+#session is unable when one minute is over
+SESSION_COOKIE_AGE= 60*30
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -147,3 +150,4 @@ STATICFILES_DIRS = (
 
 LOGIN_URL = '/shop/login_register'
 #AUTH_PROFILE_MODULE = 'configutation.TestUser'
+
