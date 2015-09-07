@@ -701,7 +701,7 @@ function edit(){	//编辑弹窗函数
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
 		console.log(workId)
-		console.log(ShowStl.screenShotData)
+		
 		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){
 			console.log('screenshot upload succeed');	  
 		});
