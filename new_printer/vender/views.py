@@ -141,6 +141,7 @@ def works_collection(request):
             self.work_description = None
             self.work_status = None
             self.designer_name = None
+            self.goods_id
 
         def set_works_collection(self,work):
             self.work_name = work[0]
@@ -149,6 +150,7 @@ def works_collection(request):
             self.work_description = work[3]
             self.work_status = work[4]
             self.designer_name = work[5]
+            self.goods_id = work[6]
 
 
     def get_work_list(vender_goods_list):
@@ -157,7 +159,7 @@ def works_collection(request):
             goods = Goods.objects.get(id=vender_goods.goods_id)
             designer_name = Designer_User.objects.get(id=goods.designer_id).designername
             work_param = (goods.goods_name, common_handler.get_file_path(goods.preview_1),
-                          goods.goods_price, goods.description, vender_goods.is_buy, designer_name)
+                          goods.goods_price, goods.description, vender_goods.is_buy, designer_name, goods.id)
             works_collection = WorksCollection()
             works_collection.set_works_collection(work_param)
             work_list.append(works_collection)
