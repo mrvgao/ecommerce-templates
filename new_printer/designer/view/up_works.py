@@ -310,7 +310,6 @@ def auditing(request):
     #显示 审核中 页面
     '''
     user = request.user
-    user = request.user
     now_page = int(request.POST['page']) - 1    
     designer = Designer_User.objects.get(user_id = user.id)
     designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
