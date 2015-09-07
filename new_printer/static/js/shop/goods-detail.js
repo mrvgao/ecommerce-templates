@@ -47,13 +47,13 @@ $(function (){
 	});
 
 	// 加入购物车
-	addcart.one('click',function (){
+	addcart.on('click',function (){
 		var _that = paynow,
 			_this = $(this);
 
 		if(_that.attr('data-state') == 1){
 			if(_this.attr('data-cart') == 1){
-				return false;
+				$.msgBox.mini('已添加，请在购物车中查看');
 			}else {
 				$.post('/payment/add_cart',{
 					'goods_id': goods_id
