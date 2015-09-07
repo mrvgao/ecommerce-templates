@@ -59,10 +59,10 @@ def my_personal(request):
     for good in design_list:
         is_collect = False
         _good = {}
-        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = vender_id):
-            is_collect = True
-        print is_collect
-        print good.id
+        if now_user == 'V':
+            g_v = Vender_Goods.objects.filter(goods_id = good.id, vender_id = vender_id)
+            if g_v:
+                is_collect = True
         _good = {'goods_name': good.goods_name, 'id': good.id, 'download_count': good.download_count,
          'collected_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
          'preview_1': server_website.file_server_path + good.preview_1 }
@@ -72,10 +72,16 @@ def my_personal(request):
     total_pages = all_len/(website.all_one)
     if all_len%(website.all_one)!=0:
         total_pages += 1
-    conf = {'other_goods_list': return_list, 'designer_img': designer.img, 'designer_name': designer.designername,
+    if (d_user):
+        conf = {'other_goods_list': return_list, 'designer_img': designer.img, 'designer_name': designer.designername,
             'marked': designer_marked, 'now_user': now_user, 'designer_id': designer.id,
             'is_focus': is_focus
     		  }
+    else:
+        conf = {'other_goods_list': return_list, 'designer_img': designer.img, 'designer_name': designer.designername,
+            'marked': designer_marked, 'now_user': now_user, 'designer_id': designer.id,
+            'is_focus': is_focus, 'vender_id': vender_id
+              }
     return render(request, website.my_personal, conf)
 
 @login_required
@@ -83,13 +89,18 @@ def sort_list(request):
     '''
     展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
     '''
+    #pdb.set_trace()
     user = request.user
-    #vender_id = request.POST['v_id']
+    Test_user = Designer_User.objects.filter(user = user).exists()
+    if not Test_user:
+        vender_id = request.POST['v_id']
+        designer_id = request.POST['d_id']
+    else:
+        designer_id = Designer_User.objects.get(user = user).id
     data_tag = int(request.POST['data_kind'])
     type_tag = request.POST['type_kind']
-    designer = Designer_User.objects.get(user_id = user.id)
-    design_list = Goods.objects.filter(designer_id=designer.id)
-    Test_user = Designer_User.objects.filter(user_id = user.id).exists()
+    
+    design_list = Goods.objects.filter(designer_id = designer_id)
     if type_tag != u'全部':
         design_list = design_list.filter(tags = type_tag)
     if (Test_user):
@@ -106,7 +117,7 @@ def sort_list(request):
     for good in design_list:
         is_collect = False
         _good = {}
-        if Vender_Goods.objects.filter(goods_id = good.id, vender_id = 2):
+        if not Test_user and Vender_Goods.objects.filter(goods_id = good.id, vender_id = vender_id):
             is_collect = True
         _good = {'goods_name': good.goods_name, 'id': good.id, 'download_count': good.download_count,
          'collect_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
@@ -250,7 +261,7 @@ def my_state(request):
             'downloadNum':download,
             'focusNum':designer.marked_count,
             'name':designer.designername,
-            'img':str(server_website.file_server_path)+str(designer.img)
+            'img':str(server_website.file_server_path)+str(designer.img), 'designer_id': designer.id 
             }
     return render(request, website.my_state, conf)
 
@@ -358,23 +369,26 @@ def cancel_focus(request):
 
 
 def add_collect(request):
-	#pdb.set_trace()
-	g_id = request.POST['g_id']
-	v_id = request.POST['v_id']
-	this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
-	if  this_good:
-		now_collect = this_good.update(is_collected = True)
-	else:
-		new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
-				collected_time = datetime.now())
-		return HttpResponse(json.dumps("success"))
+    #pdb.set_trace()
+    g_id = request.POST['g_id']
+    v_id = request.POST['v_id']
+    
+    this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
+    if  this_good:
+        now_collect = this_good.update(is_collected = True)
+    else:
+        new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
+                collected_time = datetime.now())
+    return HttpResponse(json.dumps("success"))
+
+
 
 
 def cancel_collect(request):
-	g_id = request.POST['g_id']
-	v_id = request.POST['v_id']
-	cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
-	return HttpResponse(json.dumps("success"))
+    g_id = request.POST['g_id']
+    v_id = request.POST['v_id']
+    cancel_collect = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id).delete()
+    return HttpResponse(json.dumps("success"))
 
 @login_required
 def add_alipay(request):

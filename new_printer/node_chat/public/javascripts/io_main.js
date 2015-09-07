@@ -1,4 +1,5 @@
 var bgMain = require('./background_main');
+var SERVICE_NAME = "【3DiLove客服】达芬奇";
 
 var TABLES ={
 	user: {
@@ -53,13 +54,11 @@ function socketMain(socket){
 	socket.on('chat/anonymous_user/connect', function(){
 		l('anonymous_user');
 		var ipAddress = socket.handshake.address;
-		ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
-		username = nickname = ipAddress;
+		ipAddress = ipAddress.replace(/([:]+|[.]+|[f]+)/ig,'');
+		username = nickname = '顾客'+ipAddress;
 		/*socketMap.customer[username] = socket;*/
 		socketMap[username] = socket;
-		socket.emit('callback/chat/anonymous_user/connect',ipAddress,customerServiceList[0]);
-
-		l('send a service to user:'+customerServiceList[0]);
+		socket.emit('callback/chat/anonymous_user/connect',username,customerServiceList[0]);
 	});
 
 
@@ -68,7 +67,7 @@ function socketMain(socket){
 		var ipAddress = socket.handshake.address;
 		ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
 		/*username = nickname = ipAddress;*/
-		username = nickname = "Service1";
+		username = nickname = SERVICE_NAME;
 		/*socketMap.customerService[username] = socket;*/
 		socketMap[username] = socket;
 		socket.emit('callback/chat/customer_service/connect',username);
