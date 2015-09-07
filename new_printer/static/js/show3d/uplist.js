@@ -25,9 +25,13 @@ function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerI
 			initializeObj(url_path, win_width, win_height, ''+containerId+'-fullscreen');
 		}); 
 
+		$('#'+containerId+'-tool-cancel-fullscreen').unbind('click');
 		$('#'+containerId+'-tool-cancel-fullscreen').click(function(){
 			$('#'+containerId+'-fullscreen').empty();    
-			$('#'+containerId+'-cont').hide();
+			/*$('#'+containerId+'-cont').hide();*/
+			$('#'+containerId).html(null);
+			initializeObj(url_path, canvasW, canvasH, containerId);
+			$('#'+containerId+'-cont').show();
 		});
 	});
 }
