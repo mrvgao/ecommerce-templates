@@ -20,7 +20,7 @@ from designer.utilites import search_handle,good_filter
 from configuration.models import Goods_Upload,Designer_User,Vender_Goods,Goods,Vender_User
 from django.contrib.auth.models import User
 import httplib, urllib
-import urllib2,os
+import urllib2,os,re
 import datetime
 import time,json,pdb,hashlib
 
@@ -109,12 +109,12 @@ def file_save(model,name,stl_type):
     data.append('Content-Type: %s\r\n' % 'image/png')
     data.append(chunks)
     data.append('--%s--\r\n' % boundary)
-    http_url = server_website.file_server_upload
+    http_url = server_website.file_server_upload #'http://192.168.1.120:8888/file/stlupload'#
     http_body = '\r\n'.join(data)
     req = urllib2.Request(http_url, data=http_body)
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
     req.add_header('User-Agent','Mozilla/5.0')
-    req.add_header('Referer','%s'%server_website.file_server_ip)#'http://192.168.1.101:8888/')
+    req.add_header('Referer','%s' %server_website.file_server_ip)#'http://192.168.1.101:8888/')
     resp = urllib2.urlopen(req, timeout=10)
     qrcont=resp.read()
     md = json.loads(qrcont)
@@ -165,6 +165,7 @@ def designer_works(request):
             }
     return render(request, website.works_execute, conf)
 
+
 def unexecute_delete(request):
     '''
         #在未审核页面直接删除作品 ;在已发布页面点击编辑后，点击取消发布；
@@ -195,12 +196,6 @@ def edit_submit(request):
     previews = request.FILES
     describe = request.POST['stl_describe']
     name = request.POST['stl_name']
-    preview_3 = request.POST['screenshot']
-    if preview_3 != null:
-        file_3 = open('a.png','r+')
-        file_3.write(preview_3)
-        file_3.close()
-        preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
     if not name:
         name = good.goods_name
     for preview in previews:
@@ -214,7 +209,8 @@ def edit_submit(request):
             s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
         if count == 2:
             s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
-        
+        if count == 3:
+            s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
     s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
                         goods_price = int(price),
                         good_state = 1,
@@ -233,7 +229,7 @@ def edit_submit(request):
 
 
 def screenshot(request):
-    pdb.set_trace()
+    #pdb.set_trace()
     file_id = request.POST['id']
     good = Goods_Upload.objects.get(id=file_id)
     stl_md5 = good.stl_path.encode('utf-8')
@@ -241,10 +237,38 @@ def screenshot(request):
     stl_md5 = stl_md5[0]
     stl_md5 = stl_md5.split('/')[0]
     preview = request.POST['screenshot']
-    preview_type=str(preview)
-    preview_type=preview_type.split('.')
-    preview_md5 = photo_save(preview,preview_type[0],preview_type[1],stl_md5)
-    p_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
+    imgstr = re.search(r'base64,(.*)', preview).group(1)
+    output = open('output.png', 'wb')
+    output.write(imgstr.decode('base64'))
+    output.close()
+
+    boundary = '----------%s' % hex(int(time.time() * 1000))
+    data = []
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
+    data.append('png')
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"\r\n' % 'md5')
+    data.append(stl_md5)
+    data.append('--%s' % boundary)
+    data.append('Content-Disposition: form-data; name="%s"; filename="%s"' % ('profile',str('a')))
+    data.append('Content-Type: %s\r\n' % 'image/png')
+    data.append(imgstr.decode('base64'))
+    data.append('--%s--\r\n' % boundary)
+    http_url = server_website.file_server_imgupload #'http://192.168.1.120:8888/file/imgupload'#
+    http_body = '\r\n'.join(data)
+    req = urllib2.Request(http_url, data=http_body)
+    req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
+    req.add_header('User-Agent','Mozilla/5.0')
+    req.add_header('Referer','%s'%server_website.file_server_ip)#)
+    resp = urllib2.urlopen(req, timeout=2545)
+    qrcont=resp.read()
+    md = json.loads(qrcont)
+    print md
+    md5 = md['status']
+    print md5
+
+    p_url = str(stl_md5) + '/' + 'a' + '.' + 'png'
     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p_url)
     conf = {'status':'success'}
     return HttpResponse(json.dumps(conf)) 
