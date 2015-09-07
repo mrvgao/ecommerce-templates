@@ -425,20 +425,15 @@ Chat.appendChatContainerWithChatMsg = function(newChatMsg, sender){
 
 Chat.quickToolStuff = function(){
 	$('.user-tool-download').click(function(){
-		/*window.parent.location.href = "/";*/
-		/*top.window.location.href = top.window.location.href;*/
-		/*window.parent.parent.location.href = '/';*/
-		/*top.location.href = '/';*/
-		/*parent.location.reload();*/
-		var i = $("#mallPage",window.parent.document);
-		console.log('0:'+i.html());
+		opener.location = '/vender/vender-center';
 	});
 
 	$('.user-tool-mark').click(function(){
-		console.log('1');
+		/*opener.location = '/vender/myCollection/designers';*/
+		opener.location = '/vender/myCollection/works';
 	});
 
 	$('.user-tool-help').click(function(){
-		console.log('2');
+		/*opener.location = '/vender/myCollection/designers';*/
 	});
 }
