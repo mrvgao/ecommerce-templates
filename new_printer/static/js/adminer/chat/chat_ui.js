@@ -20,6 +20,8 @@ $(function(){
 
 
 	ChatUI.useFace();
+
+	ChatUI.msgRemindMark = '<div id="msg-remind-mark" style="float: right;margin-right: 28px;">NM</div>';
 })
 
 

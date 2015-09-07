@@ -1,10 +1,10 @@
 .main-container{
 	width: 960px;
-	height: 700px;
-	-opacity: 0.5;
-	-margin-top: -722px;
-	-margin-left: 19px;
-	position: absolute;
+	height: 716px;
+	margin: auto;
+	position: relative;
+	border: 1px solid #ddd;
+	border-radius: 7px;
 }
 .title-bar{
 	padding-top: 13px;
@@ -101,7 +101,7 @@
 }
 .goods-container{
 	width: 960px;
-	height: 613px;
+	height: 630px;
 	-display: none;
 }
 .goods-container ul{
@@ -162,9 +162,9 @@
 	width: 960px;
 	height: 82px;
 	background-color: #F5F5F5;
-	position: absolute;
+	position: relative;
 	bottom: 0px;
-	-display: none;
+	border-radius: 0px 0px 6px 6px;
 }
 .pages-btn{
 	float: left;
@@ -232,22 +232,23 @@
 }
 .chat-user.choosed{
 	background-color: #E6E6E6;
-	color: #FAFAFA;
+	color: #464747;
 }
 .chat-user.hovered{
 	background-color: #E6E6E6;
-	color: #FAFAFA;
+	color: #464747;
 }
 .chat-user img{
 	width: 38px;
 	height: 38px;
 	float: left;
 	margin-top: 5px;
-	margin-left: 10px;
+	margin-left: 5px;
 }
 .chat-user div{
+	width: 50px;
 	float: left;
-	margin-top: 18px;
+	margin-top: 10px;
 	margin-left: 4px;
 	font-size: 13px;
 }
@@ -397,3 +398,6 @@
 .chat-word-cont img{
 	display:inline-block;
 }  
+.tool-bar-msg-remind-mark{
+	color: #FF766F;
+}
