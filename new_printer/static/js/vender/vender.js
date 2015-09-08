@@ -11,7 +11,7 @@ $(function (){
 
 		$.post('/shop/mark-goods',{ goods_id: _num },function (e){
 			var data = JSON.parse(e);
-            if(data.state == 'success'){
+            if(data.state == 'SUCCESS'){
             	$.msgBox.mini('取消成功');
             	_this.parent().remove();
             }else {
@@ -28,7 +28,7 @@ $(function (){
 
 		$.post('/designer/cancel_focus',{ 'd_id': _num, 'v_id': _id },function (e){
 			var data = JSON.parse(e);
-            if(data.state == 'success'){
+            if(data.state == 'SUCCESS'){
             	$.msgBox.mini('取消成功');
             	_this.parents('.designer-box').remove();
             }else {
