@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block selfFiles %}
+	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/sign.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/index.css' %}" />
+	{% endcompress %}
+
+	{% compress js %}
 	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/shop/sign.js' %}"></script>
 	<script type="text/javascript" src="{% static 'plugin/js/imgSlider.js' %}"></script>
+	{% endcompress %}
 {% endblock %}
 
 {% block header %}

@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block selfFiles %}
+	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/designer/designer.css' %}" />
+	{% endcompress %}
+	
+	{% compress js %}
 	<script type="text/javascript" src="{% static 'js/designer/designer-show.js' %}"></script>
+	{% endcompress %}
 {% endblock %}
 
 {% block logo %}

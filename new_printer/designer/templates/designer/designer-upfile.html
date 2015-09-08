@@ -1,9 +1,12 @@
 {% extends 'designer/designer-base.html' %}
 
 {% load staticfiles %}
+{% load compress %}
 	{% block selfJs %}
+	{% compress js %}
 	<script type="text/javascript" src="{% static 'js/designer/works-save.js' %}"></script>
 	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
+	{% endcompress %}
 	{% endblock %}
 
 	{% block mainContent %}
