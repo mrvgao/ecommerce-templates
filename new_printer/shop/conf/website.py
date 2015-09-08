@@ -14,4 +14,4 @@ password_find = 'shop/password-find.html'
 
 chat_customer_service_win = 'shop/customer-service-for-window.html'
 
-test = '404.html'
+test = '500.html'

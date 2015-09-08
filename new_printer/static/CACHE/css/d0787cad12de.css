@@ -1,3 +1,572 @@
+@charset "utf-8";
+/*
+*  @名称：base.css v0.1.0
+*  @功能：1、重置浏览器默认样式
+* 		 2、设置通用类
+*/
+
+
+/* 重置所有元素自带的margin\padding */
+body, body * {
+	padding:0;
+	margin:0;
+}
+
+/* 表单元素不继承父级 font 的问题 */
+body,button,input,select,textarea {
+    font:14px Microsoft YaHei,arial,sans-serif;
+    color:#555;
+    outline:none;
+}
+input,select,textarea,button {
+    font-size:100%;
+    border:1px solid #ccc;
+}
+textarea {
+	resize:none;
+}
+/* 去除默认边框 */
+img {
+    border:none;
+    display:block;
+}
+
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe {
+    display:block;
+}
+
+/* 去掉列表前的标识，li 会继承 */
+ol,ul {
+    list-style:none;
+}
+
+/* 让链接在 hover 状态下显示下划线 */
+a:hover {
+    text-decoration:none;
+    color:#79d0d8;
+}
+a.hover:hover {
+	color:#79d0d8;
+}
+a.chover {
+	color:#555;
+}
+
+/* 默认不显示下划线，保持页面简洁 */
+a {
+    text-decoration:none;
+    color:#555;
+    font-weight:normal;
+}
+
+/* 去除 ie6 & ie7 焦点点状线 */
+a:focus,*:focus {
+    outline:none;
+}
+
+/* 取消双击选取出现的不良好现象 */
+button{
+	border: none;
+	outline: none;
+}
+*.unselectable {
+	-moz-user-select:-moz-none;
+	-khtml-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
+
+/* 字体大小 */
+.f12 {
+	font-size:12px;
+}
+.f13 {
+	font-size:13px;
+}
+.f14 {
+	font-size:14px;
+}
+.f16 {
+	font-size:16px;
+}
+.f18 {
+	font-size:18px;
+}
+.f20 {
+	font-size:20px;
+}
+.fb {
+	font-weight:bold;
+}
+.fn {
+	font-weight:normal;
+}
+.ti2 {
+	text-indent:2em;
+}
+.lh150 {
+	line-height:150%;
+}
+.lh180 {
+	line-height:180%;
+}
+.lh200 {
+	line-height:200%
+}
+.unl {
+	text-decoration:underline;
+}
+.no_unl {
+	text-decoration:none;
+}
+.ww-bw {
+	word-wrap:break-word;
+}
+.t-el {
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+
+/* 文字对齐方式 */
+.tl {
+	text-align:left;
+}
+.tc {
+	text-align:center;
+}
+.tr {
+	text-align:right;
+}
+
+/* 浏览器水平居中 */
+.bc {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/* 设置浮动，减少浮动带来的 bug */
+.fl {
+	float:left;
+	display:inline;
+}
+.fr {
+	float:right;
+	display:inline;
+}
+.cb {
+	clear:both;
+}
+.cl {
+	clear:left;
+}
+.cr {
+	clear:right;
+}
+.clearfix:after {
+	content:'';
+	display:block;
+	height:0;
+	clear:both;
+}
+.clearfix {
+	*zoom:1;
+}
+
+.inl-b {
+	display:inline-block;
+}
+
+/* 设置定位 */
+.pr {
+	position:relative;
+}
+.pa {
+	position:absolute;
+}
+.hidden {
+	visibility:hidden;
+}
+.show {
+	display:block;
+}
+.hide {
+	display:none;
+}
+ 
+/* 宽度 */
+
+.w10 {
+	width:10px;
+}
+.w20 {
+	width:20px;
+}
+.w30 {
+	width:30px;
+}
+.w40 {
+	width:40px;
+}
+.w50 {
+	width:50px;
+}
+.w60 {
+	width:60px;
+}
+.w70 {
+	width:70px;
+}
+.w80 {
+	width:80px;
+}
+.w90 {
+	width:90px;
+}
+.w100 {
+	width:100px;
+}
+.w200 {
+	width:200px;
+}
+.w300 {
+	width:300px;
+}
+.w400 {
+	width:400px;
+}
+.w500 {
+	width:500px;
+}
+.w600 {
+	width:600px;
+}
+.w700 {
+	width:700px;
+}
+.w800 {
+	width:800px;
+}
+.w {
+	width:100%;
+}
+
+/* 高度 */
+
+.h50 {
+	height:50px;
+}
+.h80 {
+	height:80px;
+}
+.h100 {
+	height:100px;
+}
+.h200 {
+	height:200px;
+}
+.h {
+	height:100%;
+}
+
+/* margin */
+.m10 {
+	margin:10px;
+}
+.m15 {
+	margin:15px;
+}
+.m30 {
+	margin:30px;
+}
+.mt5 {
+	margin-top:5px;
+}
+.mt10 {
+	margin-top:10px;
+}
+.mt15 {
+	margin-top:15px;
+}
+.mt20 {
+	margin-top:20px;
+}
+.mt30 {
+	margin-top:30px;
+}
+.mt50 {
+	margin-top:50px;
+}
+.mt100 {
+	margin-top:100px;
+}
+.mb5 {
+	margin-bottom:5px;
+}
+.mb10 {
+	margin-bottom:10px;
+}
+.mb15 {
+	margin-bottom:15px;
+}
+.mb20 {
+	margin-bottom:20px;
+}
+.mb30 {
+	margin-bottom:30px;
+}
+.mb50 {
+	margin-bottom:50px;
+}
+.mb100 {
+	margin-bottom:100px;
+}
+.ml5 {
+	margin-left:5px;
+}
+.ml10 {
+	margin-left:10px;
+}
+.ml15 {
+	margin-left:15px;
+}
+.ml20 {
+	margin-left:20px;
+}
+.ml30 {
+	margin-left:30px;
+}
+.ml50 {
+	margin-left:50px;
+}
+.ml100 {
+	margin-left:100px;
+}
+.ml150 {
+	margin-left:150px;
+}
+.mr5 {
+	margin-right:5px;
+}
+.mr10 {
+	margin-right:10px;
+}
+.mr15 {
+	margin-right:15px;
+}
+.mr20 {
+	margin-right:20px;
+}
+.mr30 {
+	margin-right:30px;
+}
+.mr50 {
+	margin-right:50px;
+}
+.mr100 {
+	margin-right:100px;
+}
+
+/* padding */
+.p10 {
+	padding:10px;
+}
+.p15 {
+	padding:15px;
+}
+.p30 {
+	padding:30px;
+}
+.pt5 {
+	padding-top:5px;
+}
+.pt10 {
+	padding-top:10px;
+}
+.pt15 {
+	padding-top:15px;
+}
+.pt20 {
+	padding-top:20px;
+}
+.pt30 {
+	padding-top:30px;
+}
+.pt50 {
+	padding-top:50px;
+}
+.pt100 {
+	padding-top:100px;
+}
+.pb5 {
+	padding-bottom:5px;
+}
+.pb10 {
+	padding-bottom:10px;
+}
+.pb15 {
+	padding-bottom:15px;
+}
+.pb20 {
+	padding-bottom:20px;
+}
+.pb30 {
+	padding-bottom:30px;
+}
+.pb50 {
+	padding-bottom:50px;
+}
+.pb100 {
+	padding-bottom:100px;
+}
+.pl5 {
+	padding-left:5px;
+}
+.pl10 {
+	padding-left:10px;
+}
+.pl15 {
+	padding-left:15px;
+}
+.pl20 {
+	padding-left:20px;
+}
+.pl30 {
+	padding-left:30px;
+}
+.pl50 {
+	padding-left:50px;
+}
+.pl100 {
+	padding-left:100px;
+}
+.pr5 {
+	padding-right:5px;
+}
+.pr10 {
+	padding-right:10px;
+}
+.pr15 {
+	padding-right:15px;
+}
+.pr20 {
+	padding-right:20px;
+}
+.pr30 {
+	padding-right:30px;
+}
+.pr50 {
+	padding-right:50px;
+}
+.pr100 {
+	padding-right:100px;
+}
+
+/* css3 animate */
+
+/*  父节点为hoverTline, hoverLline为其子节点 */
+.hoverTline:before {
+	content:'';
+	width:0;
+	height:2px;
+	position:absolute;
+	right:0px;
+	top:-2px;
+	background:#cc3333;
+	-webkit-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
+}
+.hoverTline:after {
+	content:'';
+	width:0;
+	height:2px;
+	position:absolute;
+	left:0;
+	bottom:-2px;
+	background:#cc3333;
+	-webkit-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
+	
+}
+.hoverLline:before {
+	content:'';
+	height:0;
+	width:2px;
+	position:absolute;
+	bottom:0;
+	right:-2px;
+	background:#cc3333;
+	-webkit-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
+}
+.hoverLline:after {
+	content:'';
+	height:0;
+	width:2px;
+	position:absolute;
+	top:0;
+	left:-2px;
+	background:#cc3333;
+	-webkit-transition:all .4s ease;
+		-moz-transition:all .4s ease;
+			-o-transition:all .4s ease;
+				transition:all .4s ease;
+}
+.hoverTline:hover .hoverLline:after, .hoverTline:hover .hoverLline:before {
+	height:100%;
+	padding-top:2px;
+}
+.hoverTline:hover::after, .hoverTline:hover::before {
+	width:100%;
+	padding-left:2px;
+}
+
+/* 按钮 */
+.btn {
+  	display: inline-block;
+  	padding: 4px 12px;
+  	line-height: 20px;
+  	color: #333333;
+  	text-align: center;
+  	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  	vertical-align: middle;
+  	cursor: pointer;
+  	background-color: #f5f5f5;
+    background-image: -webkit-linear-gradient(#ffffff, #e6e6e6);
+    background-image: -o-linear-gradient(#ffffff, #e6e6e6);
+    background-image: linear-gradient(#ffffff, #e6e6e6);
+  	background-repeat: repeat-x;
+  	border: 1px solid #cccccc;
+  	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  	border-bottom-color: #b3b3b3;
+    border-radius: 4px;
+  	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn:hover {
+  	color: #333333;
+  	background-position: 0 -15px;
+  	background-color: #e6e6e6;
+  	-webkit-transition: background-position 0.1s linear;
+     	-moz-transition: background-position 0.1s linear;
+       		-o-transition: background-position 0.1s linear;
+          		transition: background-position 0.1s linear;
+}
+.btn:active {
+  	background-image: none;
+  	outline: 0;
+}
+
 body, html {
 	height:100%;
 }
@@ -47,7 +616,7 @@ body {
 	width:15px;
 	height:15px;
 	background-repeat:no-repeat;
-	background-image:url('/static/images/common/site-icons.png');
+	background-image:url('/static/images/common/site-icons.png?1662faa75475');
 }
 .site-utool a:hover .site-download-ico {
 	background-position:-10px -34px;
@@ -88,7 +657,7 @@ body {
 }
 .designer-head-nav span{
 	display: inline-block;
-	background-image: url('/static/images/designer/designerIcon.png');
+	background-image: url('/static/images/designer/designerIcon.png?1662faa75475');
 	background-repeat:no-repeat;
 }
 .designer-head-nav-show {
@@ -134,7 +703,7 @@ body {
 	display:block;
 	width:195px;
 	height:50px;
-	background-image:url('/static/images/common/logo_new.png');
+	background-image:url('/static/images/common/logo_new.png?1662faa75475');
 	background-repeat:no-repeat;
 	background-position:-10px -70px;
 }
@@ -215,7 +784,7 @@ body {
 	height:19px;
 	right:20px;
 	top:24px;
-	background-image:url('/static/images/shop/test-ts-icons.png');
+	background-image:url('/static/images/shop/test-ts-icons.png?1662faa75475');
 	background-repeat:no-repeat;
 	background-position:-16px -10px;
 }
@@ -284,7 +853,7 @@ body {
 	display:block;
 	width:36px;
 	height:36px;
-	background:url('/static/images/common/site-icons.png');
+	background:url('/static/images/common/site-icons.png?1662faa75475');
 	background-repeat:no-repeat;
 	background-position:-2px -50px;
 }
@@ -399,7 +968,7 @@ em.select-photo-ico, em.select-emoji-ico, em.select-history-ico {
 	width:18px;
 	height:18px;
 	margin-bottom:-4px;
-	background-image:url('/static/images/common/site-icons.png');
+	background-image:url('/static/images/common/site-icons.png?1662faa75475');
 	background-repeat:no-repeat;
 	background-position:-123px -60px;
 }
@@ -470,7 +1039,7 @@ em.select-history-ico {
 	display:block;
 	width:50px;
 	height:50px;
-	background:#f57322 url('/static/images/common/site-icons.png');
+	background:#f57322 url('/static/images/common/site-icons.png?1662faa75475');
 	background-repeat:no-repeat;
 	border-radius:50%;
 }
@@ -541,11 +1110,11 @@ a.paging-btn:hover, a.page-btn:hover {
 .error4-bg {
 	width:350px;
 	height:220px;
-	background-image:url('/static/images/common/404.png');
+	background-image:url('/static/images/common/404.png?2629ff8f96a6');
 }
-.error5-bg {
+.error4-bg {
 	width:350px;
 	height:280px;
-	background-image:url('/static/images/common/404.png');
+	background-image:url('/static/images/common/404.png?2629ff8f96a6');
 	background-position:0 -220px;
 }

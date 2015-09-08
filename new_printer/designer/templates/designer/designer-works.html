@@ -1,9 +1,12 @@
 {% extends 'designer/designer-base.html' %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block selfJs %}
+{% compress js %}
 <script type="text/javascript" src="{% static 'js/designer/designer-works.js' %}"></script>
+{% endcompress %}
 {% endblock %}
 
 {% block mainContent %}
@@ -112,6 +115,7 @@
 	<span class="modify-container-close"></span>
 </div>
 
+{% compress js %}
 <!--  added by white  -->
 <!--<script src="{% static 'js/show3d/html2canvas.js' %}"></script>-->
 <script src="{% static 'js/show3d/three-69.min.js' %} "></script>
@@ -121,4 +125,5 @@
 <script src="{% static 'js/show3d/uplist.js' %}"></script>
 
 <!--  added by white over  -->
+{% endcompress %}
 {% endblock %}
