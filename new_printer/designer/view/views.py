@@ -357,14 +357,14 @@ def show_3d(request):
 def add_focus(request):
     d_id = request.POST['d_id']
     v_id = request.POST['v_id']
-    new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
-    marked = Designer_User.objects.get(id = d_id).marked_count
-    marked += 1 
-    d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
-    if new_collect:
-        conf = {'state':'fialed!'}
-    else:
+    try:
+        new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
+        marked = Designer_User.objects.get(id = d_id).marked_count
+        marked += 1 
+        d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
         conf = {'state':'success'}
+    except:
+        conf = {'state':'failed'}
 	return HttpResponse(json.dumps(conf))
 
 
@@ -376,9 +376,9 @@ def cancel_focus(request):
         marked = Designer_User.objects.get(id = d_id).marked_count
         marked -= 1
         d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
-        conf = {'state':'failed!'}
-    except:
         conf = {'state':'success'}
+    except:
+        conf = {'state':'failed'}
 	return HttpResponse(json.dumps(conf))
 
 
