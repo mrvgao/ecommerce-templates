@@ -537,4 +537,4 @@ def marking(request):
 
 
 def customer_404(request):
-    return render_to_response('page_not_found.html')
+    return render_to_response('404.html')
