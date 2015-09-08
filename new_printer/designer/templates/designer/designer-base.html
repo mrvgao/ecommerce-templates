@@ -3,9 +3,14 @@
 {% block title %} 设计师个人中心 {% endblock %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block selfFiles %}
+
+	{% comperss css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/designer/designer.css' %}" />
+	{% endcomperss %}
+
 	{% block selfJs %}
 	{% endblock %}
 {% endblock %}
