@@ -3,7 +3,6 @@
 
 from django.conf.urls import patterns, url
 from designer.view import up_works,views
-from designer import test_view
 
 
 urlpatterns = patterns('',
