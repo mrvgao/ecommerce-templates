@@ -18,16 +18,10 @@
 			<div class="designer-info inl-b">
 				<p class="designer-name t-el mb10 f16">{{ designer.designer_name }}</p>
 				<p class="mb10 f12">
-					<!--
-					<span class="mr20">
-						<em class="person-man-ico inl-b"></em>
-						男
-					</span>
-					-->
 					<span>人气：{{ designer.designer_mark }}</span>
 				</p>
 				<div class="follow-btn">
-					<a class="btn" href="javascript:void(0)">取消关注</a>
+					<a class="btn" data-num="{{ designer.designer_id }}" href="javascript:void(0)">取消关注</a>
 				</div>
 			</div>
 		</div>

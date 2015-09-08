@@ -111,7 +111,7 @@ def designers_collection(request):
         for vender_designer in vender_designer_list:
             designer = Designer_User.objects.get(id=vender_designer.designer_id)
             designer_collection = DesignerCollection()
-            designer_collection.set_designer_collection(designer.id, designer.designername,designer.img,designer.marked_count)
+            designer_collection.set_designer_collection(designer.id, designer.designername,common_handler.get_file_path(str(designer.img)),designer.marked_count)
             designer_list.append(designer_collection)
         return designer_list
 
@@ -123,7 +123,7 @@ def designers_collection(request):
     designer_list = get_designer_list(vender_designer_list)
 
     context = {
-        'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)),
+        'vender_name': vender.vendername, 'vender_img': common_handler.get_file_path(str(vender.img)), 'vender_id': vender_id,
         'designer_list': designer_list,
     }
 
@@ -141,6 +141,7 @@ def works_collection(request):
             self.work_description = None
             self.work_status = None
             self.designer_name = None
+            self.goods_id = None
 
         def set_works_collection(self,work):
             self.work_name = work[0]
@@ -149,6 +150,7 @@ def works_collection(request):
             self.work_description = work[3]
             self.work_status = work[4]
             self.designer_name = work[5]
+            self.goods_id = work[6]
 
 
     def get_work_list(vender_goods_list):
@@ -157,7 +159,7 @@ def works_collection(request):
             goods = Goods.objects.get(id=vender_goods.goods_id)
             designer_name = Designer_User.objects.get(id=goods.designer_id).designername
             work_param = (goods.goods_name, common_handler.get_file_path(goods.preview_1),
-                          goods.goods_price, goods.description, vender_goods.is_buy, designer_name)
+                          goods.goods_price, goods.description, vender_goods.is_buy, designer_name, goods.id)
             works_collection = WorksCollection()
             works_collection.set_works_collection(work_param)
             work_list.append(works_collection)
@@ -175,7 +177,7 @@ def works_collection(request):
         'work_list': work_list,
     }
 
-    return render(request,website.works_collection,context)
+    return render(request, website.works_collection, context)
 
 
 @login_required
@@ -208,6 +210,7 @@ def set_account(request):
     }
 
     return render(request, website.set_account,context)
+
 
 
 def logout_account(request):

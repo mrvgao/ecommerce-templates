@@ -1,11 +1,9 @@
 $(function (){
 
 	var filter_bynum = $('.filter-btn'),
-		goods_tomark = $('.goods-tomark'),
 		list_box = $('.ds-list-box ul'),
 		mark_btn = $('.show-mark-btn'),
 		ds_list_box = $('.ds-list-box ul'),
-		goods_tomark = $('.goods-tomark'),
 		type_filter = $('.type-filter-btn');
 
 	filter_bynum.on('click',function (){
@@ -26,9 +24,9 @@ $(function (){
 					if (sucList[i].now_user == 'V'){
 
 						if(sucList[i].is_collect){
-							sucStr += '<a class="pa goods-tomark active" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+							sucStr += '<a class="pa goods-tomark active" data-num=' + sucList[i].id + ' href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
 						}else {
-							sucStr += '<a class="pa goods-tomark " href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+							sucStr += '<a class="pa goods-tomark " data-num=' + sucList[i].id + ' href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
 						}
 					} else {
 						continue;
@@ -36,7 +34,7 @@ $(function (){
 
 				}
 				ds_list_box.append(sucStr);
-
+				toMark();
 			});
 
 	});
@@ -47,6 +45,7 @@ $(function (){
 			_vid = mark_btn.attr('data-vid'),
 			_did = mark_btn.attr('data-did'),
 			type_tag = _this.attr('type-tag');
+
 		type_filter.removeClass('active');
 		_this.addClass('active');
 		data_tag = '1';
@@ -62,56 +61,60 @@ $(function (){
 					if (sucList[i].now_user == 'V'){
 
 						if(sucList[i].is_collect){
-							sucStr += '<a class="pa goods-tomark active" href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+							sucStr += '<a class="pa goods-tomark active" data-num=' + sucList[i].id + ' href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
 						}else {
-							sucStr += '<a class="pa goods-tomark " href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
+							sucStr += '<a class="pa goods-tomark " data-num=' + sucList[i].id + ' href="javascript:void(0)"><em class="list-mark-btn-ico mark-num-ico"></em>收藏</a></div></li>';
 						}
 					} else {
-						continue
+						continue;
 					}
 
 				}
 				ds_list_box.append(sucStr);
-
+				toMark();
 			});
 
 	});
 
 
-
 	// 关注 or 取消关注
 	mark_btn.on('click',function (){
 		var _this = $(this),
+			_txt = _this.find('span'),
 			_did = _this.attr('data-did'),
 			_vid = _this.attr('data-vid');
 
 		if(_this.hasClass('active')){
 			_this.removeClass('active');
+			_txt.text(parseInt(_txt.text())-1);
 			$.post('/designer/cancel_focus',{ 'd_id': _did, 'v_id': _vid },function (e){});
-
 		}else {
 			_this.addClass('active');
+			_txt.text(parseInt(_txt.text())+1);
 			$.post('/designer/add_focus',{ 'd_id': _did, 'v_id': _vid},function (e){});
-
 		}
 	});
+
+
 	// 收藏 or 取消收藏
-	goods_tomark.on('click',function (){
-		var _this = $(this),
-			_vid = mark_btn.attr('data-vid'),
-			_gid = _this.attr('data-num');
-		
-		if(_this.hasClass('active')){
-			_this.removeClass('active');
-			$.post('/designer/cancel_collect',{ 'g_id': _gid, 'v_id': _vid },function (e){});
+	function toMark(){
+		$('.goods-tomark').on('click',function (){
+			var _this = $(this),
+				_vid = mark_btn.attr('data-vid'),
+				_gid = _this.attr('data-num');
 
-		}else {
-			_this.addClass('active');
-			$.post('/designer/add_collect',{ 'g_id': _gid, 'v_id': _vid},function (e){});
+			if(_this.hasClass('active')){
+				_this.removeClass('active');
+				$.post('/designer/cancel_collect',{ 'g_id': _gid, 'v_id': _vid },function (e){});
 
-		}
-	});
+			}else {
+				_this.addClass('active');
+				$.post('/designer/add_collect',{ 'g_id': _gid, 'v_id': _vid},function (e){});
 
+			}
+		});
+	}
+	toMark();
 
 	// 点击切换效果
 	function clickFocus(obj){

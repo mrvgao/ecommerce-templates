@@ -22,7 +22,7 @@
         var str = "<div id='msgBoxMini'></div>";
         $('body').append(str);
         var msgBoxMini = $('#msgBoxMini'),
-            _time = 1200;
+            _time = 1400;
 
         if(time && typeof time == 'number') _time = time;
         msgBoxMini.css({
@@ -36,7 +36,8 @@
             'padding':'40px 50px',
             'border-radius':'4px',
             'box-shadow':'0px 0px 12px 2px #aaa',
-            'background':'rgba(204,204,204,.9)',
+            'background':'rgba(121,208,206,.9)',
+            'color':'#fff',
             'border':'3px solid #f9f9f9',
             'text-align':'center'
         });

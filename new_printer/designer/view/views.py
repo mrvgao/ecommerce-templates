@@ -59,7 +59,7 @@ def my_personal(request):
     for good in design_list:
         is_collect = False
         _good = {}
-        if now_user == 'v':
+        if now_user == 'V':
             g_v = Vender_Goods.objects.filter(goods_id = good.id, vender_id = vender_id)
             if g_v:
                 is_collect = True
@@ -100,7 +100,7 @@ def sort_list(request):
     data_tag = int(request.POST['data_kind'])
     type_tag = request.POST['type_kind']
     
-    design_list = Goods.objects.filter(designer_id = designer_id)
+    design_list = Goods.objects.filter(designer_id = designer_id, is_active = 1)
     if type_tag != u'全部':
         design_list = design_list.filter(tags = type_tag)
     if (Test_user):
@@ -355,29 +355,47 @@ def show_3d(request):
     return HttpResponse(json.dumps(conf)) 
 
 def add_focus(request):
-	d_id = request.POST['d_id']
-	v_id = request.POST['v_id']
-	new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
-	return HttpResponse(json.dumps("success"))
+    d_id = request.POST['d_id']
+    v_id = request.POST['v_id']
+    try:
+        new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
+        marked = Designer_User.objects.get(id = d_id).marked_count
+        marked += 1 
+        d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
+        conf = {'state':'success'}
+    except:
+        conf = {'state':'failed'}
+	return HttpResponse(json.dumps(conf))
 
 
 def cancel_focus(request):
-	d_id = request.POST['d_id']
-	v_id = request.POST['v_id']
-	new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
-	return HttpResponse(json.dumps("success"))
+    d_id = request.POST['d_id']
+    v_id = request.POST['v_id']
+    try:
+        new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
+        marked = Designer_User.objects.get(id = d_id).marked_count
+        marked -= 1
+        d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
+        conf = {'state':'success'}
+    except:
+        conf = {'state':'failed'}
+	return HttpResponse(json.dumps(conf))
 
 
 def add_collect(request):
-	g_id = request.POST['g_id']
-	v_id = request.POST['v_id']
-	this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
-	if  this_good:
-		now_collect = this_good.update(is_collected = True)
-	else:
-		new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
-				collected_time = datetime.now())
-		return HttpResponse(json.dumps("success"))
+    #pdb.set_trace()
+    g_id = request.POST['g_id']
+    v_id = request.POST['v_id']
+    
+    this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
+    if  this_good:
+        now_collect = this_good.update(is_collected = True)
+    else:
+        new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
+                collected_time = datetime.now())
+    return HttpResponse(json.dumps("success"))
+
+
 
 
 def cancel_collect(request):
