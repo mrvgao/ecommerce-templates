@@ -37,7 +37,7 @@ import time,pdb
 @login_required
 def my_personal(request):
     '''
-	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。 
+	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。
     '''
     #pdb.set_trace()
     user = request.user
@@ -67,7 +67,7 @@ def my_personal(request):
          'collected_count': good.collected_count, 'goods_price': good.goods_price, 'is_collect': is_collect,
          'preview_1': server_website.file_server_path + good.preview_1 }
         return_list.append(_good)
-    
+
     all_len = len(return_list)
     total_pages = all_len/(website.all_one)
     if all_len%(website.all_one)!=0:
@@ -99,7 +99,7 @@ def sort_list(request):
         designer_id = Designer_User.objects.get(user = user).id
     data_tag = int(request.POST['data_kind'])
     type_tag = request.POST['type_kind']
-    
+
     design_list = Goods.objects.filter(designer_id = designer_id, is_active = 1)
     if type_tag != u'全部':
         design_list = design_list.filter(tags = type_tag)
@@ -134,7 +134,7 @@ def unpublished_good_search(request):
     '''
     describe = request.POST['search_val']
     user = request.user
-    designer = Designer_User.objects.get(user = user).id 
+    designer = Designer_User.objects.get(user = user).id
     good_state = int(request.POST['search_type'])
     if good_state < 3:
         result_goods = search_handle.unexecuteed_search(describe,designer,good_state)
@@ -185,7 +185,7 @@ def unpublished_good_search(request):
         total_pages = len(goods_find)/2+1
     else:
         total_pages = len(goods_find)/2
-  
+
     conf = {'all_list':goods_find,'total_pages':total_pages}
     return HttpResponse(json.dumps(conf))
 
@@ -255,13 +255,13 @@ def my_state(request):
     designer_record = Design_record.objects.filter(designer_id = designer.id)
     now = datetime.now()
     published_list = Goods.objects.filter(designer_id = designer.id)
-    
-    conf = { 'worksNum':all_list, 
+
+    conf = { 'worksNum':all_list,
             'worksCollection':collect,
             'downloadNum':download,
             'focusNum':designer.marked_count,
             'name':designer.designername,
-            'img':str(server_website.file_server_path)+str(designer.img), 'designer_id': designer.id 
+            'img':str(server_website.file_server_path)+str(designer.img), 'designer_id': designer.id
             }
     return render(request, website.my_state, conf)
 
@@ -318,19 +318,19 @@ def works_visit(request):
             record = record+len(a)
         record = record - sum(monthNum)
         monthNum.append(record)
-    center = center_visit(designer.id) 
+    center = center_visit(designer.id)
     conf = { 'weekNumcenter': center['weekNum'],
             'monthNumcenter': center['monthNum'],
             'weekNumwork': weekNum,
             'monthNumwork': monthNum}
-    return HttpResponse(json.dumps(conf)) 
+    return HttpResponse(json.dumps(conf))
 
 @login_required
 def setup(request):
     user = request.user
     designer = Designer_User.objects.get(user_id = user.id)
     has_alipay = False
-    if designer.alipay : 
+    if designer.alipay :
         '''
         判断是不是有支付宝账号,没有就显示不同页面
         '''
@@ -352,46 +352,51 @@ def show_3d(request):
         _url = str(server_website.file_server_path) + str(Goods.objects.get(id = id).stl_path)
     url_path = good_filter.down_stl(_url)
     conf = { 'url_path': url_path}
-    return HttpResponse(json.dumps(conf)) 
+    return HttpResponse(json.dumps(conf))
 
 def add_focus(request):
     d_id = request.POST['d_id']
     v_id = request.POST['v_id']
+
     try:
         new_collect = Vender_Designer.objects.create(designer_id = d_id, vender_id = v_id)
-        marked = Designer_User.objects.get(id = d_id).marked_count
-        marked += 1 
-        d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
-        conf = {'state':'success'}
+        designer = Designer_User.objects.get(id = d_id)
+        marked = designer.marked_count
+        marked += 1
+        d = Designer_User.objects.filter(id = d_id).update(marked_count = marked)
+        conf = {'state':'success',}
     except:
-        conf = {'state':'failed'}
-	return HttpResponse(json.dumps(conf))
+        conf = {"state":"failed"}
+
+    return HttpResponse(json.dumps(conf))
 
 
 def cancel_focus(request):
     d_id = request.POST['d_id']
     v_id = request.POST['v_id']
+    conf = {}
     try:
         new_collect = Vender_Designer.objects.filter(designer_id = d_id, vender_id = v_id).delete()
-        marked = Designer_User.objects.get(id = d_id).marked_count
+        designer = Designer_User.objects.get(id = d_id)
+        marked = designer.marked_count
         marked -= 1
-        d = Designer_User.objects.get(id = d_id).update(marked_count = marked)
-        conf = {'state':'success'}
+        d = Designer_User.objects.filter(id = d_id).update(marked_count = marked)
+        conf = {'state':'success',}
     except:
-        conf = {'state':'failed'}
-	return HttpResponse(json.dumps(conf))
+        conf = {'state':'failed',}
+    return HttpResponse(json.dumps(conf))
 
 
 def add_collect(request):
     #pdb.set_trace()
     g_id = request.POST['g_id']
     v_id = request.POST['v_id']
-    
+
     this_good = Vender_Goods.objects.filter(goods_id = g_id, vender_id = v_id)
     if  this_good:
         now_collect = this_good.update(is_collected = True)
     else:
-        new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True, 
+        new = Vender_Goods.objects.create(goods_id = g_id, vender_id = v_id, is_collected = True,
                 collected_time = datetime.now())
     return HttpResponse(json.dumps("success"))
 
@@ -410,8 +415,8 @@ def add_alipay(request):
     添加支付宝账号
     '''
     user = request.user
-    ali_name = request.POST['ali_name'] 
-    ali_num = request.POST['ali_num'] 
+    ali_name = request.POST['ali_name']
+    ali_num = request.POST['ali_num']
     d = Designer_User.objects.filter(user = user).update(alipay = ali_num, alipay_name = ali_name)
     if d:
         return HttpResponse(json.dumps("success"))
