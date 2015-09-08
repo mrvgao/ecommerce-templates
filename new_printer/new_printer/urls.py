@@ -27,3 +27,5 @@ urlpatterns = [
     url(r'^shop/', include('shop.urls', namespace='shop')),
     url(r'^vender/', include('vender.urls', namespace='vender')),
 ]
+
+handler404 = 'shop.views.customer_404'

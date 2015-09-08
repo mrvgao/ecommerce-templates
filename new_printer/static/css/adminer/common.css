@@ -1,6 +1,6 @@
 .main-container{
 	width: 960px;
-	height: 716px;
+	height: 700px;
 	margin: auto;
 	position: relative;
 	border: 1px solid #ddd;
@@ -21,9 +21,6 @@
 	background-color: #EBEBEB;
 	position: relative;
 	font-size: 14px;
-	color: #FFF;
-}
-.tool-bar{
 	color:#464747;
 }
 .tool-bar-select{
@@ -56,6 +53,12 @@
 	background-color: #EBEBEB;
 	border: 0px;
 }
+#tool-bar-check{
+	cursor: default;
+}
+#tool-bar-chat{
+	cursor: default;
+}
 .search-bar{
 	padding-top: 14px;
 	width: 960px;
@@ -78,12 +81,12 @@
 	float: left;
 }
 .search-box textarea{
-	height: 22px;
-	width: 141px;
+	height: 16px;
+	width: 134px;
 	resize: none;
 	float: left;
 	font-size: 13px;
-	padding-top: 4px;
+	padding: 6px;
 	border: none;
 	color: #ADADAD;
 	background-color: #F5F5F5;
@@ -98,6 +101,7 @@
 	padding-top: 7px;
 	padding-left: 14px;
 	float: left;
+	cursor: default;
 }
 .goods-container{
 	width: 960px;
@@ -155,7 +159,7 @@
 	width: 162px;
 	height: 162px;
 	position: relative;
-	float: right;
+	float: left;
 	background-color: aquamarine;
 }
 .pages-bar{
@@ -163,7 +167,7 @@
 	height: 82px;
 	background-color: #F5F5F5;
 	position: relative;
-	bottom: 0px;
+	bottom: 16px;
 	border-radius: 0px 0px 6px 6px;
 }
 .pages-btn{
@@ -179,6 +183,7 @@
 	height: 23px;
 	margin-left: 5px;
 	color: #646666;
+	cursor: default;
 }
 .pages-btn.choosed{
 	background-color: #79D0D9;
@@ -200,28 +205,30 @@
 	font-size: 14px;
 	color: #FFF;
 	padding-top: 9px;
+	cursor: default;
 }
 .chat-container{
-	width: 958px;
+	width: 960px;
 	height: 598px;
 	padding-top: 14px;
-	border: 1px solid #ECECEC;
+	-border: 1px solid #ECECEC;
 	border-top: 0px;
 	border-radius: 0px 0px 6px 6px;
 	display: none;
 	background-color: #F5F5F5;
 }
 .user-list-box{
-	width: 132px;
+	width: 131px;
 	height: 597px;
 	float: left;
 }
 .user-list{
 	width: 130px;
-	height: 558px;
+	height: 560px;
 	overflow-y: auto;
 	padding-top: 6px;
 	border: 1px solid #D9D9D9;
+	border-left: 0px;
 	border-radius: 0px 0px 0px 6px;
 	background-color: #FFF;
 }
@@ -253,13 +260,13 @@
 	font-size: 13px;
 }
 .chat-box{
-	width: 618px;
+	width: 620px;
 	height: 600px;
 	float: left;
 }
 .chat-tag-bar{
 	background-color: #62CDD7;
-	width: 618px;
+	width: 621px;
 	height: 34px;
 }
 .chat-tag{
@@ -271,8 +278,8 @@
 	padding-left: 12px;
 }
 .chated-txt{
-	width: 618px;
-	height: 378px;
+	width: 620px;
+	height: 380px;
 	overflow-y: auto;
 	background-color: #FFF;
 }
@@ -316,12 +323,12 @@
 }
 .chat-entry{
 	width: 595px;
-	height: 73px;
+	height: 75px;
 	resize: none;
 	border: 1px solid #E1E1E1;
 	background-color: #fff;
 	padding: 8px;
-	margin-left: 2px;
+	margin-left: 4px;
 	overflow-y: auto;
 }
 .send-msg-bar{
@@ -344,7 +351,7 @@
 .other-chat-tool-box{
 	padding-left: 10px;
 	width: 197px;
-	height: 598px;
+	height: 600px;
 	float: right;
 	background-color: #F5F5F5;
 	border-radius: 0px 0px 6px 0px;
@@ -363,7 +370,7 @@
 .quick-reply-box{
 	background-color: #FFF;
 	width: 196px;
-	height: 372px;
+	height: 374px;
 	border: 1px solid #E1E1E1;
 	border-radius: 0px 0px 6px 0px;
 }

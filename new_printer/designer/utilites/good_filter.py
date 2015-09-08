@@ -167,6 +167,7 @@ def down_stl(_url):
         context = {'stl_path':stl_path}
     else:
         print '2',stl_path
+        print type(stl_path)
         with open(stl_path, 'wb') as f:
             for chunk in r.iter_content(chunk_size=1024):
                 if chunk:  # filter out keep-alive new chunks
