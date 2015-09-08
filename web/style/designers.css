@@ -1,0 +1,170 @@
+.horical-line1{
+	width: inherit;
+	height: 1px;
+	border-top: 1px solid #296B4F;
+}
+.horical-line2{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	height: 1px;
+	border-top: 1px solid;
+}
+.main-body{
+	width: 80%;
+	margin: auto;
+}
+.label-syfl{
+	color: #296B4F;
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+.sort-bar{
+	height: 42px;
+	margin-top: 20px;
+	background-color: rgba(207, 205, 205, 0.24);
+	border: 1px solid rgba(194, 194, 194, 0.74);
+}
+.sort-ul{
+
+	display: inline-block;
+  	margin-top: 0;
+  	margin-bottom: 0px;
+  	padding-left: 0px;
+}
+.sort-ul li:active{
+	background-color: #fff;
+}
+.sort-li{
+	list-style-type: none;
+	float: left;
+	padding: 10px 30px 10px 30px;
+}
+.sort-li a{
+	color: black;
+}
+.sort-li a:hover{
+	text-decoration: none;
+	color: #296B4F;
+}
+.sort-li-active{
+	background-color: #fff;
+	color: #296B4F;
+	text-decoration: none;
+}
+.sort-li-active a{
+	color: #296B4F;
+}
+.designers-list{
+
+}
+.designer{
+	width: 26%;
+	margin-right: 3.5%;
+	margin-left: 3.5%;
+	float: left;
+	height: 506px;
+}
+.designer-top{
+	height: 431px;
+	position: relative;
+}
+.designer-img{
+	height:431px;
+	width: 100%;
+	padding-top: 30px;
+	position: absolute;
+	z-index: 2;
+}
+
+.designer-img-des{
+	color: #fff;
+	background-color:rgba(0, 0, 0, 0.65);
+	left: 0;
+	bottom: 0;
+	z-index: 3;
+	position: absolute;
+	display: none;
+}
+.designer-img-des p{
+	margin-bottom: 0;
+}
+.designer-imgs-down{
+	height: 75px;
+	bottom: 0;
+	left: 0;
+	position: relative;
+	display: none;
+}
+.img-down{
+	position: absolute;
+	height: 75px;
+	width: 30%;
+
+}
+.img1-down{
+	left: 0
+}
+.img2-down{
+	left: 35%
+}
+.img3-down{
+	right: 0;
+}
+.pages-line{
+	padding-top: 60px;
+	padding-bottom: 60px;
+	margin: auto;
+	width: 100%;
+	text-align: center; 
+	display: inline-block;
+}
+.pages-line a{
+	text-decoration: none;
+	border: 1px solid #296B4F;
+	color: #296B4F;
+	margin-left: 10px;
+	padding: 5px 10px 5px 10px;
+}
+.pages-line a:hover{
+	text-decoration: none;
+	background-color: #296B4F;
+	color: #fff;
+}
+.pages-line a:active{
+	background-color: #296B4F;
+	color: #fff;
+}
+.like-imgs{
+	position: relative;
+	margin-top: 20px;
+	height: 250px;
+}
+.like-imgs img{
+	width: 22%;
+	height: 250px;
+	position: absolute;
+}
+.like1{
+}
+.like2{
+	left: 26%;
+}
+.like3{
+	right: 26%;
+}
+.like4{
+	right: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

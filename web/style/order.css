@@ -1,0 +1,104 @@
+.order{
+    margin-top: 30px;
+    border-style: solid;
+    border-width:2px;
+    border-color: rgba(236, 233, 233, 0.47);
+    height: 110px;
+    
+}
+.order-title{
+    height: 25px;
+    background-color: rgba(236, 233, 233, 0.47);
+}
+.order-id{
+    float: left;
+    margin-left: 10px;
+}
+.order-time{
+    float: left;
+    margin-left: 20px;
+}
+.order-detail{
+    clear: both;
+    float: left;
+    height:85px;
+    width: 240px;
+}
+.order-vertical-line{
+    float: left;
+    width:1px;
+    height: 78px;
+    border-left:2px solid rgba(236, 233, 233, 0.47);
+}
+.order-prograss{  
+    float: left;
+}
+.item-image{
+    float:left;
+    width:69px;
+    height:69px;
+    margin-left:3px;
+}
+.item-label{
+    float: left;
+    width:160px;
+    text-align:left;
+    margin-left:5px;
+}
+.order-status{
+    margin-top: 10px;
+    height: 20px;
+    padding-left: 15px;
+}
+.status-item1{
+    float: left;
+    margin-left: 10px;
+}
+.status-item2{
+    float: left;
+    margin-left: 18px;
+}
+.status-item3{
+    float: left;
+    margin-left: 20px;
+}
+.status-item4{
+    float: left;
+    margin-left: 20px;
+}
+.status-item5{
+    float: left;
+    margin-left: 20px;
+}
+.status-item6{
+    float: left;
+    margin-left: 22px;
+}
+
+.progress-bar1 {
+    padding-top: 10px;
+    margin-left: 20px;
+}
+.progress-item-point {
+  background:url(../images/point.png); 
+  float: left;
+  width: 16px;
+  height: 16px;
+}
+.progress-item-line {
+  display: inline-block;
+  float: left;
+  margin-top: 8px;
+  height: 1px;
+  border-top: 2px solid #62B2B2;
+}
+.line-item0 {
+    width: 25px;
+}
+
+.line-item1 {
+    width: 60px;
+}
+
+
+

@@ -1,0 +1,118 @@
+.dzgl-address{
+	width: 750px;
+	height: 100px;
+	background-color: #f4f4f3;
+	margin-top: 20px;
+
+}
+.name{
+	float: left;
+	width: 80px;
+	height: 100px;
+	padding-left: 20px;
+	padding-top: 20px;
+
+}
+.address{
+	padding-top: 20px;
+	float: left;
+	width: 630px;
+	height: 100px;
+
+}
+.address-line2{
+	margin-top: 20px;
+}
+.address-line input,.address-line2 input{
+	height: 20px;
+}
+.address-label{
+	float: left;
+	margin-left: 10px;
+	width: 60px;
+	text-align: right;
+}
+.address-info{
+	float: left;
+	width: 400px;
+}
+.youbian{
+	width: 65px;
+}
+.adderss-tel{
+	width: 630px;
+	margin-top: 20px;
+	float: left;
+}
+.input-disabled{
+	border: 0px;
+	background-color: #f4f4f3;
+}
+.operate{
+	float: right;
+	margin-right: 20px;
+}
+.addbtn{
+	display: block;
+	margin-top: 20px;
+}
+.addaddress{
+	width: 750px;
+	background-color: #f4f4f3;
+	height: 400px;
+	margin-top: 20px;
+	display: none;
+}
+.form-address{
+	padding-top: 30px;
+	width: 750px;
+	margin-bottom: 10px;
+}
+
+.lable{
+	text-align: right;
+	width: 100px;
+}
+.address-div{
+	margin-bottom: 10px;
+	width: 750px;
+}
+#confirm{
+	display: block;
+	float: left;
+	margin-left: 102px;
+	margin-top: 10px;
+}
+#cancel{
+	display: block;
+	float: left;
+	margin-left: 20px;
+	margin-top: 10px;
+}
+.road-lable{
+	position: absolute;
+}
+.road-area{
+	position: relative;
+	left: 104px;
+	resize:none;
+}
+.delete{
+	color: red;
+	float: right;
+}
+.edit{
+	float: left;
+	color: #62B2B2;
+}
+.op:hover{
+	cursor: pointer;
+}
+/* #provice{
+	display: block;
+	float: left;
+	width: 100px;
+	margin-left: 5px;
+	margin-top: 30px;
+	text-align: center;
+} */
