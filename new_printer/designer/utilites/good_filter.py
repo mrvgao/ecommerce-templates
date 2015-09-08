@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-# encoding: utf-8
-# *-* coding: utf-8 -*-
+# coding: utf-8
 '''
 * data: 2015-8-10 8:17
   use: designer's personal
@@ -26,7 +24,9 @@ from datetime import date ,datetime,timedelta
 import time
 import json,pdb
 from django.utils import timezone
+from utility.common_handler import CommonHandler
 
+common_handler = CommonHandler()
 unexec_one = 2 #
 auditing_one = 2#
 unpassed_one = 2#
@@ -154,21 +154,20 @@ def publish_exec(good_list):
 #下载STL 文件到本地,以便预览stl
 def down_stl(_url):
     stl_path = "%s/"%pwd
-    local_filename = _url.split('/')[-1]
+
+    local_filename = _url.split('/')[-2]
     r = requests.get(_url, stream=True)
     lists = os.listdir(stl_path)
     aleady_h = _url.split('/')[-1]
     stl_path = stl_path + local_filename
+    stl_path = stl_path.decode("utf-8")
     if aleady_h in lists :
         stl_path = stl_path.split('/')[-2:]
         stl_path = "/".join(stl_path)
         stl_path = '/' + stl_path
-        print '1',stl_path
         context = {'stl_path':stl_path}
     else:
-        print '2',stl_path
-        print type(stl_path)
-        with open(stl_path, 'wb') as f:
+        with open(stl_path, 'w') as f:
             for chunk in r.iter_content(chunk_size=1024):
                 if chunk:  # filter out keep-alive new chunks
                     f.write(chunk)

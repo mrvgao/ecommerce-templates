@@ -83,9 +83,13 @@
 
 			</div>
 		</div>
+
+		{% load compress %}
+		{% compress js %}
 		<script type="text/javascript" src="{% static 'plugin/js/swfobject.js' %}"></script>
 		<script type="text/javascript" src="{% static 'plugin/js/fullAvatarEditor.js' %}"></script>
 		<script type="text/javascript" src="{% static 'js/designer/change-headportrait.js' %}"></script>
 		<script type="text/javascript" src="{% static 'js/designer/setup.js' %}"></script>
+		{% endcompress %}
 		
 	{% endblock %}

@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block selfFiles %}
+	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/payment/cart.css' %}" />
+	{% endcompress %}
+
+	{% compress js %}
 	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/payment/cart.js' %}"></script>
+	{% endcompress %}
 {% endblock %}
 
 {% block content %}

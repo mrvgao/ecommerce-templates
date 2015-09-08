@@ -51,22 +51,18 @@ $(function (){
 		var _that = paynow,
 			_this = $(this);
 
-		if(_that.attr('data-state') == 1){
-			if(_this.attr('data-cart') == 1){
-				$.msgBox.mini('已添加，请在购物车中查看');
-			}else {
-				$.post('/payment/add_cart',{
-					'goods_id': goods_id
-				},function (e){
-					result = JSON.parse(e);
-					if(result['status'] == 'SUCCESS'){
-						$.msgBox.mini('添加成功');
-					}else{
-						$.msgBox.mini('添加失败');
-					}
-				});
-			}
-		}else if(_that.attr('data-state') == 0) {
+		if(_this.attr('data-cart') == 1){
+			$.post('/payment/add_cart',{
+				'goods_id': goods_id
+			},function (e){
+				result = JSON.parse(e);
+				if(result['status'] == 'SUCCESS'){
+					$.msgBox.mini('已添加，请在购物车中查看');
+				}else{
+					$.msgBox.mini('添加失败');
+				}
+			});
+		}else if(_this.attr('data-cart') == 0) {
 			login_page.fadeIn();
 		}
 	});

@@ -41,17 +41,20 @@ def my_personal(request):
     '''
     #pdb.set_trace()
     user = request.user
-    designer_id = request.GET['designer_id']
-    designer = Designer_User.objects.get(id = designer_id)
     is_focus = False
-    designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
-    designer.img = str(server_website.file_server_path) + str(designer.img)
     d_user = Designer_User.objects.filter(user = user).exists()
     if (d_user):
         now_user = 'D'
+        designer = Designer_User.objects.get(user = user)
+        designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
+        designer.img = str(server_website.file_server_path) + str(designer.img)
     else:
         now_user = 'V'
         vender_id = Vender_User.objects.get(user = user).id
+        designer_id = request.GET['designer_id']
+        designer = Designer_User.objects.get(id = designer_id)
+        designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
+        designer.img = str(server_website.file_server_path) + str(designer.img)
         if Vender_Designer.objects.filter(designer_id = designer.id, vender_id = vender_id):
             is_focus = True
     design_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
@@ -342,15 +345,16 @@ def setup(request):
 
 def show_3d(request):
 
-    #pdb.set_trace()
+    pdb.set_trace()
     id = request.POST['pic_id']
     state = request.POST['unpassed']
-
+    
     if state == 'unpassed':
-        _url = (server_website.file_server_path) + (Goods_Upload.objects.get(id = id).stl_path)
-        print type(Goods_Upload.objects.get(id = id).stl_path)
+        stl_path = Goods_Upload.objects.get(id = id).stl_path.encode("utf-8")
+        _url = (server_website.file_server_path) + stl_path
     else:
-        _url = str(server_website.file_server_path) + str(Goods.objects.get(id = id).stl_path)
+        stl_path = Goods.objects.get(id = id).stl_path.encode("utf-8")
+        _url = str(server_website.file_server_path) + stl_path
     url_path = good_filter.down_stl(_url)
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf))
