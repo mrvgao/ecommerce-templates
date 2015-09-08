@@ -13,3 +13,5 @@ login_register = 'shop/sign.html'
 password_find = 'shop/password-find.html'
 
 chat_customer_service_win = 'shop/customer-service-for-window.html'
+
+test = '404.html'

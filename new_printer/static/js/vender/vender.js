@@ -26,7 +26,6 @@ $(function (){
 			_id = vender_nav.attr('data-id'),
 			_num = _this.attr('data-num');
 
-		console.log(_id,_num);
 		$.post('/designer/cancel_focus',{ 'd_id': _num, 'v_id': _id },function (e){
 			var data = JSON.parse(e);
             if(data.state == 'SUCCESS'){
