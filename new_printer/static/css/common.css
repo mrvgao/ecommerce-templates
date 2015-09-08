@@ -538,3 +538,14 @@ a.paging-btn:hover, a.page-btn:hover {
 	background:#f2595e;
 	color:#fff;
 }
+.error4-bg {
+	width:350px;
+	height:220px;
+	background-image:url('/static/images/common/404.png');
+}
+.error4-bg {
+	width:350px;
+	height:280px;
+	background-image:url('/static/images/common/404.png');
+	background-position:0 -220px;
+}
