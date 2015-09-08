@@ -1,0 +1,248 @@
+/*header-top*/
+    .container{
+        width: 85%;
+    }
+    .header-top{
+        background-color: #4389a2;
+        color: #ffffff;
+
+    }
+    .a-color{
+        color: #ffffff;
+    }
+    .header-top-left{
+        height: 40px;
+        line-height: 40px;
+        display: block;
+        padding-right: 15px;
+        float: left; 
+      text-align: center;
+    }
+
+    .header-top-left-gl{
+        height: 40px;
+        line-height: 40px;
+        display: block;
+        padding-right: 5px;
+        float: left; 
+        text-align: center; 
+    }
+    
+
+    .header-top-right{
+        height: 40px;
+        line-height: 40px;
+        display: block;
+        padding-right: 15px;
+        float: left; 
+        text-align: center;
+    }
+
+    .header-top-right-gl{
+        height: 40px;
+        line-height: 40px;
+        display: block;
+        padding-right: 5px;
+        float: left; 
+        text-align: center; 
+    }
+      .seach-text{
+        line-height: 20px;
+        font-size: 10px;
+    }
+
+/*header-buttom*/
+    #menu-nav{
+        background-color: #ecf7fd;
+        border-color: #ecf7fd;
+        margin-top: 0px;
+        height: 100px;
+        margin-bottom: 0px;
+
+    }
+
+ .header-buttom{
+        width:110%;
+        height:100px;
+        margin:-50px 0px 0px 0px;
+    }
+    .header-buttom li{
+        height:70px;
+        margin:0px 40px 0px 90px;
+    }
+    .header-buttom li img{
+        height:30px;
+    }
+
+
+/*signin*/
+.modal-content{
+    width: 500px;
+    height: 400px;
+}
+
+.modal-body-form{
+    width: 200px;
+    margin:auto;
+    margin-bottom: 100px;
+}
+.signin-form-text{
+    display: block;
+    margin-bottom: 15px;
+    width: 200px;
+    float: left;
+}
+
+
+.signin-form-lable{
+    float: left;
+
+}
+
+
+.signin-form-a{
+   float: left;
+   margin-left: 80px;
+}
+
+.signin-form-checkbox{
+    margin-top: 16px;
+    margin-bottom: 15px;
+}
+.signin-button{
+    width: 200px;
+}
+
+/*注册*/
+#modal-content{
+    width: 600px;
+}
+.reg-form-div{
+    width: 350px;
+    height: 300px;
+    margin:0 auto;
+}
+
+.reg-telconf-lable{
+    margin-top: 8px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+    width: 56px;
+  text-align: right;
+}
+.reg-tel-input{
+    display: block;
+    float: left;
+    width: 200px;
+}
+.reg-telconf-span{
+    display: block;
+    float: left;
+    margin-left: 10px;
+    margin-top: 8px;
+    color: red;
+    display: none;
+}
+.reg-tel-span{
+    display: block;
+    float: left;
+    margin-left: 10px;
+    margin-top: 8px;
+    color: red;
+    display: none;
+}
+.reg-conf-span{
+    display: block;
+    float: left;
+    margin-left: 10px;
+    margin-top: 8px;
+    color: red;
+    display: none;
+}
+
+.reg-conf-input{
+    display: block;
+    float: left;
+     width: 200px;
+}
+.reg-setconf-lable{
+     margin-top: 8px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+
+}
+
+.reg-setpass-input{
+    display: block;
+    float: left;
+    width: 200px;
+}
+
+
+.reg-confpass-input{
+    display: block;
+    float: left;
+     width: 200px;
+}
+.reg-tel {
+    clear: both;
+    width: 400px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.reg-setpass {
+    width: 300px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+.reg-confpass {
+    width: 400px;
+    height: 30px;
+    margin-bottom: 10px;
+    clear: both;
+}
+.reg-tel-btn{
+    display: block;
+    float: left;
+    margin-bottom: 10px;
+    margin-left: 65px;
+    left: 20px;
+}
+.reg-btn{
+    display: block;
+    margin-top: 20px;
+    margin-left: 63px;
+    width: 200px;
+}
+.reg-span{
+    margin-left: 61px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+.weak{
+    display: block;
+    width: 60px;
+    height: 20px;
+    color: white;
+    background-color: #7fe5ff;
+    float: left;
+    margin-right: 10px;
+}
+.span_uname{
+    float:left;
+    padding-top:5px;
+    margin-left: 5px;
+}
+.confpass{
+    float:left;
+    padding-top:5px;
+    margin-left: 5px;
+    display: none;
+}
+.weak-first{
+    display: block;
+    margin-left: 63px;
+}

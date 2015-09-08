@@ -1,5 +1,5 @@
 # coding=utf-8
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 import json
@@ -520,6 +520,7 @@ def chat_customer_service_win(request):
 
 
 def marking(request):
+
     goods_id = request.POST['goods_id']
     vender_id = get_vender_id(request)
 
@@ -533,3 +534,7 @@ def marking(request):
         collection_handler.collect_goods(vender_id, goods_id)
 
     return HttpResponse(json.dumps({'state': 'SUCCESS'}))
+
+
+def customer_404(request):
+    return render_to_response('404.html')

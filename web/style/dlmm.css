@@ -1,0 +1,27 @@
+.dlmm-form{
+	width: 500px;
+}
+.info-form{
+	margin-top: 20px;
+}
+.form-lable{
+	margin-top: 8px;
+    display: block;
+    float: left;
+    margin-right: 5px;
+    width: 100px;
+  	text-align: right;
+}
+.form-span{
+	margin-left: 105px;
+}
+.form-btn{
+	width: 100px;
+	margin-left: 105px;
+}
+.form-confpass{
+	width: 500px;
+}
+.form-tel{
+	width: 600px;
+}

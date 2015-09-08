@@ -1,0 +1,136 @@
+/*header-top*/
+   
+/*图片轮播*/
+    .carousel {
+        height: 500px;
+           
+        }
+
+   /* .carousel .item {
+            float: left;
+            height: 500px;
+            background-color: #000;
+        }
+
+    .carousel .item img {
+        height: 500px;
+            width: 100%;
+        }
+*/
+/* jewels*/
+    .jewels{
+        clear: both;
+        width: 85%;
+        margin:0 auto;
+    }
+    
+    .jewels-text {
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 30px;
+        font-family: ;    
+    }
+    .jewels-img{
+        width: 60px;
+        height: 5px;
+        margin:0 auto;
+        margin-top: -30px;
+        margin-bottom: 20px;
+        background-color:#4389a2;
+        border-radius: 18px; 
+
+    }
+    .jewels-pills{
+        width: 700px;
+        height: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+
+
+    } 
+    .jewels-pills-div{
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        float: left;
+        text-align: center;
+        border-radius: 5px; 
+        margin-right: 15px;
+        color: #ffffff;
+        font-size: 22px;
+    }
+    .tab-content{
+        margin-top: 50px;
+        clear: both;
+
+    }
+    .tab-content .row-5{
+        width: 450px;
+
+    }
+    .tab-content .row-4{
+        width: 300px;
+        margin-left: 40px;
+
+    }
+    .tab-content .row-3{
+        margin-left: 20px;
+
+    }
+
+    .row-bb{
+        width: 500px;
+        margin-left: 30px;
+
+    }
+    .tab-content .row{
+        margin-bottom: 20px;
+    }
+   
+
+/*trans-img*/
+.trans-img{
+    margin-top: 50px;
+}
+
+/*designer*/
+    .designer{
+        width: 1100px;
+        margin:0 auto;
+    }
+    .disigner-text{
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        font-size: 30px; 
+        font-family: ;  
+    }
+    .disigner-img{
+        width: 60px;
+        height: 5px;
+        margin:0 auto;
+        margin-top: -30px;
+        margin-bottom: 10px;
+        background-color:#4389a2;
+        border-radius: 18px; 
+
+    }
+    .disigner-content{
+        width: 1100px;
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+    .designer .row{
+        margin-bottom: 20px;
+    }
+    .designer-hr{
+        display: block;
+        margin-top: 80px;
+        border-color: black;
+        border-style: solid;
+
+    }
+
