@@ -124,6 +124,7 @@ function socketMain(socket){
 
 	socket.on('chat/new_chat_message', function(fromUser, fromNickname, toUser, message){
 		var socketTargUser = socketMap[toUser];
+
 		if(socketTargUser !== undefined){
 			socketTargUser.emit('chat/new_chat_message', message, fromUser, fromNickname);
 			/*var date = new Date();*/
@@ -132,11 +133,11 @@ function socketMain(socket){
 			/*bgMain.insertData(TABLES.chatData.tableName, [TABLES.chatData.fromUser, TABLES.chatData.toUser, TABLES.chatData.content, TABLES.chatData.tinyProtrait, TABLES.chatData.date], [fromUser, toUser, message, '', myDate], '', function(result){*/
 			/*;				 */
 			/*});*/
-			
-			console.log('dsa');
+
 			if(chatDataMap[fromUser][toUser] === undefined){
 				chatDataMap[fromUser][toUser] = [];
 			}
+
 			if(chatDataMap[toUser][fromUser] === undefined){
 				chatDataMap[toUser][fromUser] = [];
 			}
@@ -148,7 +149,6 @@ function socketMain(socket){
 			}
 			chatDataMap[fromUser][toUser].push(msgContainer);
 			chatDataMap[toUser][fromUser].push(msgContainer);
-			console.log('fo:'+chatDataMap[fromUser][toUser][0]);
 		}
 
 	});
@@ -163,12 +163,20 @@ function socketMain(socket){
 
 
 	socket.on('disconnect', function() {
+		
 		for(var key in socketMap){
-			if(socketMap[key].id === socket.id){
+			
+			if(socketMap[key].id && socketMap[key].id === socket.id){
 				socketMap[key] = null;
 				timerMap[key] = setTimeout(function(){
 					delChatDataUseless(key);
-				},1800000);
+					var socketTargUser = socketMap[SERVICE_NAME];
+
+					if(socketTargUser !== undefined){
+						socketTargUser.emit('chat/a_user_disconnect', key);
+					}
+				},600);
+				break;
 			}
 		}
 	});

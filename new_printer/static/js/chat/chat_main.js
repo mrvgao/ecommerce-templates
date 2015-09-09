@@ -96,7 +96,6 @@ $(function(){
 		/*sessionStorage.setItem("myUsername", myUsername);*/
 		Chat.addCookie('myUsername', myUsername, 2);
 		if(chatData !== null){
-			console.log('data:'+JSON.stringify(chatData));
 			Chat.appendChatContainerWithHistoryMsg(chatData);
 		}
 	});
