@@ -4,13 +4,14 @@ $(function (){
 		list_box = $('.ds-list-box ul'),
 		mark_btn = $('.show-mark-btn'),
 		ds_list_box = $('.ds-list-box ul'),
-		type_filter = $('.type-filter-btn');
-
+		type_filter = $('.type-filter-btn'),
+		d_v_id = $('.designer-show-info');
 	filter_bynum.on('click',function (){
 		var _this = $(this),
 			data_tag = _this.attr('data-tag'),
-			_vid = mark_btn.attr('data-vid'),
-			_did = mark_btn.attr('data-did'),
+			_vid = d_v_id.attr('data-vid'),
+			_did = d_v_id.attr('data-did'),
+
 			type_tag = type_filter.filter('.active').attr('type-tag');
 		clickFocus(_this);
 		ds_list_box.empty();
@@ -42,10 +43,9 @@ $(function (){
 	type_filter.on('click',function (){
 		var _this = $(this),
 			data_tag = filter_bynum.filter('.active').attr('data-tag'),
-			_vid = mark_btn.attr('data-vid'),
-			_did = mark_btn.attr('data-did'),
+			_vid = d_v_id.attr('data-vid'),
+			_did = d_v_id.attr('data-did'),
 			type_tag = _this.attr('type-tag');
-
 		type_filter.removeClass('active');
 		_this.addClass('active');
 		data_tag = '1';
