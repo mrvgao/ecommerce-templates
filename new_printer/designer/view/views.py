@@ -356,6 +356,7 @@ def show_3d(request):
         _url = str(server_website.file_server_path) + str(stl_path)
     url_path = good_filter.down_stl(_url)
     #url_path = url_path.split('/')[-1]
+    url_path = url_path.split('/')[-1]
     #url_path = server_website.file_server_path + url_path
     print url_path
     conf = { 'url_path': url_path}
