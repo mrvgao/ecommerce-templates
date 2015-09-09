@@ -1,0 +1,158 @@
+/* 左侧导航部分 */
+.vender-center {
+	margin-top:60px;
+	padding-bottom:80px;
+}
+.vender-nav {
+	width:160px;
+	padding:20px;
+	background:#fff;
+}
+.seller-img {
+	width:90px;
+	padding-top:1px;
+}
+.seller-img img {
+	width:90px;
+	height:90px;
+	margin-top:-35px;
+}
+.vender-nav-box {
+	border-top:1px solid #ccc;
+}
+.vender-nav-box:first-child {
+	border-top:0;
+}
+.vender-nav-list ul li a.active {
+	color:#79d0d8;
+}
+
+/* 右侧内容部分 */
+/* 全部下载 */
+.vender-content {
+	width:890px;
+	padding:20px;
+	background:#fff;
+}
+.download-box {
+	padding:20px;
+}
+.vender-title {
+	border-bottom:1px solid #ddd;
+}
+.vender-title p {
+	border-left:4px solid #79d0d8;
+}
+.vender-product-list {
+	padding:20px 10px;
+	border-top:1px solid #ddd;
+}
+.vender-product-list:first-child {
+	border-top:0;
+}
+.vc-w370 {
+	width:370px;
+}
+.vc-w180 {
+	width:160px;
+}
+.product-info-img {
+	width:100px;
+	height:100px;
+}
+.product-info-img img {
+	width:100px;
+	height:100px;
+}
+.product-info-txt {
+	width:232px;
+	vertical-align:top;
+}
+.vc-lh-100 {
+	line-height:100px;
+}
+
+/* 我收藏的设计师 */
+.designer-img {
+	width:90px;
+	height:90px;
+}
+.designer-img img {
+	width:90px;
+	height:90px;
+}
+.designer-info {
+	width:160px;
+	vertical-align:top;
+}
+em.person-man-ico {
+	width:14px;
+	height:14px;
+	background-image:url('/static/images/common/site-icons.png?a8964c0f6ff4');
+	background-repeat:no-repeat;
+	background-position:-101px -9px;
+}
+
+/* 我收藏的作品 */
+.work-list {
+	width:425px;
+}
+.work-img {
+	width:105px;
+	height:105px;
+}
+.work-img img {
+	width:105px;
+	height:105px;
+}
+.work-info {
+	width:300px;
+	vertical-align:top;
+}
+a.download-go {
+	color:#cc3333;
+}
+a.downloaded {
+	color:#888;
+	cursor:default;
+}
+em.downloaded-ico {
+	display:inline-block;
+	width:13px;
+	height:13px;
+	margin-right:2px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png?a8964c0f6ff4');
+	background-position:-124px -10px;
+}
+a.cancel-btn {
+	right:10px;
+	top:0;
+	background:#eee;
+	padding:6px 10px;
+	border-radius:4px;
+	font-size:12px;
+	display:none;
+}
+em.cancel-ico {
+	display:inline-block;
+	width:13px;
+	height:13px;
+	margin-right:3px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png?a8964c0f6ff4');
+	background-position:-55px -10px;
+}
+a.cancel-btn:hover em.cancel-ico {
+	background-position:-55px -34px;
+}
+.work-list:hover a.cancel-btn {
+	display:block;
+}
+
+
+.vc-w60 {
+	width:64px;
+}
+
+

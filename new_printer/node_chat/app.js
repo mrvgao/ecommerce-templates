@@ -69,7 +69,7 @@ io.on('connection', function(socket) {
 	ioMain.socketMain(socket);
 });
 
-ioMain.delChatDataUselessInRegularTime(30000);
+/*ioMain.delChatDataUselessInRegularTime(30000);*/
 
 server.listen(port, function() {
 	console.log('Server listening at port %d', port);

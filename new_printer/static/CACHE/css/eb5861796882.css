@@ -159,7 +159,7 @@
 	height: 162px;
 }
 .fullscreen-btn{
-	background: url('{% static 'images/adminer/widget.png' %}') no-repeat;
+	background: url('/static/css/adminer/{% static 'images/adminer/widget.png' %}') no-repeat;
 	width: 20px;
 	height: 20px;
 	background-position: -82px -10px;
@@ -270,7 +270,7 @@
 	margin-left: 5px;
 }
 .chat-user div{
-	width: 80px;
+	width: 50px;
 	float: left;
 	margin-top: 10px;
 	margin-left: 4px;

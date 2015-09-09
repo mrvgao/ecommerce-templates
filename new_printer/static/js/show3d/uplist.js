@@ -12,9 +12,7 @@ function showpic(index,src,url,name,describe){	//点击图片查看详情以及�
 function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerId){
 	$.post('/designer/show_3d',{'pic_id': stlId, 'unpassed': unpassed},function (e){
 		var url_path = JSON.parse(e).url_path ;
-
-		url_path = 'http://www.3dilove.com/stl_static/'+ url_path
-
+		//url_path = 'http://www.3dilove.com/stl_static/'+ url_path
 		$('#'+containerId).html(null);
 		initializeObj(url_path, canvasW, canvasH, containerId);
 		$('#'+containerId+'-cont').show();

@@ -13,7 +13,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.template import RequestContext
 from django import forms
-from designer.conf import website 
+from designer.conf import website
 from configuration import website as server_website
 from configuration.website import file_server_download
 from designer.utilites import search_handle,good_filter
@@ -34,16 +34,16 @@ def works_upload(request):
 
 
 def stls_save(stls,designer):
-    
+
     '''pdb.set_trace()
                 user = request.user
                 designer = Designer_User.objects.get(user = user).id'''
-   
+
     jwary_md5 = {}
     file_size = []
     has_existed = {}
     count = 0
-    for stl in stls:       
+    for stl in stls:
         stl_type=str(stl)
         stl_type=stl_type.split('.')
         stl_md5 = file_save(stl,stl_type[0],stl_type[1])
@@ -52,7 +52,7 @@ def stls_save(stls,designer):
         stl_type=str(stl)
         stl_type=stl_type.split('.')
         stl_md5 = file_save(stl,stl_type[0],stl_type[1])
-        
+
         chunks = ""
         for chunk in stl.chunks():
             chunks = chunks + chunk
@@ -100,7 +100,7 @@ def file_save(model,name,stl_type):
     for chunk in model.chunks():
         chunks = chunks + chunk
     boundary = '----------%s' % hex(int(time.time() * 1000))
-    data = []           
+    data = []
     data.append('--%s' % boundary)
     data.append('Content-Disposition: form-data; name="%s"\r\n' % 'style')
     data.append(stl_type)
@@ -127,11 +127,11 @@ def workd_unexecute(request):
     设计师作品管理，显示 未审核 页面  #商品状态，0：只有STl,未处理；1：审核中； 2：未通过 3:审核通过， 新加
     '''
     user = request.user
-    now_page = int(request.POST['page']) - 1    
+    now_page = int(request.POST['page']) - 1
     designer = Designer_User.objects.get(user_id = user.id)
     designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 0)
-    unexecute_list = unexecute_list.order_by('upload_time').reverse()   
+    unexecute_list = unexecute_list.order_by('upload_time').reverse()
     return_list = good_filter.unpublish_exec(unexecute_list)
     worksWait = unexecute_list.count()
     worksOn = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1).count()
@@ -185,40 +185,60 @@ def edit_submit(request):
     #未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
     '''
     file_id = request.POST['modify_id']
+    #pdb.set_trace()
     count = 1
     p_url = []
-    good = Goods_Upload.objects.get(id=file_id)
-    stl_md5 = good.stl_path.encode('utf-8')
-    stl_md5 = stl_md5.split('.')
-    stl_md5 = stl_md5[0]
-    stl_md5 = stl_md5.split('/')[0]
+    
     price = request.POST['stl_price']
     previews = request.FILES
     describe = request.POST['stl_describe']
     name = request.POST['stl_name']
     if not name:
         name = good.goods_name
-    for preview in previews:
-        count = int(preview)
-        preview_type=str(previews[preview])
-        preview_type=preview_type.split('.')
-        preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
-        p1_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
-        #p_url.append(p1_url)
-        if count == 1:
-            s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
-        if count == 2:
-            s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
-        if count == 3:
-            s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
-    s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
+    if not price:
+        price = good.goods_price
+    if not describe:
+        describe = good.description
+
+    pub_type = int(request.POST['push_type'])
+    if pub_type == 3:
+        good = Goods.objects.get(id = file_id)
+        stl_md5 = str(good.stl_path)
+        stl_md5 = stl_md5.split('.')
+        stl_md5 = stl_md5[0]
+        stl_md5 = stl_md5.split('/')[0]
+        s=Goods.objects.filter(id= file_id).update(goods_name=name,
                         goods_price = int(price),
-                        good_state = 1,
-                        description = describe,
-                        restdate = datetime.datetime.now()+datetime.timedelta(days=5)
+                        description = describe
                       )
+    else:
+        good = Goods_Upload.objects.get(id=file_id)
+        stl_md5 = (good.stl_path).encode('utf-8')
+        stl_md5 = stl_md5.split('.')
+        stl_md5 = stl_md5[0]
+        stl_md5 = stl_md5.split('/')[0]
+        if not previews:
+            for preview in previews:
+                count = int(preview)
+                preview_type=str(previews[preview])
+                preview_type=preview_type.split('.')
+                preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
+                p1_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
+                #p_url.append(p1_url)
+                if count == 1:
+                    s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
+                if count == 2:
+                    s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
+                if count == 3:
+                    s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
+        s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
+                            goods_price = int(price),
+                            good_state = 1,
+                            description = describe,
+                            restdate = datetime.datetime.now()+datetime.timedelta(days=5)
+                          )
     conf = {'status':"success"}
-    return HttpResponseRedirect('designer_works') 
+    return HttpResponseRedirect('designer_works')
 
 
 def screenshot(request):
@@ -258,7 +278,7 @@ def screenshot(request):
     p_url = str(stl_md5) + '/' + 'preview_3' + '.' + 'png'
     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p_url)
     conf = {'status':'success'}
-    return HttpResponse(json.dumps(conf)) 
+    return HttpResponse(json.dumps(conf))
 
 def deletePic(request):
     #pdb.set_trace()
@@ -310,7 +330,7 @@ def auditing(request):
     #显示 审核中 页面
     '''
     user = request.user
-    now_page = int(request.POST['page']) - 1    
+    now_page = int(request.POST['page']) - 1
     designer = Designer_User.objects.get(user_id = user.id)
     designer.icon = str(server_website.file_server_imgupload) + str(designer.img)
     unexecute_list = Goods_Upload.objects.filter(designer_id=designer.id,good_state = 1)
