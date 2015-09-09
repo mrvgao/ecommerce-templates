@@ -20,7 +20,8 @@ var TABLES ={
 var socketMap = [],
 	chatDataMap = [],
 	customerServiceList = [],
-	usersInfos = [];
+	usersInfos = [],
+	timerMap = [];
 
 
 function socketMain(socket){
@@ -48,22 +49,26 @@ function socketMain(socket){
 	});
 
 
-	socket.on('chat/anonymous_user/connect', function(sessionUsername){
+	socket.on('chat/anonymous_user/connect', function(Username){
 		l('anonymous_user');
 		var username, nickname;
 
-		if(sessionUsername === null){
+		if(Username === null || Username === ''){
 			username = socket.id;	
 		}else{
-			username = sessionUsername;
+			username = Username;
 		}
 		var ipAddress = socket.handshake.address;
 		ipAddress = ipAddress.replace(/([:]+|[.]+|[f]+)/ig,'');
 		nickname = '顾客'+ipAddress;
 		socketMap[username] = socket;
+
 		if(chatDataMap[username] === undefined){
 			chatDataMap[username] = [];
 		}
+
+		// 如果用户在一段时间以内再次登录，取消删除该用户的聊天记录的timeout
+		clearTimeout(timerMap[username]);
 		var targService = customerServiceList[0];
 		socket.emit('callback/chat/anonymous_user/connect',username,nickname,targService,chatDataMap[username][targService]);
 	});
@@ -161,7 +166,9 @@ function socketMain(socket){
 		for(var key in socketMap){
 			if(socketMap[key].id === socket.id){
 				socketMap[key] = null;
-				/*delChatDataUselessInSomeTime(1000);*/
+				timerMap[key] = setTimeout(function(){
+					delChatDataUseless(key);
+				},1800000);
 			}
 		}
 	});
@@ -178,19 +185,12 @@ function last(cont, data){
 }
 
 
-function delChatDataUselessInRegularTime(setTime){
-	setInterval(function(){
-		for (var key in socketMap) { 
-			if(socketMap[key] === null){
-				console.log('clear useless chat data:'+key);
-				/*chatDataMap[key] = null;*/
-				delete chatDataMap[key];
-				delete socketMap[key];
-			}
-		}
-	},setTime);
+function delChatDataUseless(username){
+	delete chatDataMap[username];
+	delete socketMap[username];
+	console.log('clear useless chat data:'+username);
 }
 
 
 module.exports.socketMain = socketMain;
-module.exports.delChatDataUselessInRegularTime = delChatDataUselessInRegularTime;
+/*module.exports.delChatDataUselessInRegularTime = delChatDataUselessInRegularTime;*/
