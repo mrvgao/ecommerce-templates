@@ -37,7 +37,7 @@ file_server_ip = 'http://%(server)s:8888/' % {'server': server}
 file_server_imgupload = 'http://%(server)s:8888/file/imgupload' % {'server': server}
 icon_server_upload = 'http://%(server)s:8888/file/upload' % {'server': server}
 
-stl_3dlive = 'http://www.3dilove.com/stl_static/'  #存放stl文件的路径
+stl_3dlove = 'http://www.3dilove.com/stl_static/'  #存放stl文件的路径
 
 stl = 'stl'
 pic = 'jpg'

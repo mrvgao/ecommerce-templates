@@ -366,8 +366,9 @@ def show_3d(request):
         stl_path = Goods.objects.get(id = id).stl_path
         _url = str(server_website.file_server_path) + str(stl_path)
     url_path = good_filter.down_stl(_url)
-    url_path = url_path.split('/')[-1]
-
+    if  ip_address.in_test_server:
+        url_path = url_path.split('/')[-1]
+        url_path = server_website.stl_3dlove + url_path 
     print url_path
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf))

@@ -634,6 +634,7 @@ function edit(){	//编辑弹窗函数
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
 		$('.modify-id').val(id);
+		$('.push-type').val($('.works-current').attr('value'));
 
 		if(_kind == 'unexecute'){
 			var _imgsrc = _parent.attr('data-img');
@@ -734,6 +735,8 @@ function publish_edit(){	//编辑弹窗函数
 		$('.modify-price').val(price);
 		$('.modify-name').val(name);
 		$('.modify-describe').text(describe);
+		$('.modify-id').val(id);
+		$('.push-type').val($('.works-current').attr('value'));
 
 		var imgsrc = imgs.eq(0).attr('src');
 		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/></div>';
@@ -764,7 +767,7 @@ function publish_edit(){	//编辑弹窗函数
 
 	closeEdit();
 
-	$('.modify-btn-submit').on('click',function (){
+	$('.modify-btn-submit').on('click',function (){q
 		$('.changeInfo').submit();
 
 		// added by white
