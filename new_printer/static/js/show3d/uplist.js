@@ -13,7 +13,7 @@ function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerI
 	$.post('/designer/show_3d',{'pic_id': stlId, 'unpassed': unpassed},function (e){
 		var url_path = JSON.parse(e).url_path ;
 
-		url_path = 'http://www.3dilove.com/stl_static/'+ url_path
+		//url_path = 'http://www.3dilove.com/stl_static/'+ url_path
 
 		$('#'+containerId).html(null);
 		initializeObj(url_path, canvasW, canvasH, containerId);
