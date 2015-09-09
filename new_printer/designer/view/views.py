@@ -18,6 +18,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.template import RequestContext
 from django import forms
+from new_printer import  ip_address
 from django.contrib.auth.models import User
 from configuration.models import Goods_Upload
 from configuration.models import Designer_User
@@ -34,7 +35,7 @@ from datetime import date ,datetime,timedelta
 import time,pdb
 
 
-@login_required
+
 def my_personal(request):
     '''
 	#设计师个人中心页面，设计师本人看到的，即设计师个人主页。
@@ -42,21 +43,28 @@ def my_personal(request):
     #pdb.set_trace()
     user = request.user
     is_focus = False
-    d_user = Designer_User.objects.filter(user = user).exists()
+    now_user = ''
+    vender_id = 0
+    d_user = Designer_User.objects.filter(user_id = user.id).exists()
     if (d_user):
         now_user = 'D'
-        designer = Designer_User.objects.get(user = user)
+        designer = Designer_User.objects.get(user_id = user.id)
         designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
         designer.img = str(server_website.file_server_path) + str(designer.img)
-    else:
+    elif Vender_User.objects.filter(user_id = user.id).exists():
         now_user = 'V'
-        vender_id = Vender_User.objects.get(user = user).id
+        vender_id = Vender_User.objects.get(user_id = user.id).id
         designer_id = request.GET['designer_id']
         designer = Designer_User.objects.get(id = designer_id)
         designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
         designer.img = str(server_website.file_server_path) + str(designer.img)
         if Vender_Designer.objects.filter(designer_id = designer.id, vender_id = vender_id):
             is_focus = True
+    else:
+        designer_id = request.GET['designer_id']
+        designer = Designer_User.objects.get(id = designer_id)
+        designer_marked = Vender_Designer.objects.filter(designer_id = designer.id).count()
+        designer.img = str(server_website.file_server_path) + str(designer.img)
     design_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     return_list = []
     for good in design_list:
@@ -87,19 +95,22 @@ def my_personal(request):
               }
     return render(request, website.my_personal, conf)
 
-@login_required
+
 def sort_list(request):
     '''
     展示按照下载次数排序结果,#作品管理的 已发布7和设计师个人主页 都是用的这个部分方法实现
     '''
     #pdb.set_trace()
     user = request.user
-    Test_user = Designer_User.objects.filter(user = user).exists()
-    if not Test_user:
+    now_user = ''
+    Test_user = Designer_User.objects.filter(user_id = user.id).exists()
+    if Test_user:
+        designer_id = Designer_User.objects.get(user_id = user.id).id
+    #elif Vender_User.objects.filter(user_id = user.id).exists():
+    else:
         vender_id = request.POST['v_id']
         designer_id = request.POST['d_id']
-    else:
-        designer_id = Designer_User.objects.get(user = user).id
+    
     data_tag = int(request.POST['data_kind'])
     type_tag = request.POST['type_kind']
 
@@ -130,7 +141,7 @@ def sort_list(request):
             }
     return HttpResponse(json.dumps(conf))
 
-@login_required
+
 def unpublished_good_search(request):
     '''
     #搜索商品的方法
@@ -192,7 +203,7 @@ def unpublished_good_search(request):
     conf = {'all_list':goods_find,'total_pages':total_pages}
     return HttpResponse(json.dumps(conf))
 
-@login_required
+
 def published_good_search(request):
     '''
     #搜索已发布商品的方法  published_good_search
@@ -291,7 +302,7 @@ def center_visit(d_id):
     conf = { 'weekNum':weekNum,'monthNum':monthNum}
     return conf
 
-@login_required
+
 def works_visit(request):
     '''
     #设计师作品的 访问量
@@ -328,7 +339,7 @@ def works_visit(request):
             'monthNumwork': monthNum}
     return HttpResponse(json.dumps(conf))
 
-@login_required
+
 def setup(request):
     user = request.user
     designer = Designer_User.objects.get(user_id = user.id)
@@ -347,7 +358,7 @@ def show_3d(request):
 
     id = request.POST['pic_id']
     state = request.POST['unpassed']
-    
+    #pdb.set_trace()
     if state == 'unpassed':
         stl_path = Goods_Upload.objects.get(id = id).stl_path
         _url = str(server_website.file_server_path) + str(stl_path)
@@ -355,12 +366,13 @@ def show_3d(request):
         stl_path = Goods.objects.get(id = id).stl_path
         _url = str(server_website.file_server_path) + str(stl_path)
     url_path = good_filter.down_stl(_url)
-    #url_path = url_path.split('/')[-1]
-    #url_path = server_website.file_server_path + url_path
+    url_path = url_path.split('/')[-1]
+
     print url_path
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf))
 
+@login_required
 def add_focus(request):
     d_id = request.POST['d_id']
     v_id = request.POST['v_id']
@@ -377,7 +389,7 @@ def add_focus(request):
 
     return HttpResponse(json.dumps(conf))
 
-
+@login_required
 def cancel_focus(request):
     d_id = request.POST['d_id']
     v_id = request.POST['v_id']
@@ -393,7 +405,7 @@ def cancel_focus(request):
         conf = {'state':'failed',}
     return HttpResponse(json.dumps(conf))
 
-
+@login_required
 def add_collect(request):
     #pdb.set_trace()
     g_id = request.POST['g_id']
@@ -408,8 +420,7 @@ def add_collect(request):
     return HttpResponse(json.dumps("success"))
 
 
-
-
+@login_required
 def cancel_collect(request):
     g_id = request.POST['g_id']
     v_id = request.POST['v_id']
@@ -429,7 +440,7 @@ def add_alipay(request):
         return HttpResponse(json.dumps("success"))
     else:
         return HttpResponse(json.dumps("Error"))
-
+@login_required
 def u_img(request):
 	if request.method == 'POST':
 		user = request.user
