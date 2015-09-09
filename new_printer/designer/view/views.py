@@ -18,6 +18,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.template import RequestContext
 from django import forms
+from new_printer import  ip_address
 from django.contrib.auth.models import User
 from configuration.models import Goods_Upload
 from configuration.models import Designer_User
@@ -347,7 +348,7 @@ def show_3d(request):
 
     id = request.POST['pic_id']
     state = request.POST['unpassed']
-    
+    #pdb.set_trace()
     if state == 'unpassed':
         stl_path = Goods_Upload.objects.get(id = id).stl_path
         _url = str(server_website.file_server_path) + str(stl_path)
@@ -355,8 +356,9 @@ def show_3d(request):
         stl_path = Goods.objects.get(id = id).stl_path
         _url = str(server_website.file_server_path) + str(stl_path)
     url_path = good_filter.down_stl(_url)
-
-    url_path = url_path.split('/')[-1]
+    if not ip_address.in_test_server:
+        url_path = url_path.split('/')[-1]
+        url_path = server_website.stl_3dlive+ url_path #'http://www.3dilove.com/stl_static/'
 
     print url_path
     conf = { 'url_path': url_path}
