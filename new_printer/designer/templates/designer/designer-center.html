@@ -36,9 +36,6 @@
 						<div class="chart-show-list">
 							<div class="chart-btn-box fr">
 								<div class="isHome clearfix mb15">
-
-									<!--a class="chart-btn" href="javascript:;">day</a-->
-
 									<a class="chart-btn active" href="javascript:;">week</a>
 									<a class="chart-btn" href="javascript:;">month</a>
 								</div>
@@ -53,10 +50,6 @@
 						<div class="chart-show-list">
 							<div class="chart-btn-box fr">
 								<div class="clearfix mb15">
-
-									<!--a class="chart-btn" href="javascript:;">day</a-->
-
-
 									<a class="chart-btn active" href="javascript:;">week</a>
 									<a class="chart-btn" href="javascript:;">month</a>
 								</div>
@@ -69,8 +62,9 @@
 		</div>
 	{% load staticfiles %}
 	{% load compress %}
-	{% compress js %}
+
 	<script type="text/javascript" src="{% static 'plugin/js/ichart.min.js' %}"></script>
+	{% compress js %}
 	<script type="text/javascript" src="{% static 'js/designer/designer-chart.js' %}"></script>
 	{% endcompress %}
 	{% endblock %}

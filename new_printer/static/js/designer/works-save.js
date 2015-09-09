@@ -13,7 +13,6 @@ $(function (){
 		$('.upfile-hide').on('change', function (){
 			var _val = $(this).val(),
 				name = getFileName(_val),
-				_cont,
 				_type;
 
 			_type = _val.substring(_val.lastIndexOf('.')+1,_val.length);
@@ -21,6 +20,9 @@ $(function (){
 				addCode(name);
 			}else {
 				$.msgBox.mini('请上传正确的模型文件');
+
+				// 防止选错文件时，绑定事件并未完全消除
+				$(this).unbind('change');
 				return false;
 			}
 			
@@ -37,7 +39,7 @@ $(function (){
 	});
 
 	function addCode(name){
-		_cont = '<p class="file-name"><em class="upfile-success"></em><span>' + name + '</span><a class="delete-file c888 ml20" href="javascript:void(0)">删除</a></p>';
+		var _cont = '<p class="file-name"><em class="upfile-success"></em><span>' + name + '</span><a class="delete-file c888 ml20" href="javascript:void(0)">删除</a></p>';
 		fileBox.append(_cont);
 		fileValue.append(fileValueNode);
 
