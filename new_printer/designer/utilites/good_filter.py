@@ -155,7 +155,9 @@ def publish_exec(good_list):
 def down_stl(_url):
     stl_path = "%s/"%pwd
     local_filename = _url.split('/')[-2]
+    local_filename = local_filename + '.stl'
     r = requests.get(_url, stream=True)
+
     lists = os.listdir(stl_path)
     aleady_h = _url.split('/')[-2]
     stl_path = stl_path + local_filename
