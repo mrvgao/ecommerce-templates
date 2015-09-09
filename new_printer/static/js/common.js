@@ -31,19 +31,26 @@
 			gotop.fadeOut();
 		}
 	});
-	
+
 	gotop.on('click',function (){
 		$('body').animate({'scrollTop':0});
 	});
 
 	// contactonline
 	contactonline.on('click',function (){
-		window.open ('/shop/chat_customer_service_win','chatToService','height=587,width=800,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+		var screenHeight = window.screen.height,
+			screenWidth = window.screen.width,
+			winHeight = 587,
+			winWidth = 800,
+			winTop = (screenHeight-587)/2-100,
+			winLeft = (screenWidth-800)/2;
+		console.log('screen:'+screenHeight+'/'+screenWidth);
+		window.open ('/shop/chat_customer_service_win','chatToService','height='+winHeight+',width='+winWidth+',top='+winTop+',left='+winLeft+',toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
 	});
 
 	// 登陆部分
 	dl_btn.on('click',function (){
-		
+
 		// get Cookie
 		var uphone = getCookie('uphone');
 		dl_uname.val(uphone);
@@ -60,7 +67,7 @@
 
 		$.post('/account/check_phone',{'phone':uname},function (e){
 			result = JSON.parse(e);
-			
+
 			if(result['status']=='TRUE'){
 				dl_ts.text('');
 			}else {

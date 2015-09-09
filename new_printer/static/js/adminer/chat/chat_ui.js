@@ -26,10 +26,9 @@ $(function(){
 
 
 ChatUI.appendUserList = function(username,nickname,userLogo){
-	l('append');
 	var userList = $('.user-list');
 	var newUserElement = 
-		'<div class="chat-user" username="'+username+'">'+
+		'<div class="chat-user" username="'+username+'" flashing="false">'+
 		'<img src="'+userLogo+'">'+
 		'<div>'+nickname+'</div>'+
 		'</div>';
@@ -72,14 +71,40 @@ ChatUI.useFace = function(){
 
 ChatUI.remindUser = function(username){
 	var thisUser = $('div[username|='+username+']');
-	var timer = setInterval(function(){
-		if(thisUser.hasClass('hovered')){
-			thisUser.removeClass('hovered');
-		}else{
-			thisUser.addClass('hovered');
-		}
-	},500)
-	thisUser.click(function(){
-		clearInterval(timer);			  
-	});
+	
+	if(thisUser.attr('flashing') === 'false'){
+		var timer = setInterval(function(){
+
+			if(thisUser.hasClass('hovered')){
+				thisUser.removeClass('hovered');
+			}else{
+				thisUser.addClass('hovered');
+			}
+		},500)
+		thisUser.click(function(){
+			clearInterval(timer);			  
+			thisUser.attr('flashing','false');
+		});
+		thisUser.attr('flashing','true');
+	}
 };
+
+
+ChatUI.remindNewMsg = function(){
+
+	if($('.tool-bar-choosed').attr('id') !== 'tool-bar-chat' && $('#tool-bar-chat').html() === '客户留言对话'){
+		$('#tool-bar-chat').append(ChatUI.msgRemindMark);
+		var thisTimer = setInterval(function(){
+
+			if($('#msg-remind-mark').hasClass('tool-bar-msg-remind-mark')){
+				$('#msg-remind-mark').removeClass('tool-bar-msg-remind-mark');
+			}else{
+				$('#msg-remind-mark').addClass('tool-bar-msg-remind-mark');
+			}   
+		},500);
+		$('#tool-bar-chat').click(function(){
+			clearInterval(thisTimer);    
+			$('#tool-bar-chat').html('客户留言对话');
+		}); 
+	}   
+}

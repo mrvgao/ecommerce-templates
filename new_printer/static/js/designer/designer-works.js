@@ -692,10 +692,15 @@ function edit(){	//编辑弹窗函数
 		$('.changeInfo').submit();
 
 		// added by white
+<<<<<<< HEAD
+		var workId = $('.designer-works-list-box').attr('data-id');
+		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
+=======
 		var workId = $('.designer-works-list-box').attr('data-id');		
 
 		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
 
+>>>>>>> 2daf37f7786f9b85e8d95f0f8e0c47367028df11
 	});
 }
 

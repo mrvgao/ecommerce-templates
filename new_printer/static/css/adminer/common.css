@@ -23,6 +23,14 @@
 	font-size: 14px;
 	color:#464747;
 }
+#tool-bar-check:hover{
+	background-color: #FF766F !important;
+	color: #FFF;
+}
+#tool-bar-chat:hover{
+	background-color: #FF766F !important;
+	color: #FFF;
+}
 .tool-bar-select{
 	float: left;
 	width: 77px;
@@ -36,6 +44,9 @@
 	background-color: inherit;
 	text-align: center;
 	padding-top: 12px;
+}
+.tool-bar-select div:hover{
+	background-color: #F54E45 !important;
 }
 .tool-bar-choosed{
 	background-color: #FF766F !important;
@@ -54,10 +65,10 @@
 	border: 0px;
 }
 #tool-bar-check{
-	cursor: default;
+	cursor: pointer;
 }
 #tool-bar-chat{
-	cursor: default;
+	cursor: pointer;
 }
 .search-bar{
 	padding-top: 14px;
@@ -80,9 +91,11 @@
 	background-color: #111;
 	float: left;
 }
-.search-box textarea{
-	height: 16px;
-	width: 134px;
+#search-box-textarea{
+	height: 12px;
+	width: 129px;
+	margin-top: 2px;
+	margin-left: 2px;
 	resize: none;
 	float: left;
 	font-size: 13px;
@@ -101,7 +114,7 @@
 	padding-top: 7px;
 	padding-left: 14px;
 	float: left;
-	cursor: default;
+	cursor: pointer;
 }
 .goods-container{
 	width: 960px;
@@ -183,7 +196,11 @@
 	height: 23px;
 	margin-left: 5px;
 	color: #646666;
-	cursor: default;
+	cursor: pointer;
+}
+.pages-btn:hover{
+	background-color: #79D0D9;
+	color: #FFF;
 }
 .pages-btn.choosed{
 	background-color: #79D0D9;
@@ -205,7 +222,7 @@
 	font-size: 14px;
 	color: #FFF;
 	padding-top: 9px;
-	cursor: default;
+	cursor: pointer;
 }
 .chat-container{
 	width: 960px;
@@ -320,6 +337,7 @@
 	margin-left: 12px;
 	float: left;
 	border: 1px solid #DBDBDB;
+	cursor: pointer;
 }
 .chat-entry{
 	width: 595px;
@@ -347,6 +365,7 @@
 	float: right;
 	margin-right: 21px;
 	margin-top: 8px;
+	cursor: pointer;
 }
 .other-chat-tool-box{
 	padding-left: 10px;

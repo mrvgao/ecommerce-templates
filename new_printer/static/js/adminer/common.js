@@ -51,6 +51,7 @@ $(function(){
 		'</div>'+
 		'</li>';
 	Commom.registerShow3dBtn();
+	Commom.searchBarEffect();
 });
 
 
@@ -312,4 +313,11 @@ Commom.removeGoodBtn = function(){
 			$(this).remove();							  
 		});
 	});
+}
+
+Commom.searchBarEffect = function(){
+	$('#search-box-textarea').focus(function(){
+		console.log('asd');
+		$(this).empty();    
+	}); 
 }
