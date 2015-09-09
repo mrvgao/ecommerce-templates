@@ -345,16 +345,15 @@ def setup(request):
 
 def show_3d(request):
 
-    #pdb.set_trace()
     id = request.POST['pic_id']
     state = request.POST['unpassed']
     
     if state == 'unpassed':
-        stl_path = Goods_Upload.objects.get(id = id).stl_path.encode("utf-8")
-        _url = (server_website.file_server_path) + stl_path
+        stl_path = Goods_Upload.objects.get(id = id).stl_path
+        _url = str(server_website.file_server_path) + str(stl_path)
     else:
-        stl_path = Goods.objects.get(id = id).stl_path.encode("utf-8")
-        _url = str(server_website.file_server_path) + stl_path
+        stl_path = Goods.objects.get(id = id).stl_path
+        _url = str(server_website.file_server_path) + str(stl_path)
     url_path = good_filter.down_stl(_url)
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf))
