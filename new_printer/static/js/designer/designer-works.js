@@ -695,10 +695,7 @@ function edit(){	//编辑弹窗函数
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
 		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
-<<<<<<< HEAD
 
-=======
->>>>>>> 660edad9bfc71c3e2aa1af4af541da86fdbdb7b8
 	});
 }
 
