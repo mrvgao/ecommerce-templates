@@ -692,7 +692,7 @@ function edit(){	//编辑弹窗函数
 		$('.changeInfo').submit();
 
 		// added by white
-		var workId = $('.designer-works-list-box').attr('data-id');
+		var workId = $('.designer-works-list-box').attr('data-id');		
 
 		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
 
