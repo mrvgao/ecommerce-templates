@@ -1,12 +1,8 @@
-.home-banner ul {
-	height:600px
-}
 .home-banner ul li {
 	position:absolute;
 	left:0;
 	top:0;
 	width:100%;
-    height:600px;
 }
 .home-banner ul li img {
 	width:100%;
