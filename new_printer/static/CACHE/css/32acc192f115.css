@@ -1,0 +1,261 @@
+.detail-wrap {
+	border-bottom:1px solid #ddd;
+}
+.detail-site-guide {
+	border-bottom:1px solid #ddd;
+}
+.slider-box {
+	height:350px;
+}
+.slider-img {
+	width:110px;
+	height:110px;
+	margin-top:10px;
+}
+.slider-img:first-child {
+	margin-top:0;
+}
+.slider-img img {
+	width:110px;
+	height:110px;
+	cursor:pointer;
+}
+.goods-img {
+	width:460px;
+	height:460px;
+}
+.goods-img img {
+	width:460px;
+	height:460px;
+}
+.watch3d-img {
+	width:110px;
+	height:110px;
+	cursor:pointer;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/shop/watch3d.png?1662faa75475');
+}
+.detail-txt {
+	width:470px;
+}
+.c888 {
+	color:#888;
+}
+.designer-img {
+	width:60px;
+	height:60px;
+}
+.designer-img img {
+	width:60px;
+	height:60px;
+}
+.pay-btn {
+	width:400px;
+}
+.pay-btn button {
+	height:50px;
+	cursor:pointer;
+	border-radius:5px;
+	color:#fff;
+}
+button.paynow {
+	width:240px;
+	background:#ff7972;
+}
+button.addcart {
+	width:140px;
+}
+.detail-others {
+	margin-top:50px;
+}
+.detail-others-title {
+	width:160px;
+	height:30px;
+	line-height:30px;
+	background:#42b9c4;
+	color:#fff;
+}
+.other-goods-box ul li {
+	float:left;
+	padding:0 20px;
+}
+.list-box {
+	padding:20px;
+	border:1px solid #eee;
+	transition:all .3s ease;
+}
+.list-img {
+	width:200px;
+	height:200px;
+}
+.list-img img {
+	width:200px;
+	height:200px;
+}
+.list-title a {
+	color:#79d0d8;
+}
+em.list-mark-btn-ico {
+	display:inline-block;
+	width:15px;
+	height:15px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png?1662faa75475');
+	background-position:0 -11px;
+	vertical-align:bottom;
+}
+em.mark-num-ico {
+	background-position:-192px -11px;
+}
+a.goods-tomark:hover, a.goods-tomark.active {
+	color:#f25149;
+}
+a.goods-tomark:hover em.list-mark-btn-ico, a.goods-tomark.active em.list-mark-btn-ico {
+	background-position:-192px -35px;
+}
+
+a.alipay, a.tencenpay {
+	display:inline-block;
+	width:110px;
+	height:50px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png?1662faa75475');
+	background-position:-10px -170px;
+	border:1px solid #ddd;
+	border-radius:6px;
+}
+a.tencenpay {
+	background-position:-140px -170px;
+}
+a.tencenpay.active, a.alipay.active {
+	border:1px solid #ef635c;
+}
+.gopay {
+	height:50px;
+	cursor:pointer;
+	border-radius:5px;
+	color:#fff;
+	width:120px;
+	background:#ff7972;
+}
+em.safa-ico {
+	display:inline-block;
+	width:18px;
+	height:18px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png?1662faa75475');
+	background-position:-100px -60px;
+	vertical-align:bottom;
+}
+.download-btn {
+	display:block;
+	width:280px;
+	height:50px;
+	cursor:pointer;
+	border-radius:5px;
+	color:#fff;
+	background:#ff7972;
+}
+i.coverb {
+	position:absolute;
+	left:-30px;
+	top:0;
+	width:0px;
+    height:0px;
+    border-left:30px solid transparent;
+    border-right:20px solid transparent;
+    border-bottom:30px solid #fff;
+    font-size:0px;
+    line-height:0px;
+    margin:0 auto;
+}
+i.covera {
+	position:absolute;
+	right:-30px;
+	top:0;
+	width:0px;
+    height:0px;
+    border-left:20px solid transparent;
+    border-right:30px solid transparent;
+    border-top:30px solid #fff;
+    font-size:0px;
+    line-height:0px;
+    margin:0 auto;
+}
+.goods-tomark {
+	font-size:13px;
+	right:5px;
+	top:5px;
+	padding:5px 12px;
+	border-radius:3px;
+	background:#ddd;
+}
+.goods-info {
+	padding:0 30px;
+	line-height:18px;
+}
+.airm-before.active:before {
+	content:'';
+	width:11px;
+	height:11px;
+	position:absolute;
+	left:-14px;
+	top:50%;
+	margin-top:-5px;
+	background-image:url('/static/images/common/site-icons.png?1662faa75475');
+	background-position:-233px -12px;
+}
+em.download-num-ico, em.mark-num-ico {
+	display:inline-block;
+	width:14px;
+	height:14px;
+	background-repeat:no-repeat;
+	background-image:url('/static/images/common/site-icons.png?1662faa75475');
+	vertical-align:bottom;
+}
+em.download-num-ico {
+	background-position:-10px -11px;
+}
+em.mark-num-ico {
+	background-position:-192px -11px;
+}
+a.list-mark-btn {
+	right:5px;
+	top:5px;
+	padding:3px 6px;
+	border-radius:3px;
+	background:#e8e8e8;
+	display:none;
+}
+em.list-mark-btn-ico {
+	background-position:-192px -12px;
+}
+a.list-mark-btn:hover, a.list-mark-btn.active {
+	color:#f25149;
+}
+a.list-mark-btn:hover em.list-mark-btn-ico, a.list-mark-btn.active em.list-mark-btn-ico {
+	background-position:-192px -36px;
+}
+.list-box:hover a.list-mark-btn {
+	display:block;
+}
+.watch-fullscreen {
+	right:0;
+	top:0;
+	padding:6px 12px;
+	border-radius:5px;
+	background:#eee;
+}
+.fullscreen-wrap {
+	width:100%;
+	height:100%;
+	position:fixed;
+	left:0;
+	top:0;
+	z-index:10002;
+	background:#fff;
+}
+#show-3d-fullscreen {
+	width:100%;
+	height:100%;
+}

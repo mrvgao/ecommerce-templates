@@ -519,3 +519,33 @@ a.paging-btn:hover, a.page-btn:hover {
 	background:#79d0d8;
 	color:#fff;
 }
+
+/* 404 */
+.error-wrap {
+	padding:60px 0;
+}
+.error-box {
+	width:350px;
+}
+.error-btn {
+	width:100px;
+	height:32px;
+	line-height:32px;
+	background:#f9665e;
+	color:#fff;
+}
+.error-btn:hover {
+	background:#f2595e;
+	color:#fff;
+}
+.error4-bg {
+	width:350px;
+	height:220px;
+	background-image:url('/static/images/common/404.png');
+}
+.error5-bg {
+	width:350px;
+	height:280px;
+	background-image:url('/static/images/common/404.png');
+	background-position:0 -220px;
+}

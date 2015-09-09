@@ -28,7 +28,7 @@ SECRET_KEY = 's!-u9ym5-^m)sf-3ecaw3o2u7%vd5ln_@hn^qu0vd(8^e3d1e9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'account',
     'payment',
     'utility',
+    'compressor'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -151,3 +152,12 @@ STATICFILES_DIRS = (
 LOGIN_URL = '/shop/login_register'
 #AUTH_PROFILE_MODULE = 'configutation.TestUser'
 
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # other finders..
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_ROOT = os.path.join(BASE_DIR, 'static')
+COMPRESS_ENABLE = True

@@ -1,9 +1,15 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
+{% load compress %}
 
 {% block selfFiles %}
+
+	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/shop/goods-detail.css' %}" />
+	{% endcompress %}
+
+	{% compress js %}
 	<script type="text/javascript" src="{% static 'plugin/js/msgBox.js' %}"></script>
 	<script type="text/javascript" src="{% static 'js/shop/goods-detail.js' %}"></script>
 
@@ -15,6 +21,7 @@
 	<script type="text/javascript" src="{% static 'js/show3d/uplist.js' %}"></script>
 
 	<!--added by white over-->
+	{% endcompress %}
 {% endblock %}
 
 {% block content %}
@@ -23,7 +30,7 @@
 		<div class="detail-site-guide pt15 pb10">
 			<a href="/shop/{{ goods_list }}">{{ goods_tags }}</a>
 			>
-			<a href="/shop/{{ goods_list }}/?goods_type={{ goods_style }}">{{ goods_style }}</a>
+			<a href="/shop/{{ goods_list }}?goods_type={{ goods_style }}">{{ goods_style }}</a>
 			>
             <a href="/shop/goods-detail?goods_id={{ goods_id }}">{{ goods_name }}</a>
 		</div>
