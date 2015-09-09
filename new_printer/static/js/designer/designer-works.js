@@ -693,15 +693,7 @@ function edit(){	//编辑弹窗函数
 
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
-<<<<<<< HEAD
 		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
-=======
-
-		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){
-			;
-		});
-
->>>>>>> fcf54c03834c299e8c34d52c27f1250f981241a6
 	});
 }
 
