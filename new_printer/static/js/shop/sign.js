@@ -257,6 +257,10 @@ $(function (){
 					}else{
 						$.msgBox.mini('注册成功，请登陆');
 						input_play_box.animate({'left':-500});
+						signIn.removeClass('f16').addClass('f20');
+						signUp.find('a').removeClass('f20').addClass('f16');
+						signIn.parent().removeClass('fr').addClass('fl');
+						signUp.parent().removeClass('fl').addClass('fr');
 					}
 
 				});

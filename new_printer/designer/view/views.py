@@ -344,6 +344,7 @@ def setup(request):
 
 
 def show_3d(request):
+
     id = request.POST['pic_id']
     state = request.POST['unpassed']
     
@@ -354,6 +355,8 @@ def show_3d(request):
         stl_path = Goods.objects.get(id = id).stl_path
         _url = str(server_website.file_server_path) + str(stl_path)
     url_path = good_filter.down_stl(_url)
+    url_path = url_path.split('/')[-1]
+    print url_path
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf))
 

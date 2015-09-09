@@ -65,7 +65,7 @@ $(function(){
 
 
 	socket.on('callback/chat/customer_service/connect', function(myUsername){
-		Chat.myUsername = myUsername;
+		Chat.myUsername = Chat.myNickname = myUsername;
 	});
 
 
@@ -83,40 +83,26 @@ $(function(){
 
 
 	/*socket.on('chat/a_new_message', function(message, fromUser){*/
-	socket.on('chat/new_chat_message', function(message, fromUser){
+	socket.on('chat/new_chat_message', function(message, fromUser, fromNickname){
 
 		if(Chat.userInList(fromUser)){
 
 			if(Chat.nowTargUser === fromUser){
-				Chat.appendChatContainerWithReceiveMsg(message, fromUser);
+				Chat.appendChatContainerWithReceiveMsg(message, fromNickname);
 				var	chatContainerDom = $('.chated-txt');
 				Chat.contentToBottom(chatContainerDom);
 			}else{
 				ChatUI.remindUser(fromUser);
 			}
 		}else{
-			var nickname = fromUser;
 			var userlogo = 'http://192.168.1.101:8888/static/photo.png';
-			ChatUI.appendUserList(fromUser,nickname,userlogo);	
+			ChatUI.appendUserList(fromUser,fromNickname,userlogo);	
 			ChatUI.showChatUserSum();
 			ChatUI.remindUser(fromUser);
 		}
-		Chat.saveChatDataInLocal( message, fromUser, fromUser);
+		Chat.saveChatDataInLocal( message, fromNickname, fromUser);
 
-		if($('.tool-bar-choosed').attr('id') !== 'tool-bar-chat'){
-			$('#tool-bar-chat').append(ChatUI.msgRemindMark);
-			var thisTimer = setInterval(function(){
-				if($('#msg-remind-mark').hasClass('tool-bar-msg-remind-mark')){
-				$('#msg-remind-mark').removeClass('tool-bar-msg-remind-mark');
-				}else{
-				$('#msg-remind-mark').addClass('tool-bar-msg-remind-mark');
-				}
-			},500);
-			$('#tool-bar-chat').click(function(){
-				clearInterval(thisTimer);						 
-				$('#tool-bar-chat').html('客户留言对话');
-			});
-		}
+		ChatUI.remindNewMsg();
 	});
 
 
@@ -387,9 +373,9 @@ Chat.sendMsg = function(){
 	if(inputCont === ''){
 		return;
 	}
-	Chat.appendChatContainerWithChatMsg(inputCont, Chat.myUsername);
+	Chat.appendChatContainerWithChatMsg(inputCont, Chat.myNickname);
 	Chat.contentToBottom($('.chated-txt'));
-	socket.emit('chat/new_chat_message',Chat.myUsername, Chat.nowTargUser, inputCont);
+	socket.emit('chat/new_chat_message',Chat.myUsername, Chat.myNickname, Chat.nowTargUser, inputCont);
 	Chat.saveChatDataInLocal( inputCont, Chat.myUsername, Chat.nowTargUser);
 	$('.chat-entry').html(null);
 }
@@ -410,7 +396,6 @@ Chat.appendChatContainerWithChatMsg = function(newChatMsg, sender){
 
 
 Chat.userInList = function(username){
-	l('check userlist:'+username);
 	var userlist = $('.user-list');
 	var thisUser = $('div[username|='+username+']');
 	var inList = false;
@@ -418,7 +403,6 @@ Chat.userInList = function(username){
 	if(thisUser.html() !== undefined){
 		l(thisUser.html());
 		inList = true;
-		l('b:'+inList);
 	}
 	return inList;
 }
@@ -433,3 +417,4 @@ Chat.quickReply = function(){
 		Chat.saveChatDataInLocal( replyCont, Chat.myUsername, Chat.nowTargUser);
 	});
 }
+

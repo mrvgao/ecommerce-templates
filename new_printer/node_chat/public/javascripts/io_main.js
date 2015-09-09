@@ -1,6 +1,5 @@
 var bgMain = require('./background_main');
 var SERVICE_NAME = "【3DiLove客服】达芬奇";
-
 var TABLES ={
 	user: {
 		tableName: 'user',
@@ -18,19 +17,18 @@ var TABLES ={
 		date: 'date'
 	}
 }
+var socketMap = [],
+	chatDataMap = [],
+	customerServiceList = [],
+	usersInfos = [];
 
-var socketMap = [];
-/*var socketMap = {};*/
-/*socketMap.customer = [];*/
-/*socketMap.customerService = [];*/
-var customerServiceList = [];
-
-var usersInfos = [];
 
 function socketMain(socket){
-	
+
 	// when a user get connect 
-	console.log('user connected'+socket.handshake.address);
+	/*console.log('user connected'+socket.handshake.address);*/
+	console.log('user connected:'+socket.id);
+	/*console.log('user connected:'+socket.id);*/
 
 
 	/*socket.on('login/', function(username, password){*/
@@ -44,21 +42,30 @@ function socketMain(socket){
 		l('logged_in_user');
 		var username = userInfo.username;
 		var nickname = userInfo.nickname;
-		/*socketMap.customer[username] = socket; */
 		socketMap[username] = socket;
 		socket.emit('callback/logged_in_user/connect', usersInfos);
 		socket.broadcast.emit('chat/a_user_connect', userInfo);
 	});
 
 
-	socket.on('chat/anonymous_user/connect', function(){
+	socket.on('chat/anonymous_user/connect', function(sessionUsername){
 		l('anonymous_user');
+		var username, nickname;
+
+		if(sessionUsername === null){
+			username = socket.id;	
+		}else{
+			username = sessionUsername;
+		}
 		var ipAddress = socket.handshake.address;
 		ipAddress = ipAddress.replace(/([:]+|[.]+|[f]+)/ig,'');
-		username = nickname = '顾客'+ipAddress;
-		/*socketMap.customer[username] = socket;*/
+		nickname = '顾客'+ipAddress;
 		socketMap[username] = socket;
-		socket.emit('callback/chat/anonymous_user/connect',username,customerServiceList[0]);
+		if(chatDataMap[username] === undefined){
+			chatDataMap[username] = [];
+		}
+		var targService = customerServiceList[0];
+		socket.emit('callback/chat/anonymous_user/connect',username,nickname,targService,chatDataMap[username][targService]);
 	});
 
 
@@ -66,14 +73,14 @@ function socketMain(socket){
 		l('customer_service');
 		var ipAddress = socket.handshake.address;
 		ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
-		/*username = nickname = ipAddress;*/
 		username = nickname = SERVICE_NAME;
-		/*socketMap.customerService[username] = socket;*/
 		socketMap[username] = socket;
-		socket.emit('callback/chat/customer_service/connect',username);
-		customerServiceList.push(username);
 
-		l('ip:'+ipAddress);
+		if(chatDataMap[username] === undefined){
+			chatDataMap[username] = [];
+		}
+		customerServiceList.push(username);
+		socket.emit('callback/chat/customer_service/connect',username);
 	});
 
 
@@ -108,21 +115,35 @@ function socketMain(socket){
 			});
 		}
 	})
-	
 
-	socket.on('chat/new_chat_message', function(fromUser, toUser, message){
+
+	socket.on('chat/new_chat_message', function(fromUser, fromNickname, toUser, message){
 		var socketTargUser = socketMap[toUser];
 		if(socketTargUser !== undefined){
-			socketTargUser.emit('chat/new_chat_message', message, fromUser);
+			socketTargUser.emit('chat/new_chat_message', message, fromUser, fromNickname);
 			/*var date = new Date();*/
 			/*var myDate = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();*/
 
 			/*bgMain.insertData(TABLES.chatData.tableName, [TABLES.chatData.fromUser, TABLES.chatData.toUser, TABLES.chatData.content, TABLES.chatData.tinyProtrait, TABLES.chatData.date], [fromUser, toUser, message, '', myDate], '', function(result){*/
 			/*;				 */
 			/*});*/
-			l('emmied');
-		}else{
-			l('not emmied:'+toUser);
+			
+			console.log('dsa');
+			if(chatDataMap[fromUser][toUser] === undefined){
+				chatDataMap[fromUser][toUser] = [];
+			}
+			if(chatDataMap[toUser][fromUser] === undefined){
+				chatDataMap[toUser][fromUser] = [];
+			}
+			var msgContainer = {
+				fromUser: fromUser,
+				fromNickname: fromNickname,
+				toUser: toUser,
+				message: message
+			}
+			chatDataMap[fromUser][toUser].push(msgContainer);
+			chatDataMap[toUser][fromUser].push(msgContainer);
+			console.log('fo:'+chatDataMap[fromUser][toUser][0]);
 		}
 
 	});
@@ -135,14 +156,41 @@ function socketMain(socket){
 		}); 
 	});
 
+
+	socket.on('disconnect', function() {
+		for(var key in socketMap){
+			if(socketMap[key].id === socket.id){
+				socketMap[key] = null;
+				/*delChatDataUselessInSomeTime(1000);*/
+			}
+		}
+	});
 }
 
 
 function l(cont){
 	console.log(cont);
 }
+
+
 function last(cont, data){
 	console.log(cont+JSON.stringify(data));
 }
 
+
+function delChatDataUselessInRegularTime(setTime){
+	setInterval(function(){
+		for (var key in socketMap) { 
+			if(socketMap[key] === null){
+				console.log('clear useless chat data:'+key);
+				/*chatDataMap[key] = null;*/
+				delete chatDataMap[key];
+				delete socketMap[key];
+			}
+		}
+	},setTime);
+}
+
+
 module.exports.socketMain = socketMain;
+module.exports.delChatDataUselessInRegularTime = delChatDataUselessInRegularTime;
