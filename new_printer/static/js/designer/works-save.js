@@ -30,8 +30,10 @@ $(function (){
 	});
 
 	designer_next_btn.on('click',function (){
+		var _this = $(this);
 		if($('#designer-next-btn').hasClass('actived')){
 			$('.uploadFile').submit();
+			_this.text('上传中....');
 		}else {
 			return false;
 		}
@@ -53,6 +55,10 @@ $(function (){
 
 				$('.upfile-hide').eq(index).remove();
 				_this.parents('.file-name').remove();
+
+				if($('.file-name').length == 0){
+					$('#designer-next-btn').removeClass('actived');
+				}
 			});
 		}
 
