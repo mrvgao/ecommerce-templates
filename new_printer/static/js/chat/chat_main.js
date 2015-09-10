@@ -290,7 +290,10 @@ Chat.sendMsg = function(){
 		return;
 	} 
 	Chat.appendChatContainerWithChatMsg(inputCont, Chat.myNickname);
-	Chat.contentToBottom($('.chated-txt'));
+	Chat.contentToBottonowTargUserm($('.chated-txt'));
+	if(Chat.nowTargUser === null){
+		alert('客服去吃饭去了，请稍后再聊');
+	}
 	socket.emit('chat/new_chat_message',Chat.myUsername, Chat.myNickname, Chat.nowTargUser, inputCont);
 }
 

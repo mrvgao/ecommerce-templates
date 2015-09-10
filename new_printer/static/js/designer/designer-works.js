@@ -37,47 +37,15 @@ $(function(){
 
 	toSearch();
 
-
-	// added by white
-
-	/*$('#show-3d-tool-cancel-fullscreen').click(function(){*/
-	/*$('#show-3d-fullscreen').empty();									  */
-	/*$('#show-3d-cont').hide();*/
-	/*});*/
-
 	$('#show-3d-tool-screenshot').click(function(){
 		var myCanvas = document.getElementById("show-3d").getElementsByTagName('canvas')[0],
 			imgSrc = myCanvas.toDataURL();
-		/*for(var i=1; i<=3; i++){*/
-		/*var t = document.getElementsByName(i)[0].files[0];*/
-		/*if(t === undefined){*/
-		/*console.log(t);*/
-		/*break;*/
-		/*}*/
-		/*}*/
+
 		$('.modify-imgs-box').eq(2).find('img').attr('src',imgSrc);	
 		ShowStl.screenShotData = imgSrc;
-		/*var newImg = new Image();*/
-		/*newImg.src = imgSrc;*/
-		/*newImg.name = 'screenShot'*/
-		/*document.getElementsByName(i+'')[0].files[0] = newImg;*/
-		/*var f = document.getElementsByName(i+'')[0].files[0];*/
-		/*console.log('sss'+i+':'+f.name);*/
 
-		/*$('.modify-imgs-box').eq((0)).find('img').attr('src',imgSrc);	*/
-		/*var newImg = new Image();*/
-		/*newImg.src = imgSrc;*/
-		/*newImg.name = 'screenShot'*/
-		/*document.getElementsByName('1')[0].files[0] = newImg;*/
-		/*var f = document.getElementsByName('1')[0].files[0];*/
-		/*console.log('sss'+'1'+':'+f.name);*/
-
-		/*setInterval(function(){*/
-		/*var f = document.getElementsByName('1')[0].files[0];*/
-		/*console.log('sss'+'1'+':'+f.name);*/
-		/*},500);*/
 	});
-	// added by white over
+
 });
 
 ShowStl.screenShotByElement = function(elementId){
@@ -186,16 +154,6 @@ function toSearch(){
 			}
 
 		}
-
-		// $('.designer-works-wait tbody').html('');
-
-		// var waitStr = '<table class="designer-works-wait" cellpadding="0" cellspacing="0"><thead><tr><th><span>作品名称</span></th><th><span>文件类型｜文件大小</span></th><th><span>上传时间</span></th><th colspan="2">操作</th></tr></thead>';	
-		// for(var i=0,len=data.length;i<len;i++){
-		// 	waitStr += '<tr data-id="'+data[i].id+'"><td><span>'+data[i].name+'</span></td><td><span>'+data[i].type+'文件 ｜'+data[i].file_size+'M </span></td><td><span>'+data[i].upload_time+'</span></td><td><span><button class="w-modify-btn ">去定价</button></span></td><td></span><a href="javascript:void(0)" class="wait-delete-single">删除</a><input type="checkbox" class="works-wait-delete-check"></span></td></tr>';
-		// }
-		// getPage(totalPage,1);
-		// designer_works_lists.append(waitStr);
-		// deleteSigle();
 	}
 
 	$('.designer-works-nav li').on('click',function (){
@@ -238,6 +196,7 @@ function workd_unexecute(page){		//加载待定价的数据
 			var waitList = JSON.parse(e).all_list;
 			var totalPage = JSON.parse(e).total_pages;
 			if(waitList.length == 0){
+				waitStr = '';
 				designer_works_lists.html('<p class="f16 pl20 pt20">您暂时还没有待定价的商品</p>');
 			}else {
 				for(var i=0,len=waitList.length;i<len;i++){
@@ -456,7 +415,7 @@ function cancelAll(){	//批量取消发布
 	var cancelTag = $('.works-cancel-check:checked'),
 		worksList = $('.designer-works-list-box'),
 		worksContainer = designer_works_lists,
-		str ='没有数据啦⊙.⊙',
+		str ='<p class="f16 pl20 pt20">您暂时还没有已发布的商品</p>',
 		rest = worksList.length - cancelTag.length;
 
 	cancelTag.each(function(index, el) {
@@ -474,9 +433,6 @@ function cancelAll(){	//批量取消发布
 		_this.parents('.designer-works-list-box').remove();
 	});
 	$('#checkall').attr('checked',false);
-	if(rest==0){
-		worksContainer.append(str);
-	}
 }
 
 function cancelSigle(){		//单个取消发布
@@ -695,6 +651,7 @@ function edit(){	//编辑弹窗函数
 		// added by white
 		var workId = $('.designer-works-list-box').attr('data-id');
 		$.post('/designer/screenshot', {'id': workId, 'screenshot': ShowStl.screenShotData}, function(e){});
+
 	});
 }
 
