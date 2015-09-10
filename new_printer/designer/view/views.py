@@ -7,17 +7,14 @@
 '''
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import *
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 from designer.conf import website
 from configuration import website as server_website
 from designer.utilites import search_handle,good_filter
-import json, os, uuid, base64, platform, requests
+import json, os, uuid, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.template import RequestContext
-from django import forms
 from new_printer import  ip_address
 from django.contrib.auth.models import User
 from configuration.models import Goods_Upload
