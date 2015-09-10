@@ -7,17 +7,14 @@
 '''
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import *
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
-from django.shortcuts import get_object_or_404
 from designer.conf import website
 from configuration import website as server_website
 from designer.utilites import search_handle,good_filter
-import json, os, uuid, base64, platform, requests
+import json, os, uuid, platform, requests
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,render_to_response
 from django.template import RequestContext
-from django import forms
 from new_printer import  ip_address
 from django.contrib.auth.models import User
 from configuration.models import Goods_Upload
@@ -366,7 +363,7 @@ def show_3d(request):
         stl_path = Goods.objects.get(id = id).stl_path
         _url = str(server_website.file_server_path) + str(stl_path)
     url_path = good_filter.down_stl(_url)
-    if  ip_address.in_test_server:
+    if  not ip_address.in_test_server:
         url_path = url_path.split('/')[-1]
         url_path = server_website.stl_3dlove + url_path 
     print url_path
