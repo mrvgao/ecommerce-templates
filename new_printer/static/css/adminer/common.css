@@ -1,10 +1,14 @@
 .main-container{
+	top: 50%;
+	left: 50%;
 	width: 960px;
 	height: 700px;
-	margin: auto;
-	position: relative;
+	margin-top: -350px;
+	margin-left: -480px;
+	position: absolute;
 	border: 1px solid #ddd;
 	border-radius: 7px;
+
 }
 .title-bar{
 	padding-top: 13px;
@@ -173,7 +177,8 @@
 	height: 162px;
 	position: relative;
 	float: left;
-	background-color: aquamarine;
+	background: url('/static/images/shop/watch3d.png') no-repeat;
+	background-size: cover;
 }
 .pages-bar{
 	width: 960px;
