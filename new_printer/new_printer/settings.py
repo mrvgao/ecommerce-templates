@@ -69,7 +69,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'new_printer.urls'
 
 #session is unable when one minute is over
-SESSION_COOKIE_AGE= 60*30
+SESSION_COOKIE_AGE= 60*180
 
 TEMPLATES = [
     {
