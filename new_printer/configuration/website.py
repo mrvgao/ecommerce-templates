@@ -1,5 +1,6 @@
 # coding:utf-8
 import os
+import socket
 
 __author__ = 'Minchuian'
 __build_data_ = '2015-8-12'
@@ -13,6 +14,7 @@ TEST_SERVER_ADDRESS = '192.168.1.101'
 ip = os.popen("cat /etc/network/interfaces | grep address")  # get current ip.
 l = []
 in_deploy_server = False
+is_local_server = False
 for i in ip.readlines():
     if DEPLOY_SERVER_ADDRESS in i:
         in_deploy_server = True
@@ -23,6 +25,10 @@ if in_deploy_server:
     server = DEPLOY_SERVER_ADDRESS
 else:
     server = TEST_SERVER_ADDRESS
+
+local_server = socket.gethostbyname_ex(socket.gethostname())
+if local_server[0] == 'renjie-B85M-D3H':
+	is_local_server = True
 
 server_path = 'http://%(server)s:8888/static/' % {'server': server}
 server_upload = 'http://%(server)s:8888/file/upload' % {'server': server}
@@ -38,6 +44,7 @@ file_server_imgupload = 'http://%(server)s:8888/file/imgupload' % {'server': ser
 icon_server_upload = 'http://%(server)s:8888/file/upload' % {'server': server}
 
 stl_3dlove = 'http://www.3dilove.com/stl_static/'  #存放stl文件的路径
+stl_local = 'http://192.168.1.101/stl_static/'
 
 stl = 'stl'
 pic = 'jpg'
