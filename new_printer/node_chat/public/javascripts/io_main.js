@@ -27,17 +27,7 @@ var socketMap = [],
 function socketMain(socket){
 
 	// when a user get connect 
-	/*console.log('user connected'+socket.handshake.address);*/
 	console.log('user connected:'+socket.id);
-	/*console.log('user connected:'+socket.id);*/
-
-
-	/*socket.on('login/', function(username, password){*/
-	/*bgMain.selectData(['*'], TABLES.user.tableName, [TABLES.user.username, TABLES.user.password], [username, password], '', function(result){*/
-	/*socket.emit('callback/login/', result[0]);*/
-	/*}); */
-	/*});*/
-
 
 	socket.on('chat/logged_in_user/connect', function(userInfo){
 		l('logged_in_user');
@@ -58,53 +48,65 @@ function socketMain(socket){
 		}else{
 			username = Username;
 		}
-		var ipAddress = socket.handshake.address;
-		ipAddress = ipAddress.replace(/([:]+|[.]+|[f]+)/ig,'');
-		nickname = '顾客'+ipAddress;
-		socketMap[username] = socket;
 
-		if(chatDataMap[username] === undefined){
-			chatDataMap[username] = [];
+		if(socketMap[username] === undefined || socketMap[username] === null){
+
+			var ipAddress = socket.handshake.address;
+			ipAddress = ipAddress.replace(/([:]+|[.]+|[f]+)/ig,'');
+			nickname = '顾客'+ipAddress;
+			socketMap[username] = socket;
+
+			if(chatDataMap[username] === undefined){
+				chatDataMap[username] = [];
+			}
+
+			// 如果用户在一段时间以内再次登录，取消删除该用户的聊天记录的timeout
+			clearTimeout(timerMap[username]);
+			var targService = customerServiceList[0];
+			socket.emit('callback/chat/anonymous_user/connect/succeed',username,nickname,targService,chatDataMap[username][targService]);
+		}else{
+			socket.emit('callback/chat/anonymous_user/connect/failed');
 		}
-
-		// 如果用户在一段时间以内再次登录，取消删除该用户的聊天记录的timeout
-		clearTimeout(timerMap[username]);
-		var targService = customerServiceList[0];
-		socket.emit('callback/chat/anonymous_user/connect',username,nickname,targService,chatDataMap[username][targService]);
 	});
 
 
 	socket.on('chat/customer_service/connect', function(){
 		l('customer_service');
-		var ipAddress = socket.handshake.address;
-		ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
+		var username, nickname;
 		username = nickname = SERVICE_NAME;
-		socketMap[username] = socket;
 
-		if(chatDataMap[username] === undefined){
-			chatDataMap[username] = [];
-		}
-		customerServiceList.push(username);
-		socket.emit('callback/chat/customer_service/connect',username);
-	});
+		if(socketMap[username] === undefined || socketMap[username] === null){
+			var ipAddress = socket.handshake.address;
+			ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
+			socketMap[username] = socket;
 
-
-	socket.on('chat/disconnect', function(userInfo){
-		l('disconnect');
-		var username = userInfo.username;
-		var nickname = userInfo.nickname;
-
-		socketMap[nickname] = null; 
-
-		usersInfos.forEach(function(item,index){
-
-			if(item.username === username){
-				usersInfos.splice(index,1);
+			if(chatDataMap[username] === undefined){
+				chatDataMap[username] = [];
 			}
-		});
-
-		socket.broadcast.emit('chat/a_user_disconnect', userInfo);
+			customerServiceList.push(username);
+			socket.emit('callback/chat/customer_service/connect/succeed',username);
+		}else{
+			socket.emit('callback/chat/customer_service/connect/failed',username);
+		}
 	});
+
+
+	/*socket.on('chat/disconnect', function(userInfo){*/
+	/*l('disconnect');*/
+	/*var username = userInfo.username;*/
+	/*var nickname = userInfo.nickname;*/
+
+	/*socketMap[nickname] = null; */
+
+	/*usersInfos.forEach(function(item,index){*/
+
+	/*if(item.username === username){*/
+	/*usersInfos.splice(index,1);*/
+	/*}*/
+	/*});*/
+
+	/*socket.broadcast.emit('chat/a_user_disconnect', userInfo);*/
+	/*});*/
 
 
 	socket.on('chat/a_new_message', function(fromUser, toUser, message){
@@ -149,6 +151,8 @@ function socketMain(socket){
 			}
 			chatDataMap[fromUser][toUser].push(msgContainer);
 			chatDataMap[toUser][fromUser].push(msgContainer);
+		}else{
+			l('msg not emited:"'+socketTargUser+'" not found');
 		}
 
 	});
@@ -163,9 +167,10 @@ function socketMain(socket){
 
 
 	socket.on('disconnect', function() {
-		
+
+		// clear useless sockets and chatdatas about this user
 		for(var key in socketMap){
-			
+
 			if(socketMap[key].id && socketMap[key].id === socket.id){
 				socketMap[key] = null;
 				timerMap[key] = setTimeout(function(){
@@ -175,7 +180,7 @@ function socketMain(socket){
 					if(socketTargUser !== undefined){
 						socketTargUser.emit('chat/a_user_disconnect', key);
 					}
-				},600);
+				},600000);
 				break;
 			}
 		}
