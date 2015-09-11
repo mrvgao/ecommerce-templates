@@ -617,14 +617,15 @@ function edit(){	//编辑弹窗函数
 					if('success'==JSON.parse(e).status){
 						$.msgBox.mini('删除成功');
 					}
-				});$(this).parents('.modify-imgs-box').find('img').attr('src','');
+				});
+				$(this).parents('.modify-imgs-box').find('img').attr('src','/static/images/common/up_default.jpg');
 			}
 		});
 
 		// 修改图片
 		$('.modify-imgs-modify-btn').on('click',function(){
-
 			$(this).prev().find('input').click();
+			$(this).prev().find('input').uploadPreview();
 		});
 
 		// added by white	
