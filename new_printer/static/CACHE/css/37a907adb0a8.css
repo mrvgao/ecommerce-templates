@@ -1,14 +1,10 @@
 .main-container{
-	top: 50%;
-	left: 50%;
 	width: 960px;
 	height: 700px;
-	margin-top: -350px;
-	margin-left: -480px;
-	position: absolute;
+	margin: auto;
+	position: relative;
 	border: 1px solid #ddd;
 	border-radius: 7px;
-
 }
 .title-bar{
 	padding-top: 13px;
@@ -163,7 +159,7 @@
 	height: 162px;
 }
 .fullscreen-btn{
-	background: url('{% static 'images/adminer/widget.png' %}') no-repeat;
+	background: url('/static/css/adminer/{% static 'images/adminer/widget.png' %}') no-repeat;
 	width: 20px;
 	height: 20px;
 	background-position: -82px -10px;
@@ -177,8 +173,7 @@
 	height: 162px;
 	position: relative;
 	float: left;
-	background: url('/static/images/shop/watch3d.png') no-repeat;
-	background-size: cover;
+	background-color: aquamarine;
 }
 .pages-bar{
 	width: 960px;

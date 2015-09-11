@@ -24,12 +24,12 @@
 					<div class="designer-show-img">
 						<img src="{{ designer_img }}" alt="" />
 					</div>
-					<div class="designer-show-info mt30 tc">
+					<div class="designer-show-info mt30 tc" data-did="{{ designer_id }}" data-vid="{{ vender_id }}" >
 						<p class="inl-b f20 mr20">{{ designer_name }}</p>
 						{% if now_user == 'V' %}
 							<a data-did="{{ designer_id }}" data-vid="{{ vender_id }}" class="show-mark-btn f16 {% if is_focus %}active{% else %}{% endif %}" href="javascript:void(0)"><em class="designer-show-mark"></em><span>{{ marked }}</span></a>
 						{% else %}
-							<a class="no-show-mark-btn f16 active" ><em class="designer-show-mark"></em>{{ marked }}</a>
+							<a  class="no-show-mark-btn f16 active" ><em class="designer-show-mark"></em>{{ marked }}</a>
 						{% endif %}
 					</div>
 				</div>

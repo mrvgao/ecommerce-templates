@@ -1,0 +1,51 @@
+*** Starting uWSGI 2.0.10 (64bit) on [Wed Sep  9 16:07:00 2015] ***
+compiled with version: 4.8.4 on 17 June 2015 10:52:40
+os: Linux-3.16.0-30-generic #40~14.04.1-Ubuntu SMP Thu Jan 15 17:43:14 UTC 2015
+nodename: renjie-B85M-D3H
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 4
+current working directory: /home/develop/new3d/new_printer
+detected binary path: /usr/local/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /home/develop/new3d/new_printer
+*** WARNING: you are running uWSGI without its master process manager ***
+your processes number limit is 30595
+your memory page size is 4096 bytes
+detected max file descriptor number: 1024
+lock engine: pthread robust mutexes
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address :8030 fd 3
+Python version: 2.7.6 (default, Mar 22 2014, 23:03:41)  [GCC 4.8.2]
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x26d3860
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 291040 bytes (284 KB) for 4 cores
+*** Operational MODE: preforking ***
+127.0.1.1
+in test server
+/home/develop/static
+Traceback (most recent call last):
+  File "./django_uwsgi.py", line 14, in <module>
+    application = get_wsgi_application()
+  File "/usr/local/lib/python2.7/dist-packages/Django-1.8.2-py2.7.egg/django/core/wsgi.py", line 14, in get_wsgi_application
+    django.setup()
+  File "/usr/local/lib/python2.7/dist-packages/Django-1.8.2-py2.7.egg/django/__init__.py", line 18, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python2.7/dist-packages/Django-1.8.2-py2.7.egg/django/apps/registry.py", line 85, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python2.7/dist-packages/Django-1.8.2-py2.7.egg/django/apps/config.py", line 86, in create
+    module = import_module(entry)
+  File "/usr/lib/python2.7/importlib/__init__.py", line 37, in import_module
+    __import__(name)
+ImportError: No module named compressor
+unable to load app 0 (mountpoint='') (callable not found or import error)
+*** no app loaded. going in full dynamic mode ***
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI worker 1 (pid: 4047, cores: 1)
+spawned uWSGI worker 2 (pid: 4057, cores: 1)
+spawned uWSGI worker 3 (pid: 4058, cores: 1)
+spawned uWSGI worker 4 (pid: 4059, cores: 1)

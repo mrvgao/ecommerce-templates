@@ -1,6 +1,5 @@
 var ChatUI = {};
 
-
 $(function(){
 	ChatUI.initFaceBox($('#face-box ul'), 'emo_', 60);
 

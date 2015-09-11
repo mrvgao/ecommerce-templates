@@ -154,8 +154,10 @@ def publish_exec(good_list):
 #下载STL 文件到本地,以便预览stl
 def down_stl(_url):
     stl_path = "%s/"%pwd
-    local_filename = _url.split('/')[-2] + '.stl'
+    local_filename = _url.split('/')[-2]
+    local_filename = local_filename + '.stl'
     r = requests.get(_url, stream=True)
+
     lists = os.listdir(stl_path)
     aleady_h = _url.split('/')[-2] + '.stl'
     stl_path = stl_path + local_filename

@@ -76,9 +76,14 @@ $(function(){
 	});
 
 
-	socket.on('chat/a_user_disconnect', function(userInfo){
-		var nickname = userInfo.nickname;
-		$('.user-info-nickname:contains('+nickname+')').parents('.user-inlist').remove();
+	socket.on('chat/a_user_disconnect', function(username){
+		var thisNickname = $('.chat-user[username|="'+username+'"]').find('div').html();
+		$('.chat-user[username|="'+username+'"]').remove();
+		$('#chat-user-sum').html($('#chat-user-sum').html()-1);
+		if(username === Chat.nowTargUser){
+			$('.chated-txt').empty();
+		}
+		alert(thisNickname+'下线');
 	});
 
 
@@ -218,7 +223,6 @@ Chat.chatTextareaReturnKeyEvent = function(textareaDom){
 				if(textareaDom.html() !== null && textareaDom.html() !== ''){
 					var cont = Chat.sendMsg(textareaDom);
 					var chatContDomStr = '.'+textareaDom.attr('class').replace('input-area', 'cont');
-					l(chatContDomStr);
 					var chatContDom = $(chatContDomStr);
 					Chat.contentToBottom( chatContDom );	
 					Chat.saveChatDataInLocal( cont, Chat.myUsername, Chat.nowTargUser);
@@ -401,7 +405,6 @@ Chat.userInList = function(username){
 	var inList = false;
 
 	if(thisUser.html() !== undefined){
-		l(thisUser.html());
 		inList = true;
 	}
 	return inList;
