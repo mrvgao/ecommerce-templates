@@ -64,16 +64,21 @@ $(function(){
 	Chat.registerUserElement();
 
 
-	socket.on('callback/chat/customer_service/connect', function(myUsername){
+	socket.on('callback/chat/customer_service/connect/succeed', function(myUsername){
 		Chat.myUsername = Chat.myNickname = myUsername;
 	});
 
 
-	socket.on('chat/a_user_connect', function(userInfo){
-		/*ChatUI.appendUserList(userInfo);*/
-		/*Chat.registerUserElement();*/
-		;
+	socket.on('callback/chat/customer_service/connect/failed', function(){
+		alert('有人在用这个id聊天');
 	});
+
+
+	/*socket.on('chat/a_user_connect', function(userInfo){*/
+	/**//*ChatUI.appendUserList(userInfo);*/
+	/**//*Chat.registerUserElement();*/
+	/*;*/
+	/*});*/
 
 
 	socket.on('chat/a_user_disconnect', function(username){
