@@ -325,7 +325,7 @@
 	font-size: 14px;
 	color: #333333;
 	padding-top: 5px;
-	padding-left: 19px;
+	padding-left: 20px;
 	word-wrap: break-word;
 }
 .chat-tool-bar{
@@ -437,7 +437,7 @@
 	height: 10px;
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.4);
-	left: 347px;
+	left: 515px;
 	top: 268px;
 	border-radius: 100px;
 	z-index: 1;

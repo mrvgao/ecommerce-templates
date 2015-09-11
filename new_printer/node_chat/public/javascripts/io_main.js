@@ -49,24 +49,27 @@ function socketMain(socket){
 			username = Username;
 		}
 
-		if(socketMap[username] === undefined || socketMap[username] === null){
-
-			var ipAddress = socket.handshake.address;
-			ipAddress = ipAddress.replace(/([:]+|[.]+|[f]+)/ig,'');
-			nickname = '顾客'+ipAddress;
-			socketMap[username] = socket;
-
-			if(chatDataMap[username] === undefined){
-				chatDataMap[username] = [];
-			}
-
-			// 如果用户在一段时间以内再次登录，取消删除该用户的聊天记录的timeout
-			clearTimeout(timerMap[username]);
-			var targService = customerServiceList[0];
-			socket.emit('callback/chat/anonymous_user/connect/succeed',username,nickname,targService,chatDataMap[username][targService]);
-		}else{
-			socket.emit('callback/chat/anonymous_user/connect/failed');
+		if(socketMap[username] !== undefined && socketMap[username] !== null){
+			socketMap[username].emit('chat/another_user_connect_with_this_id');
 		}
+		/*else{*/
+		/*socket.emit('callback/chat/anonymous_user/connect/failed');*/
+		/*}*/
+		/*if(socketMap[username] === undefined || socketMap[username] === null){*/
+
+		var ipAddress = socket.handshake.address;
+		ipAddress = ipAddress.replace(/([:]+|[.]+|[f]+)/ig,'');
+		nickname = '顾客'+ipAddress;
+		socketMap[username] = socket;
+
+		if(chatDataMap[username] === undefined){
+			chatDataMap[username] = [];
+		}
+
+		// 如果用户在一段时间以内再次登录，取消删除该用户的聊天记录的timeout
+		clearTimeout(timerMap[username]);
+		var targService = customerServiceList[0];
+		socket.emit('callback/chat/anonymous_user/connect/succeed',username,nickname,targService,chatDataMap[username][targService]);
 	});
 
 
@@ -75,7 +78,10 @@ function socketMain(socket){
 		var username, nickname;
 		username = nickname = SERVICE_NAME;
 
-		if(socketMap[username] === undefined || socketMap[username] === null){
+		if(socketMap[username] !== undefined && socketMap[username] !== null){
+			socketMap[username].emit('chat/another_user_connect_with_this_id');
+		}
+		/*if(socketMap[username] === undefined || socketMap[username] === null){*/
 			var ipAddress = socket.handshake.address;
 			ipAddress = ipAddress.replace(/([:]+|[.]+)/ig,'');
 			socketMap[username] = socket;
@@ -85,9 +91,9 @@ function socketMain(socket){
 			}
 			customerServiceList.push(username);
 			socket.emit('callback/chat/customer_service/connect/succeed',username);
-		}else{
-			socket.emit('callback/chat/customer_service/connect/failed',username);
-		}
+			/*}else{*/
+			/*socket.emit('callback/chat/customer_service/connect/failed',username);*/
+			/*}*/
 	});
 
 
@@ -180,7 +186,7 @@ function socketMain(socket){
 					if(socketTargUser !== undefined){
 						socketTargUser.emit('chat/a_user_disconnect', key);
 					}
-				},600000);
+				},1000); // in 10min
 				break;
 			}
 		}

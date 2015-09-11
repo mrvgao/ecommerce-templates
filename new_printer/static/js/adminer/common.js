@@ -57,6 +57,12 @@ $(function(){
 
 Commom.registerShow3dBtn = function(){
 	$('.good-stl').click(function(){
+		var offTop,offLeft;
+		offTop = $(this).offset().top;
+		offLeft = $(this).offset().left;
+		Uplist.startStlProgressBar('show-3d-bar-container', 'show-3d-bar', 100, 10000, offTop, offLeft, 150, 10);
+
+
 		var thisGoodId = $(this).parents('.good-container').find('#good-id').html();
 		/*var fullscreenBtnDom = '<div class="fullscreen-btn"></div>'*/
 		var show3dDom = '<div id="show-3d"></div>'
@@ -237,7 +243,6 @@ Commom.registerClassBtn = function(){
 				Commom.registerPageBtn();
 				Commom.removeGoodBtn();
 				Commom.registerShow3dBtn();
-				l('ov');
 			})
 			/*}else{*/
 			/*$(".goods-container ul").html(Commom.goodsHtml.passed);*/
@@ -291,7 +296,6 @@ Commom.initPageBtn = function(){
 }
 
 Commom.appendGood = function(goods){
-	l('goods:'+JSON.stringify(goods));
 	$(".goods-container ul").html(null);
 	goods.forEach(function(item, index){
 		$(".goods-container ul").append(Commom.goodsDomTemplate);
