@@ -14,7 +14,8 @@ $(function (){
 		_index = 0,
 		timer;
 
-	$('.home-banner ul img').on('load',function (){
+	setImgSize();
+	$('.home-banner ul img').eq(0).on('load',function (){
 		setImgSize();
 	});
 
