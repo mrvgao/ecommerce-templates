@@ -253,7 +253,7 @@ def my_state(request):
     user = request.user
     designer = Designer_User.objects.get(user = user)
     unpublished_list = Goods_Upload.objects.filter(designer_id = designer.id)
-    published_list = Goods.objects.filter(designer_id = designer.id)
+    published_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     collect = 0
     download = 0
     all_list = 0
