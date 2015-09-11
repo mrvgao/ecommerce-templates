@@ -17,11 +17,6 @@ $(function (){
 		phone_register,
 		phone_code;
 
-	var uphone = getCookie('uphone');
-	if(uphone){
-		$('.is_registered').val(uphone);
-	}
-
 	// 显示弹出框
 	contact_btn.on('click',function (){
 		contact_wrap.show();
@@ -79,6 +74,12 @@ $(function (){
 			isRemeber = false,
 			pw,
 			pwagin;
+
+		var uphone = getCookie('uphone');
+		if(uphone){
+			$('.is_registered').val(uphone);
+			signInResult[0] = true;
+		}
 
 		sign_input.on('blur',function (){
 			var _this = $(this),
@@ -224,9 +225,10 @@ $(function (){
 					break;
 				case 'signUp': signUpResult = validResult;
 					break;
-				case 'signIn': signInResult = validResult;
+				case 'signIn': if(signInResult[0]){validResult[0] = true};signInResult = validResult;
 					break;
 			}
+
 
 		});
 
