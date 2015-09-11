@@ -187,11 +187,12 @@ def edit_submit(request):
     file_id = request.POST['modify_id']
     count = 1
     p_url = []
+    #pdb.set_trace()
     price = float(request.POST['stl_price'])
     previews = request.FILES
     describe = request.POST['stl_describe']
     name = request.POST['stl_name']
-
+    
     pub_type = int(request.POST['push_type'])
     if pub_type == 3:
         good = Goods.objects.get(id = file_id)
@@ -229,13 +230,13 @@ def edit_submit(request):
                 preview_md5 = photo_save(previews[preview],preview_type[0],preview_type[1],stl_md5)
                 p1_url = str(stl_md5) + '/' + str(preview_type[0]) + '.' + str(preview_type[1])
                 #p_url.append(p1_url)
-                if count == 1:
+                if count == 0:
                     s=Goods_Upload.objects.filter(id= file_id).update(preview_1 = p1_url)
-                if count == 2:
+                if count == 1:
                     s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
-                if count == 3:
+                if count == 2:
                     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
-            count += 1
+
         s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
                             goods_price = float(price),
                             good_state = 1,
