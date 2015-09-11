@@ -185,24 +185,22 @@ def edit_submit(request):
     #未审核页面，点击处理并提交 的处理表单；同时也是 未通过，点击重生申请发布的 处理表单
     '''
     file_id = request.POST['modify_id']
-    #pdb.set_trace()
     count = 1
     p_url = []
-    
     price = float(request.POST['stl_price'])
     previews = request.FILES
     describe = request.POST['stl_describe']
     name = request.POST['stl_name']
-    if not name:
-        name = good.goods_name
-    if not price:
-        price = good.goods_price
-    if not describe:
-        describe = good.description
 
     pub_type = int(request.POST['push_type'])
     if pub_type == 3:
         good = Goods.objects.get(id = file_id)
+        if not name:
+            name = good.goods_name
+        if not price:
+            price = good.goods_price
+        if not describe:
+            describe = good.description
         stl_md5 = str(good.stl_path)
         stl_md5 = stl_md5.split('.')
         stl_md5 = stl_md5[0]
@@ -213,6 +211,12 @@ def edit_submit(request):
                       )
     else:
         good = Goods_Upload.objects.get(id=file_id)
+        if not name:
+            name = good.goods_name
+        if not price:
+            price = good.goods_price
+        if not describe:
+            describe = good.description
         stl_md5 = (good.stl_path).encode('utf-8')
         stl_md5 = stl_md5.split('.')
         stl_md5 = stl_md5[0]
@@ -243,7 +247,6 @@ def edit_submit(request):
 
 
 def screenshot(request):
-    #pdb.set_trace()
     file_id = request.POST['id']
     good = Goods_Upload.objects.get(id=file_id)
     stl_md5 = good.stl_path.encode('utf-8')
@@ -274,8 +277,8 @@ def screenshot(request):
     req.add_header('Referer','%s'%server_website.file_server_ip)#)
     resp = urllib2.urlopen(req, timeout=2545)
     qrcont=resp.read()
-    md = json.loads(qrcont)
 
+    md = json.loads(qrcont)
     p_url = str(stl_md5) + '/' + 'preview_3' + '.' + 'png'
     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p_url)
     conf = {'status':'success'}

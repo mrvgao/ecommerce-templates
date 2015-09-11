@@ -596,12 +596,21 @@ function edit(){	//编辑弹窗函数
 			var _imgsrc = _parent.attr('data-img');
 			$('.modify-stl-preview').attr('src',_imgsrc );
 		}
-
+		
+		function initSrc(){
+			if(!imgsrc){
+				imgsrc = '/static/images/common/up_default.jpg';
+			}
+		}
+		
 		var imgsrc = imgs.eq(0).attr('src');
+		initSrc();
 		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="1" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
 		var imgsrc = imgs.eq(1).attr('src');
+		initSrc();
 		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="2" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
 		var imgsrc = imgs.eq(2).attr('src');
+		initSrc();
 		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="3" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
 
 		$('.modify-imgs-container').append(imgStr);
@@ -617,14 +626,15 @@ function edit(){	//编辑弹窗函数
 					if('success'==JSON.parse(e).status){
 						$.msgBox.mini('删除成功');
 					}
-				});$(this).parents('.modify-imgs-box').find('img').attr('src','');
+				});
+				$(this).parents('.modify-imgs-box').find('img').attr('src','/static/images/common/up_default.jpg');
 			}
 		});
 
 		// 修改图片
 		$('.modify-imgs-modify-btn').on('click',function(){
-
 			$(this).prev().find('input').click();
+			$(this).prev().find('input').uploadPreview();
 		});
 
 		// added by white	

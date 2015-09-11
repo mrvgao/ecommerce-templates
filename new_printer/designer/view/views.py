@@ -253,7 +253,7 @@ def my_state(request):
     user = request.user
     designer = Designer_User.objects.get(user = user)
     unpublished_list = Goods_Upload.objects.filter(designer_id = designer.id)
-    published_list = Goods.objects.filter(designer_id = designer.id)
+    published_list = Goods.objects.filter(designer_id = designer.id, is_active = 1)
     collect = 0
     download = 0
     all_list = 0
@@ -435,9 +435,9 @@ def add_alipay(request):
     ali_num = request.POST['ali_num']
     d = Designer_User.objects.filter(user = user).update(alipay = ali_num, alipay_name = ali_name)
     if d:
-        return HttpResponse(json.dumps("success"))
+        return HttpResponse(json.dumps({'status':'success'}))
     else:
-        return HttpResponse(json.dumps("Error"))
+        return HttpResponse(json.dumps({'status':'error'}))
 @login_required
 def u_img(request):
 	if request.method == 'POST':
