@@ -36,3 +36,7 @@ function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerI
 		});
 	});
 }
+
+function stlProgressBar(containerId, barId){
+
+}

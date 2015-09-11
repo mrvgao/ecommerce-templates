@@ -1,34 +1,33 @@
 /*  图片上传预览插件  
 *
-*   上传的时候可以生成固定宽高范围内的等比例缩放图 
+*   上传的时候可以生成固定宽高范围内的等比例缩放图
 *   参数设置：  
-*   width                     存放图片固定大小容器的宽  
-*   height                    存放图片固定大小容器的高  
-*   imgDiv                    页面DIV的JQuery的id  
-*   maxSize                   图片大小最大限制(K)  
-*   imgType                   数组后缀名  
+*   width                     存放图片固定大小容器的宽
+*   height                    存放图片固定大小容器的高
+*   imgDiv                    页面DIV的JQuery的id
+*   maxSize                   图片大小最大限制(K)
+*   imgType                   数组后缀名
 */
-
 
 (function($) {  
     jQuery.fn.extend({  
         uploadPreview: function(opts) {  
             opts = jQuery.extend({  
-                width: 0,  
-                height: 0,  
-                imgDiv: "#imgDiv",  
+                width: 88,  
+                height: 88,  
+                imgDiv: "",  
                 maxSize:10000,  
                 imgType: ["gif", "jpeg", "jpg", "bmp", "png"],  
                 callback: function() { return false; }  
             }, opts || {});  
              
             var _this = $(this);  
-            var imgDiv = $(opts.imgDiv);  
+            var imgDiv = _this.parents('.modify-imgs-box').find('.modify-imgs');  
             imgDiv.width(opts.width);  
             imgDiv.height(opts.height);  
                
-            $.browser=new Object(); 
-            $.browser.msie = /msie/.test(navigator.userAgent.toLowerCase())
+            $.browser = new Object(); 
+            $.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
             var version = $.browser.msie;
             autoScaling = function() {  
                   
@@ -50,18 +49,9 @@
                     imgDiv.css({ "margin-left": left, "margin-top": top });  
                     imgDiv.show();  
                 }  
-            },  
-              
-            createImg = function(){  
-                imgDiv.html('');  
-                  
-                var img = $("<img />");  
-                imgDiv.replaceWith(img);  
-                imgDiv = img;  
-            },  
-     
-            _this.change(function() {  
-                  
+            };  
+
+            _this.change(function() {
                 if (this.value) {  
                     if (!RegExp("\.(" + opts.imgType.join("|") + ")$", "i").test(this.value.toLowerCase())) {  
                         alert("图片类型必须是" + opts.imgType.join("，") + "中的一种");  
@@ -82,7 +72,7 @@
                             }  
                             image.src = 'file:///' + this.value;  
   
-                            createImg();  
+                            // createImg();  
                             imgDiv.attr('src', image.src);  
                             autoScaling();  
                         }  else {  
@@ -129,7 +119,7 @@
                                 return false;  
                             }  
                               
-                            createImg();  
+                            // createImg();  
                               
                             //Firefox 因安全性问题已无法直接通过input[file].value 获取完整的文件路径  
                             try{  

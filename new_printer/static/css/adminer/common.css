@@ -432,3 +432,20 @@
 .tool-bar-msg-remind-mark{
 	color: #FF766F;
 }
+.show-3d-bar-container{
+	width: 150px;
+	height: 10px;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.4);
+	left: 347px;
+	top: 268px;
+	border-radius: 100px;
+	z-index: 1;
+	display:none;
+}
+.show-3d-bar{
+	width: 50%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.6);
+	border-radius: 100px;
+}

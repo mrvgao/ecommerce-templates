@@ -189,7 +189,7 @@ def edit_submit(request):
     count = 1
     p_url = []
     
-    price = request.POST['stl_price']
+    price = float(request.POST['stl_price'])
     previews = request.FILES
     describe = request.POST['stl_describe']
     name = request.POST['stl_name']
@@ -208,7 +208,7 @@ def edit_submit(request):
         stl_md5 = stl_md5[0]
         stl_md5 = stl_md5.split('/')[0]
         s=Goods.objects.filter(id= file_id).update(goods_name=name,
-                        goods_price = int(price),
+                        goods_price = float(price),
                         description = describe
                       )
     else:
@@ -217,7 +217,7 @@ def edit_submit(request):
         stl_md5 = stl_md5.split('.')
         stl_md5 = stl_md5[0]
         stl_md5 = stl_md5.split('/')[0]
-        if not previews:
+        if previews:
             for preview in previews:
                 count = int(preview)
                 preview_type=str(previews[preview])
@@ -231,8 +231,9 @@ def edit_submit(request):
                     s=Goods_Upload.objects.filter(id= file_id).update(preview_2 = p1_url)
                 if count == 3:
                     s=Goods_Upload.objects.filter(id= file_id).update(preview_3 = p1_url)
+            count += 1
         s=Goods_Upload.objects.filter(id= file_id).update(goods_name=name,
-                            goods_price = int(price),
+                            goods_price = float(price),
                             good_state = 1,
                             description = describe,
                             restdate = datetime.datetime.now()+datetime.timedelta(days=5)
