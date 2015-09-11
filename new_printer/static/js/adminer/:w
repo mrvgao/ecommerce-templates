@@ -13,7 +13,6 @@ $(function(){
 	Commom.registerGoodBtn();
 	Commom.registerToolBarSelect();
 	Commom.registerClassBtn();
-	Commom.clearBadImg();
 	/*Commom.goodsHtml.untreated = $(".goods-container ul").html();*/
 	/*Commom.goodsDomTemplate = $(".goods-container li").eq(0).prop('outerHTML');*/
 	Commom.goodsDomTemplate = 
@@ -61,7 +60,7 @@ Commom.registerShow3dBtn = function(){
 		var offTop,offLeft;
 		offTop = $(this).offset().top;
 		offLeft = $(this).offset().left;
-		Uplist.startStlProgressBar('show-3d-bar-container', 'show-3d-bar', 100, 10000, offTop -26, offLeft - 200, 150, 10);
+		Uplist.startStlProgressBar('show-3d-bar-container', 'show-3d-bar', 100, 10000, offTop, offLeft, 150, 10);
 
 
 		var thisGoodId = $(this).parents('.good-container').find('#good-id').html();
@@ -110,6 +109,7 @@ Commom.registerGoodBtn = function(){
 	$("[name|='good-deny']").hover(function(){
 		var domOffset = $(this).offset();
 		var infoWinTop = domOffset.top -$('#good-deny-infos').height() - parseInt($(this).css('padding-top')) - $('.main-container').offset().top + 8;
+		l('tio:'+$('.main-container').offset().top);
 		var infoWinRight = $('#good-deny-infos').width()/2 + $(this).width()/2 - 80;
 		$('#good-deny-infos').css('top', infoWinTop);
 		$('#good-deny-infos').css('right', infoWinRight);
@@ -309,34 +309,21 @@ Commom.appendGood = function(goods){
 		$(".goods-container li").eq(index).find('#good-price').html(item.good_price);
 		$(".goods-container li").eq(index).find('#good-type').html(item.type+'文件');
 		$(".goods-container li").eq(index).find('#good-file-size').html(item.file_size+'MB');
-	});
-	Commom.clearBadImg();
-}
 
-
-Commom.clearBadImg = function(){
-	$(".goods-container li").each(function(index){
-		/*var regExp = new RegExp('\.(gif|jpg|jpeg|tiff|png)$','ig');*/
-		/*var regExp = new RegExp('(gif|jpg|jpeg|bmp)','ig');*/
-
+		var regExp = '(png)|(jpg)|(jpeg)';
 		for(var i=1; i<=3; i++){
+			/*l(i);*/
+			/*l('a:'+item.pic[i]);*/
+			/*l(index+1+'/'+item.pic[i-1])*/
 			var thisImg = $(".goods-container li").eq(index).find('#good-img-'+i);
-			var thisImgSrc = $(".goods-container li").eq(index).find('#good-img-'+i).attr('src');
-			l('img:'+thisImgSrc);
-			/*var result = regExp.test(thisImgSrc);*/
-			/*l('re:'+result);*/
-
-			var result = Commom.isImage(thisImgSrc);
-			l(result);
-
-			if(!result){
-				l('clrbad:'+(index+1)+'-'+i+':');
-				thisImg.parent().remove();
+			if(regExp.match(thisImg.src)>0){
+				/*$(".goods-container li").eq(index).find('#good-img-'+i).parent().remove();*/
+				/*l((i-1)+' pic:'+item.pic[i-1]);*/
+				l(index+1+' remove:'+i);
 			}
 		}
 	});
 }
-
 
 Commom.removeGoodBtn = function(){
 	$(".goods-container li").each(function(index){
@@ -351,19 +338,4 @@ Commom.searchBarEffect = function(){
 		console.log('asd');
 		$(this).empty();    
 	}); 
-}
-
-
-Commom.isImage = function(imageName){
-	var imageExts = ['jpg','jpeg', 'bmp', 'png'];
-	var result = false
-
-	for(var i = 0; i< imageExts.length; i++){
-
-		if(imageName && imageName.indexOf(imageExts[i]) > 0){
-			result = true;
-			break;
-		}
-	}
-	return result
 }
