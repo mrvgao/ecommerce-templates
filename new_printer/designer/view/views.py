@@ -107,7 +107,7 @@ def sort_list(request):
     else:
         vender_id = request.POST['v_id']
         designer_id = request.POST['d_id']
-    
+
     data_tag = int(request.POST['data_kind'])
     type_tag = request.POST['type_kind']
 
@@ -368,7 +368,7 @@ def show_3d(request):
         if server_website.is_local_server:
             url_path = server_website.stl_local + url_path
         else:
-            url_path = server_website.stl_3dlove + url_path 
+            url_path = server_website.stl_3dlove + url_path
     print url_path
     conf = { 'url_path': url_path}
     return HttpResponse(json.dumps(conf))
