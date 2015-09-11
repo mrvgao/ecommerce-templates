@@ -102,6 +102,8 @@ def unpublish_exec(good_list):
                 'description':good.description,
                 'good_price':good.goods_price,
                 'preview_1':str(server_website.file_server_path)+good.preview_1,
+                'preview_2':str(server_website.file_server_path)+good.preview_2,
+                'preview_3':str(server_website.file_server_path)+good.preview_3,
                 'file_size':good.file_size,
                 'not_passed':good.not_passed,
                 'stl_path':str(server_website.file_server_path)+good.stl_path,
@@ -157,7 +159,6 @@ def down_stl(_url):
     local_filename = _url.split('/')[-2]
     local_filename = local_filename + '.stl'
     r = requests.get(_url, stream=True)
-
     lists = os.listdir(stl_path)
     aleady_h = _url.split('/')[-2] + '.stl'
     stl_path = stl_path + local_filename
