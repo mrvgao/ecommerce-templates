@@ -642,6 +642,16 @@ function edit(){	//编辑弹窗函数
 		$('#show-3d').html(null);
 		$('.modify-stl-preview').unbind("click");
 		$('.modify-stl-preview').click(function(){
+			var containerId = 'show-3d-bar-container',
+				barId = 'show-3d-bar',
+				interval = 100,
+				lastTime = 10000,
+				posTop = 120,
+				posLeft = 30,
+				width = 350,
+				height = 10; 
+			Uplist.startStlProgressBar(containerId, barId, interval, lastTime, posTop, posLeft, width, height);
+
 			var stlTypeVal = $('.works-current').attr('value');
 			if(stlTypeVal === '0'){
 				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');

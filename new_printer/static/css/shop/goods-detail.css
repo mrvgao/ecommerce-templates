@@ -259,3 +259,20 @@ a.list-mark-btn:hover em.list-mark-btn-ico, a.list-mark-btn.active em.list-mark-
 	width:100%;
 	height:100%;
 }
+.show-3d-bar-container{
+	width: 350px;
+	height: 10px;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.4);
+	left: 215px;
+	top: 268px;
+	border-radius: 100px;
+	z-index: 1;
+	display:none;
+}
+.show-3d-bar{
+	width: 50%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.6);
+	border-radius: 100px;
+}

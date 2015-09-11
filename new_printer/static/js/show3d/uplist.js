@@ -45,8 +45,8 @@ function showStlFileInRemoteServer(stlId, unpassed, canvasW, canvasH, containerI
 }
 
 Uplist.startStlProgressBar = function(containerId, barId, interval, lastTime, posTop, posLeft, width, height){
-	$('#'+containerId).css('top',posTop - 26);
-	$('#'+containerId).css('left',posLeft - 240);
+	$('#'+containerId).css('top',posTop);
+	$('#'+containerId).css('left',posLeft);
 	$('#'+containerId).show();
 	var lasttime = 0;
 	Uplist.progressBarTimer = setInterval(function(){
