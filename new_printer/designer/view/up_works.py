@@ -187,7 +187,6 @@ def edit_submit(request):
     file_id = request.POST['modify_id']
     count = 1
     p_url = []
-    #pdb.set_trace()
     price = float(request.POST['stl_price'])
     previews = request.FILES
     describe = request.POST['stl_describe']
