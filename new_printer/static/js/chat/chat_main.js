@@ -89,17 +89,22 @@ $(function(){
 	});
 
 
-	socket.on('callback/chat/anonymous_user/connect',function(myUsername, myNickname, customerService,chatData){
+	socket.on('callback/chat/anonymous_user/connect/succeed',function(myUsername, myNickname, customerService,chatData){
 		Chat.myUsername = myUsername;
 		Chat.myNickname = myNickname;
 		Chat.nowTargUser = customerService;	
 		/*sessionStorage.setItem("myUsername", myUsername);*/
 		Chat.addCookie('myUsername', myUsername, 2);
+
 		if(chatData !== null){
 			Chat.appendChatContainerWithHistoryMsg(chatData);
 		}
 	});
 
+
+	socket.on('callback/chat/anonymous_user/connect/failed',function(){
+		alert('已有人在用这个id聊天');
+	});
 
 	socket.on('chat/a_user_disconnect', function(userInfo){
 		var nickname = userInfo.nickname;
@@ -290,7 +295,7 @@ Chat.sendMsg = function(){
 		return;
 	} 
 	Chat.appendChatContainerWithChatMsg(inputCont, Chat.myNickname);
-	Chat.contentToBottonowTargUserm($('.chated-txt'));
+	Chat.contentToBottom($('.chated-txt'));
 	if(Chat.nowTargUser === null){
 		alert('客服去吃饭去了，请稍后再聊');
 	}
