@@ -14,19 +14,20 @@ $(function (){
 		_index = 0,
 		timer;
 
-	setImgSize();
+	$('.home-banner ul img').on('load',function (){
+		setImgSize();
+	});
 
 	function setImgSize(){
-		var _img = new Image(),
-			_src = home_banner.find('img').attr('src'),
+		var _img = new Image();
+		var _src = home_banner.find('img').attr('src'),
 			_w = $(window).width(),
 			_h;
 	
 		_img.src = _src;
-		_h = _w/_img.width*_img.height;
-
+		_h = (_w/_img.width)*_img.height;
 		$('.home-banner ul').css('height',_h);
-		$('.home-banner ul li').css('height',_h);	
+		$('.home-banner ul li').css('height',_h);
 	}
 
 	mark_btn.on('click',function (){
