@@ -87,14 +87,14 @@ def unpublish_exec(good_list):
     return_list = []
     now = timezone.now()
     for good in good_list:
-        photo = []
+        photo = ['','','']
         temp = {}
         if good.preview_1:
-            photo.append(str(server_website.file_server_path)+good.preview_1)
+            photo[0] = (str(server_website.file_server_path)+good.preview_1)
         if good.preview_2:
-            photo.append(str(server_website.file_server_path)+good.preview_2)
+            photo[1] = (str(server_website.file_server_path)+good.preview_2)
         if good.preview_3:
-            photo.append(str(server_website.file_server_path)+good.preview_3)
+            photo[2] = (str(server_website.file_server_path)+good.preview_3)
         #temp{'pic']=photo
         modify = good.restdate
         temp={'id':good.id,

@@ -133,7 +133,35 @@ def work_passing(request):
 
 # 后台管理页面：审核作品和客服聊天
 def background(request):
-	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
-	conf = {'all_list': not_executed_works, 'photo_server': website.file_server_path}
+	return_list = []
+	goods_list = Goods_Upload.objects.filter(good_state = 1)
+	for good in goods_list:
+		photo = ['','','']
+		temp = {}
+        if good.preview_1:
+            photo[0] = (str(website.file_server_path)+good.preview_1)
+        if good.preview_2:
+            photo[1] = (str(website.file_server_path)+good.preview_2)
+        if good.preview_3:
+            photo[2] = (str(website.file_server_path)+good.preview_3)
+        #temp{'pic']=photo
+        modify = good.restdate
+        temp={'id':good.id,
+                'name':good.goods_name,
+                'description':good.description,
+                'good_price':good.goods_price,
+                'file_size':good.file_size,
+                'not_passed':good.not_passed,
+                'stl_path':str(website.file_server_path)+good.stl_path,
+                'style':good.style,
+                'tags':good.tags,
+                'upload_time':good.upload_time.strftime("%Y-%m-%d"),
+                'modify_time':good.modify_time.strftime("%Y-%m-%d"),
+                'good_state':good.good_state,
+                'type':'stl',
+                'pic':photo
+                }
+        return_list.append(temp)
+	conf = {'all_list': return_list, 'photo_server': website.file_server_path}
 	return render(request,adminer_website.background,conf)	
 
