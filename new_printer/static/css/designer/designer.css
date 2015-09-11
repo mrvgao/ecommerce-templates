@@ -1122,3 +1122,20 @@ em.test-ico.test-false {
 #designer-next-btn.actived {
 	background:#63cdd7;
 }
+.show-3d-bar-container{
+	width: 200px;
+	height: 10px;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.4);
+	left: 215px;
+	top: 268px;
+	border-radius: 100px;
+	z-index: 60;
+	display:none;
+}
+.show-3d-bar{
+	width: 50%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.6);
+	border-radius: 100px;
+}

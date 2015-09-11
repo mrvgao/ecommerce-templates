@@ -133,7 +133,9 @@ def work_passing(request):
 
 # 后台管理页面：审核作品和客服聊天
 def background(request):
-	not_executed_works = Goods_Upload.objects.filter(good_state = 1)
-	conf = {'all_list': not_executed_works, 'photo_server': website.file_server_path}
+	return_list = []
+	goods_list = Goods_Upload.objects.filter(good_state = 1)
+	
+	conf = {'all_list': goods_list, 'photo_server': website.file_server_path}
 	return render(request,adminer_website.background,conf)	
 

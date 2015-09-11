@@ -370,6 +370,7 @@ em.poptri {
 .chat-word-cont {
 	max-width:468px;
 	word-wrap: break-word;
+	padding-left: 10px;
 }
 .chat-word-customer, .chat-word-us {
 	margin-bottom:16px;

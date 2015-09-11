@@ -81,6 +81,11 @@ $(function(){
 	/*});*/
 
 
+	socket.on('chat/another_user_connect_with_this_id',function(){
+		alert('另一个用户用你的id登录了，你将不能正常聊天，若想恢复请刷新页面！');  
+	})
+
+
 	socket.on('chat/a_user_disconnect', function(username){
 		var thisNickname = $('.chat-user[username|="'+username+'"]').find('div').html();
 		$('.chat-user[username|="'+username+'"]').remove();

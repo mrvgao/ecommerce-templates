@@ -33,7 +33,14 @@ $(function (){
 	// 点击联系客服
 	chat_btn.on('click',function (){
 		contact_wrap.fadeOut();
-		chat_box.fadeIn();
+		/*chat_box.fadeIn();*/
+		var screenHeight = window.screen.height,
+			screenWidth = window.screen.width,
+			winHeight = 587,
+			winWidth = 800,
+			winTop = (screenHeight-587)/2-100,
+			winLeft = (screenWidth-800)/2;
+		window.open ('/shop/chat_customer_service_win','chatToService','heig    ht='+winHeight+',width='+winWidth+',top='+winTop+',left='+winLeft+',toolbar=    no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
 	});
 
 	signUp.on('click',function (){

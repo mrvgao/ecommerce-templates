@@ -176,11 +176,11 @@
 	width: 162px;
 	height: 162px;
 	position: relative;
-	float: left;
+	float: right;
 	background: url('/static/images/shop/watch3d.png') no-repeat;
 	background-size: cover;
 }
-.pages-bar{
+.pages-bar-container{
 	width: 960px;
 	height: 82px;
 	background-color: #F5F5F5;
@@ -325,7 +325,7 @@
 	font-size: 14px;
 	color: #333333;
 	padding-top: 5px;
-	padding-left: 19px;
+	padding-left: 20px;
 	word-wrap: break-word;
 }
 .chat-tool-bar{
@@ -437,7 +437,7 @@
 	height: 10px;
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.4);
-	left: 347px;
+	left: 515px;
 	top: 268px;
 	border-radius: 100px;
 	z-index: 1;
@@ -448,4 +448,8 @@
 	height: 100%;
 	background-color: rgba(0,0,0,0.6);
 	border-radius: 100px;
+}
+.pages-bar{
+	margin-right: 100px;
+	float: right;
 }

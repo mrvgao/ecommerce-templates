@@ -134,6 +134,15 @@ $(function (){
 			var stlId = GetRequest();
 			showStlFileInRemoteServer(stlId, '', 460, 460, 'show-3d');
 			$('#show-3d').show();
+			var containerId = 'show-3d-bar-container',
+				barId = 'show-3d-bar',
+				interval = 100,
+				lastTime = 10000,
+				posTop = 268,
+				posLeft = 215,
+				width = 350,
+				height = 10;
+			Uplist.startStlProgressBar(containerId, barId, interval, lastTime, posTop, posLeft, width, height);
 		}
 		airm_before.removeClass('active');
 		_this.addClass('active');

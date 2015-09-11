@@ -234,7 +234,10 @@ function auditing(page){	//加载审核中的数据
 				for(var i=0,len=onList.length;i<len;i++){
 					onStr += '<div class="designer-works-list-box clearfix" data-id="'+onList[i].id+'"><div class="designer-works-list-bigpic fl"><img src="'+onList[i].pic[0]+'"/></div><div class="designer-works-list-detail fl"><p class="designer-works-list-title">'+onList[i].name+'</p><p class="designer-works-list-describe">'+onList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 					for(var j=0,jlen=onList[i].pic.length;j<jlen;j++){
-						onStr += '<img src="'+onList[i].pic[j]+'"/>';
+						if(onList[i].pic[j]){
+							onStr += '<img src="'+onList[i].pic[j]+'"/>';
+						}
+						
 					}
 					onStr += '</div></div><div class="designer-works-list-status fl"><strong>审核中···</strong><p>您的作品预计在'+onList[i].restdate+'天内被审核完毕并发布。</p></div></div>';
 				}
@@ -335,7 +338,10 @@ function not_passed(page){		//获取未通过数据
 					notStr+='</div><div class="designer-works-list-box clearfix" data-state=3 data-id="'+notList[i].id+'" data-type="'+notList[i].type+'" data-size="'+notList[i].file_size+'" data-price="'+notList[i].good_price+'" data-uptime="'+notList[i].upload_time+'"><div class="designer-works-list-bigpic fl"><img src="'+notList[i].pic[0]+'" class="works-list-bigpic" /></div><div class="designer-works-list-smdetail fl"><p class="designer-works-list-title">'+notList[i].name+'</p><p class="designer-works-list-describe">'+notList[i].description+'</p><div class="designer-works-list-pics clearfix">';
 					var picList=notList[i].pic;
 					for(var j=0,jlen=picList.length;j<jlen;j++){
-						notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
+						if(picList[j]){
+							notStr +='<img src="'+picList[j]+'" class="designer-works-list-img" data-pid="'+j+'"/>';
+						}
+						
 					}
 
 					notStr+='</div></div><div class="works-data-box fl"><div class="works-not-container clearfix"><p class="works-not-explain"><span>未通过说明:</span>'+notList[i].not_passed+'</p><p class="works-not-time fr">'+notList[i].modify_time+'</p></div></div><div class="designer-works-modify fl"><button class="works-modify-btn ">编辑</button><button class="works-cancel-btn">取消发布</button><input type="checkbox" class="works-cancel-check"/></div></div>';
@@ -577,7 +583,8 @@ function edit(){	//编辑弹窗函数
 			imgs = _parent.find('.designer-works-list-img'),
 			modify_imgs_container = $('.modify-imgs-container'),
 			imgStr = '',
-			up_time = _parent.attr('data-uptime');
+			up_time = _parent.attr('data-uptime'),
+			imgsrc;
 
 		modify_imgs_container.empty();
 		$('.designer-zoom').css('display','block');
@@ -597,23 +604,23 @@ function edit(){	//编辑弹窗函数
 			$('.modify-stl-preview').attr('src',_imgsrc );
 		}
 		
-		function initSrc(){
-			if(!imgsrc){
-				imgsrc = '/static/images/common/up_default.jpg';
+		for(var i=0;i<3;i++){
+			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="/static/images/common/up_default.jpg" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="2" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
+		}
+		$('.modify-imgs-container').append(imgStr);
+		for(var i=0;i<3;i++){
+			if(imgs.eq(i).attr('data-pid')){
+				var $id = imgs.eq(i).attr('data-pid');
+				imgsrc = imgs.eq(i).attr('src');
+				$('.modify-imgs-box').eq($id).find('img').attr('src',imgsrc);
+				
 			}
 		}
 		
-		var imgsrc = imgs.eq(0).attr('src');
-		initSrc();
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+0+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="1" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
-		var imgsrc = imgs.eq(1).attr('src');
-		initSrc();
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+1+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="2" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
-		var imgsrc = imgs.eq(2).attr('src');
-		initSrc();
-		imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+2+'"><img src="'+imgsrc+'" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="3" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
+		
+	
 
-		$('.modify-imgs-container').append(imgStr);
+		
 		$('.modify-imgs-delete-btn').on('click',function(){		//删除图片
 			var imgBox = $('.modify-imgs-box');
 			if(imgBox.length==1){
@@ -642,6 +649,16 @@ function edit(){	//编辑弹窗函数
 		$('#show-3d').html(null);
 		$('.modify-stl-preview').unbind("click");
 		$('.modify-stl-preview').click(function(){
+			var containerId = 'show-3d-bar-container',
+				barId = 'show-3d-bar',
+				interval = 100,
+				lastTime = 10000,
+				posTop = 120,
+				posLeft = 30,
+				width = 350,
+				height = 10; 
+			Uplist.startStlProgressBar(containerId, barId, interval, lastTime, posTop, posLeft, width, height);
+
 			var stlTypeVal = $('.works-current').attr('value');
 			if(stlTypeVal === '0'){
 				showStlFileInRemoteServer(id , 'unpassed',  260, 260, 'show-3d');
