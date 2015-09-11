@@ -605,7 +605,7 @@ function edit(){	//编辑弹窗函数
 		}
 		
 		for(var i=0;i<3;i++){
-			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="/static/images/common/up_default.jpg" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="2" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
+			imgStr += '<div class="modify-imgs-box fl" id="imageDiv'+i+'"><img src="/static/images/common/up_default.jpg" class="modify-imgs"/><div class="modify-imgs-modify"><div class="modify-imgs-modify-hidden"><input type="file" name="'+i+'" /></div><a href="javascript:void(0)" class="modify-imgs-modify-btn pr5">修改</a><a href="javascript:void(0)" class="modify-imgs-delete-btn ml5">删除</a></div></div>';
 		}
 		$('.modify-imgs-container').append(imgStr);
 		for(var i=0;i<3;i++){
