@@ -102,7 +102,8 @@ Commom.registerGoodBtn = function(){
 
 	$("[name|='good-deny']").hover(function(){
 		var domOffset = $(this).offset();
-		var infoWinTop = domOffset.top -$('#good-deny-infos').height() - parseInt($(this).css('padding-top'));
+		var infoWinTop = domOffset.top -$('#good-deny-infos').height() - parseInt($(this).css('padding-top')) - $('.main-container').offset().top + 8;
+		l('tio:'+$('.main-container').offset().top);
 		var infoWinRight = $('#good-deny-infos').width()/2 + $(this).width()/2 - 80;
 		$('#good-deny-infos').css('top', infoWinTop);
 		$('#good-deny-infos').css('right', infoWinRight);
@@ -113,7 +114,7 @@ Commom.registerGoodBtn = function(){
 
 	$("[name|='good-pass']").hover(function(){
 		var domOffset = $(this).offset();
-		var infoWinTop = domOffset.top -$('#good-pass-infos').height() - parseInt($(this).css('padding-top'))+1;
+		var infoWinTop = domOffset.top -$('#good-pass-infos').height() - parseInt($(this).css('padding-top')) - $('.main-container').offset().top + 8;
 		var infoWinRight = $('#good-pass-infos').width()/2 - $(this).width()/2 - 10; 
 		$('#good-pass-infos').css('top', infoWinTop);
 		$('#good-pass-infos').css('right', infoWinRight);
