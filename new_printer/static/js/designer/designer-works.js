@@ -407,7 +407,6 @@ function deleteSigle(){		//单个删除
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 
 			if(e){
-				$.msgBox.mini("删除成功！");
 				window.location.reload();
 				deleteObj.remove();
 			}
@@ -451,7 +450,6 @@ function cancelSigle(){		//单个取消发布
 			state = deleteObj.attr('data-state');
 		$.post('/designer/unexecute_delete', {"id":_id , 'state':state}, function(e){
 			if(e){
-				$.msgBox.mini("取消发布成功！");
 				window.location.reload();	
 				deleteObj.remove();
 			}
